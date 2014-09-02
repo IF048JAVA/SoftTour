@@ -13,7 +13,7 @@ public class HistoryRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "cityFrom", nullable = false, length = 45)
     private String cityFrom;
@@ -25,19 +25,19 @@ public class HistoryRequest {
     private Date dateTo;
 
     @Column(name = "daysFrom", nullable = false)
-    private Integer daysFrom;
+    private int daysFrom;
 
     @Column(name = "daysTo", nullable = false)
-    private Integer daysTo;
+    private int daysTo;
 
     @Column(name = "stars", nullable = false)
     private Set stars;
 
     @Column(name = "adults", nullable = false)
-    private Integer adults;
+    private int adults;
 
     @Column(name = "children", nullable = false)
-    private Integer children;
+    private int children;
 
     @Column(name = "RequestDate", nullable = false)
     private Date requestDate;
@@ -60,8 +60,8 @@ public class HistoryRequest {
     }
 
     public HistoryRequest(String cityFrom, Date dateFrom, Date dateTo,
-                          Integer daysFrom, Integer daysTo, Set stars,
-                          Integer adults, Integer children, Date requestDate,
+                          int daysFrom, int daysTo, Set stars,
+                          int adults, int children, Date requestDate,
                           BigDecimal priceFrom, BigDecimal priceTo, User user, Country country) {
 
         this.cityFrom = cityFrom;
@@ -79,11 +79,11 @@ public class HistoryRequest {
         this.country = country;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -111,19 +111,19 @@ public class HistoryRequest {
         this.dateTo = dateTo;
     }
 
-    public Integer getDaysFrom() {
+    public int getDaysFrom() {
         return daysFrom;
     }
 
-    public void setDaysFrom(Integer daysFrom) {
+    public void setDaysFrom(int daysFrom) {
         this.daysFrom = daysFrom;
     }
 
-    public Integer getDaysTo() {
+    public int getDaysTo() {
         return daysTo;
     }
 
-    public void setDaysTo(Integer daysTo) {
+    public void setDaysTo(int daysTo) {
         this.daysTo = daysTo;
     }
 
@@ -135,19 +135,19 @@ public class HistoryRequest {
         this.stars = stars;
     }
 
-    public Integer getAdults() {
+    public int getAdults() {
         return adults;
     }
 
-    public void setAdults(Integer adults) {
+    public void setAdults(int adults) {
         this.adults = adults;
     }
 
-    public Integer getChildren() {
+    public int getChildren() {
         return children;
     }
 
-    public void setChildren(Integer children) {
+    public void setChildren(int children) {
         this.children = children;
     }
 

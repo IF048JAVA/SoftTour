@@ -11,7 +11,7 @@ public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "date", nullable = false)
     private Date date;
@@ -33,11 +33,11 @@ public class Favorite {
         this.tour = tour;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

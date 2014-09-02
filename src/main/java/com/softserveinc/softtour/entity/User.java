@@ -14,7 +14,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private long id;
 
     @Column(name = "name", nullable = false, length = 30)
     private String name;
@@ -29,7 +29,7 @@ public class User {
     private Date birthday;
 
     @Column(name = "age", nullable = false, length = 3)
-    private Integer age;
+    private byte age;
 
     @Column(name = "sex", nullable = false)
     private Sex sex;
@@ -58,7 +58,7 @@ public class User {
 
     public User(String name, String email,
                 String password, Date birthday,
-                Integer age, Sex sex, String phone, Role role) {
+                byte age, Sex sex, String phone, Role role) {
 
         this.name = name;
         this.email = email;
@@ -70,11 +70,11 @@ public class User {
         this.role = role;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -110,11 +110,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Integer getAge() {
+    public byte getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(byte age) {
         this.age = age;
     }
 

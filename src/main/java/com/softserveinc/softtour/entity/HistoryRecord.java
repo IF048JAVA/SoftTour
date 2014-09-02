@@ -11,7 +11,7 @@ public class HistoryRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private long id;
 
     @Column(name = "date", nullable = false)
     private Date date;
@@ -33,11 +33,11 @@ public class HistoryRecord {
         this.tour = tour;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 

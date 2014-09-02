@@ -9,7 +9,7 @@ public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "cleanliness", nullable = false, length = 1)
     private Integer cleanliness;
@@ -37,8 +37,8 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(Integer cleanliness, Integer comfort,
-                    Integer location, Integer valueForMoney,
+    public Feedback(int cleanliness, int comfort,
+                    int location, int valueForMoney,
                     String comment, Hotel hotel, User user) {
 
         this.cleanliness = cleanliness;
@@ -50,15 +50,15 @@ public class Feedback {
         this.user = user;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Integer getCleanliness() {
+    public int getCleanliness() {
         return cleanliness;
     }
 
@@ -66,7 +66,7 @@ public class Feedback {
         this.cleanliness = cleanliness;
     }
 
-    public Integer getComfort() {
+    public int getComfort() {
         return comfort;
     }
 
@@ -74,7 +74,7 @@ public class Feedback {
         this.comfort = comfort;
     }
 
-    public Integer getLocation() {
+    public int getLocation() {
         return location;
     }
 
@@ -82,7 +82,7 @@ public class Feedback {
         this.location = location;
     }
 
-    public Integer getValueForMoney() {
+    public int getValueForMoney() {
         return valueForMoney;
     }
 

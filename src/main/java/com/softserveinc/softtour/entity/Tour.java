@@ -13,13 +13,13 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private long id;
 
     @Column(name = "date", nullable = false)
     private Date date;
 
     @Column(name = "days", nullable = false)
-    private Integer days;
+    private int days;
 
     @Column(name = "departureCity", nullable = false)
     private String departureCity;
@@ -47,7 +47,7 @@ public class Tour {
     public Tour() {
     }
 
-    public Tour(Date date, Integer days, String departureCity,
+    public Tour(Date date, int days, String departureCity,
                 Date departureTime, BigDecimal price, Hotel hotel, Food food) {
 
         this.date = date;
@@ -59,11 +59,11 @@ public class Tour {
         this.food = food;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -75,11 +75,11 @@ public class Tour {
         this.date = date;
     }
 
-    public Integer getDays() {
+    public int getDays() {
         return days;
     }
 
-    public void setDays(Integer days) {
+    public void setDays(int days) {
         this.days = days;
     }
 

@@ -10,13 +10,13 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 
     @Column(name = "stars", nullable = false, length = 1)
-    private Integer Stars;
+    private int Stars;
 
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
@@ -31,17 +31,17 @@ public class Hotel {
     public Hotel() {
     }
 
-    public Hotel(String name, Integer stars, Region region) {
+    public Hotel(String name, int stars, Region region) {
         this.name = name;
         Stars = stars;
         this.region = region;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,11 +53,11 @@ public class Hotel {
         this.name = name;
     }
 
-    public Integer getStars() {
+    public int getStars() {
         return Stars;
     }
 
-    public void setStars(Integer stars) {
+    public void setStars(int stars) {
         Stars = stars;
     }
 
