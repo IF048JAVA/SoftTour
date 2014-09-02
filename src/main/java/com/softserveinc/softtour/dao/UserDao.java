@@ -1,10 +1,10 @@
 package com.softserveinc.softtour.dao;
 
+import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.entity.template.Sex;
+
 import java.sql.Date;
 import java.util.List;
-
-import com.softserveinc.softtour.dto.Sex;
-import com.softserveinc.softtour.entity.User;
 
 public interface UserDao {
 	

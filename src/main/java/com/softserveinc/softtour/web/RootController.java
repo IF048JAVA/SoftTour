@@ -1,4 +1,4 @@
-package com.sovtserveinc.softtour.web;
+package com.softserveinc.softtour.web;
 
 public class RootController {
 }

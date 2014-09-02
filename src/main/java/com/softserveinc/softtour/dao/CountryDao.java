@@ -1,4 +1,4 @@
-package dao;
+package com.softserveinc.softtour.dao;
 
 import java.util.List;
 
