@@ -19,7 +19,6 @@ public interface HistoryRequestDao {
     public void delete(long id);
 
     public HistoryRequest findById(long id);
-    public List<HistoryRequest> findByName(String name);
     public List<HistoryRequest> findByUser(User user);
     public List<HistoryRequest> findByStars(int... stars);
     public List<HistoryRequest> findByCountry(Country country);
