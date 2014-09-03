@@ -4,8 +4,9 @@ import java.sql.Date;
 import java.util.List;
 
 import com.softserveinc.softtour.dao.UserDao;
-import com.softserveinc.softtour.dto.Sex;
+
 import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.entity.template.Sex;
 import com.softserveinc.softtour.service.UserService;
 
 public class UserServiceImpl implements UserService {

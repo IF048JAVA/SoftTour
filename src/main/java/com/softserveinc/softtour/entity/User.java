@@ -1,10 +1,9 @@
 package com.softserveinc.softtour.entity;
 
-import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.entity.template.Sex;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
