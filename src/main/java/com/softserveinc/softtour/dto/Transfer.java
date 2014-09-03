@@ -1,4 +1,4 @@
-package com.sovtserveinc.softtour.dto;
+package com.softserveinc.softtour.dto;
 
 public class Transfer {
 }
