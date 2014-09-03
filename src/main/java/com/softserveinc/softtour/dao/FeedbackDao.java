@@ -15,7 +15,7 @@ public interface FeedbackDao {
     hotel, User user);
     public void delete (long id);
     public Feedback findById (long id);
-    public List<Feedback> getAll ();
     public List<Feedback> findByUser (User user);
+    public List<Feedback> getAll ();
 
 }
