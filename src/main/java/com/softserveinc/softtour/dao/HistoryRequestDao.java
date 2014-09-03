@@ -1,7 +1,9 @@
-package dao;
+package com.softserveinc.softtour.dao;
 
 
-import User.User;
+import com.softserveinc.softtour.entity.Country;
+import com.softserveinc.softtour.entity.HistoryRequest;
+import com.softserveinc.softtour.entity.User;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,19 +12,18 @@ import java.util.Set;
 
 public interface HistoryRequestDao {
 
-    void save(String cityFrom, Date dateFrom, Date dateTo, int daysFrom, int daysTo, Set<String> stars, int adults, int children,
+    public void save(String cityFrom, Date dateFrom, Date dateTo, int daysFrom, int daysTo, Set<String> stars, int adults, int children,
               BigDecimal priceFrom, BigDecimal priceTo, User user, Country country,Date dateReq);
-    void update(long id, String cityFrom, Date dateFrom, Date dateTo, int daysFrom, int daysTo, Set<String> stars, int adults, int children,
+    public void update(long id, String cityFrom, Date dateFrom, Date dateTo, int daysFrom, int daysTo, Set<String> stars, int adults, int children,
                 BigDecimal priceFrom, BigDecimal priceTo, User user, Country country,Date dateReq);
-    void delete(long id);
+    public void delete(long id);
 
-    CountryDao findById(long id);
-    List<CountryDao> findByName(String name);
-    List<CountryDao> findByUser(User user);
-    List<CountryDao> findByStars(int... stars);
-    List<CountryDao> findByCountry(Country country);
-    List<CountryDao> findByDateReq(Date dateReq);
+    public HistoryRequest findById(long id);
+    public List<HistoryRequest> findByUser(User user);
+    public List<HistoryRequest> findByStars(int... stars);
+    public List<HistoryRequest> findByCountry(Country country);
+    public List<HistoryRequest> findByDateReq(Date dateReq);
 
-    List<CountryDao> getAll();
+    public List<HistoryRequest> getAll();
 
 }

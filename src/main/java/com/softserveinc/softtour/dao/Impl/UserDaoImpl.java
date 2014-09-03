@@ -3,10 +3,9 @@ package com.softserveinc.softtour.dao.Impl;
 import java.sql.Date;
 import java.util.List;
 
+import com.softserveinc.softtour.entity.template.Sex;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import com.softserveinc.softtour.dao.UserDao;
-import com.softserveinc.softtour.dto.Sex;
 import com.softserveinc.softtour.entity.User;
 
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
