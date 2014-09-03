@@ -4,11 +4,13 @@ import java.sql.Date;
 import java.util.List;
 
 import com.softserveinc.softtour.entity.Favorite;
+import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.entity.User;
 
 public interface FavoriteDao {
 	
-	public void save(Date date, long user_id, long tour_id);
-	public void update(long id, Date date, long user_id, long tour_id);
+	public void save(Date date, User user, Tour tour);
+	public void update(long id, Date date, User user, Tour tour);
 	public void delete(long id);
 	public Favorite findById(long id);
 	public List<Favorite> getAll();	
