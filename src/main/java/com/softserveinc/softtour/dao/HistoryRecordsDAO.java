@@ -7,7 +7,7 @@ import com.softserveinc.softtour.entity.User;
 import java.sql.Date;
 import java.util.List;
 
-public interface HistoryRecordsDAO {
+public interface HistoryRecordsDao {
     public void save(Date date, User user, Tour tour);
     public void update(long id, Date date, User user, Tour tour);
     public void delete(long id);

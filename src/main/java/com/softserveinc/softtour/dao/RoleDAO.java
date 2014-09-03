@@ -4,7 +4,7 @@ import com.softserveinc.softtour.entity.Role;
 
 import java.util.List;
 
-public interface RoleDAO {
+public interface RoleDao {
     public void save(String name);
     public void update(long id, String name);
     public void delete(long id);
