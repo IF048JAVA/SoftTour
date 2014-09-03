@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.softserveinc.softtour.dao.FavoriteDao;
 import com.softserveinc.softtour.entity.Favorite;
+import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.FavoriteService;
 
 public class FavoriteServiceImpl implements FavoriteService{
@@ -14,17 +16,17 @@ public class FavoriteServiceImpl implements FavoriteService{
 	public void setFavoriteDao(FavoriteDao favoriteDao) {
 		this.favoriteDao = favoriteDao;
 	}
-
+	
 	@Override
-	public void save(Date date, long user_id, long tour_id) {
-		favoriteDao.save(date, user_id, tour_id);
+	public void save(Date date, User user, Tour tour) {
+		favoriteDao.save(date, user, tour);
 	}
 
 	@Override
-	public void update(long id, Date date, long user_id, long tour_id) {
-		favoriteDao.update(id, date, user_id, tour_id);
+	public void update(long id, Date date, User user, Tour tour) {
+		favoriteDao.update(id, date, user, tour);
 	}
-
+	
 	@Override
 	public void delete(long id) {
 		favoriteDao.delete(id);
