@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface CountryDao {
 
-    void save(String name);
-    void update(long id, String name);
-    void delete(long id);
-    CountryDao findById(long id);
-    List<Country> findByName(String name);
-    List<Country> getAll();
+    public void save(String name);
+    public void update(long id, String name);
+    public void delete(long id);
+    public CountryDao findById(long id);
+    public List<Country> findByName(String name);
+    public List<Country> getAll();
 }
