@@ -44,7 +44,7 @@ public class RegionDaoImpl extends HibernateDaoSupport implements RegionDao{
     }
     @Override
     public List<Region> findByCountry (Country country) {
-        List<Region> list = (List<Region>) getHibernateTemplate().find("FROM Region WHERE name = ?",country.getName());
+        List<Region> list = (List<Region>) getHibernateTemplate().find("FROM Region WHERE id = ?",country.getId());
         return list;
     }
     @Override

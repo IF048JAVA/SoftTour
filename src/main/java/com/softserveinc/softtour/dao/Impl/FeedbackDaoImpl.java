@@ -46,12 +46,12 @@ public class FeedbackDaoImpl extends HibernateDaoSupport implements FeedbackDao 
     }
     @Override
     public List<Feedback> findByUser (User user) {
-        List<Feedback> list = (List<Feedback>) getHibernateTemplate().find("FROM User WHERE name = ?", user.getName());
+        List<Feedback> list = (List<Feedback>) getHibernateTemplate().find("FROM Feedback WHERE id = ?", user.getId());
         return list;
     }
     @Override
     public List<Feedback> getAll () {
-        List<Feedback> list = (List<Feedback>) getHibernateTemplate().find("FROM User");
+        List<Feedback> list = (List<Feedback>) getHibernateTemplate().find("FROM Feedback");
         return list;
     }
 
