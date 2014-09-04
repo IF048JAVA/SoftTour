@@ -4,12 +4,10 @@ import com.softserveinc.softtour.dao.HotelDao;
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.service.HotelService;
-
 import java.util.List;
 
 /**
  * Created by oleksandrgasenuk on 04.09.14.
- * Поки-що роблю тільки один findBy, решту закину пізніше
  */
 public class HotelServiceImpl implements HotelService {
     private HotelDao hotelDao;
@@ -32,6 +30,21 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public Hotel findById(long id) {
         return hotelDao.findById(id);
+    }
+
+    @Override
+    public List<Hotel> findByName(String name) {
+        return hotelDao.findByName(name);
+    }
+
+    @Override
+    public List<Hotel> findByStars(int stars) {
+        return hotelDao.findByStars(stars);
+    }
+
+    @Override
+    public List<Hotel> findByRegion(Region region) {
+        return hotelDao.findByRegion(region);
     }
 
     @Override

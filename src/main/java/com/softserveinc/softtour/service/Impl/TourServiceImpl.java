@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * Created by oleksandrgasenuk on 04.09.14.
- * Поки-що роблю тільки один findBy, решту закину пізніше
  */
 public class TourServiceImpl implements TourService {
     private TourDao tourDao;
@@ -34,6 +33,41 @@ public class TourServiceImpl implements TourService {
     @Override
     public Tour findById(long id) {
         return tourDao.findById(id);
+    }
+
+    @Override
+    public List<Tour> findByDate(Date date) {
+        return tourDao.findByDate(date);
+    }
+
+    @Override
+    public List<Tour> findByDays(int days) {
+        return tourDao.findByDays(days);
+    }
+
+    @Override
+    public List<Tour> findByDepartureCity(String departureCity) {
+        return tourDao.findByDepartureCity(departureCity);
+    }
+
+    @Override
+    public List<Tour> findByDepartureTime(Date departureTime) {
+        return tourDao.findByDepartureTime(departureTime);
+    }
+
+    @Override
+    public List<Tour> findByPrice(BigDecimal price) {
+        return tourDao.findByPrice(price);
+    }
+
+    @Override
+    public List<Tour> findByHotel(Hotel hotel) {
+        return tourDao.findByHotel(hotel);
+    }
+
+    @Override
+    public List<Tour> findByFood(Food food) {
+        return tourDao.findByFood(food);
     }
 
     @Override

@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * Created by oleksandrgasenuk on 04.09.14.
- * Поки-що роблю тільки один findBy, решту закину пізніше
  */
 public class HotelDaoImpl extends HibernateDaoSupport implements HotelDao {
 
@@ -43,6 +42,27 @@ public class HotelDaoImpl extends HibernateDaoSupport implements HotelDao {
     public Hotel findById(long id) {
         Hotel hotel = (Hotel) getHibernateTemplate().get(Hotel.class, id);
         return hotel;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Hotel> findByName(String name) {
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find("FROM Hotel WHERE Hotel.name = ?", name);
+        return list;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Hotel> findByStars(int stars) {
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find("FROM Hotel WHERE stars = ?", stars);
+        return list;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Hotel> findByRegion(Region region) {
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find("FROM Hotel WHERE region_id = ?", region.getId());
+        return list;
     }
 
     @Override
