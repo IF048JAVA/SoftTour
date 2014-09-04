@@ -1,5 +1,4 @@
-package com.softserveinc.softtour.dao;
-
+package com.softserveinc.softtour.service;
 
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.HistoryRequest;
@@ -10,12 +9,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-public interface HistoryRequestDao {
+public interface HistoryRequestService {
 
     public void save(String cityFrom, Date dateFrom, Date dateTo, int daysFrom, int daysTo, Set<String> stars, int adults, int children,
-              BigDecimal priceFrom, BigDecimal priceTo, User user, Country country,Date requestDate);
+                     BigDecimal priceFrom, BigDecimal priceTo, User user, Country country,Date requestDate);
     public void update(long id, String cityFrom, Date dateFrom, Date dateTo, int daysFrom, int daysTo, Set<String> stars, int adults, int children,
-                BigDecimal priceFrom, BigDecimal priceTo, User user, Country country,Date requestDate);
+                       BigDecimal priceFrom, BigDecimal priceTo, User user, Country country,Date requestDate);
     public void delete(long id);
 
     public HistoryRequest findById(long id);
@@ -25,5 +24,4 @@ public interface HistoryRequestDao {
     public List<HistoryRequest> findByRequestDate(Date requestDate);
 
     public List<HistoryRequest> getAll();
-
 }

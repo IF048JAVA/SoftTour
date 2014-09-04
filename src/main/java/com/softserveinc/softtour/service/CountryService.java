@@ -1,10 +1,10 @@
-package com.softserveinc.softtour.dao;
+package com.softserveinc.softtour.service;
 
 import com.softserveinc.softtour.entity.Country;
 
 import java.util.List;
 
-public interface CountryDao {
+public interface CountryService {
 
     public void save(String name);
     public void update(long id, String name);

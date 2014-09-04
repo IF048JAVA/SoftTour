@@ -60,7 +60,6 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 
     @Override
 	public List<Favorite> getAll() {
-		@SuppressWarnings("unchecked")
 		List<Favorite> list = getHibernateTemplate().find("From Favorite");
 		
 		return list;

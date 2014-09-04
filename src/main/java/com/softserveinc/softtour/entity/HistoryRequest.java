@@ -39,9 +39,6 @@ public class HistoryRequest {
     @Column(name = "children", nullable = false)
     private int children;
 
-    @Column(name = "RequestDate", nullable = false)
-    private Date requestDate;
-
     @Column(name = "priceFrom", nullable = false)
     private BigDecimal priceFrom;
 
@@ -56,13 +53,14 @@ public class HistoryRequest {
     @JoinColumn(name = "country_id")
     private Country country;
 
+    @Column(name = "requestDate", nullable = false)
+    private Date requestDate;
+
     public HistoryRequest() {
     }
 
-    public HistoryRequest(String cityFrom, Date dateFrom, Date dateTo,
-                          int daysFrom, int daysTo, Set stars,
-                          int adults, int children, Date requestDate,
-                          BigDecimal priceFrom, BigDecimal priceTo, User user, Country country) {
+    public HistoryRequest(String cityFrom, Date dateFrom, Date dateTo,int daysFrom, int daysTo, Set stars, int adults, int children,
+                          BigDecimal priceFrom, BigDecimal priceTo, User user, Country country, Date requestDate) {
 
         this.cityFrom = cityFrom;
         this.dateFrom = dateFrom;
@@ -72,11 +70,11 @@ public class HistoryRequest {
         this.stars = stars;
         this.adults = adults;
         this.children = children;
-        this.requestDate = requestDate;
         this.priceFrom = priceFrom;
         this.priceTo = priceTo;
         this.user = user;
         this.country = country;
+        this.requestDate = requestDate;
     }
 
     public long getId() {
@@ -151,14 +149,6 @@ public class HistoryRequest {
         this.children = children;
     }
 
-    public Date getRequestDate() {
-        return requestDate;
-    }
-
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
-    }
-
     public BigDecimal getPriceFrom() {
         return priceFrom;
     }
@@ -189,5 +179,13 @@ public class HistoryRequest {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Date getRequestDate() {
+        return requestDate;
+    }
+
+    public void setRequestDate(Date requestDate) {
+        this.requestDate = requestDate;
     }
 }
