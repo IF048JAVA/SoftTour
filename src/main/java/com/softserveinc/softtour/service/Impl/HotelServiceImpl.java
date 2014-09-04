@@ -33,17 +33,17 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findByName(String name) {
+    public List<Hotel> findByName(String...name) {
         return hotelDao.findByName(name);
     }
 
     @Override
-    public List<Hotel> findByStars(int stars) {
+    public List<Hotel> findByStars(int...stars) {
         return hotelDao.findByStars(stars);
     }
 
     @Override
-    public List<Hotel> findByRegion(Region region) {
+    public List<Hotel> findByRegion(Region...region) {
         return hotelDao.findByRegion(region);
     }
 

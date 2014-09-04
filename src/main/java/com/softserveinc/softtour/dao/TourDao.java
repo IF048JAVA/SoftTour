@@ -17,12 +17,12 @@ public interface TourDao {
                        Date departureTime, BigDecimal price, Hotel hotel, Food food);
     public void delete(long id);
     public Tour findById(long id);
-    public List<Tour> findByDate(Date date);
-    public List<Tour> findByDays(int days);
-    public List<Tour> findByDepartureCity(String departureCity);
-    public List<Tour> findByDepartureTime(Date departureTime);
-    public List<Tour> findByPrice(BigDecimal price);
-    public List<Tour> findByHotel(Hotel hotel);
-    public List<Tour> findByFood(Food food);
+    public List<Tour> findByDate(Date dateFrom, Date dateTo);
+    public List<Tour> findByDays(int daysFrom, int DaysTo);
+    public List<Tour> findByDepartureCity(String...departureCity);
+    public List<Tour> findByDepartureTime(Date departureTimeFrom, Date departureTimeTo);
+    public List<Tour> findByPrice(BigDecimal priceFrom, BigDecimal priceTo);
+    public List<Tour> findByHotel(Hotel...hotel);
+    public List<Tour> findByFood(Food...food);
     public List<Tour> getAll();
 }

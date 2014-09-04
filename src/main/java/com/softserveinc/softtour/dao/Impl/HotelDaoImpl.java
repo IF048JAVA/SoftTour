@@ -45,23 +45,50 @@ public class HotelDaoImpl extends HibernateDaoSupport implements HotelDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Hotel> findByName(String name) {
-        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find("FROM Hotel WHERE Hotel.name = ?", name);
+    public List<Hotel> findByName(String...name) {
+        // create query
+        StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
+        for(int i = 0; i < name.length; i++){
+            stringQueryBuilder.append(" name = ? OR");
+        }
+        stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last "OR"
+        String queryString = stringQueryBuilder.toString();
+
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString, name);
         return list;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Hotel> findByStars(int stars) {
-        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find("FROM Hotel WHERE stars = ?", stars);
+    public List<Hotel> findByStars(int...stars) {
+        // create query
+        StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
+        for(int i = 0; i < stars.length; i++){
+            stringQueryBuilder.append(" stars = ? OR");
+        }
+        stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
+        String queryString = stringQueryBuilder.toString();
+
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString, stars);
         return list;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Hotel> findByRegion(Region region) {
-        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find("FROM Hotel WHERE region_id = ?", region.getId());
+    public List<Hotel> findByRegion(Region...region) {
+        // create query
+        StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
+        for(int i = 0; i < region.length; i++){
+            stringQueryBuilder.append(" region_id = ? OR");
+        }
+        stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
+        String queryString = stringQueryBuilder.toString();
+
+        //create & initialize regions id array
+        long[] regionsId = new long[region.length];
+        for(int i = 0; i < region.length; i++){
+            regionsId[i] = region[i].getId();
+        }
+
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString, regionsId);
         return list;
     }
 

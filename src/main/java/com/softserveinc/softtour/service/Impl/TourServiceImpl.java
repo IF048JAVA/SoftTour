@@ -36,37 +36,37 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> findByDate(Date date) {
-        return tourDao.findByDate(date);
+    public List<Tour> findByDate(Date dateFrom, Date dateTo) {
+        return tourDao.findByDate(dateFrom, dateTo);
     }
 
     @Override
-    public List<Tour> findByDays(int days) {
-        return tourDao.findByDays(days);
+    public List<Tour> findByDays(int daysFrom, int daysTo) {
+        return tourDao.findByDays(daysFrom, daysTo);
     }
 
     @Override
-    public List<Tour> findByDepartureCity(String departureCity) {
+    public List<Tour> findByDepartureCity(String...departureCity) {
         return tourDao.findByDepartureCity(departureCity);
     }
 
     @Override
-    public List<Tour> findByDepartureTime(Date departureTime) {
-        return tourDao.findByDepartureTime(departureTime);
+    public List<Tour> findByDepartureTime(Date departureTimeFrom, Date departureTimeTo) {
+        return tourDao.findByDepartureTime(departureTimeFrom, departureTimeTo);
     }
 
     @Override
-    public List<Tour> findByPrice(BigDecimal price) {
-        return tourDao.findByPrice(price);
+    public List<Tour> findByPrice(BigDecimal priceFrom, BigDecimal priceTo) {
+        return tourDao.findByPrice(priceFrom, priceTo);
     }
 
     @Override
-    public List<Tour> findByHotel(Hotel hotel) {
+    public List<Tour> findByHotel(Hotel...hotel) {
         return tourDao.findByHotel(hotel);
     }
 
     @Override
-    public List<Tour> findByFood(Food food) {
+    public List<Tour> findByFood(Food...food) {
         return tourDao.findByFood(food);
     }
 

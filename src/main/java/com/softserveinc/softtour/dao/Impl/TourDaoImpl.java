@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * Created by oleksandrgasenuk on 04.09.14.
- * Поки-що роблю тільки один findBy, решту закину пізніше
  */
 public class TourDaoImpl extends HibernateDaoSupport implements TourDao {
 
@@ -54,52 +53,91 @@ public class TourDaoImpl extends HibernateDaoSupport implements TourDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Tour> findByDate(java.util.Date date) {
-        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find("FROM Tour WHERE Tour.date = ?", sqlDate);
+    public List<Tour> findByDate(java.util.Date dateFrom, java.util.Date dateTo) {
+        java.sql.Date sqlDateFrom = new java.sql.Date(dateFrom.getTime());
+        java.sql.Date sqlDateTo = new java.sql.Date(dateTo.getTime());
+        List<Tour> list = (List<Tour>) getHibernateTemplate().
+                find("FROM Tour WHERE Tour.date >= ? AND Tour.date <= ? ", sqlDateFrom, sqlDateTo);
         return list;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Tour> findByDays(int days) {
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find("FROM Tour WHERE days = ?", days);
+    public List<Tour> findByDays(int daysFrom, int daysTo) {
+        List<Tour> list = (List<Tour>) getHibernateTemplate().
+                find("FROM Tour WHERE days >= ? AND days <= ?", daysFrom, daysTo);
+        return list;
+    }
+
+    @Override
+    public List<Tour> findByDepartureCity(String...departureCity) {
+        // create query
+        StringBuilder stringQueryBuilder = new StringBuilder("FROM Tour WHERE");
+        for(int i = 0; i < departureCity.length; i++){
+            stringQueryBuilder.append(" departureCity = ? OR");
+        }
+        stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
+        String queryString = stringQueryBuilder.toString();
+
+        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString, departureCity);
         return list;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Tour> findByDepartureCity(String departureCity) {
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find("FROM Tour WHERE departureCity = ?", departureCity);
+    public List<Tour> findByDepartureTime(java.util.Date departureTimeFrom, java.util.Date departureTimeTo) {
+        Time sqlTimeFrom = new Time(departureTimeFrom.getTime());
+        Time sqlTimeTo = new Time(departureTimeTo.getTime());
+        List<Tour> list = (List<Tour>) getHibernateTemplate().
+                find("FROM Tour WHERE departureTime >= ? AND departureTime <= ?", departureTimeFrom, departureTimeTo);
         return list;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Tour> findByDepartureTime(java.util.Date departureTime) {
-        Time sqlTime = new java.sql.Time(departureTime.getTime());
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find("FROM Tour WHERE departureTime = ?", sqlTime);
+    public List<Tour> findByPrice(BigDecimal priceFrom, BigDecimal priceTo) {
+        List<Tour> list = (List<Tour>) getHibernateTemplate().
+                find("FROM Tour WHERE priceFrom >= ? AND priceTo <= ?", priceFrom, priceTo);
         return list;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Tour> findByPrice(BigDecimal price) {
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find("FROM Tour WHERE price = ?", price);
+    public List<Tour> findByHotel(Hotel...hotel) {
+        // create query
+        StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
+        for(int i = 0; i < hotel.length; i++){
+            stringQueryBuilder.append(" hotel_id = ? OR");
+        }
+        stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
+        String queryString = stringQueryBuilder.toString();
+
+        //create & initialize regions id array
+        long[] hotelsId = new long[hotel.length];
+        for(int i = 0; i < hotel.length; i++){
+            hotelsId[i] = hotel[i].getId();
+        }
+
+        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString, hotelsId);
         return list;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Tour> findByHotel(Hotel hotel) {
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find("FROM Tour WHERE hotel_id = ?", hotel.getId());
-        return list;
-    }
+    public List<Tour> findByFood(Food...food) {
+        // create query
+        StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
+        for(int i = 0; i < food.length; i++){
+            stringQueryBuilder.append(" food_id = ? OR");
+        }
+        stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
+        String queryString = stringQueryBuilder.toString();
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<Tour> findByFood(Food food) {
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find("FROM Tour WHERE food_id = ?", food.getId());
+        //create & initialize regions id array
+        long[] foodsId = new long[food.length];
+        for(int i = 0; i < food.length; i++){
+            foodsId[i] = food[i].getId();
+        }
+
+        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString, foodsId);
         return list;
     }
 
