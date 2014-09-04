@@ -60,9 +60,8 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
 	@Override
 	public List<User> getAll() {
-		String queryGetAll = "From User";
 		@SuppressWarnings("unchecked")
-		List<User> list = getHibernateTemplate().find(queryGetAll);
+		List<User> list = getHibernateTemplate().find("From User");
 		
 		return list;
 	}

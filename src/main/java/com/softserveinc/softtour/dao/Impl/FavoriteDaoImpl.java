@@ -50,11 +50,18 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 		return favorite;
 	}
 
-	@Override
+
+    @Override
+    public List<Favorite> findByUser(User user) {
+        List<Favorite> list = (List<Favorite>) getHibernateTemplate().find("FROM Favorite WHERE user_id = ?", user.getId());
+        return list;
+    }
+
+
+    @Override
 	public List<Favorite> getAll() {
-		String queryGetAll = "From Favorite";
 		@SuppressWarnings("unchecked")
-		List<Favorite> list = getHibernateTemplate().find(queryGetAll);
+		List<Favorite> list = getHibernateTemplate().find("From Favorite");
 		
 		return list;
 	}
