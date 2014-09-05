@@ -13,6 +13,6 @@ public interface FavoriteDao {
 	public void update(long id, Date date, User user, Tour tour);
 	public void delete(long id);
 	public Favorite findById(long id);
-        public List<Favorite> findByUser (User user);
+	public List<Favorite> findByUser (User user);
 	public List<Favorite> getAll();	
 }
