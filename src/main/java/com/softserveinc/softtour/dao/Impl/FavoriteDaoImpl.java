@@ -53,13 +53,15 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 
     @Override
     public List<Favorite> findByUser(User user) {
-        List<Favorite> list = (List<Favorite>) getHibernateTemplate().find("FROM Favorite WHERE user_id = ?", user.getId());
+        @SuppressWarnings("unchecked")
+		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find("FROM Favorite WHERE user_id = ?", user.getId());
         return list;
     }
 
 
     @Override
 	public List<Favorite> getAll() {
+		@SuppressWarnings("unchecked")
 		List<Favorite> list = getHibernateTemplate().find("From Favorite");
 		
 		return list;
