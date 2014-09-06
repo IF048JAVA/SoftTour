@@ -10,8 +10,15 @@ import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Sex;
 
+/**
+ * @author Andriy
+ * 	Contains the methods for work with table User in the SoftTour database
+ */
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	
+	/**
+	 * Saves the object user to the table User
+	 */
 	@Override
 	public void save(String name, String email, String password, Date birthday,
 			byte age, Sex sex, String phone, Role role) {
@@ -19,6 +26,10 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		getHibernateTemplate().save(user);
 	}
 
+	/**
+	 *  Updates the object user with the specified id
+	 *  id - id of the object user which will updated
+	 */
 	@Override
 	public void update(long id, String name, String email, String password,
 			Date birthday, byte age, Sex sex, String phone, Role role) {
@@ -41,6 +52,10 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		}
 	}
 
+	/**
+	 *  Deletes the object user with the specified id
+	 *  id - id of the object user which will deleted
+	 */
 	@Override
 	public void delete(long id) {
 		User user = (User) getHibernateTemplate().get(User.class, id);
@@ -51,6 +66,10 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		}
 	}
 
+	/**
+	 *  Returns the object user with the specified id
+	 *  id - id of the object user which will returned
+	 */
 	@Override
 	public User findById(long id) {
 		User user = (User) getHibernateTemplate().get(User.class, id);
@@ -58,6 +77,9 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		return user;
 	}
 	
+	/**
+	 *  Returns list of the objects user with the specified name
+	 */
 	@Override
 	public List<User> findByName(String name) {
 		String queryFindByName = "From User Where name = ?"; 
@@ -67,6 +89,9 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		return list;
 	}
 	
+	/**
+	 *  Returns the list of the objects user which contain the specified object role
+	 */
 	@Override
 	public List<User> findByRole(Role role) {
 		String queryFindByRole = "From User Where role_id = ?"; 
@@ -76,6 +101,9 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		return list;
 	}
 
+	/**
+	 *  Returns the list of all objects user which are contained in the table User
+	 */
 	@Override
 	public List<User> getAll() {
 		String queryGetAll = "From User";
