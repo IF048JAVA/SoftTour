@@ -38,6 +38,16 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 
 	@Override
+	public List<Favorite> findByUser(User user) {
+		return favoriteDao.findByUser(user);
+	}
+
+	@Override
+	public List<Favorite> findByTour(Tour tour) {
+		return favoriteDao.findByTour(tour);
+	}
+	
+	@Override
 	public List<Favorite> getAll() {
 		return favoriteDao.getAll();
 	}

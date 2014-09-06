@@ -13,5 +13,8 @@ public interface UserService {
 	public void update(long id, String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
 	public void delete(long id);
 	public User findById(long id);
+	public List<User> findByName(String name);
+	public List<User> findByRole(Role role);
 	public List<User> getAll();
+
 }

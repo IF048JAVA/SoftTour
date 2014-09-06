@@ -14,5 +14,7 @@ public interface FavoriteDao {
 	public void delete(long id);
 	public Favorite findById(long id);
 	public List<Favorite> findByUser (User user);
+	public List<Favorite> findByTour (Tour tour);
 	public List<Favorite> getAll();	
+	
 }

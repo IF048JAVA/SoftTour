@@ -20,52 +20,67 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 
 	@Override
 	public void update(long id, Date date, User user, Tour tour) {
-		Favorite favorite = (Favorite) getHibernateTemplate().get(Favorite.class, id);
-		
+		Favorite favorite = (Favorite) getHibernateTemplate().get(
+				Favorite.class, id);
+
 		if (favorite != null) {
 			favorite.setDate(date);
 			favorite.setUser(user);
 			favorite.setTour(tour);
-			
+
 			getHibernateTemplate().update(favorite);
 		} else {
-			System.err.println("Error ! \n Favorite is null !");
+			System.err.println("Error ! \n No favorite with this ID ! ");
 		}
 	}
-	
+
 	@Override
 	public void delete(long id) {
-		Favorite favorite = (Favorite) getHibernateTemplate().get(Favorite.class, id);
-		
+		Favorite favorite = (Favorite) getHibernateTemplate().get(
+				Favorite.class, id);
+
 		if (favorite != null) {
 			getHibernateTemplate().delete(favorite);
 		} else {
-			System.err.println("Error ! \n Favorite is null !");
+			System.err.println("Error ! \n No favorite with this ID ! ");
 		}
 	}
 
 	@Override
 	public Favorite findById(long id) {
-		Favorite favorite = (Favorite) getHibernateTemplate().get(Favorite.class, id);
+		Favorite favorite = (Favorite) getHibernateTemplate().get(
+				Favorite.class, id);
+
 		return favorite;
 	}
 
-
-    @Override
-    public List<Favorite> findByUser(User user) {
-        @SuppressWarnings("unchecked")
-		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find("FROM Favorite WHERE user_id = ?", user.getId());
-        return list;
-    }
-
-
-    @Override
-	public List<Favorite> getAll() {
+	@Override
+	public List<Favorite> findByUser(User user) {
+		String queryFindByUser = "FROM Favorite WHERE user_id = ?";
 		@SuppressWarnings("unchecked")
-		List<Favorite> list = getHibernateTemplate().find("From Favorite");
+		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find(
+				queryFindByUser, user.getId());
+
+		return list;
+	}
+
+	@Override
+	public List<Favorite> findByTour(Tour tour) {
+		String queryFindByTour = "FROM Favorite WHERE tour_id = ?";
+		@SuppressWarnings("unchecked")
+		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find(
+				queryFindByTour, tour.getId());
 		
 		return list;
 	}
 
+	@Override
+	public List<Favorite> getAll() {
+		String queryGetAll = "From Favorite";
+		@SuppressWarnings("unchecked")
+		List<Favorite> list = getHibernateTemplate().find(queryGetAll);
+
+		return list;
+	}
 
 }

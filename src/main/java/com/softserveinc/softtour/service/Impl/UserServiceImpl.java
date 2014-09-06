@@ -12,14 +12,14 @@ import com.softserveinc.softtour.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
-	
+
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+
 	@Override
-	public void save(String name, String email, String password,
-			Date birthday, byte age, Sex sex, String phone, Role role) {
+	public void save(String name, String email, String password, Date birthday,
+			byte age, Sex sex, String phone, Role role) {
 		userDao.save(name, email, password, birthday, age, sex, phone, role);
 	}
 
@@ -27,7 +27,8 @@ public class UserServiceImpl implements UserService {
 	public void update(long id, String name, String email, String password,
 			Date birthday, byte age, Sex sex, String phone, Role role) {
 
-		userDao.update(id, name, email, password, birthday, age, sex, phone, role);
+		userDao.update(id, name, email, password, birthday, age, sex, phone,
+				role);
 	}
 
 	@Override
@@ -40,6 +41,16 @@ public class UserServiceImpl implements UserService {
 		return userDao.findById(id);
 	}
 
+	@Override
+	public List<User> findByName(String name) {
+		return userDao.findByName(name);
+	}
+
+	@Override
+	public List<User> findByRole(Role role) {
+		return userDao.findByRole(role);
+	}
+	
 	@Override
 	public List<User> getAll() {
 		return userDao.getAll();
