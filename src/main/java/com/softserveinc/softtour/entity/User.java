@@ -3,6 +3,7 @@ package com.softserveinc.softtour.entity;
 import com.softserveinc.softtour.entity.template.Sex;
 
 import javax.persistence.*;
+
 import java.sql.Date;
 import java.util.Set;
 
@@ -31,6 +32,7 @@ public class User {
     private byte age;
 
     @Column(name = "sex", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Sex sex;
 
     @Column(name = "phone", length = 20)
