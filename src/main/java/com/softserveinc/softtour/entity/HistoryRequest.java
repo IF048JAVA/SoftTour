@@ -2,6 +2,7 @@ package com.softserveinc.softtour.entity;
 
 
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
@@ -31,6 +32,7 @@ public class HistoryRequest {
     private int daysTo;
 
     @Column(name = "stars", nullable = false)
+    @ElementCollection(targetClass=Integer.class)
     private Set stars;
 
     @Column(name = "adults", nullable = false)
