@@ -46,9 +46,81 @@
 	<bean id="roleDao" class="com.softserveinc.softtour.dao.Impl.RoleDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />	
 	</bean>
-	
+
 	<bean id="roleService" class="com.softserveinc.softtour.service.Impl.RoleServiceImpl">
 		<property name="roleDao" ref="roleDao" />
+	</bean>
+	
+	<bean id="favoriteDao" class="com.softserveinc.softtour.dao.Impl.FavoriteDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="favoriteService" class="com.softserveinc.softtour.service.Impl.FavoriteServiceImpl">
+		<property name="favoriteDao" ref="favoriteDao" />
+	</bean>
+	
+	<bean id="countryDao" class="com.softserveinc.softtour.dao.Impl.CountryDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="countryService" class="com.softserveinc.softtour.service.Impl.CountryServiceImpl">
+		<property name="countryDao" ref="countryDao" />
+	</bean>
+	
+	<bean id="feedbackDao" class="com.softserveinc.softtour.dao.Impl.FeedbackDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="feedbackService" class="com.softserveinc.softtour.service.Impl.FeedbackServiceImpl">
+		<property name="feedbackDao" ref="feedbackDao" />
+	</bean>
+	
+	<bean id="foodDao" class="com.softserveinc.softtour.dao.Impl.FoodDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="foodService" class="com.softserveinc.softtour.service.Impl.FoodServiceImpl">
+		<property name="foodDao" ref="foodDao" />
+	</bean>
+	
+	<bean id="historyRecordsDao" class="com.softserveinc.softtour.dao.Impl.HistoryRecordsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="historyRecordsService" class="com.softserveinc.softtour.service.Impl.HistoryRecordsServiceImpl">
+		<property name="historyRecordsDao" ref="historyRecordsDao" />
+	</bean>
+	
+	<bean id="historyRequestDao" class="com.softserveinc.softtour.dao.Impl.HistoryRequestDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="historyRequestService" class="com.softserveinc.softtour.service.Impl.HistoryRequestServiceImpl">
+		<property name="historyRequestDao" ref="historyRequestDao" />
+	</bean>
+	
+	<bean id="hotelDao" class="com.softserveinc.softtour.dao.Impl.HotelDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="hotelService" class="com.softserveinc.softtour.service.Impl.HotelServiceImpl">
+		<property name="hotelDao" ref="hotelDao" />
+	</bean>
+	
+	<bean id="regionDao" class="com.softserveinc.softtour.dao.Impl.RegionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="regionService" class="com.softserveinc.softtour.service.Impl.RegionServiceImpl">
+		<property name="regionDao" ref="regionDao" />
+	</bean>
+	
+	<bean id="tourDao" class="com.softserveinc.softtour.dao.Impl.TourDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />	
+	</bean>
+	
+	<bean id="tourService" class="com.softserveinc.softtour.service.Impl.TourServiceImpl">
+		<property name="tourDao" ref="tourDao" />
 	</bean>
 	
 </beans>
