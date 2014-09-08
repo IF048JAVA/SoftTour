@@ -35,7 +35,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 
 	/**
 	 *  Updates the object favorite with the specified id
-	 *  id - id of the object favorite which will updated
+	 *  id - id of the object favorite which will be updated
 	 */
 	@Override
 	public void update(long id, Date date, User user, Tour tour) {
@@ -44,7 +44,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	
 	/**
 	 *  Deletes the object favorite with the specified id
-	 *  id - id of the object favorite which will deleted
+	 *  id - id of the object favorite which will be deleted
 	 */
 	@Override
 	public void delete(long id) {
@@ -53,18 +53,27 @@ public class FavoriteServiceImpl implements FavoriteService{
 
 	/**
 	 *  Returns the object favorite with the specified id
-	 *  id - id of the object favorite which will returned
+	 *  id - id of the object favorite which will be returned
 	 */
 	@Override
 	public Favorite findById(long id) {
 		return favoriteDao.findById(id);
+	}
+	
+	/**
+	 * Returns the list of the objects favorite which contain the specified date
+	 * @param date - date of the objects which will be added to the list
+	 */
+	@Override
+	public List<Favorite> findByDate(Date... date) {
+		return favoriteDao.findByDate(date);
 	}
 
 	/**
 	 *  Returns the list of the objects favorite which contain the specified object user 
 	 */
 	@Override
-	public List<Favorite> findByUser(User user) {
+	public List<Favorite> findByUser(User...user) {
 		return favoriteDao.findByUser(user);
 	}
 
@@ -72,7 +81,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 *  Returns the list of the objects favorite which contain the specified object tour 
 	 */
 	@Override
-	public List<Favorite> findByTour(Tour tour) {
+	public List<Favorite> findByTour(Tour...tour) {
 		return favoriteDao.findByTour(tour);
 	}
 	

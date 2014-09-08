@@ -74,15 +74,25 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	}
 
 	/**
+	 * Returns the list of the objects favorite which contains the specified date
+	 * @param date - date of the objects which will be added to the list
+	 */
+	@Override
+	public List<Favorite> findByDate(Date... date) {
+		String queryFindByDate = createQuery("date", date.length);
+
+		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find(queryFindByDate, date);
+		return list;
+	}
+	
+	/**
 	 *  Returns the list of the objects favorite which contain the specified object user 
 	 */
 	@Override
-	public List<Favorite> findByUser(User user) {
-		String queryFindByUser = "FROM Favorite WHERE user_id = ?";
-		@SuppressWarnings("unchecked")
-		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find(
-				queryFindByUser, user.getId());
+	public List<Favorite> findByUser(User...user) {
+		String queryFindByUser = createQuery("user_id", user.length);
 
+		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find(queryFindByUser, user);
 		return list;
 	}
 
@@ -90,12 +100,10 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	 *  Returns the list of the objects favorite which contain the specified object tour 
 	 */
 	@Override
-	public List<Favorite> findByTour(Tour tour) {
-		String queryFindByTour = "FROM Favorite WHERE tour_id = ?";
-		@SuppressWarnings("unchecked")
-		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find(
-				queryFindByTour, tour.getId());
-		
+	public List<Favorite> findByTour(Tour...tour) {
+		String queryFindByTour = createQuery("tour_id", tour.length);
+
+		List<Favorite> list = (List<Favorite>) getHibernateTemplate().find(queryFindByTour, tour);
 		return list;
 	}
 
@@ -109,6 +117,23 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 		List<Favorite> list = getHibernateTemplate().find(queryGetAll);
 
 		return list;
+	}
+	
+	/**
+	 * Creates the query for finding objects 
+	 * @param columnName - name of the colunm which we write into condition WHERE
+	 * @param length - length of vararg's elements
+	 * @return query for finding objects 
+	 */
+	private String createQuery(String columnName, int length) {
+		StringBuilder queryStringBuilder = new StringBuilder("FROM Favorite WHERE ");
+		
+		for (int i = 0; i < length; i++) {
+			queryStringBuilder.append(columnName + " = ? OR ");
+		}
+		queryStringBuilder.delete(queryStringBuilder.length()-4, queryStringBuilder.length());
+		String queryString = queryStringBuilder.toString();
+		return queryString;
 	}
 
 }

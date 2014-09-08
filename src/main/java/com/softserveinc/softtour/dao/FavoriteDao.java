@@ -20,31 +20,37 @@ public interface FavoriteDao {
 	
 	/**
 	 *  Updates the object favorite with the specified id
-	 *  id - id of the object favorite which will updated
+	 *  id - id of the object favorite which will be updated
 	 */
 	public void update(long id, Date date, User user, Tour tour);
 	
 	/**
 	 *  Deletes the object favorite with the specified id
-	 *  id - id of the object favorite which will deleted
+	 *  id - id of the object favorite which will be deleted
 	 */
 	public void delete(long id);
 	
 	/**
 	 *  Returns the object favorite with the specified id
-	 *  id - id of the object favorite which will returned
+	 *  id - id of the object favorite which will be returned
 	 */
 	public Favorite findById(long id);
 	
 	/**
+	 * Returns the list of the objects favorite which contain the specified date
+	 * @param date - date of the objects which will be added to the list
+	 */
+	public List<Favorite> findByDate(Date...date);
+	
+	/**
 	 *  Returns the list of the objects favorite which contain the specified object user 
 	 */
-	public List<Favorite> findByUser (User user);
+	public List<Favorite> findByUser (User...user);
 	
 	/**
 	 *  Returns the list of the objects favorite which contain the specified object tour 
 	 */
-	public List<Favorite> findByTour (Tour tour);
+	public List<Favorite> findByTour (Tour...tour);
 	
 	/**
 	 *  Returns the list of all objects favorite which are contained in the table Favorite
