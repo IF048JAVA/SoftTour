@@ -15,6 +15,10 @@ import java.util.List;
 public class TourServiceImpl implements TourService {
     private TourDao tourDao;
 
+    public void setTourDao(TourDao tourDao) {
+        this.tourDao = tourDao;
+    }
+
     @Override
     public void save(Date date, int days, String departureCity, Date departureTime, BigDecimal price, Hotel hotel, Food food) {
         tourDao.save(date, days, departureCity, departureTime, price, hotel, food);

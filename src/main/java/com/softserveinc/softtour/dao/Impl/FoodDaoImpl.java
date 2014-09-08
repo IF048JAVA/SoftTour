@@ -7,7 +7,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.util.List;
 
-public class FoodDoaImpl extends HibernateDaoSupport implements FoodDao {
+public class FoodDaoImpl extends HibernateDaoSupport implements FoodDao {
     @Override
     public void save(String name){
         Food food = new Food(name);

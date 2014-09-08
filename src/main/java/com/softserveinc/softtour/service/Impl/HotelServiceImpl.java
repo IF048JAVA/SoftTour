@@ -12,6 +12,10 @@ import java.util.List;
 public class HotelServiceImpl implements HotelService {
     private HotelDao hotelDao;
 
+    public void setHotelDao(HotelDao hotelDao) {
+        this.hotelDao = hotelDao;
+    }
+
     @Override
     public void save(String name, int stars, Region region) {
         hotelDao.save(name, stars, region);
