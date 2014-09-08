@@ -13,7 +13,7 @@ public class Role {
     private long id;
 
     @Column(name = "name", nullable = false, length = 45)
-    private String Name;
+    private String name;
 
     @OneToMany(mappedBy = "role")
     private Set<User> users;
@@ -22,8 +22,7 @@ public class Role {
     }
 
     public Role(String name) {
-        Name = name;
-        this.users = users;
+        this.name = name;
     }
 
     public long getId() {
@@ -35,11 +34,11 @@ public class Role {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public Set<User> getUsers() {
@@ -48,5 +47,13 @@ public class Role {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

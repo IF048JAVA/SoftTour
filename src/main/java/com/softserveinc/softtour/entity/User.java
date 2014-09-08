@@ -174,4 +174,14 @@ public class User {
     public void setHistoryRequests(Set<HistoryRequest> historyRequests) {
         this.historyRequests = historyRequests;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
+

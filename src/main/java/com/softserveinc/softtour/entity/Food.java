@@ -48,4 +48,12 @@ public class Food {
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
     }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

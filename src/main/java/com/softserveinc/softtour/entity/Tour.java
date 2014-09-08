@@ -138,4 +138,18 @@ public class Tour {
     public void setHistoryRecords(Set<HistoryRecord> historyRecords) {
         this.historyRecords = historyRecords;
     }
+
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "hotel=" + hotel +
+                ", price=" + price +
+                ", departureTime=" + departureTime +
+                ", departureCity='" + departureCity + '\'' +
+                ", days=" + days +
+                ", date=" + date +
+                ", id=" + id +
+                '}';
+    }
 }

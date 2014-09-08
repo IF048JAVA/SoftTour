@@ -84,4 +84,14 @@ public class Hotel {
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
     }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", Stars=" + Stars +
+                ", region=" + region.getName() +
+                '}';
+    }
 }

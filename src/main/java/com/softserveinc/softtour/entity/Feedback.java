@@ -12,16 +12,16 @@ public class Feedback {
     private long id;
 
     @Column(name = "cleanliness", nullable = false, length = 1)
-    private Integer cleanliness;
+    private int cleanliness;
 
     @Column(name = "comfort", nullable = false, length = 1)
-    private Integer comfort;
+    private int comfort;
 
     @Column(name = "location", nullable = false, length = 1)
-    private Integer location;
+    private int location;
 
     @Column(name = "valueForMoney", nullable = false, length = 1)
-    private Integer valueForMoney;
+    private int valueForMoney;
 
     @Column(name = "comment")
     private String comment;
@@ -62,7 +62,7 @@ public class Feedback {
         return cleanliness;
     }
 
-    public void setCleanliness(Integer cleanliness) {
+    public void setCleanliness(int cleanliness) {
         this.cleanliness = cleanliness;
     }
 
@@ -70,7 +70,7 @@ public class Feedback {
         return comfort;
     }
 
-    public void setComfort(Integer comfort) {
+    public void setComfort(int comfort) {
         this.comfort = comfort;
     }
 
@@ -78,7 +78,7 @@ public class Feedback {
         return location;
     }
 
-    public void setLocation(Integer location) {
+    public void setLocation(int location) {
         this.location = location;
     }
 
@@ -86,7 +86,7 @@ public class Feedback {
         return valueForMoney;
     }
 
-    public void setValueForMoney(Integer valueForMoney) {
+    public void setValueForMoney(int valueForMoney) {
         this.valueForMoney = valueForMoney;
     }
 
@@ -112,5 +112,19 @@ public class Feedback {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "id=" + id +
+                ", cleanliness=" + cleanliness +
+                ", comfort=" + comfort +
+                ", location=" + location +
+                ", valueForMoney=" + valueForMoney +
+                ", comment='" + comment + '\'' +
+                ", hotel=" + hotel +
+                ", user=" + user +
+                '}';
     }
 }

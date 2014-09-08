@@ -59,4 +59,12 @@ public class Country {
     public void setHistoryRequests(Set<HistoryRequest> historyRequests) {
         this.historyRequests = historyRequests;
     }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

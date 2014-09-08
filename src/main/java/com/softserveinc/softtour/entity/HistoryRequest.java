@@ -190,4 +190,24 @@ public class HistoryRequest {
     public void setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
     }
+
+    @Override
+    public String toString() {
+        return "HistoryRequest{" +
+                "id=" + id +
+                ", requestDate=" + requestDate +
+                ", country=" + country +
+                ", user=" + user +
+                ", priceTo=" + priceTo +
+                ", priceFrom=" + priceFrom +
+                ", children=" + children +
+                ", adults=" + adults +
+                ", stars=" + stars +
+                ", daysTo=" + daysTo +
+                ", daysFrom=" + daysFrom +
+                ", dateTo=" + dateTo +
+                ", dateFrom=" + dateFrom +
+                ", cityFrom='" + cityFrom + '\'' +
+                '}';
+    }
 }
