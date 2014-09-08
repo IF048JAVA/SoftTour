@@ -4,10 +4,11 @@ import com.softserveinc.softtour.dao.FeedbackDao;
 import com.softserveinc.softtour.entity.Feedback;
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.service.FeedbackService;
 
 import java.util.List;
 
-public class FeedbackServiceImpl {
+public class FeedbackServiceImpl implements FeedbackService{
     private FeedbackDao feedbackDao;
     public void setFeedbackDao (FeedbackDao feedbackDao) {
         this.feedbackDao=feedbackDao;

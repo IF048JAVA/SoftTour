@@ -49,12 +49,12 @@ public class HotelDaoImpl extends HibernateDaoSupport implements HotelDao {
         // create query
         StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
         for(int i = 0; i < name.length; i++){
-            stringQueryBuilder.append(" name = ? OR");
+            stringQueryBuilder.append(" name = ").append(name[i]).append(" OR");
         }
         stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last "OR"
         String queryString = stringQueryBuilder.toString();
 
-        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString, name);
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString);
         return list;
     }
 
@@ -63,12 +63,12 @@ public class HotelDaoImpl extends HibernateDaoSupport implements HotelDao {
         // create query
         StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
         for(int i = 0; i < stars.length; i++){
-            stringQueryBuilder.append(" stars = ? OR");
+            stringQueryBuilder.append(" stars = ").append(stars[i]).append(" OR");
         }
         stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
         String queryString = stringQueryBuilder.toString();
 
-        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString, stars);
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString);
         return list;
     }
 
@@ -77,18 +77,12 @@ public class HotelDaoImpl extends HibernateDaoSupport implements HotelDao {
         // create query
         StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
         for(int i = 0; i < region.length; i++){
-            stringQueryBuilder.append(" region_id = ? OR");
+            stringQueryBuilder.append(" region_id = ").append(region[i].getId()).append(" OR");
         }
         stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
         String queryString = stringQueryBuilder.toString();
 
-        //create & initialize regions id array
-        long[] regionsId = new long[region.length];
-        for(int i = 0; i < region.length; i++){
-            regionsId[i] = region[i].getId();
-        }
-
-        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString, regionsId);
+        List<Hotel> list = (List<Hotel>) getHibernateTemplate().find(queryString);
         return list;
     }
 

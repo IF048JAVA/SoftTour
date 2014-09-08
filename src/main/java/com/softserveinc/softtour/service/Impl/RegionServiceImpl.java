@@ -3,10 +3,11 @@ package com.softserveinc.softtour.service.Impl;
 import com.softserveinc.softtour.dao.RegionDao;
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Region;
+import com.softserveinc.softtour.service.RegionService;
 
 import java.util.List;
 
-public class RegionServiceImpl {
+public class RegionServiceImpl implements RegionService {
     private RegionDao regionDao;
     public void setRegionDao (RegionDao regionDao) {
         this.regionDao=regionDao;

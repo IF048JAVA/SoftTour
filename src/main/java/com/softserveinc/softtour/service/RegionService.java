@@ -9,7 +9,7 @@ public interface RegionService {
     public void update (long id, String name, Country country);
     public void delete (long id);
     public Region findById (long id);
-    public Region findByName (String name);
+    public List<Region> findByName (String name);
     public List<Region> findByCountry (Country country);
     public List<Region> getAll();
 }

@@ -74,12 +74,12 @@ public class TourDaoImpl extends HibernateDaoSupport implements TourDao {
         // create query
         StringBuilder stringQueryBuilder = new StringBuilder("FROM Tour WHERE");
         for(int i = 0; i < departureCity.length; i++){
-            stringQueryBuilder.append(" departureCity = ? OR");
+            stringQueryBuilder.append(" departureCity = ").append(departureCity[i]).append(" OR");
         }
         stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
         String queryString = stringQueryBuilder.toString();
 
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString, departureCity);
+        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString);
         return list;
     }
 
@@ -106,18 +106,12 @@ public class TourDaoImpl extends HibernateDaoSupport implements TourDao {
         // create query
         StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
         for(int i = 0; i < hotel.length; i++){
-            stringQueryBuilder.append(" hotel_id = ? OR");
+            stringQueryBuilder.append(" hotel_id = ").append(hotel[i].getId()).append(" OR");
         }
         stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
         String queryString = stringQueryBuilder.toString();
 
-        //create & initialize regions id array
-        long[] hotelsId = new long[hotel.length];
-        for(int i = 0; i < hotel.length; i++){
-            hotelsId[i] = hotel[i].getId();
-        }
-
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString, hotelsId);
+        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString);
         return list;
     }
 
@@ -126,18 +120,12 @@ public class TourDaoImpl extends HibernateDaoSupport implements TourDao {
         // create query
         StringBuilder stringQueryBuilder = new StringBuilder("FROM Hotel WHERE");
         for(int i = 0; i < food.length; i++){
-            stringQueryBuilder.append(" food_id = ? OR");
+            stringQueryBuilder.append(" food_id = ").append(food[i].getId()).append(" OR");
         }
         stringQueryBuilder.delete(stringQueryBuilder.length()-3, stringQueryBuilder.length()); //remove last OR
         String queryString = stringQueryBuilder.toString();
 
-        //create & initialize regions id array
-        long[] foodsId = new long[food.length];
-        for(int i = 0; i < food.length; i++){
-            foodsId[i] = food[i].getId();
-        }
-
-        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString, foodsId);
+        List<Tour> list = (List<Tour>) getHibernateTemplate().find(queryString);
         return list;
     }
 
