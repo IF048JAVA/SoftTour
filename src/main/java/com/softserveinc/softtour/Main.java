@@ -6,9 +6,19 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Sex;
+import com.softserveinc.softtour.service.CountryService;
+import com.softserveinc.softtour.service.FavoriteService;
+import com.softserveinc.softtour.service.FeedbackService;
+import com.softserveinc.softtour.service.FoodService;
+import com.softserveinc.softtour.service.HistoryRecordsService;
+import com.softserveinc.softtour.service.HistoryRequestService;
+import com.softserveinc.softtour.service.HotelService;
+import com.softserveinc.softtour.service.RegionService;
 import com.softserveinc.softtour.service.RoleService;
+import com.softserveinc.softtour.service.TourService;
 import com.softserveinc.softtour.service.UserService;
 
 /**
@@ -21,6 +31,15 @@ public class Main {
 	
 	private UserService userService; 
 	private RoleService roleService;
+	private HotelService hotelService;
+	private HistoryRequestService historyRequestService;
+	private HistoryRecordsService historyRecordsService;
+	private FavoriteService favoriteService;
+	private FeedbackService feedbackService;
+	private CountryService countryService;
+	private RegionService regionService;
+	private TourService tourService;
+	private FoodService foodService;
 	
 	/**
 	 * Creates the context for this application
@@ -42,22 +61,35 @@ public class Main {
 	 */
 	private void start() {
 		createServiseObjects();
+
+		//save("User");
+		//update("User");
+		//delete("User");
+		//findById("User");
 		
-		save("User");
-		update("User");
-		delete("User");
-		findById("User");
-		getAll("User");
+		//save("Favorite");
+		//update("Favorite");
+		//delete("Favorite");
+		//findById("Favorite");
+		//getAll("Favorite");
 		
 	}
 
-	
 	/**
 	 * Creates the objects of the classes which are services of this appliaction 
 	 */
 	private void createServiseObjects() {
 		userService = (UserService) context.getBean("userService");
 		roleService = (RoleService) context.getBean("roleService");
+		historyRecordsService = (HistoryRecordsService) context.getBean("historyRecordsService");
+		historyRequestService = (HistoryRequestService) context.getBean("historyRequestService");
+		feedbackService = (FeedbackService) context.getBean("feedbackService");
+		favoriteService = (FavoriteService) context.getBean("favoriteService");
+		hotelService = (HotelService) context.getBean("hotelService");
+		regionService = (RegionService) context.getBean("regionService");
+		countryService = (CountryService) context.getBean("countryService");
+		tourService = (TourService) context.getBean("tourService");
+		foodService = (FoodService) context.getBean("foodService");
 	}
 	
 	/**
@@ -68,10 +100,10 @@ public class Main {
 		
 		switch (tableName) {
 		case "User":
-			userService.save("Ivanka", "iv@com", "1111", new Date(19980911), (byte)16, Sex.FEMALE, "123456", roleService.findById(2));
+			userService.save("Kate", "ka@com", "1111", Date.valueOf("2014-08-11"), (byte)16, Sex.FEMALE, "123456", roleService.findById(2));
 			break;
 		case "Favorite":
-			// ....
+			favoriteService.save(Date.valueOf("2014-08-10"), userService.findById(1), tourService.findById(1));
 			break;
 		case "Country":
 			
@@ -114,10 +146,10 @@ public class Main {
 		
 		switch (tableName) {
 		case "User":
-			userService.update(3, "Ivan", "iv@com", "1111", new Date(19980911), (byte)16, Sex.MALE, "123456", roleService.findById(2));
+			userService.update(3, "Ivan", "iv@com", "1111", Date.valueOf("2014-09-11"), (byte)16, Sex.MALE, "123456", roleService.findById(2));
 			break;
 		case "Favorite":
-			// ....
+			favoriteService.update(9, Date.valueOf("2014-09-10"), userService.findById(1), tourService.findById(1));
 			break;
 		case "Country":
 			
@@ -161,7 +193,7 @@ public class Main {
 			userService.delete(3);
 			break;
 		case "Favorite":
-			// ....
+			favoriteService.delete(10);
 			break;
 		case "Country":
 			
@@ -206,7 +238,8 @@ public class Main {
 		System.out.println(user.getName());
 			break;
 		case "Favorite":
-			// ....
+		Favorite favorite = favoriteService.findById(9);
+		System.out.println(favorite.getDate());
 			break;
 		case "Country":
 			
@@ -251,7 +284,8 @@ public class Main {
 			showList(list);
 			break;
 		case "Favorite":
-			// ....
+			List<Favorite> list1 = favoriteService.getAll();
+			showList(list1);
 			break;
 		case "Country":
 			
