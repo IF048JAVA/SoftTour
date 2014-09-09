@@ -65,18 +65,65 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 *  Returns list of the objects user with the specified name
+	 *  Returns list of the objects user with the specified name or names
 	 */
 	@Override
-	public List<User> findByName(String name) {
+	public List<User> findByName(String...name) {
 		return userDao.findByName(name);
 	}
-
+	
 	/**
-	 *  Returns the list of the objects user which contain the specified object role
+	 *  Returns list of the objects user with the specified email or emails
 	 */
 	@Override
-	public List<User> findByRole(Role role) {
+	public List<User> findByEmail(String... email) {
+		return userDao.findByEmail(email);
+	}
+	
+	/**
+	 *  Returns list of the objects user with the specified password or passwords
+	 */
+	public List<User> findByPassword(String... password) {
+		return userDao.findByPassword(password);
+	}
+	
+	/**
+	 *  Returns list of the objects user with the specified birthday or birthdays
+	 */
+	@Override
+	public List<User> findByBirthday(Date... birthday) {
+		return userDao.findByBirthday(birthday);
+	}
+	
+	/**
+	 *  Returns list of the objects user with the specified age
+	 */
+	@Override
+	public List<User> findByAge(Byte... age) {
+		return userDao.findByAge(age);
+	}
+	
+	/**
+	 *  Returns list of the objects user with the specified sex
+	 */
+		@Override
+	public List<User> findBySex(Sex sex) {
+		return userDao.findBySex(sex);
+	}
+		
+	/**
+	 *  Returns list of the objects user with the specified phone or phones
+	 */
+	@Override
+	public List<User> findByPhone(String... phone) {
+		return userDao.findByPhone(phone);
+	}
+		
+	/**
+	 *  Returns the list of the objects user which contain the specified object or objects role
+	 */
+	@Override
+	public List<User> findByRole(Role...role) {
 		return userDao.findByRole(role);
 	}
 	
