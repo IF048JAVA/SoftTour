@@ -53,26 +53,8 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Main ob = new Main();
+		ob.createServiseObjects();
 		ob.start();
-	}
-
-	/**
-	 * Starts an application
-	 */
-	private void start() {
-		createServiseObjects();
-
-		//save("User");
-		//update("User");
-		//delete("User");
-		//findById("User");
-		
-		//save("Favorite");
-		//update("Favorite");
-		//delete("Favorite");
-		//findById("Favorite");
-		//getAll("Favorite");
-		
 	}
 
 	/**
@@ -93,230 +75,48 @@ public class Main {
 	}
 	
 	/**
-	 * Saves the data into the tables of SoftTourDatabase
-	 * @param tableName - name of the table where the data will saved 
+	 * Starts an test application
 	 */
-	private void save(String tableName) {
+	private void start() {
 		
-		switch (tableName) {
-		case "User":
-			userService.save("Kate", "ka@com", "1111", Date.valueOf("2014-08-11"), (byte)16, Sex.FEMALE, "123456", roleService.findById(2));
-			break;
-		case "Favorite":
-			favoriteService.save(Date.valueOf("2014-08-10"), userService.findById(1), tourService.findById(1));
-			break;
-		case "Country":
-			
-			break;
-		case "Feedback":
-			
-			break;
-		case "Food":
-			
-			break;
-		case "HistoryRecords":
-			
-			break;
-		case "HistoryRequest":
-			
-			break;
-		case "Hotel":
-			
-			break;
-		case "Region":
-			
-			break;
-		case "Role":
-			
-			break;
-		case "Tour":
-			
-			break;
-		default:
-			System.out.println("No table with the specified name ! \n Please enter the corect table name !");
-		}
+		//testUser();
+		//testFavorite();
 		
-	}
-	
-	/**
-	 * Updates the data into the tables of SoftTourDatabase
-	 * @param tableName - name of the table where the data will updated
-	 */
-	private void update(String tableName) {
-		
-		switch (tableName) {
-		case "User":
-			userService.update(3, "Ivan", "iv@com", "1111", Date.valueOf("2014-09-11"), (byte)16, Sex.MALE, "123456", roleService.findById(2));
-			break;
-		case "Favorite":
-			favoriteService.update(9, Date.valueOf("2014-09-10"), userService.findById(1), tourService.findById(1));
-			break;
-		case "Country":
-			
-			break;
-		case "Feedback":
-			
-			break;
-		case "Food":
-			
-			break;
-		case "HistoryRecords":
-			
-			break;
-		case "HistoryRequest":
-			
-			break;
-		case "Hotel":
-			
-			break;
-		case "Region":
-			
-			break;
-		case "Role":
-			
-			break;
-		case "Tour":
-			
-			break;
-		default:
-			System.out.println("No table with the specified name ! \n Please enter the corect table name !");
-		}
-	}
-	
-	/**
-	 * Deletes the data into the tables of SoftTourDatabase
-	 * @param tableName - name of the table where the data will deleted 
-	 */
-	private void delete(String tableName) {
-		switch (tableName) {
-		case "User":
-			userService.delete(3);
-			break;
-		case "Favorite":
-			favoriteService.delete(10);
-			break;
-		case "Country":
-			
-			break;
-		case "Feedback":
-			
-			break;
-		case "Food":
-			
-			break;
-		case "HistoryRecords":
-			
-			break;
-		case "HistoryRequest":
-			
-			break;
-		case "Hotel":
-			
-			break;
-		case "Region":
-			
-			break;
-		case "Role":
-			
-			break;
-		case "Tour":
-			
-			break;
-		default:
-			System.out.println("No table with the specified name ! \n Please enter the corect table name !");
-		}
 	}
 
-	/**
-	 *  Returns the object with the specified id
-	 * @param tableName - name of the table where the data will looked for
-	 */
-	private void findById(String tableName) {
-		switch (tableName) {
-		case "User":
-		User user = userService.findById(2);
-		System.out.println(user.getName());
-			break;
-		case "Favorite":
-		Favorite favorite = favoriteService.findById(9);
-		System.out.println(favorite.getDate());
-			break;
-		case "Country":
-			
-			break;
-		case "Feedback":
-			
-			break;
-		case "Food":
-			
-			break;
-		case "HistoryRecords":
-			
-			break;
-		case "HistoryRequest":
-			
-			break;
-		case "Hotel":
-			
-			break;
-		case "Region":
-			
-			break;
-		case "Role":
-			
-			break;
-		case "Tour":
-			
-			break;
-		default:
-			System.out.println("No table with the specified name ! \n Please enter the corect table name !");
-		}
+	private void testFavorite() {
+		//favoriteService.save(Date.valueOf("2014-08-10"), userService.findById(1), tourService.findById(1));
+		//favoriteService.update(9, Date.valueOf("2014-09-10"), userService.findById(1), tourService.findById(1));
+		//favoriteService.delete(10);
+		//User user = userService.findById(2);
+		//System.out.println(user.getName());
+		//List<Favorite> list1 = favoriteService.getAll();
+		
+		//List<Favorite> list = favoriteService.findByDate(Date.valueOf("2014-09-04"), Date.valueOf("2014-09-10"));
+		//List<Favorite> list = favoriteService.findByUser(userService.findById(1), userService.findById(2));
+		//List<Favorite> list = favoriteService.findByTour(tourService.findById(1), tourService.findById(2));
+		
+		//showList(list);
 	}
 
-	/**
-	 *  Returns the list of all objects which are contained in the tableName
-	 * @param tableName - name of the table where the data will looked for
-	 */
-	private void getAll(String tableName) {
-		switch (tableName) {
-		case "User":
-			List<User> list = userService.getAll();
-			showList(list);
-			break;
-		case "Favorite":
-			List<Favorite> list1 = favoriteService.getAll();
-			showList(list1);
-			break;
-		case "Country":
-			
-			break;
-		case "Feedback":
-			
-			break;
-		case "Food":
-			
-			break;
-		case "HistoryRecords":
-			
-			break;
-		case "HistoryRequest":
-			
-			break;
-		case "Hotel":
-			
-			break;
-		case "Region":
-			
-			break;
-		case "Role":
-			
-			break;
-		case "Tour":
-			
-			break;
-		default:
-			System.out.println("No table with the specified name ! \n Please enter the corect table name !");
-		}
+	private void testUser() {
+		userService.save("Pink", "try@com", "1234", Date.valueOf("1979-09-08"), (byte)35, Sex.FEMALE, "775511", roleService.findById(1));
+		//userService.update(3, "Ivan", "iv@com", "1111", Date.valueOf("2014-09-11"), (byte)16, Sex.MALE, "123456", roleService.findById(2));
+		//userService.delete(3);
+		//User user = userService.findById(2);
+		//System.out.println(user);
+		//List<User> list = userService.getAll();
+		
+		//List<User> list = userService.findByName("Andriy", "Kate");
+		//List<User> list = userService.findByEmail("iv@com", "elips@gmail.com");
+		//List<User> list = userService.findByPassword("1111", "2222");
+		//List<User> list = userService.findByBirthday(Date.valueOf("1990-06-12"), Date.valueOf("1987-11-24"));
+		//List<User> list = userService.findByAge((byte)16, (byte)26);
+		//List<User> list = userService.findBySex(Sex.MALE);
+		//List<User> list = userService.findByPhone("123456", "+380958000877");
+		//List<User> list = userService.findByRole(roleService.findById(2), roleService.findById(3));
+
+		//showList(list);		
 	}
 
 	/**
@@ -324,11 +124,9 @@ public class Main {
 	 * @param list - list of objects which will be showon
 	 */
 	private void showList(List<?> list) {
-		
-		// We need to override the toString methods for all entity clases !!!
-		
 		for (Object object : list) {
 			System.out.println(object);
 		}
 	} 
+	
 }
