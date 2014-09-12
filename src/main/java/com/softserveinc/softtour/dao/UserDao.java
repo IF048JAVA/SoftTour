@@ -8,7 +8,7 @@ import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Sex;
 
 /**
- * @author Andriy
+ *  @author Andriy
  * 	Contains the methods for work with table User in the SoftTour database
  */
 public interface UserDao {
