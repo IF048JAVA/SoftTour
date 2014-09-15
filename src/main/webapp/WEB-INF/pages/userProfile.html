@@ -50,28 +50,39 @@
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
-                <div class="col-md-6 form">
+						<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+				  <li class="active"><a href="#favorites" role="tab" data-toggle="tab">Favorites</a></li>
+				  <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
+				  <li><a href="#myProfile" role="tab" data-toggle="tab">My Profile</a></li>
+	
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+				  <div class="tab-pane active" id="favorites">...</div>
+				  <div class="tab-pane" id="history">...</div>
+				  <div class="tab-pane" id="myProfile">
+				    <div class="col-md-6 form">
+				
+
+						
 					<form class="form-horizontal">
+					
+
+						
 						<fieldset>
 						
-							<!-- Form Name -->
+						
+						
+						 <!-- Form Name -->
 							<legend>Мій профіль</legend>
 							
-							<!-- Text input-->
+							<!-- Name input-->
 							<div class="form-group">
 							  <label class="col-md-3 control-label" for="firstNameInput">Ім'я</label>  
 							  <div class="col-md-5">
 							  <input id="firstNameInput" name="firstNameInput" type="text" placeholder="" class="form-control input-md">
-							    
-							  </div>
-							</div>
-							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-3 control-label" for="lastNameInput">Прізвище</label>  
-							  <div class="col-md-5">
-							  <input id="lastNameInput" name="lastNameInput" type="text" placeholder="" class="form-control input-md">
-							    
 							  </div>
 							</div>
 							
@@ -80,31 +91,64 @@
 							  <label class="col-md-3 control-label" for="EmailInput">Email/Login</label>
 							  <div class="col-md-5">
 							    <input id="EmailInput" name="EmailInput" type="text" placeholder="" class="form-control input-md">
-							    
 							  </div>
 							</div>
 							
-							<!-- Email input-->
+							<!-- Password input-->
 							<div class="form-group">
 							  <label class="col-md-3 control-label" for="PasswordInput">Пароль</label>
 							  <div class="col-md-5">
 							    <input id="PasswordInput" name="PasswordInput" type="password" placeholder="" class="form-control input-md">
-							    
 							  </div>
 							</div>
 							
-							<!-- Save Button -->
+							<!-- Birthday input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="saveButton"></label>
-							  <div class="col-md-4">
-							    <button id="saveButton" name="saveButton" class="btn btn-primary">Зберегти</button>
+							  <label class="col-md-3 control-label" for="birthdayInput">Дата народження</label>  
+							  <div class="col-md-5">
+							  <input id="birthdayInput" name="birthdayInput" type="text" placeholder="" class="form-control input-md">
 							  </div>
 							</div>
+							
+							<!-- Sex Select -->
+							<div class="form-group">
+							<label class="col-md-3 control-label" for="SexInput">Стать</label>  
+							<div class="col-md-5">
+                                    <select class="form-control">
+                                    <option>Чоловік</option>
+                                    <option>Жінка</option>
+                                    </select>
+							</div>
+							</div>
+							
+
+							<!-- Phone input-->
+							<div class="form-group">
+							  <label class="col-md-3 control-label" for="PhoneNuvmerInput">Номер телефону</label>  
+							  <div class="col-md-5">
+							  <input id="PhoneNuvmerInput" name="PhoneNuvmerInput" type="text" placeholder="" class="form-control input-md">
+							    <p class="help-block">+38(xxx)xxx-xx-xx</p>
+							  </div>
+							</div>									
+							
+							<!-- Save Button -->
+							<div class="form-group">
+							<a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Зберегти</a>
+							</div>
+							
+							
+
 						
 						</fieldset>
 					</form>
 					        </div><!--блок "контент"-->
     </div>
+				  
+				  </div>
+
+				</div>
+			
+              
                 
                 
                 
@@ -112,5 +156,6 @@
     <footer></footer>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
+	<script src="bootstrap-tab"></script>
 </body>
 </html>
