@@ -23,10 +23,18 @@ body {
     background-color:  rgba(255, 255, 255, 0.6);
     margin-top:75px;
     border-radius:6px;
-    
-    
-    
+ 
 }
+
+#main_panel{
+	background-color:  rgba(255, 255, 255, 0.6);
+    margin:75px,50px;
+    border-radius:6px;
+    
+	
+}
+
+
 #heading {
     color: #F5F5F5;
     vertical-align: middle;
@@ -36,15 +44,11 @@ body {
 .imgfont {
     font-size: 30px;
     text-align: center;
+
+    
 }
-.imgfont :hover{
-    border:solid 1px; 
-
-}
-
-
 .form {
-    background-color:  rgba(160, 210, 155, 0.4);
+    background-color:  rgba(255, 255, 255, 0.4);
     font-family: serif;
     text-align: center;
     margin-bottom: 15px;
@@ -53,10 +57,9 @@ body {
     border-radius:3px;
     
 }
-p {
-  
+
+
+P {
+
     font-size: 17px;
-}
-.mycarousel{
-    height: 305px    ;
 }
