@@ -1,16 +1,17 @@
 package com.softserveinc.softtour;
 
-import com.softserveinc.softtour.entity.Hotel;
-import com.softserveinc.softtour.service.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.softserveinc.softtour.dto.BusTransit;
+import com.softserveinc.softtour.parsers.BusParser;
 
+import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
  * Created by oleksandrgasenuk on 08.09.14.
  */
 public class Starter {
+    /*
     private static ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/config.xml");
     private static CountryService countryService = (CountryService) applicationContext.getBean("countryService");
     private static FavoriteService favoriteService = (FavoriteService) applicationContext.getBean("favoriteService");
@@ -23,9 +24,9 @@ public class Starter {
     private static RoleService roleService = (RoleService) applicationContext.getBean("roleService");
     private static TourService tourService = (TourService) applicationContext.getBean("tourService");
     private static UserService userService = (UserService) applicationContext.getBean("userService");
-
+    */
     public static void main(String[] args) {
-        //gashenyukTestingMethod();
+        gashenyukTestingMethod();
 
     }
 
@@ -46,11 +47,20 @@ public class Starter {
         tourService.save(new GregorianCalendar(12, 8, 2014).getTime(), 10, "Старі Богородчани",
                 new GregorianCalendar(11, 8, 2014).getTime(), new BigDecimal(500.00), hotelService.findById(6),
                 foodService.findById(5));
-        */
         List<Hotel> hotelsList = hotelService.findByStars(3, 5);
         for (Hotel hotel : hotelsList) {
             System.out.println(hotel.getName());
         }
-
+        */
+        BusParser busParser = new BusParser();
+        List<BusTransit> busList = null;
+        try {
+            busList = busParser.parse("Київ", "Львів", new GregorianCalendar(2014, 8, 24, 15, 30).getTime());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for(BusTransit bus : busList){
+            System.out.println(bus);
+        }
     }
 }
