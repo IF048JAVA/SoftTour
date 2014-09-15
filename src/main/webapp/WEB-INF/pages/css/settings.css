@@ -36,9 +36,13 @@ body {
 .imgfont {
     font-size: 30px;
     text-align: center;
-
-    
 }
+.imgfont :hover{
+    border:solid 1px; 
+
+}
+
+
 .form {
     background-color:  rgba(160, 210, 155, 0.4);
     font-family: serif;
@@ -49,7 +53,10 @@ body {
     border-radius:3px;
     
 }
-P {
+p {
   
     font-size: 17px;
+}
+.mycarousel{
+    height: 305px    ;
 }
