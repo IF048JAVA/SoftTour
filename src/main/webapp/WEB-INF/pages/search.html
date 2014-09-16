@@ -54,7 +54,7 @@
                             <div class="form-group">
                                 <div class="col-sm-6">
                                 <p>Країна:</p>
-                                <select class="form-control">
+                                <select class="form-control" id="Country">
                                     <option>Єгипет</option>
                                     <option>Греція</option>
                                     <option>Туреччина</option>
@@ -62,10 +62,10 @@
                                 </div>
                                 <div class="col-sm-6">
                                 <p>Регіон:</p>
-                                <select class="form-control">
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
+                                <select class="form-control" id="Region">
+                                    <option>Дахаб</option>
+                                    <option>Макаді Бей</option>
+                                    <option>Марса Алам</option>
                                 </select>
                                 </div>
                                 <div class="col-sm-6">
@@ -224,7 +224,7 @@
                         </form>
                 </div>
         </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6" style="overflow: hiddden;">
                     <div id="carousel-example-generic" class="carousel slide mycarousel" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -262,12 +262,37 @@
   <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
-</div>
-</div>
+</div><!--каруселька-->
+</div><!--правий блок контенту>
     </div><!--блок "контент"-->
     <footer></footer>
     
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            
+        $('#Country').change(function(){
+            loadRegion($(this).find(':selected').val())
+        })
+        })
+        function loadRegion(country){
+            if (country=="Єгипет") {
+            $("#Region").children().remove()
+            $("#Region").append("<option>Дахаб</option><option>Макаді Бей</option><option>Марса Алам</option>")
+            }
+            if (country=="Греція") {
+            $("#Region").children().remove()
+            $("#Region").append("<option>Агія Тріада</option><option>Астіпалея</option><option>Аттика</option>")
+            }
+            if (country=="Туреччина") {
+            $("#Region").children().remove()
+            $("#Region").append("<option>Аланья</option><option>Анталія</option><option>Белек</option>")
+            }
+        }
+    </script>
+     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
