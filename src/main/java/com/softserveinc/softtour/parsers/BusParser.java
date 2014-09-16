@@ -8,9 +8,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.*;
 
-/**
- * Created by oleksandrgasenuk on 11.09.14.
- */
 public class BusParser {
     private List<BusTransit> busList;
 
@@ -23,23 +20,7 @@ public class BusParser {
         Document doc  = Jsoup.connect(url).get();
         Elements buses = doc.select("tr[class~=aslist(?)]");
         removeNotUsefulLines(buses);
-        for(Element element : buses){
-            BusTransit busTransit = new BusTransit();
-            Elements elementsByTag = element.getElementsByTag("td");
-                String cityFromAndNameOfStation = elementsByTag.get(2).text();
-                String cityToAndNameOfStation = elementsByTag.get(5).text();
-                String timeDeparture = elementsByTag.get(3).text();
-                String timeArrival = elementsByTag.get(6).text();
-                Date departure = parseTimeDepartureToDate(timeDeparture, tourDate);
-                Date arrival = parseTimeArrivalToDate(timeArrival, tourDate);
-                if (departure.compareTo(arrival) > 0){
-                    departure = new Date(departure.getTime() - 24 * 60 * 60 * 1000);
-                }
-                int price = countPrice(cityFrom, cityTo);
-                fillAllBusTransitSetters(busTransit, cityFromAndNameOfStation, cityToAndNameOfStation,
-                        departure, arrival, price);
-                busList.add(busTransit);
-        }
+        addBusesToList(buses, cityFrom, cityTo, tourDate);
         return busList;
     }
 
@@ -88,7 +69,27 @@ public class BusParser {
         }
     }
 
-    private Date parseTimeDepartureToDate(String dateF, Date tourDate) {
+    private void addBusesToList(Elements buses, String cityFrom, String cityTo, Date tourDate){
+        for(Element element : buses) {
+            BusTransit busTransit = new BusTransit();
+            Elements elementsByTag = element.getElementsByTag("td");
+            String cityFromAndNameOfStation = elementsByTag.get(2).text();
+            String cityToAndNameOfStation = elementsByTag.get(5).text();
+            String timeDeparture = elementsByTag.get(3).text();
+            String timeArrival = elementsByTag.get(6).text();
+            Date departure = parseTimeStringToDate(timeDeparture, tourDate);
+            Date arrival = parseTimeStringToDate(timeArrival, tourDate);
+            if (departure.compareTo(arrival) > 0) {
+                departure = new Date(departure.getTime() - 24 * 60 * 60 * 1000);
+            }
+            int price = countPrice(cityFrom, cityTo);
+            fillAllBusTransitSetters(busTransit, cityFromAndNameOfStation, cityToAndNameOfStation,
+                    departure, arrival, price);
+            busList.add(busTransit);
+        }
+    }
+
+    private Date parseTimeStringToDate(String dateF, Date tourDate) {
         long dateFH = Integer.parseInt(dateF.substring(0, 2))*60*60*1000;
         long dateFM = Integer.parseInt(dateF.substring(3, 5))*60*1000;
         GregorianCalendar calendar = new GregorianCalendar();
@@ -103,23 +104,6 @@ public class BusParser {
             departureTime = new Date(departureTime.getTime() - 24*60*60*1000);
         }
         return departureTime;
-    }
-
-    private Date parseTimeArrivalToDate(String dateT, Date tourDate) {
-        long dateTH = Integer.parseInt(dateT.substring(0, 2))*60*60*1000;
-        long dateTM = Integer.parseInt(dateT.substring(3, 5))*60*1000;
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(tourDate);
-        calendar.set(GregorianCalendar.HOUR_OF_DAY, 0);
-        calendar.set(GregorianCalendar.MINUTE, 0);
-        calendar.set(GregorianCalendar.SECOND, 0);
-        calendar.set(GregorianCalendar.MILLISECOND, 0);
-        Date newTourDate = calendar.getTime();
-        Date arrivalTime = new Date(newTourDate.getTime() + dateTH + dateTM);
-        if (arrivalTime.compareTo(tourDate) > 0){
-            arrivalTime = new Date(arrivalTime.getTime() - 24*60*60*1000);
-        }
-        return arrivalTime;
     }
 
     private int countPrice(String cityFrom, String cityTo) {
@@ -139,6 +123,5 @@ public class BusParser {
         busTransit.setArrivalTime(arrivalTime);
         busTransit.setPrice(price);
     }
-
 }
 
