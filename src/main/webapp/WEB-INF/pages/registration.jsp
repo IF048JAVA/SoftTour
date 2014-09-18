@@ -3,21 +3,17 @@
 <meta charset="utf-8">
 <title>registration</title>
 
-<link href="css/settings.css" rel="stylesheet">
-<link href="css/registration.css" rel="stylesheet">
 <link href="css/profileStyle.css" rel="stylesheet">
-<link href="css/datepicker.css" rel="stylesheet">
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/bootstrap-datepicker-ua.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-
+	<link href="css/datepicker.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	
+	<script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/bootstrap-datepicker-ua.js"></script>
 </head>
 
 <body class="body">
@@ -32,7 +28,7 @@
 
 						<!-- Name input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="firstNameInput">Ім'я</label>
+							<label class="col-md-4 control-label" for="firstNameInput">Ім'я</label>
 							<div class="col-md-5">
 								<input id="firstNameInput" name="firstNameInput" type="text"
 									placeholder="" class="form-control input-md">
@@ -50,7 +46,7 @@
 
 						<!-- Password input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="PasswordInput">Пароль</label>
+							<label class="col-md-4 control-label" for="PasswordInput">Пароль</label>
 							<div class="col-md-5">
 								<input id="PasswordInput" name="PasswordInput" type="password"
 									placeholder="" class="form-control input-md">
@@ -67,37 +63,26 @@
 							</div>
 						</div>
 
-				<!-- Birthday input-->
-							
-							<div class="form-group">
-								<label class="col-md-4 control-label" for="birthdayInput">Дата народження</label> 
-								<div class="col-md-5">
-
-									<input  id="birthdayInput" type="text" placeholder="dd/mm/yyyy" class="form-control input-md"> 
-
-								</div>
-									<script type="text/javascript">
-									
-									
-										// When the document is ready
-										$(document).ready(function () {
-											
-											$('#birthdayInput').datepicker({
-											
-												format: 'dd/mm/yyyy'
-												
-
-											});	
-											
-										});  
-
-									</script>
-
+						<!-- Birthday input-->
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="birthdayInput">Дата народження</label> 
+							<div class="col-md-5">
+								<input  id="birthdayInput" type="text" placeholder="dd/mm/yyyy" class="form-control input-md"> 
 							</div>
+								<script type="text/javascript">
+									
+									// When the document is ready
+									$(document).ready(function () {
+										$('#birthdayInput').datepicker({
+											format: 'dd/mm/yyyy'
+										});	
+									});  
+								</script>
+						</div>
 
 						<!-- Sex Select -->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="SexInput">Стать</label>
+							<label class="col-md-4 control-label" for="SexInput">Стать</label>
 							<div class="col-md-5">
 								<select class="form-control">
 									<option>Чоловік</option>
