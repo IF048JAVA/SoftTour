@@ -3,6 +3,10 @@ package com.softserveinc.softtour.repository;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Sex;
@@ -11,11 +15,13 @@ import com.softserveinc.softtour.entity.template.Sex;
  *  @author Andriy
  * 	Contains the methods for work with table User in the SoftTour database
  */
-public interface UserDao {
+@Repository
+public interface UserDao extends JpaRepository<User, Long> {
 	
 	/**
 	 * Saves the object user to the table User
 	 */
+	@Query("INSERT INTO User(name, email) VALUES(?1, ?2)")
 	public void save(String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
 
 	/**

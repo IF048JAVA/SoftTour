@@ -23,8 +23,8 @@ public class UserController {
 	public String saveUser(@RequestParam String name, 
 			@RequestParam String email,
 			@RequestParam String password,
-			@RequestParam Date birthday,
-			@RequestParam Sex sex,
+			@RequestParam String birthday,
+			@RequestParam String sex,
 			@RequestParam String phone ) {
 		
 		// Need to count age
@@ -32,7 +32,7 @@ public class UserController {
 		
 		// Need to define role
 		Role role = null;
-		userService.save(name, email, password, birthday, age, sex, phone, role);
+		userService.save(name, email, password, Date.valueOf(birthday), age, Sex.FEMALE, phone, role);
 		
 		return "/";
 	}
