@@ -14,13 +14,18 @@
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/bootstrap-datepicker-ua.js"></script>
+	<script src="js/registrationControl.js"></script>
+	
 </head>
 
 <body class="body">
 	<div class="container">
 		<div class="col-md-6 form" id="location_registration" >
 
-			<form class="form-horizontal">
+			<form class="form-horizontal" action="http://localhost:8080/SoftTour/user/save" 
+				onsubmit="return registrationControl('firstNameInput', 'EmailInput', 
+													'PasswordInput', 'ConfirmPasswordInput',
+													'PhoneNuvmerInput')">
 				<fieldset>
 
 						<!-- Form Name -->
@@ -105,8 +110,10 @@
 
 						<!-- Save Button -->
 						<div class="form-group">
-							<a href="#" class="btn btn-primary"><span
-								class="glyphicon glyphicon-ok"></span> Зберегти</a>
+							<button class="btn btn-primary" type="submit">
+								<span class="glyphicon glyphicon-ok"></span>
+								Зберегти
+							</button>
 						</div>
 
 				</fieldset>
