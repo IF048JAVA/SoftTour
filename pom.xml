@@ -167,6 +167,13 @@
             <artifactId>modelmapper</artifactId>
             <version>0.6.5</version>
         </dependency>
+        
+     	<dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.3</version>
+        </dependency>
+        
     </dependencies>
 
     <build>
