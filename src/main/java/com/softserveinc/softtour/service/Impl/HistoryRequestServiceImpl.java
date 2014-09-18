@@ -1,6 +1,6 @@
 package com.softserveinc.softtour.service.Impl;
 
-import com.softserveinc.softtour.dao.HistoryRequestDao;
+import com.softserveinc.softtour.repository.HistoryRequestDao;
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.HistoryRequest;
 import com.softserveinc.softtour.entity.User;

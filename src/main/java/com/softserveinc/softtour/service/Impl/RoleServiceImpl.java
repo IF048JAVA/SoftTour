@@ -1,7 +1,7 @@
 package com.softserveinc.softtour.service.Impl;
 
 
-import com.softserveinc.softtour.dao.RoleDao;
+import com.softserveinc.softtour.repository.RoleDao;
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.service.RoleService;
 

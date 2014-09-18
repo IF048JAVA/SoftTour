@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softserveinc.softtour.dao.FavoriteDao;
+import com.softserveinc.softtour.repository.FavoriteDao;
 import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.User;

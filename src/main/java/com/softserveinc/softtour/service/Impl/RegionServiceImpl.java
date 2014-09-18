@@ -1,6 +1,6 @@
 package com.softserveinc.softtour.service.Impl;
 
-import com.softserveinc.softtour.dao.RegionDao;
+import com.softserveinc.softtour.repository.RegionDao;
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.service.RegionService;
