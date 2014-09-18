@@ -3,6 +3,7 @@ package com.softserveinc.softtour.service.Impl;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import com.softserveinc.softtour.service.UserService;
  * 	Contains the methods for work with table User in the SoftTour database
  *  Supports a transaction
  */
+@Service
 @Transactional(propagation=Propagation.SUPPORTS, readOnly = true)
 public class UserServiceImpl implements UserService {
 
