@@ -13,8 +13,10 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 
 <script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-datepicker-ua.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 </head>
 
