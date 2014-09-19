@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +39,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="search.html">Пошук</a></li>
                     <li><a href="#">Готелі</a></li>
-                    <li><a href="about.html">Про нас</a></li>
+                    <li><a href="about.jsp">Про нас</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Увійти</a></li>
