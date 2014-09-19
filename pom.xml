@@ -28,6 +28,7 @@
         <jackson>1.4.1</jackson>
 
         <maven-compiler-plugin-version>3.0</maven-compiler-plugin-version>
+        <tomcat7-maven-plugin-version>2.0</tomcat7-maven-plugin-version>
     </properties>
 
     <dependencies>
@@ -165,6 +166,11 @@
                     <source>${java-version}</source>
                     <target>${java-version}</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>${tomcat7-maven-plugin-version}</version>
             </plugin>
         </plugins>
     </build>
