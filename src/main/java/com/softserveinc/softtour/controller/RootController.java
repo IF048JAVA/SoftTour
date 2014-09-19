@@ -15,4 +15,8 @@ public class RootController {
     public String searchPage() {
         return "search";
     }
+    @RequestMapping(value = "/registration")
+    public String registrationPage() {
+        return "registration";
+    }
 }
