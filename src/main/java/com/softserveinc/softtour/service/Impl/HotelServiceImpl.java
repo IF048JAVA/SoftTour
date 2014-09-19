@@ -1,6 +1,6 @@
 package com.softserveinc.softtour.service.Impl;
 
-import com.softserveinc.softtour.dao.HotelDao;
+import com.softserveinc.softtour.repository.HotelDao;
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.service.HotelService;

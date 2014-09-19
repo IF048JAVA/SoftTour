@@ -3,11 +3,12 @@ package com.softserveinc.softtour.service.Impl;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softserveinc.softtour.dao.UserDao;
+import com.softserveinc.softtour.repository.UserRepository;
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Sex;
@@ -22,15 +23,8 @@ import com.softserveinc.softtour.service.UserService;
 @Transactional(propagation=Propagation.SUPPORTS, readOnly = true)
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao;
-
-	/**
-	 * Sets the userDao object
-	 * @param userDao - object of the class UserDaoImpl
-	 */
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
+	@Autowired
+	private UserRepository userRepository;
 
 	/**
 	 * Saves the object user to the table User
@@ -40,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void save(String name, String email, String password, Date birthday,
 			byte age, Sex sex, String phone, Role role) {
-		userDao.save(name, email, password, birthday, age, sex, phone, role);
+		userRepository.save(name, email, password, birthday, age, sex, phone, role);
 	}
 
 	/**
@@ -53,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	public void update(long id, String name, String email, String password,
 			Date birthday, byte age, Sex sex, String phone, Role role) {
 
-		userDao.update(id, name, email, password, birthday, age, sex, phone,
+		userRepository.update(id, name, email, password, birthday, age, sex, phone,
 				role);
 	}
 
@@ -65,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void delete(long id) {
-		userDao.delete(id);
+		userRepository.delete(id);
 	}
 
 	/**
@@ -76,7 +70,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public User findById(long id) {
-		return userDao.findById(id);
+		return userRepository.findById(id);
 	}
 
 	/**
@@ -86,7 +80,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByName(String...name) {
-		return userDao.findByName(name);
+		return userRepository.findByName(name);
 	}
 	
 	/**
@@ -96,7 +90,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByEmail(String... email) {
-		return userDao.findByEmail(email);
+		return userRepository.findByEmail(email);
 	}
 	
 	/**
@@ -106,7 +100,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByPassword(String... password) {
-		return userDao.findByPassword(password);
+		return userRepository.findByPassword(password);
 	}
 	
 	/**
@@ -116,7 +110,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByBirthday(Date... birthday) {
-		return userDao.findByBirthday(birthday);
+		return userRepository.findByBirthday(birthday);
 	}
 	
 	/**
@@ -126,7 +120,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByAge(Byte... age) {
-		return userDao.findByAge(age);
+		return userRepository.findByAge(age);
 	}
 	
 	/**
@@ -136,7 +130,7 @@ public class UserServiceImpl implements UserService {
 		@Override
 		@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findBySex(Sex sex) {
-		return userDao.findBySex(sex);
+		return userRepository.findBySex(sex);
 	}
 		
 	/**
@@ -146,7 +140,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByPhone(String... phone) {
-		return userDao.findByPhone(phone);
+		return userRepository.findByPhone(phone);
 	}
 		
 	/**
@@ -156,7 +150,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByRole(Role...role) {
-		return userDao.findByRole(role);
+		return userRepository.findByRole(role);
 	}
 	
 	/**
@@ -166,7 +160,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> getAll() {
-		return userDao.getAll();
+		return userRepository.getAll();
 	}
 
 }

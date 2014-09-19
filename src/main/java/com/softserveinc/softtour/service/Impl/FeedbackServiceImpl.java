@@ -1,6 +1,6 @@
 package com.softserveinc.softtour.service.Impl;
 
-import com.softserveinc.softtour.dao.FeedbackDao;
+import com.softserveinc.softtour.repository.FeedbackDao;
 import com.softserveinc.softtour.entity.Feedback;
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.User;
