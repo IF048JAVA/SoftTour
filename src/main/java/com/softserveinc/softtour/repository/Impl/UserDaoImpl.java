@@ -13,6 +13,10 @@ import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Sex;
 
+
+// NEED TO DELET THIS CLASS !!!
+
+
 /**
  * @author Andriy
  * 	Contains the methods for work with table User in the SoftTour database

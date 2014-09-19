@@ -21,25 +21,28 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	/**
 	 * Saves the object user to the table User
 	 */
-	@Query("INSERT INTO User(name, email) VALUES(?1, ?2)")
+	//@Query("INSERT INTO User(name, email) VALUES(?1, ?2)")
 	public void save(String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
 
 	/**
 	 *  Updates the object user with the specified id
 	 *  id - id of the object user which will updated
 	 */
+	//@Query
 	public void update(long id, String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
 	
 	/**
 	 *  Deletes the object user with the specified id
 	 *  id - id of the object user which will deleted
 	 */
+	//@Query
 	public void delete(long id);
 	
 	/**
 	 *  Returns the object user with the specified id
 	 *  id - id of the object user which will returned
 	 */
+	//@Query
 	public User findById(long id);
 	
 	/**
