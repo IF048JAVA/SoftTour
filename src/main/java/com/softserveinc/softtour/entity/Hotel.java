@@ -1,7 +1,6 @@
 package com.softserveinc.softtour.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "Hotel")
@@ -21,12 +20,6 @@ public class Hotel {
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
-
-/*    @OneToMany(mappedBy = "hotel")
-    private Set<Feedback> feedbacks;
-
-    @OneToMany(mappedBy = "hotel")
-    private Set<Tour> tours;*/
 
     public Hotel() {
     }
@@ -68,22 +61,6 @@ public class Hotel {
     public void setRegion(Region region) {
         this.region = region;
     }
-
-/*    public Set<Feedback> getFeedbacks() {
-        return feedbacks;
-    }
-
-    public void setFeedbacks(Set<Feedback> feedbacks) {
-        this.feedbacks = feedbacks;
-    }
-
-    public Set<Tour> getTours() {
-        return tours;
-    }
-
-    public void setTours(Set<Tour> tours) {
-        this.tours = tours;
-    }*/
 
     @Override
     public String toString() {

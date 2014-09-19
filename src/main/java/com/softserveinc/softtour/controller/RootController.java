@@ -4,11 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/home")
+//@RequestMapping(value = "/")
 public class RootController {
 
-    @RequestMapping
+    @RequestMapping(value = "/")
     public String homePage() {
-        return "test";
+        return "index";
+    }
+    @RequestMapping(value = "/search")
+    public String searchPage() {
+        return "search";
     }
 }

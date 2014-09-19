@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<link href="css/settings.css" rel="stylesheet">
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="/css/settings.css" rel="stylesheet">
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/css/bootstrap-theme.min.css" rel="stylesheet">
 </head>
 <body bgcolor="#c0c0c0">
     <div class="wrapper container">
@@ -31,12 +32,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.html">SoftTour</a>
+                        <a class="navbar-brand" href="/">SoftTour</a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><a href="search.html" class="active">Пошук</a></li>
+                            <li><a href="search" class="active">Пошук</a></li>
                             <li><a href="#">Готелі</a></li>
                             <li><a href="#">Про нас</a></li>
                         </ul>

@@ -1,3 +1,4 @@
+/*
 package com.softserveinc.softtour.controller;
 
 import java.sql.Date;
@@ -38,3 +39,4 @@ public class UserController {
 	}
 	
 }
+*/
