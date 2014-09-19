@@ -3,9 +3,7 @@ package com.softserveinc.softtour.entity;
 import com.softserveinc.softtour.entity.template.Sex;
 
 import javax.persistence.*;
-
 import java.sql.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -41,18 +39,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
-
-/*    @OneToMany(mappedBy = "user")
-    private Set<Favorite> favorites;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Feedback> feedbacks;
-
-    @OneToMany(mappedBy = "user")
-    private Set<HistoryRecord> historyRecords;
-
-    @OneToMany(mappedBy = "user")
-    private Set<HistoryRequest> historyRequests;*/
 
     public User() {
     }
@@ -143,38 +129,6 @@ public class User {
         this.role = role;
     }
 
- /*   public Set<Favorite> getFavorites() {
-        return favorites;
-    }
-
-    public void setFavorites(Set<Favorite> favorites) {
-        this.favorites = favorites;
-    }
-
-    public Set<Feedback> getFeedbacks() {
-        return feedbacks;
-    }
-
-    public void setFeedbacks(Set<Feedback> feedbacks) {
-        this.feedbacks = feedbacks;
-    }
-
-    public Set<HistoryRecord> getHistoryRecords() {
-        return historyRecords;
-    }
-
-    public void setHistoryRecords(Set<HistoryRecord> historyRecords) {
-        this.historyRecords = historyRecords;
-    }
-
-    public Set<HistoryRequest> getHistoryRequests() {
-        return historyRequests;
-    }
-
-    public void setHistoryRequests(Set<HistoryRequest> historyRequests) {
-        this.historyRequests = historyRequests;
-    }
-*/
     @Override
     public String toString() {
         return "User{" +
