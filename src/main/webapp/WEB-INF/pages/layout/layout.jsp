@@ -17,12 +17,14 @@
 <link href="css/profileStyle.css" rel="stylesheet">
 <link href="css/datepicker.css" rel="stylesheet">
 </head>
-<body>
-
-    <tiles:insertAttribute name="header" />
-    <tiles:insertAttribute name="nav" />
-    <tiles:insertAttribute name="body" />
-    <tiles:insertAttribute name="footer" />
-
+<body bgcolor="#c0c0c0">
+    <div class="wrapper container" style="margin-bottom: 15px;">
+        <tiles:insertAttribute name="header" />
+    <div class="container" id="white_main">
+        <tiles:insertAttribute name="nav" />
+        <tiles:insertAttribute name="body" />
+        <tiles:insertAttribute name="footer" />
+    </div>
+    </div>
 </body>
 </html>

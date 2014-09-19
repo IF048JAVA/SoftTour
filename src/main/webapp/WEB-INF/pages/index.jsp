@@ -1,5 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,12 +17,13 @@
 
 </head>
 <body bgcolor="#c0c0c0">
-     <div class="wrapper container" style="margin-bottom: 15px;">
+        <div class="wrapper container" style="margin-bottom: 15px;">
         <header>
                 <div class="col-md-1"><img src="img/2.png" style="max-height: 100%; max-width: 100%;"></div><!--замінити на картинку малого розміру-->
                 <div class="col-md-4"><h3 id="heading">SoftTour - подорожуй зручно!</h3></div>
                 <div class="col-md-7"></div>
         </header>
+        
         <div class="container" id="white_main">
             <nav class="navbar navbar-default" role="navigation" style="margin-top:5px;">
                 <div class="container-fluid">

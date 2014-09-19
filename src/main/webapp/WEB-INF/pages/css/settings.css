@@ -60,3 +60,6 @@ p {
 .mycarousel{
     height: 305px    ;
 }
+.center {
+    text-align: center;
+}
