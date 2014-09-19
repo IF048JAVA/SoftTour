@@ -11,23 +11,26 @@ import java.util.List;
  * @author Andriy
  * Contains the methods for work with table Favorite in the SoftTour database
  */
-public interface FavoriteDao {
+public interface FavoriteRepository {
 	
 	/**
 	 * Saves the object favorite to the table Favorite
 	 */
+	//@Query
 	public void save(Date date, User user, Tour tour);
 	
 	/**
 	 *  Updates the object favorite with the specified id
 	 *  id - id of the object favorite which will be updated
 	 */
+	//@Query
 	public void update(long id, Date date, User user, Tour tour);
 	
 	/**
 	 *  Deletes the object favorite with the specified id
 	 *  id - id of the object favorite which will be deleted
 	 */
+	//@Query
 	public void delete(long id);
 	
 	/**

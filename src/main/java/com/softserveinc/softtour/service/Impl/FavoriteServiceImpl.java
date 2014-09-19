@@ -3,10 +3,11 @@ package com.softserveinc.softtour.service.Impl;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softserveinc.softtour.repository.FavoriteDao;
+import com.softserveinc.softtour.repository.FavoriteRepository;
 import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.User;
@@ -20,15 +21,8 @@ import com.softserveinc.softtour.service.FavoriteService;
 @Transactional(propagation=Propagation.SUPPORTS, readOnly=true)
 public class FavoriteServiceImpl implements FavoriteService{
 
-	private FavoriteDao favoriteDao;
-	
-	/**
-	 * Sets the favoriteDao object
-	 * @param favoriteDao - object of the class FavoriteDaoImpl
-	 */
-	public void setFavoriteDao(FavoriteDao favoriteDao) {
-		this.favoriteDao = favoriteDao;
-	}
+	@Autowired
+	private FavoriteRepository favoriteRepository;
 	
 	/**
 	 * Saves the object favorite to the table Favorite
@@ -37,7 +31,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void save(Date date, User user, Tour tour) {
-		favoriteDao.save(date, user, tour);
+		favoriteRepository.save(date, user, tour);
 	}
 
 	/**
@@ -48,7 +42,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void update(long id, Date date, User user, Tour tour) {
-		favoriteDao.update(id, date, user, tour);
+		favoriteRepository.update(id, date, user, tour);
 	}
 	
 	/**
@@ -59,7 +53,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
 	public void delete(long id) {
-		favoriteDao.delete(id);
+		favoriteRepository.delete(id);
 	}
 
 	/**
@@ -70,7 +64,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Favorite findById(long id) {
-		return favoriteDao.findById(id);
+		return favoriteRepository.findById(id);
 	}
 	
 	/**
@@ -81,7 +75,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Favorite> findByDate(Date... date) {
-		return favoriteDao.findByDate(date);
+		return favoriteRepository.findByDate(date);
 	}
 
 	/**
@@ -91,7 +85,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Favorite> findByUser(User...user) {
-		return favoriteDao.findByUser(user);
+		return favoriteRepository.findByUser(user);
 	}
 
 	/**
@@ -101,7 +95,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Favorite> findByTour(Tour...tour) {
-		return favoriteDao.findByTour(tour);
+		return favoriteRepository.findByTour(tour);
 	}
 	
 	/**
@@ -111,7 +105,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Favorite> getAll() {
-		return favoriteDao.getAll();
+		return favoriteRepository.getAll();
 	}
 
 }

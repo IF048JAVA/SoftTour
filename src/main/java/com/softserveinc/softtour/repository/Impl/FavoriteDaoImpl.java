@@ -5,21 +5,26 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.softserveinc.softtour.repository.FavoriteDao;
+import com.softserveinc.softtour.repository.FavoriteRepository;
 import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.User;
+
+
+//NEED TO DELET THIS CLASS !!!
+
+
+
 
 /**
  * @author Andriy
  *	Contains the methods for work with table Favorite in the SoftTour database 
  */
-public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao {
+public class FavoriteDaoImpl extends HibernateDaoSupport {
 
 	/**
 	 * Saves the object favorite to the table Favorite
 	 */
-	@Override
 	public void save(Date date, User user, Tour tour) {
 		Favorite favorite = new Favorite(date, user, tour);
 		getHibernateTemplate().save(favorite);
@@ -29,7 +34,6 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	 *  Updates the object favorite with the specified id
 	 *  id - id of the object favorite which will updated
 	 */
-	@Override
 	public void update(long id, Date date, User user, Tour tour) {
 		Favorite favorite = (Favorite) getHibernateTemplate().get(
 				Favorite.class, id);
@@ -49,7 +53,6 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	 *  Deletes the object favorite with the specified id
 	 *  id - id of the object favorite which will deleted
 	 */
-	@Override
 	public void delete(long id) {
 		Favorite favorite = (Favorite) getHibernateTemplate().get(
 				Favorite.class, id);
@@ -65,7 +68,6 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	 *  Returns the object favorite with the specified id
 	 *  id - id of the object favorite which will returned
 	 */
-	@Override
 	public Favorite findById(long id) {
 		Favorite favorite = (Favorite) getHibernateTemplate().get(
 				Favorite.class, id);
@@ -77,7 +79,6 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	 * Returns the list of the objects favorite which contains the specified date
 	 * @param date - date of the objects which will be added to the list
 	 */
-	@Override
 	public List<Favorite> findByDate(Date... date) {
 		String queryFindByDate = createQuery("date", date.length);
 
@@ -88,7 +89,6 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	/**
 	 *  Returns the list of the objects favorite which contain the specified object user 
 	 */
-	@Override
 	public List<Favorite> findByUser(User...user) {
 		String queryFindByUser = createQuery("user_id", user.length);
 
@@ -99,7 +99,6 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	/**
 	 *  Returns the list of the objects favorite which contain the specified object tour 
 	 */
-	@Override
 	public List<Favorite> findByTour(Tour...tour) {
 		String queryFindByTour = createQuery("tour_id", tour.length);
 
@@ -110,7 +109,6 @@ public class FavoriteDaoImpl extends HibernateDaoSupport implements FavoriteDao 
 	/**
 	 *  Returns the list of all objects favorite which are contained in the table Favorite
 	 */
-	@Override
 	public List<Favorite> getAll() {
 		String queryGetAll = "From Favorite";
 		@SuppressWarnings("unchecked")
