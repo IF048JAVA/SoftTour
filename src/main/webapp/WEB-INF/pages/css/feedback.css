@@ -1,0 +1,76 @@
+@charset "utf-8";
+/* CSS Document */
+
+#left_right_container
+{
+	width:100%;
+	overflow:hidden;
+	/*border:5px groove #006;*/
+}
+
+
+#left_div
+{
+	border:1px solid gray;
+	width:49.5%;
+	float:left;
+	margin-right:0.5%;
+	/*margin-bottom:15px;*/
+	border-radius:5px;
+	 -webkit-border-radius:5px;
+	 -moz-border-radius:5px;
+	 padding:0.5%;
+}
+
+#right_div
+{
+	border:1px solid gray;
+	width:49.5%;
+	float:left;
+	margin-left:0.5%;
+	/*margin-bottom:15px;*/
+	border-radius:5px;
+	 -webkit-border-radius:5px;
+	 -moz-border-radius:5px;
+}
+
+
+.form_p
+{
+	text-align:center;
+}
+
+.input_overall
+{
+	width:50%;
+	height:40px;
+}
+
+.option_style
+{
+	/*height:40px;*/
+	
+}
+
+.submit_button
+{
+	width:25%;
+	height:40px;
+	
+}
+
+.user_img
+{
+	width:100px;
+	height:60px;
+	 -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+}
+
+.user_img:hover
+{
+	width:100%;
+	height:300px;
+}
+
