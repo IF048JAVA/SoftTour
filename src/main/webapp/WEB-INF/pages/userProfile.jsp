@@ -1,64 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>SoftTour</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	
-	<link href="css/profileStyle.css" rel="stylesheet">
-	<link href="css/datepicker.css" rel="stylesheet">
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	
-	
-	
-	
-
-	
-</head>
-<body bgcolor="#c0c0c0">
-    <div class="wrapper container">
-        <header>
-            <div class-"row" style="margin-top: 4px;">
-                <div class="col-md-1"><img src="img/2.png" style="max-height: 100%; max-width: 100%;"></div>
-                <div class="col-md-4"><h3 id="heading">SoftTour - подорожуй зручно!</h3></div>
-                <div class="col-md-7"></div>
-            </div>
-        </header>
- 
-    <div class="container" id="white_main">
-        <nav class="navbar navbar-default" role="navigation" style="margin-top:5px;">
-            <div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.html">SoftTour</a>
-				</div>
-
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li><a href="search.html" class="active">Пошук</a></li>
-						<li><a href="#">Готелі</a></li>
-						<li><a href="about.html" class="active">Про нас</a></li>
-					</ul>
-  
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="userProfile.html">Мій профіль</a></li>
-						<li><a href="#">Вихід</a></li>
-	
-					</ul>
-				</div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
 			
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
@@ -132,6 +75,7 @@
 			
 			<!-- Tab myProfile -->
 			<div class="tab-pane" id="myProfile">
+				<div class="col-md-3 col-md-3-offset"></div>
 				<div class="col-md-6 form">
 				
 					<form class="form-horizontal">
@@ -220,15 +164,4 @@
 					</form>
 				</div>
 			</div>		  
-		</div>
-	</div>
-			          
-    <footer></footer>
 
-	<script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/bootstrap-datepicker-ua.js"></script>
-	<script src="js/calendar.js"></script>
-</body>
-</html>

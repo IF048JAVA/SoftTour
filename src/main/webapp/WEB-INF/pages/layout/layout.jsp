@@ -26,5 +26,11 @@
         <tiles:insertAttribute name="footer" />
     </div>
     </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-datepicker-ua.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/selector.js"></script>
 </body>
 </html>

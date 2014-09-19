@@ -19,4 +19,12 @@ public class RootController {
     public String registrationPage() {
         return "registration";
     }
+    @RequestMapping(value = "/about")
+    public String aboutPage() {
+        return "about";
+    }
+    @RequestMapping(value = "/userProfile")
+    public String userProfile() {
+        return "userProfile";
+    }
 }

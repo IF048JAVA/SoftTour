@@ -1,37 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>registration</title>
-
-<link href="css/profileStyle.css" rel="stylesheet">
-	<link href="css/datepicker.css" rel="stylesheet">
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	
-	<script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/bootstrap-datepicker-ua.js"></script>
-	<script src="js/registrationControl.js"></script>
-	
-</head>
-
-<body class="body">
-	<div class="container">
-		   <header>
-            <div class-"row" style="margin-top: 4px;">
-                <div class="col-md-1"><img src="img/2.png" style="max-height: 100%; max-width: 100%;"></div><!--замінити на картинку малого розміру-->
-                <div class="col-md-4"><h3 id="heading">SoftTour - подорожуй зручно!</h3></div>
-                <div class="col-md-7"></div>
-            </div>    
-        </header>
-            
-		<div class="col-md-6 form" id="location_registration">
+		<div class="col-md-3 col-md-3-offset"></div>
+		<div class="col-md-6 form">
 
 			<form class="form-horizontal" action="http://localhost:8080/SoftTour/user/save" 
 				onsubmit="return registrationControl('firstNameInput', 'EmailInput', 
@@ -85,22 +55,14 @@
 							<div class="col-md-5">
 								<input  id="birthdayInput" type="text" placeholder="dd/mm/yyyy" class="form-control input-md"> 
 							</div>
-								<script type="text/javascript">
-									
-									// When the document is ready
-									$(document).ready(function () {
-										$('#birthdayInput').datepicker({
-											format: 'dd/mm/yyyy'
-										});	
-									});  
-								</script>
+
 						</div>
 
 						<!-- Sex Select -->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="SexInput">Стать</label>
 							<div class="col-md-5">
-								<select class="form-control">
+								<select id="SexInput" class="form-control">
 									<option>Чоловік</option>
 									<option>Жінка</option>
 								</select>
@@ -123,15 +85,10 @@
 						<div class="form-group">
 							<button class="btn btn-primary" type="submit">
 								<span class="glyphicon glyphicon-ok"></span>
-								Зберегти
+								Реєстрація
 							</button>
 						</div>
 
 				</fieldset>
 			</form>
 		</div>
-	</div>
-
-</body>
-
-</html>

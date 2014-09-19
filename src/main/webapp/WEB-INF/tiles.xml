@@ -3,26 +3,34 @@
 <tiles-definitions>
 	<definition name="baseLayout" template="/WEB-INF/pages/layout/layout.jsp">
 		<put-attribute name="title" value="SoftTour" />
-		<put-attribute name="header" value="/WEB-INF/jsp/layout/header.jsp" />
-		<put-attribute name="nav" value="/WEB-INF/jsp/layout/nav.jsp"/>
+		<put-attribute name="header" value="/WEB-INF/pages/layout/header.jsp" />
+		<put-attribute name="nav" value="/WEB-INF/pages/layout/nav.jsp"/>
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/WEB-INF/jsp/layout/footer.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/pages/layout/footer.jsp" />
 	</definition>
 
 	<definition name="index" extends="baseLayout">
 		<put-attribute name="title" value="SoftTour" />
-		<put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
+		<put-attribute name="body" value="/WEB-INF/pages/index.jsp" />
 	</definition>
 	
 	<definition name="search" extends="baseLayout">
 		<put-attribute name="title" value="SoftTour" />
-		<put-attribute name="body" value="/WEB-INF/jsp/search.jsp" />
+		<put-attribute name="body" value="/WEB-INF/pages/search.jsp" />
 	</definition>
-	
+
 	<definition name="about" extends="baseLayout">
 		<put-attribute name="title" value="SoftTour" />
-		<put-attribute name="body" value="/WEB-INF/jsp/about.jsp" />
+		<put-attribute name="body" value="/WEB-INF/pages/about.jsp" />
 	</definition>
+    <definition name="registration" extends="baseLayout">
+        <put-attribute name="title" value="SoftTour" />
+        <put-attribute name="body" value="/WEB-INF/pages/registration.jsp" />
+    </definition>
+    <definition name="userProfile" extends="baseLayout">
+        <put-attribute name="title" value="SoftTour" />
+        <put-attribute name="body" value="/WEB-INF/pages/userProfile.jsp" />
+    </definition>
 	
 	
 </tiles-definitions>
