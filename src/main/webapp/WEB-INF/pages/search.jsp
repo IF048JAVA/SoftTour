@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +17,9 @@
 <body bgcolor="#c0c0c0">
     <div class="wrapper container">
         <header>
-            <div class="row" style="margin-top: 4px;">
                 <div class="col-md-1"><img src="img/2.png" style="max-height: 100%; max-width: 100%;"></div>
                 <div class="col-md-4"><h3 id="heading">SoftTour - подорожуй зручно!</h3></div>
                 <div class="col-md-7"></div>
-            </div>
         </header>
         <div class="container" id="white_main">
             <nav class="navbar navbar-default" role="navigation" style="margin-top:5px;">
@@ -44,7 +43,7 @@
       
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#">Увійти</a></li>
-                            <li><a href="#">Реєстрація</a></li>
+                            <li><a href="registration">Реєстрація</a></li>
         
                         </ul>
                     </div><!-- /.navbar-collapse -->
