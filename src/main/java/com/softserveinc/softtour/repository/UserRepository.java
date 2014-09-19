@@ -16,7 +16,7 @@ import com.softserveinc.softtour.entity.template.Sex;
  * 	Contains the methods for work with table User in the SoftTour database
  */
 @Repository
-public interface UserDao extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 	
 	/**
 	 * Saves the object user to the table User
