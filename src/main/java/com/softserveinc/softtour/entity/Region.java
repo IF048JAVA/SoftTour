@@ -19,8 +19,8 @@ public class Region {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    @OneToMany(mappedBy = "region")
-    private Set<Hotel> hotels;
+/*    @OneToMany(mappedBy = "region")
+    private Set<Hotel> hotels;*/
 
     public Region() {
     }
@@ -54,13 +54,13 @@ public class Region {
         this.country = country;
     }
 
-    public Set<Hotel> getHotels() {
+/*    public Set<Hotel> getHotels() {
         return hotels;
     }
 
     public void setHotels(Set<Hotel> hotels) {
         this.hotels = hotels;
-    }
+    }*/
 
     @Override
     public String toString() {

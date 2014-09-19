@@ -22,11 +22,11 @@ public class Hotel {
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 
-    @OneToMany(mappedBy = "hotel")
+/*    @OneToMany(mappedBy = "hotel")
     private Set<Feedback> feedbacks;
 
     @OneToMany(mappedBy = "hotel")
-    private Set<Tour> tours;
+    private Set<Tour> tours;*/
 
     public Hotel() {
     }
@@ -69,7 +69,7 @@ public class Hotel {
         this.region = region;
     }
 
-    public Set<Feedback> getFeedbacks() {
+/*    public Set<Feedback> getFeedbacks() {
         return feedbacks;
     }
 
@@ -83,7 +83,7 @@ public class Hotel {
 
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
-    }
+    }*/
 
     @Override
     public String toString() {

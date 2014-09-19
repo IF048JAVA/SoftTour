@@ -15,8 +15,8 @@ public class Role {
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
+/*    @OneToMany(mappedBy = "role")
+    private Set<User> users;*/
 
     public Role() {
     }
@@ -41,6 +41,7 @@ public class Role {
         this.name = name;
     }
 
+/*
     public Set<User> getUsers() {
         return users;
     }
@@ -48,6 +49,7 @@ public class Role {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+*/
 
     @Override
     public String toString() {

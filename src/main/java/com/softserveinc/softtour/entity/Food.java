@@ -15,8 +15,8 @@ public class Food {
     @Column(name = "name", nullable = false, length = 3)
     private String name;
 
-    @OneToMany(mappedBy = "food")
-    private Set<Tour> tours;
+/*    @OneToMany(mappedBy = "food")
+    private Set<Tour> tours;*/
 
     public Food() {
     }
@@ -41,6 +41,7 @@ public class Food {
         this.name = name;
     }
 
+/*
     public Set<Tour> getTours() {
         return tours;
     }
@@ -48,6 +49,7 @@ public class Food {
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
     }
+*/
 
     @Override
     public String toString() {

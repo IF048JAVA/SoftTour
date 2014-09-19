@@ -42,7 +42,7 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+/*    @OneToMany(mappedBy = "user")
     private Set<Favorite> favorites;
 
     @OneToMany(mappedBy = "user")
@@ -52,7 +52,7 @@ public class User {
     private Set<HistoryRecord> historyRecords;
 
     @OneToMany(mappedBy = "user")
-    private Set<HistoryRequest> historyRequests;
+    private Set<HistoryRequest> historyRequests;*/
 
     public User() {
     }
@@ -143,7 +143,7 @@ public class User {
         this.role = role;
     }
 
-    public Set<Favorite> getFavorites() {
+ /*   public Set<Favorite> getFavorites() {
         return favorites;
     }
 
@@ -174,7 +174,7 @@ public class User {
     public void setHistoryRequests(Set<HistoryRequest> historyRequests) {
         this.historyRequests = historyRequests;
     }
-
+*/
     @Override
     public String toString() {
         return "User{" +

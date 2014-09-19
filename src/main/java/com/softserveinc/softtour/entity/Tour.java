@@ -38,11 +38,11 @@ public class Tour {
     @JoinColumn(name = "food_id", nullable = false)
     private Food food;
 
-    @OneToMany(mappedBy = "tour")
+/*    @OneToMany(mappedBy = "tour")
     private Set<Favorite> favorites;
 
     @OneToMany(mappedBy = "tour")
-    private Set<HistoryRecord> historyRecords;
+    private Set<HistoryRecord> historyRecords;*/
 
     public Tour() {
     }
@@ -123,6 +123,7 @@ public class Tour {
         this.food = food;
     }
 
+/*
     public Set<Favorite> getFavorites() {
         return favorites;
     }
@@ -138,6 +139,7 @@ public class Tour {
     public void setHistoryRecords(Set<HistoryRecord> historyRecords) {
         this.historyRecords = historyRecords;
     }
+*/
 
 
     @Override
