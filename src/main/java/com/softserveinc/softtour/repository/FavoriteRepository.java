@@ -7,11 +7,15 @@ import com.softserveinc.softtour.entity.User;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  * @author Andriy
  * Contains the methods for work with table Favorite in the SoftTour database
  */
-public interface FavoriteRepository {
+@Repository
+public interface FavoriteRepository extends JpaRepository<Favorite, Long>{
 	
 	/**
 	 * Saves the object favorite to the table Favorite

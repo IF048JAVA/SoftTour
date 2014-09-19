@@ -42,7 +42,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 *  Returns the object user with the specified id
 	 *  id - id of the object user which will returned
 	 */
-	//@Query
+	@Query("SELECT u FROM User a WHERE u.id = ?1")
 	public User findById(long id);
 	
 	/**
