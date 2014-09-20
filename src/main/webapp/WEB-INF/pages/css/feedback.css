@@ -15,8 +15,9 @@
 	width:49.5%;
 	float:left;
 	margin-right:0.5%;
-	/*margin-bottom:15px;*/
+	margin-bottom:15px;
 	border-radius:5px;
+    font-family: serif;
 	 -webkit-border-radius:5px;
 	 -moz-border-radius:5px;
 	 padding:0.5%;
@@ -28,8 +29,9 @@
 	width:49.5%;
 	float:left;
 	margin-left:0.5%;
-	/*margin-bottom:15px;*/
+	margin-bottom:15px;
 	border-radius:5px;
+    font-family: serif;
 	 -webkit-border-radius:5px;
 	 -moz-border-radius:5px;
 }

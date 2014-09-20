@@ -27,4 +27,8 @@ public class RootController {
     public String userProfile() {
         return "userProfile";
     }
+    @RequestMapping(value = "/feedback")
+    public String feedback() {
+        return "feedback";
+    }
 }

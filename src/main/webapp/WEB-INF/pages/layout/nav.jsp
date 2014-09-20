@@ -16,6 +16,7 @@
                 <li><a href="search">Пошук</a></li>
                 <li><a href="#">Готелі</a></li>
                 <li><a href="about">Про нас</a></li>
+                <li><a href="feedback">Зворотній зв'язок</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="userProfile">Увійти</a></li>
