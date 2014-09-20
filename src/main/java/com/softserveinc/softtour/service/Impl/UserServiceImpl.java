@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByAnyParameters(long id, String name, String email, String password, 
 								Date birthday, byte age, Sex sex, String phone, Role role) {
-		return userRepository.findByIdOrNameOrEmailOrPasswordOrBirthdayOrAgeOrSexOrPhoneOrRole(
+		return userRepository.findByIdAndNameAndEmailAndPasswordAndBirthdayAndAgeAndSexAndPhoneAndRole(
 				id, name, email, password, birthday, age, sex, phone, role);
 	}
 	
