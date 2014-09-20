@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import com.softserveinc.softtour.service.FavoriteService;
  * Contains the methods for work with table Favorite in the SoftTour database
  * Supports a transaction
  */
+@Service
 @Transactional(propagation=Propagation.SUPPORTS, readOnly=true)
 public class FavoriteServiceImpl implements FavoriteService{
 
@@ -30,19 +32,19 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 */
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-	public void save(Date date, User user, Tour tour) {
-		favoriteRepository.save(date, user, tour);
+	public void save(Favorite favorite) {
+		favoriteRepository.save(favorite);
 	}
-
+	
 	/**
-	 *  Updates the object favorite with the specified id
-	 *  id - id of the object favorite which will be updated
-	 *  Supports a transaction
+	 * Updates the object favorite with the specified id
+	 * @param id - id of the object favorite which will be updated
+	 * @param favorite - it's the object with the new values
 	 */
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-	public void update(long id, Date date, User user, Tour tour) {
-		favoriteRepository.update(id, date, user, tour);
+	public void update(long id, Favorite favorite) {
+		favoriteRepository.update(id, favorite.getDate(), favorite.getUser(), favorite.getTour());
 	}
 	
 	/**
@@ -55,7 +57,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	public void delete(long id) {
 		favoriteRepository.delete(id);
 	}
-
+	
 	/**
 	 *  Returns the object favorite with the specified id
 	 *  id - id of the object favorite which will be returned
@@ -64,48 +66,25 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Favorite findById(long id) {
-		return favoriteRepository.findById(id);
+		return favoriteRepository.findOne(id);
 	}
 	
 	/**
-	 * Returns the list of the objects favorite which contain the specified date
-	 * @param date - date of the objects which will be added to the list
-	 * Supports a transaction
+	 * Returns the list of the favorite's objects with the specified parameters
 	 */
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public List<Favorite> findByDate(Date... date) {
-		return favoriteRepository.findByDate(date);
-	}
-
-	/**
-	 *  Returns the list of the objects favorite which contain the specified object user
-	 *  Supports a transaction 
-	 */
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<Favorite> findByUser(User...user) {
-		return favoriteRepository.findByUser(user);
-	}
-
-	/**
-	 *  Returns the list of the objects favorite which contain the specified object tour
-	 *  Supports a transaction 
-	 */
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<Favorite> findByTour(Tour...tour) {
-		return favoriteRepository.findByTour(tour);
+	public List<Favorite> findByAnyParameters(long id, Date date, User user, Tour tour) {
+		return favoriteRepository.findByIdOrDateOrUserOrTour(id, date, user, tour);
 	}
 	
 	/**
-	 *  Returns the list of all objects favorite which are contained in the table Favorite
-	 *  Supports a transaction
+	 *  Returns the list of all favorite's objects which are contained in the table Favorite
 	 */
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public List<Favorite> getAll() {
-		return favoriteRepository.getAll();
+	public List<Favorite> findAll() {
+		return favoriteRepository.findAll();
 	}
 
 }
