@@ -23,6 +23,7 @@ function registrationControl(firstNameInput, EmailInput,
 	} else if (email.length < 7) {
 		alert("Ви ввели некоректний email ! \n" +
 		"Email повинен містити принаймні 7 символів !");
+		return false;
 	} else if (6 > password.length || password.length > 10 ) {
 		alert("Ви ввели некоректний пароль ! \n" +
 		"Пароль повинен містити від 6 до 10 символів !");
