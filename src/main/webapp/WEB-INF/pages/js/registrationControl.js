@@ -5,12 +5,12 @@ var confirmPassword;
 var phone;
 
 function registrationControl(firstNameInput, EmailInput, 
-					PasswordInput, ConfirmPasswordInput, PhoneNuvmerInput){
+					PasswordInput, ConfirmPasswordInput, PhoneNumberInput){
 	name = document.getElementById(firstNameInput).value;
 	email = document.getElementById(EmailInput).value;
 	password = document.getElementById(PasswordInput).value;
 	confirmPassword = document.getElementById(ConfirmPasswordInput).value;
-	phone = document.getElementById(PhoneNuvmerInput).value;
+	phone = document.getElementById(PhoneNumberInput).value;
 	
 	if (name.length < 6 ) {
 		alert("Ви ввели некоректне ім'я ! \n" +

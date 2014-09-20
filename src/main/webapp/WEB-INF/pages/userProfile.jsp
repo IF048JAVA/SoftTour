@@ -78,7 +78,10 @@
 				<div class="col-md-3 col-md-3-offset"></div>
 				<div class="col-md-6 form">
 				
-					<form class="form-horizontal">
+					<form class="form-horizontal" action="http://localhost:8080/SoftTour/user/save"
+                          onsubmit="return registrationControl('firstNameInput', 'EmailInput',
+													'PasswordInput', 'ConfirmPasswordInput',
+													'PhoneNumberInput')">
 						
 						<fieldset>
 						
@@ -136,9 +139,9 @@
 							
 							<!-- Sex Select -->
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="SexInput">Стать</label>  
+								<label class="col-md-4 control-label" for="sexInput">Стать</label>
 								<div class="col-md-5">
-									<select class="form-control">
+									<select id="sexInput" class="form-control">
 									<option>Чоловік</option>
 									<option>Жінка</option>
 									</select>
@@ -148,9 +151,9 @@
 
 							<!-- Phone input-->
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="PhoneNuvmerInput">Номер телефону</label>  
+								<label class="col-md-4 control-label" for="PhoneNumberInput">Номер телефону</label>
 								<div class="col-md-5">
-									<input id="PhoneNuvmerInput" name="PhoneNuvmerInput" type="text" placeholder="" class="form-control input-md">
+									<input id="PhoneNumberInput" name="PhoneNumberInput" type="text" placeholder="" class="form-control input-md">
 									<p class="help-block">+38(xxx)xxx-xx-xx</p>
 								</div>
 							</div>									
