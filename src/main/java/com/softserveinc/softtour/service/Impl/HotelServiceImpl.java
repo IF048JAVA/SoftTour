@@ -15,7 +15,34 @@ public class HotelServiceImpl implements HotelService {
     private HotelRepository hotelRepository;
 
     @Override
+    public Hotel save(Hotel hotel) {
+        return hotelRepository.saveAndFlush(hotel);
+    }
+
+    @Override
+    public Hotel findOne(long id) {
+        return hotelRepository.findOne(id);
+    }
+
+    @Override
     public List<Hotel> findAll() {
         return hotelRepository.findAll();
+    }
+
+    @Override
+    public void delete(Hotel hotel) {
+        hotelRepository.delete(hotel);
+
+    }
+
+    @Override
+    public void deleteById(long id) {
+        hotelRepository.delete(id);
+
+    }
+
+    @Override
+    public List<Hotel> findByCustomParameters() {
+        return null;
     }
 }
