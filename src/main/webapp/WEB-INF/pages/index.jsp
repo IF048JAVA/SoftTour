@@ -5,6 +5,6 @@
         <div class="col-md-1"></div>
         <div class="col-md-3 imgfont"><img src="img/greece_logo.png"><br>Греція</div>
         <div class="col-md-1"></div>
-        <div class="col-md-3 imgfont"><img src="img/turkey_logo.png"><br>Туреччина</div>
+        <div class="col-md-3 imgfont"><img src="img/turk_logo.png"><br>Туреччина</div>
         <div class="col-md-1"></div>
 </div>

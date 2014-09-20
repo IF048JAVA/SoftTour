@@ -176,7 +176,7 @@
                         </form>
                 </div>
         </div>
-            <div class="col-sm-6" style="overflow: hiddden;">
+            <div class="col-sm-6" style="overflow: hidden;">
                     <div id="carousel-example-generic" class="carousel slide mycarousel" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -200,7 +200,7 @@
       <p style="font-size:18px;">Серед найбільш відомих та популярних туристичних центрів Греції: історико-культурних — Афіни, Дельфи, острів Корфу, Крит; центри пляжного відпочинку — півострів Халкідіки, острови-курорти Міконос, Санторіні, Парос і Крит; центри паломництва християн — Свята гора Афон, Метеорські монастирі, візантійські пам'ятки Салонік (Базиліка Святого Дімітрія, Базиліка Святої Софії та інші), занесені до переліку об'єктів світової спадщини ЮНЕСКО.</p>
     </div>
     <div class="item">
-      <img src="img/turkey_carousel.jpg">
+      <img src="img/turk_carousel.jpg">
       <div class="carousel-caption">
       </div>
       <p style="font-size:18px;">Найпопулярніші курорти в Туреччині — Сіде, Белек, Мармарис, Анталія, Кемер, Аланія, Бодрум, Фетхіє.</p>
