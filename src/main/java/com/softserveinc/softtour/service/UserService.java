@@ -19,11 +19,11 @@ public interface UserService {
 	public void save(User user);
 	
 	/**
-	 *  Updates the object user with the specified id
-	 *  id - id of the object user which will updated
+	 * Updates the object user with the specified id
+	 * @param id - id of the object user which will be updated
+	 * @param user - it's the object with the new values
 	 */
-	public void update(long id, String name, String email, String password, 
-			Date birthday, byte age, Sex sex, String phone, Role role);
+	public void update(long id, User user);
 	
 	/**
 	 *  Deletes the object user with the specified id
