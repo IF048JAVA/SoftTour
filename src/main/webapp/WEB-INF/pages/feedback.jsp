@@ -2,29 +2,53 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <!-- Form -->
+    <div class="col-md-6 form">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Форма зворотнього зв'язку</legend>
 
-    <div id="left_right_container">
-        <div id="left_div">
-            <form method="post" ectype="text/plain" action="mailto:yurivalkiv@gmail.com" name="form"
-                  onsubmit="return checkForm('user_name','user_email','user_area')">
-                <p class="form_p">
-                    <legend>Форма зворотнього зв'язку</legend>
-                <p class="form_p"><input type="text" id="user_name" class="input_overall" name="user_name"
-                                         placeholder="Введіть Ваше ім'я:"/></p>
+                    <div class="form-group">
+                        <div class="col-md-3 col-md-3-offset"> </div>
+                        <div class="col-md-6">
+                            <input type="text" id="user_name" class="form-control input-md" name="user_name"
+                                                 placeholder="Введіть Ваше ім'я:"/>
+                        </div>
+                    </div>
 
-                <p class="form_p"><input type="text" id="user_email" class="input_overall" name="user_email"
-                                         placeholder="Введіть Ваш e-mail:"/></p>
+                    <div class="form-group">
+                        <div class="col-md-3 col-md-3-offset"> </div>
+                        <div class="col-md-6">
+                            <input type="text" id="user_email" class="form-control input-md" name="user_email"
+                                                 placeholder="Введіть Ваш e-mail:"/>
+                        </div>
+                    </div>
 
-                <p class="form_p"><select name="user_select" id="user_select" class="input_overall" size="1">
-                    <option value="1" class="option_style">Технічна несправність сайту</option>
-                    <option value="2" class="option_style">Оформлення сайту</option>
-                    <option value="3" class="option_style">Інше</option>
-                </select></p>
-                <p class="form_p"><textarea name="user_area" id="user_area" class="input_overall" wrap="virtual"
-                                            placeholder="Коментар:" style="height:100px"></textarea></p>
+                    <div class="form-group">
+                        <div class="col-md-3 col-md-3-offset"> </div>
+                        <div class="col-md-6">
+                            <select name="user_select" id="user_select" class="form-control" size="1">
+                                <option value="1" class="option_style">Технічна несправність сайту</option>
+                                <option value="2" class="option_style">Оформлення сайту</option>
+                                <option value="3" class="option_style">Інше</option>
+                            </select>
+                        </div>
+                    </div>
 
-                <p class="form_p"><input type="submit" name="user_submit" class="submit_button" value="Надіслати"/></p>
-            </form>
+                    <div class="form-group">
+                        <div class="col-md-2 col-md-2-offset"> </div>
+                        <div class="col-md-8">
+                            <textarea name="user_area" id="user_area" class="form-control" rows="4" placeholder="Текст повідомлення:"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">
+                            Надіслати
+                        </button>
+                    </div>
+
+            </fieldset>
+        </form>
         </div>
 
         <div id="right_div">

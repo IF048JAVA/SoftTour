@@ -18,8 +18,16 @@ import com.softserveinc.softtour.entity.template.Sex;
 public interface UserRepository extends JpaRepository<User, Long> {
 	
 	/**
-	 *  Updates the object user with the specified id
-	 *  id - id of the object user which will updated
+	 * Updates the object user with the specified id
+	 * @param id - id of the object user which will be updated
+	 * @param name - updated name
+	 * @param email - updated email
+	 * @param password - updated password
+	 * @param birthday - updated birthday
+	 * @param age - updated age
+	 * @param sex - updated sex
+	 * @param phone - updated phone
+	 * @param role - updated role
 	 */
 	@Modifying
 	@Query("UPDATE User SET name=?2, email=?3, password=?4, birthday=?5, age=?6, sex=?7, phone=?8, role_id=?9 WHERE id=?1" )

@@ -37,20 +37,20 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
-	 *  Updates the object user with the specified id
-	 *  id - id of the object user which will updated
-	 *  Supports a transaction
+	 * Updates the object user with the specified id
+	 * @param id - id of the object user which will be updated
+	 * @param user - it's the object with the new values
 	 */
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-	public void update(long id, String name, String email, String password,
-			Date birthday, byte age, Sex sex, String phone, Role role) {
-		userRepository.update( id, name, email, password, birthday, age, sex, phone, role);
+	public void update(long id,User user) {
+		userRepository.update( id, user.getName(), user.getEmail(), user.getPassword(), 
+				user.getBirthday(), user.getAge(), user.getSex(), user.getPhone(), user.getRole());
 	}
 
 	/**
 	 *  Deletes the object user with the specified id
-	 *  id - id of the object user which will deleted
+	 *  id - id of the object user which will be deleted
 	 *  Supports a transaction
 	 */
 	@Override
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 *  Returns the object user with the specified id
-	 *  id - id of the object user which will returned
+	 *  id - id of the object user which will be returned
 	 *  Supports a transaction
 	 */
 	@Override
