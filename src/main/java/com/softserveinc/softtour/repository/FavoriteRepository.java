@@ -31,7 +31,7 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long>{
 	/**
 	 * Returns the list of the favorite's objects with the specified parameters
 	 */
-	public List<Favorite> findByIdAndDateAndUserAndTour(
+	public List<Favorite> findByIdOrDateOrUserOrTour(
 			long id, Date date, User user, Tour tour);
 	
 }

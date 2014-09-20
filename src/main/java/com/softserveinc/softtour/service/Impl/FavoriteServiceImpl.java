@@ -75,7 +75,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Favorite> findByAnyParameters(long id, Date date, User user, Tour tour) {
-		return favoriteRepository.findByIdAndDateAndUserAndTour(id, date, user, tour);
+		return favoriteRepository.findByIdOrDateOrUserOrTour(id, date, user, tour);
 	}
 	
 	/**
