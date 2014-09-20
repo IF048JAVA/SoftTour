@@ -160,8 +160,11 @@
 							
 							<!-- Save Button -->
 							<div class="form-group">
-								<a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Зберегти</a>
-							</div>
+							<button class="btn btn-primary" type="submit">
+								<span class="glyphicon glyphicon-ok"></span>
+								Зберегти
+							</button>
+						</div>
 							
 						</fieldset>
 					</form>
