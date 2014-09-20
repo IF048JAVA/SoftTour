@@ -13,7 +13,7 @@
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">\
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/profileStyle.css" rel="stylesheet">
 <link href="css/datepicker.css" rel="stylesheet">
 </head>
@@ -32,5 +32,6 @@
     <script src="js/bootstrap-datepicker-ua.js"></script>
     <script src="js/calendar.js"></script>
     <script src="js/selector.js"></script>
+    <script src="js/registrationControl.js"></script>
 </body>
 </html>
