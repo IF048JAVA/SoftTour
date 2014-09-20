@@ -2,34 +2,35 @@ var name;
 var email;
 var password;
 var confirmPassword;
+var birthday;
 var phone;
 
-function registrationControl(firstNameInput, EmailInput, 
-					PasswordInput, ConfirmPasswordInput, PhoneNumberInput){
-	name = document.getElementById(firstNameInput).value;
-	email = document.getElementById(EmailInput).value;
-	password = document.getElementById(PasswordInput).value;
-	confirmPassword = document.getElementById(ConfirmPasswordInput).value;
-	phone = document.getElementById(PhoneNumberInput).value;
+function registrationControl(name, email, password, confirmPassword, birthday, phone){
+	name = document.getElementById(name).value;
+	email = document.getElementById(email).value;
+	password = document.getElementById(password).value;
+	confirmPassword = document.getElementById(confirmPassword).value;
+	birthday = document.getElementById(birthday).value;
+	phone = document.getElementById(phone).value;
 	
-	if (name.length < 6 ) {
+	if (name.length < 6 || name.length > 30 ) {
 		alert("Ви ввели некоректне ім'я ! \n" +
-			"Ім'я повинно містити принаймні 6 символів !");
+			"Ім'я повинно містити від 6 до 30 символів !");
 		return false;
-	} else if (name.length > 30) {
-		alert("Ви ввели некоректне ім'я ! \n" +
-		"Ім'я повинно містити менше ніж 31 символ !");
-		return false;
-	} else if (email.length < 7) {
+	} else if (email.length < 7 || email.length >30) {
 		alert("Ви ввели некоректний email ! \n" +
-		"Email повинен містити принаймні 7 символів !");
+		"Email повинен містити від 7 до 30 символів !");
 		return false;
-	} else if (6 > password.length || password.length > 10 ) {
+	} else if (6 > password.length || password.length > 10) {
 		alert("Ви ввели некоректний пароль ! \n" +
 		"Пароль повинен містити від 6 до 10 символів !");
 		return false;
 	} else if (password != confirmPassword) {
 		alert("Некоректно підтверджений пароль ! ");
+		return false;
+	}else if (birthday.length != 10) {
+		alert("Ви ввели некоректну дату народження ! \n" +
+			"Введіть дату згідно шаблону dd/mm/yyyy");
 		return false;
 	} else if (phone.length > 20) {
 		alert("Некоректно введений номер телефону ! \n" +
