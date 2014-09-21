@@ -30,7 +30,7 @@ function registrationControl(name, email, password, confirmPassword, birthday, p
 		return false;
 	}else if (birthday.length != 10) {
 		alert("Ви ввели некоректну дату народження ! \n" +
-			"Введіть дату згідно шаблону dd/mm/yyyy");
+			"Введіть дату згідно шаблону yyyy-mm-dd");
 		return false;
 	} else if (phone.length > 20) {
 		alert("Некоректно введений номер телефону ! \n" +

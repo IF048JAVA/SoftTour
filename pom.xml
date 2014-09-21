@@ -29,6 +29,7 @@
         <apache-tiles-version>3.0.4</apache-tiles-version>
         <maven-compiler-plugin-version>3.0</maven-compiler-plugin-version>
         <tomcat7-maven-plugin-version>2.0</tomcat7-maven-plugin-version>
+        <org-seleniumhq-selenium>2.43.1</org-seleniumhq-selenium>
     </properties>
 
     <dependencies>
@@ -146,6 +147,18 @@
             <artifactId>modelmapper</artifactId>
             <version>0.6.5</version>
         </dependency>
+
+        <!--Selenium-->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${org-seleniumhq-selenium}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>${org-seleniumhq-selenium}</version>
+        </dependency>
         
      	<dependency>
             <groupId>org.jsoup</groupId>
@@ -177,6 +190,7 @@
             <artifactId>tiles-template</artifactId>
             <version>${apache-tiles-version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
