@@ -78,7 +78,7 @@
 				<div class="col-md-3 col-md-3-offset"></div>
 				<div class="col-md-6 form">
 				
-					<form class="form-horizontal" action="http://localhost:8080/SoftTour/user/save"
+					<form class="form-horizontal" action="user/save"
                           onsubmit="return registrationControl('firstNameInput', 'EmailInput',
 													'PasswordInput', 'ConfirmPasswordInput',
 													'PhoneNumberInput')">
