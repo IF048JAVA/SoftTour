@@ -137,7 +137,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="sex">Стать</label>
                                 <div class="col-md-5">
-                                    <select name="sex" id="sex" class="form-control">
+                                    <select name="sexString" id="sex" class="form-control">
                                         <option value="male">Чоловік</option>
                                         <option value="female">Жінка</option>
                                     </select>
