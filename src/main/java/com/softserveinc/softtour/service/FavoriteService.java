@@ -16,13 +16,14 @@ public interface FavoriteService {
 	/**
 	 * Saves the object favorite to the table Favorite
 	 */
-	public void save(Date date, User user, Tour tour);
+	public void save(Favorite favorite);
 	
 	/**
-	 *  Updates the object favorite with the specified id
-	 *  id - id of the object favorite which will updated
+	 * Updates the object favorite with the specified id
+	 * @param id - id of the object favorite which will be updated
+	 * @param favorite - it's the object with the new values
 	 */
-	public void update(long id, Date date, User user, Tour tour);
+	public void update(long id, Favorite favorite);
 	
 	/**
 	 *  Deletes the object favorite with the specified id
@@ -37,24 +38,13 @@ public interface FavoriteService {
 	public Favorite findById(long id);
 	
 	/**
-	 * Returns the list of the objects favorite which contain the specified date
-	 * @param date - date of the objects which will be added to the list
+	 * Returns the list of the favorite's objects with the specified parameters
 	 */
-	public List<Favorite> findByDate(Date...date);
+	public List<Favorite> findByAnyParameters(long id, Date date, User user, Tour tour);
 	
 	/**
-	 *  Returns the list of the objects favorite which contain the specified object user 
+	 *  Returns the list of all favorite's objects which are contained in the table Favorite
 	 */
-	public List<Favorite> findByUser (User...user);
-	
-	/**
-	 *  Returns the list of the objects favorite which contain the specified object tour 
-	 */
-	public List<Favorite> findByTour (Tour...tour);
-	
-	/**
-	 *  Returns the list of all objects favorite which are contained in the table Favorite
-	 */
-	public List<Favorite> getAll();
+	public List<Favorite> findAll();
 	
 }
