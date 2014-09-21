@@ -1,0 +1,19 @@
+.hotels-filter {
+    background-color: rgba(190, 190, 190, 0.30);
+    font-family: serif;
+    text-align: center;
+    border: inherit;
+    border-radius: 20px;
+    box-shadow: 4px 5px 38px #4b4b4b;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.hotels-result {
+    margin-left: 30px;
+
+}
+
+#filter {
+    margin: 15px;
+}

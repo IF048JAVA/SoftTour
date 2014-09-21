@@ -35,6 +35,9 @@
         <put-attribute name="title" value="SoftTour" />
         <put-attribute name="body" value="/WEB-INF/pages/feedback.jsp" />
     </definition>
-	
+    <definition name="hotels" extends="baseLayout">
+        <put-attribute name="title" value="SoftTour" />
+        <put-attribute name="body" value="/WEB-INF/pages/hotels.jsp" />
+    </definition>
 	
 </tiles-definitions>
