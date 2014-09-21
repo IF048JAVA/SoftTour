@@ -8,3 +8,20 @@
         <div class="col-md-3 imgfont"><img src="img/turk_logo.png"><br>Туреччина</div>
         <div class="col-md-1"></div>
 </div>
+<div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+        <div class="input-group">
+             <span class="input-group-addon">UAH</span>
+             <input type="text" class="form-control" placeholder="Введіть мінімальну ціну">
+        </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+        <div class="input-group">
+            <span class="input-group-addon">UAH</span>
+            <input type="text" class="form-control" placeholder="Введіть максимальну ціну">
+        </div>
+        </div>
+        <div class="col-md-2"></div>
+</div>
