@@ -1,7 +1,7 @@
-﻿function checkForm(user_name, user_email, user_area){
-	name = document.getElementById(user_name).value;
-	email = document.getElementById(user_email).value;
-	area = document.getElementById(user_area).value;
+﻿function checkForm(name, email, area){
+	name = document.getElementById(name).value;
+	email = document.getElementById(email).value;
+	area = document.getElementById(area).value;
     reg = "/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/";
 	
 	if(name.length<1){
