@@ -36,5 +36,6 @@
 <script src="js/selector.js"></script>
 <script src="js/registrationControl.js"></script>
 <script src="js/feedback.js"></script>
+<script src="js/modal.js"></script>
 </body>
 </html>
