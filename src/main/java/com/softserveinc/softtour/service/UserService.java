@@ -12,17 +12,18 @@ import com.softserveinc.softtour.entity.template.Sex;
  * 	Contains the methods for work with table User in the SoftTour database
  */
 public interface UserService {
-	
+
 	/**
 	 * Saves the object user to the table User
 	 */
-	public void save(String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
-
+	public void save(User user);
+	
 	/**
-	 *  Updates the object user with the specified id
-	 *  id - id of the object user which will updated
+	 * Updates the object user with the specified id
+	 * @param id - id of the object user which will be updated
+	 * @param user - it's the object with the new values
 	 */
-	public void update(long id, String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
+	public void update(long id, User user);
 	
 	/**
 	 *  Deletes the object user with the specified id
@@ -37,48 +38,14 @@ public interface UserService {
 	public User findById(long id);
 	
 	/**
-	 *  Returns list of the objects user with the specified name or names
+	 *  Returns the list of the user's objects with the specified parameters
 	 */
-	public List<User> findByName(String...name);
+	public List<User> findByAnyParameters(long id, String name, String email, String password, 
+			Date birthday, byte age, Sex sex, String phone, Role role);
 	
 	/**
-	 *  Returns list of the objects user with the specified email or emails
+	 *  Returns the list of all user's objects which are contained in the table User
 	 */
-	public List<User> findByEmail(String...email);
+	public List<User> findAll();
 	
-	/**
-	 *  Returns list of the objects user with the specified password or passwords
-	 */
-	public List<User> findByPassword(String...password);
-	
-	/**
-	 *  Returns list of the objects user with the specified birthday or birthdays
-	 */
-	public List<User> findByBirthday(Date...birthday);
-	
-	/**
-	 *  Returns list of the objects user with the specified age
-	 */
-	public List<User> findByAge(Byte...age);
-	
-	/**
-	 *  Returns list of the objects user with the specified sex
-	 */
-	public List<User> findBySex(Sex sex);
-	
-	/**
-	 *  Returns list of the objects user with the specified phone or phones
-	 */
-	public List<User> findByPhone(String...phone);
-	
-	/**
-	 *  Returns the list of the objects user which contain the specified object or objects role
-	 */
-	public List<User> findByRole(Role...role);
-	
-	/**
-	 *  Returns the list of all objects user which are contained in the table User
-	 */
-	public List<User> getAll();
-
 }

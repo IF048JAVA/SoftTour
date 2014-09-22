@@ -176,7 +176,7 @@
                         </form>
                 </div>
         </div>
-            <div class="col-sm-6" style="overflow: hiddden;">
+            <div class="col-sm-6">
                     <div id="carousel-example-generic" class="carousel slide mycarousel" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -215,7 +215,7 @@
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
 </div><!--каруселька-->
-</div><!--правий блок контенту>
+</div><!--правий блок контенту-->
     </div><!--блок "контент"-->
 
     

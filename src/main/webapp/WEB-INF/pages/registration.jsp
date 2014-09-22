@@ -3,10 +3,8 @@
 		<div class="col-md-3 col-md-3-offset"></div>
 		<div class="col-md-6 form">
 
-			<form class="form-horizontal" action="http://localhost:8080/SoftTour/user/save" 
-				onsubmit="return registrationControl('firstNameInput', 'EmailInput', 
-													'PasswordInput', 'ConfirmPasswordInput',
-													'PhoneNuvmerInput')">
+			<form class="form-horizontal" action="user/save" 
+				onsubmit="return registrationControl('name', 'email', 'password', 'confirmPassword', 'birthday', 'phone')">
 				<fieldset>
 
 						<!-- Form Name -->
@@ -14,76 +12,73 @@
 
 						<!-- Name input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="firstNameInput">Ім'я</label>
+							<label class="col-md-4 control-label" for="name">Ім'я</label>
 							<div class="col-md-5">
-								<input id="firstNameInput" name="firstNameInput" type="text"
-									placeholder="" class="form-control input-md">
+								<input type="text" name="name"  id="name" class="form-control input-md"
+									placeholder="Bід 6 до 30 символів" >
 							</div>
 						</div>
 
 						<!-- Email input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="EmailInput">Email/Login</label>
+							<label class="col-md-4 control-label" for="email">Email/Login</label>
 							<div class="col-md-5">
-								<input id="EmailInput" name="EmailInput" type="text"
-									placeholder="" class="form-control input-md">
+								<input type="text" name="email" id="email" class="form-control input-md"
+									placeholder="Bід 7 до 30 символів" >
 							</div>
 						</div>
 
 						<!-- Password input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="PasswordInput">Пароль</label>
+							<label class="col-md-4 control-label" for="password">Пароль</label>
 							<div class="col-md-5">
-								<input id="PasswordInput" name="PasswordInput" type="password"
-									placeholder="" class="form-control input-md">
+								<input type="password" name="password" id="password" class="form-control input-md"
+									placeholder="Bід 6 до 30 символів" >
 							</div>
 						</div>
 
 						<!-- Confirm password input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="ConfirmPasswordInput">Підтвердьте
-								Пароль</label>
+							<label class="col-md-4 control-label" for="confirmPassword">Підтвердьте Пароль</label>
 							<div class="col-md-5">
-								<input id="ConfirmPasswordInput" name="ConfirmPasswordInput"
-									type="password" placeholder="" class="form-control input-md">
+								<input type="password" name="confirmPassword" id="confirmPassword" class="form-control input-md"
+									 placeholder="Повторіть введення паролю" >
 							</div>
 						</div>
 
 						<!-- Birthday input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="birthdayInput">Дата народження</label> 
+							<label class="col-md-4 control-label" for="birthday">Дата народження</label> 
 							<div class="col-md-5">
-								<input  id="birthdayInput" type="text" placeholder="dd/mm/yyyy" class="form-control input-md"> 
+								<input type="text" name="birthday" id="birthday" class="form-control input-md"
+									placeholder="yyyy-mm-dd"> 
 							</div>
-
 						</div>
 
 						<!-- Sex Select -->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="SexInput">Стать</label>
+							<label class="col-md-4 control-label" for="sex">Стать</label>
 							<div class="col-md-5">
-								<select id="SexInput" class="form-control">
-									<option>Чоловік</option>
-									<option>Жінка</option>
+								<select name="sexString" id="sex" class="form-control">
+									<option value="male">Чоловік</option>
+									<option value="female">Жінка</option>
 								</select>
 							</div>
 						</div>
 
-
 						<!-- Phone input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="PhoneNuvmerInput">Номер
-								телефону</label>
+							<label class="col-md-4 control-label" for="phone">Номер телефону</label>
 							<div class="col-md-5">
-								<input id="PhoneNuvmerInput" name="PhoneNuvmerInput" type="text"
-									placeholder="" class="form-control input-md">
+								<input type="text" name="phone" id="phone" class="form-control input-md"
+									placeholder="До 20 символів">
 								<p class="help-block">+38(xxx)xxx-xx-xx</p>
 							</div>
 						</div>
 
-						<!-- Save Button -->
+						<!-- Button of registration-->
 						<div class="form-group">
-							<button class="btn btn-primary" type="submit">
+							<button type="submit" class="btn btn-primary" >
 								<span class="glyphicon glyphicon-ok"></span>
 								Реєстрація
 							</button>

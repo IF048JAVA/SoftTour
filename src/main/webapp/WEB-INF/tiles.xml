@@ -31,6 +31,10 @@
         <put-attribute name="title" value="SoftTour" />
         <put-attribute name="body" value="/WEB-INF/pages/userProfile.jsp" />
     </definition>
+    <definition name="feedback" extends="baseLayout">
+        <put-attribute name="title" value="SoftTour" />
+        <put-attribute name="body" value="/WEB-INF/pages/feedback.jsp" />
+    </definition>
 	
 	
 </tiles-definitions>
