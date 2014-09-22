@@ -20,7 +20,7 @@ import com.softserveinc.softtour.service.FavoriteService;
  * Supports a transaction
  */
 @Service
-@Transactional(propagation=Propagation.SUPPORTS, readOnly=true)
+@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class FavoriteServiceImpl implements FavoriteService{
 
 	@Autowired
@@ -31,7 +31,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 * Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Transactional(readOnly=false)
 	public void save(Favorite favorite) {
 		favoriteRepository.save(favorite);
 	}
@@ -42,7 +42,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 * @param favorite - it's the object with the new values
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Transactional(readOnly=false)
 	public void update(long id, Favorite favorite) {
 		favoriteRepository.update(id, favorite.getDate(), favorite.getUser(), favorite.getTour());
 	}
@@ -53,7 +53,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 *  Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Transactional(readOnly=false)
 	public void delete(long id) {
 		favoriteRepository.delete(id);
 	}
@@ -64,7 +64,6 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 *  Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
 	public Favorite findById(long id) {
 		return favoriteRepository.findOne(id);
 	}
@@ -73,7 +72,6 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 * Returns the list of the favorite's objects with the specified parameters
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Favorite> findByAnyParameters(long id, Date date, User user, Tour tour) {
 		return favoriteRepository.findByIdOrDateOrUserOrTour(id, date, user, tour);
 	}
@@ -82,7 +80,6 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 *  Returns the list of all favorite's objects which are contained in the table Favorite
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Favorite> findAll() {
 		return favoriteRepository.findAll();
 	}
