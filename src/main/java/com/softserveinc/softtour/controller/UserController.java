@@ -77,7 +77,7 @@ public class UserController {
 	}
 	
 	/**
-	 *   Deletes the object user with the specified id
+	 * Deletes the object user with the specified id
 	 * @param idString - id of the user's object which will be deleted
 	 * @return the name of the main page 
 	 */
@@ -101,14 +101,16 @@ public class UserController {
 		
 		long id = Long.parseLong(idString);
 		User user = userService.findById(id);
-		
 		model.addAttribute("user", user);
 		
 		return "redirect:/index";
 	}
 	
 	/**
-	 *  Returns the list of the user's objects with the specified parameters
+	 * Returns the list of the user's objects with the specified parameters
+	 * @param user - contains the parameters to search
+	 * @param model - it's response in which we write the user's object with the specified id
+	 * @return the name of the main page 
 	 */
 	@RequestMapping(value="/findByAnyParameters", method=RequestMethod.GET)
 	public String findByAnyParameters(User user, Model model) {
@@ -122,7 +124,9 @@ public class UserController {
 	}
 
 	/**
-	 *  Returns the list of all user's objects which are contained in the table User
+	 * Returns the list of all user's objects which are contained in the table User
+	 * @param model - it's response in which we write all user's objects which are contained in the table User
+	 * @return the name of the main page 
 	 */
 	@RequestMapping(value="/findAll")
 	public String findAll(Model model) {
