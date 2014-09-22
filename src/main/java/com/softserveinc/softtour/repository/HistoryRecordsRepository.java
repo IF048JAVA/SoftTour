@@ -13,9 +13,4 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface HistoryRecordsRepository extends JpaRepository<HistoryRecord, Long> {
 
-    @Modifying
-    @Query("UPDATE HistoryRecords SET date=?2,user_id=?3, tour_id=?4 WHERE id=?1")
-    public void update(long id, Date date, User user, Tour tour);
-
-    public List<HistoryRecord> findByIdOrDateOrUserOrTour(long id, Date date, User user, Tour tour);
 }
