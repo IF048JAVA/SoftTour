@@ -1,14 +1,13 @@
 package com.softserveinc.softtour.parsers;
 
+import com.softserveinc.softtour.entity.Tour;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
+
+import java.util.*;
 
 /**
  * Created by oleksandrgasenuk on 20.09.14.
@@ -27,7 +26,7 @@ public class TyrComUaParser {
         driver.get(URL);
     }
 
-    public List<WebElement> parse(String country, String region, String hotel, int[] stars, String[] foods, int adults,
+    public List<Tour> parse(String country, String region, String hotel, int[] stars, String[] foods, int adults,
                 int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
                 int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity){
         selectCountry(country);
@@ -47,30 +46,20 @@ public class TyrComUaParser {
         selectCurrency(currency);
         selectDepartureCity(departureCity);
         search();
-
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        addAllWebElementsToWebElementList();
+
+
         //wait for 5 seconds
 
-        ArrayList<WebElement> oddList = (ArrayList<WebElement>) driver.findElements(By.className("itt_odd"));
-        ArrayList<WebElement> evenList = (ArrayList<WebElement>) driver.findElements(By.className("itt_even"));
-
-        //I do it to save same order of elements, as in search result
-        ArrayList<WebElement> resultList = new ArrayList<>();
-        for(int i = 0; i<evenList.size(); i++){
-            resultList.add(oddList.get(i));
-            resultList.add(evenList.get(i));
-        }
-        if(oddList.size()>evenList.size()){
-            resultList.add(oddList.get(oddList.size()-1));
-        }
 
 
         //create list of ?
-        return resultList;
+        return null;
     }
 
     private void selectCountry(String country){
@@ -429,22 +418,69 @@ public class TyrComUaParser {
         driver.quit();
     }
 
+    public void addAllWebElementsToWebElementList(){
+        ArrayList<WebElement> oddList = (ArrayList<WebElement>) driver.findElements(By.className("itt_odd"));
+        ArrayList<WebElement> evenList = (ArrayList<WebElement>) driver.findElements(By.className("itt_even"));
+
+        List<WebElement> webElementList = new ArrayList<>();
+        //I do it to save same order of elements, as in search result
+        for(int i = 0; i<evenList.size(); i++){
+            webElementList.add(oddList.get(i));
+            webElementList.add(evenList.get(i));
+        }
+        if(oddList.size()>evenList.size()){
+            webElementList.add(oddList.get(oddList.size()-1));
+        }
+        oddList.clear();
+        evenList.clear();
+        for(WebElement webElement : webElementList){
+            System.out.println(webElement.getText());
+        }
+
+        for(int i = 2; i<100;i++){
+            WebElement nextPage = null;
+            try{
+                nextPage = driver.findElement(By.linkText(String.valueOf(i)));
+                nextPage.click();
+            } catch (org.openqa.selenium.NoSuchElementException e){
+                return;
+            }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            oddList = (ArrayList<WebElement>) driver.findElements(By.className("itt_odd"));
+            evenList = (ArrayList<WebElement>) driver.findElements(By.className("itt_even"));
+
+            //I do it to save same order of elements, as in search result
+            List<WebElement> webElementList2 = new ArrayList<>();
+            for(int j = 0; j<evenList.size(); j++){
+                webElementList2.add(oddList.get(j));
+                webElementList2.add(evenList.get(j));
+            }
+            if(oddList.size()>evenList.size()){
+                webElementList2.add(oddList.get(oddList.size()-1));
+            }
+            for(WebElement webElement : webElementList2){
+                System.out.println(webElement.getText());
+            }
+            oddList.clear();
+            evenList.clear();
+        }
+
+    }
+
     public static void main(String[] args) {
         TyrComUaParser parser = new TyrComUaParser();
-        int[] stars = {3,5};
+        int[] stars = {3,4,5};
         String[] foods = {"HB", "AI"};
         int[] childrenAge = {9};
-        List<WebElement> resultList = parser.parse("Египет", "Мухосранськ", "Каліфорнія", stars, foods, 3, 1, childrenAge,
-                                                   "01.10.14", "31.12.14", 6, 21, 400, 1000,"EUR", "Київ");
-        if(resultList.size() > 0) {
-            for (WebElement element : resultList) {
-                System.out.println(element.getText());
-            }
-        } else {
-            System.out.println("Find nothing");
-        }
-        parser.driverQuit();
+        //null for now
+        List<Tour> resultList = parser.parse("Египет", "Мухосранськ", "Каліфорнія", stars, foods, 3, 1, childrenAge,
+                "01.10.14", "31.12.14", 6, 21, 400, 1070,"EUR", "Київ");
 
+        parser.driverQuit();
     }
 }
 
