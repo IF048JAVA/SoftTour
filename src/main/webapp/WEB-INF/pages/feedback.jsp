@@ -7,7 +7,7 @@
             <fieldset>
                 <legend>Форма зворотнього зв'язку</legend>
 
-                    <div class="form-group">
+                    <div class="form-group" name="form" onsubmit="return checkForm('user_name','user_email','user_area')">
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
                             <input type="text" id="user_name" class="form-control input-md" name="user_name"
