@@ -6,6 +6,8 @@ import javax.persistence.*;
 @Table(name = "Country")
 public class Country {
 
+    // Variables
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -14,12 +16,16 @@ public class Country {
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 
+    // Constructors
+
     public Country() {
     }
 
     public Country(String name) {
         this.name = name;
     }
+
+    // Getters and Setters
 
     public long getId() {
         return id;
@@ -36,6 +42,8 @@ public class Country {
     public void setName(String name) {
         this.name = name;
     }
+
+    // Methods
 
     @Override
     public String toString() {
