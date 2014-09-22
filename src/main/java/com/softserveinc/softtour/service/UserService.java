@@ -27,13 +27,13 @@ public interface UserService {
 	
 	/**
 	 *  Deletes the object user with the specified id
-	 *  id - id of the object user which will deleted
+	 *  id - id of the object user which will be deleted
 	 */
 	public void delete(long id);
 	
 	/**
 	 *  Returns the object user with the specified id
-	 *  id - id of the object user which will returned
+	 *  id - id of the object user which will be returned
 	 */
 	public User findById(long id);
 	
