@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Hotel")
@@ -18,19 +19,19 @@ public class Hotel {
     private int stars;
 
     @Column(name = "rating")
-    private double rating;
+    private BigDecimal rating;
 
     @Column(name = "comfort")
-    private double comfort;
+    private BigDecimal comfort;
 
     @Column(name = "cleanliness")
-    private double cleanliness;
+    private BigDecimal cleanliness;
 
     @Column(name = "location")
-    private double location;
+    private BigDecimal location;
 
     @Column(name = "valueForMoney")
-    private double valueForMoney;
+    private BigDecimal valueForMoney;
 
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
@@ -46,8 +47,8 @@ public class Hotel {
         this.region = region;
     }
 
-    public Hotel(String name, int stars, double rating, double comfort,
-                 double cleanliness, double location, double valueForMoney, Region region) {
+    public Hotel(String name, int stars, BigDecimal rating, BigDecimal comfort,
+                 BigDecimal cleanliness, BigDecimal location, BigDecimal valueForMoney, Region region) {
 
         this.name = name;
         this.stars = stars;
@@ -91,43 +92,43 @@ public class Hotel {
         this.region = region;
     }
 
-    public double getRating() {
+    public BigDecimal getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(BigDecimal rating) {
         this.rating = rating;
     }
 
-    public double getComfort() {
+    public BigDecimal getComfort() {
         return comfort;
     }
 
-    public void setComfort(double comfort) {
+    public void setComfort(BigDecimal comfort) {
         this.comfort = comfort;
     }
 
-    public double getCleanliness() {
+    public BigDecimal getCleanliness() {
         return cleanliness;
     }
 
-    public void setCleanliness(double cleanliness) {
+    public void setCleanliness(BigDecimal cleanliness) {
         this.cleanliness = cleanliness;
     }
 
-    public double getLocation() {
+    public BigDecimal getLocation() {
         return location;
     }
 
-    public void setLocation(double location) {
+    public void setLocation(BigDecimal location) {
         this.location = location;
     }
 
-    public double getValueForMoney() {
+    public BigDecimal getValueForMoney() {
         return valueForMoney;
     }
 
-    public void setValueForMoney(double valueForMoney) {
+    public void setValueForMoney(BigDecimal valueForMoney) {
         this.valueForMoney = valueForMoney;
     }
 }
