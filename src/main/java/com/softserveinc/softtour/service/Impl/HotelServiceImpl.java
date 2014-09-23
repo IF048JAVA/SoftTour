@@ -6,6 +6,7 @@ import com.softserveinc.softtour.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -25,14 +26,13 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findAll() {
-        return hotelRepository.findAll();
+    public List <Hotel> findByName(String name) {
+        return hotelRepository.findByName(name);
     }
 
     @Override
-    public void delete(Hotel hotel) {
-        hotelRepository.delete(hotel);
-
+    public List<Hotel> findAll() {
+        return hotelRepository.findAll();
     }
 
     @Override
@@ -42,7 +42,10 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findByCustomParameters() {
-        return null;
+    public List<Hotel> findByCustomParameters(String country, String region, Integer rating, Integer comfort,
+                                              Integer cleanliness, Integer location, Integer valueForMoney) {
+        return hotelRepository.findByCustomParameters(country, region, BigDecimal.valueOf(rating),
+                BigDecimal.valueOf(comfort), BigDecimal.valueOf(cleanliness),
+                BigDecimal.valueOf(location), BigDecimal.valueOf(valueForMoney));
     }
 }
