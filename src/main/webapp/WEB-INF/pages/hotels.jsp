@@ -20,12 +20,7 @@
 
             <div id="collapseFilter" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <select class="form-control filter-element">
-                        <option selected="selected" value="338">Египет</option>
-                        <option value="318">Турция</option>
-                        <option value="16">ОАЭ</option>
-                        <option value="372">Греция</option>
-                    </select>
+                    <select id="countrySelect2" class="populate placeholder select2-offscreen filter-element" placeholder="Всі країни" ></select>
 
                     <form>
                         <label for="rating" class="muted">Рейтинг</label>
