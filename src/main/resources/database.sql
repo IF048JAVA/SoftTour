@@ -54,7 +54,7 @@ CREATE TABLE hotel (
   comfort decimal(2,1),
   cleanliness decimal(2,1),
   location decimal(2,1),
-  valueForMoney decimal(2,1)
+  valueForMoney decimal(2,1),
 
   PRIMARY KEY (id),
   FOREIGN KEY (region_id) REFERENCES region (id)

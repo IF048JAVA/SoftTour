@@ -21,9 +21,9 @@ INSERT INTO region VALUES
   (3,'Athens',3);
 
 INSERT INTO hotel VALUES
-  (1,'Antalya',5,1),
-  (2,'Viking Club',4,2),
-  (3,'Amarilia',5,3);
+  (1,'Antalya',5, 1, 3.2, 4.6, 2.3, 5.0, 4.2),
+  (2,'Viking Club',4, 2, 3.8, 4.0, 4.7, 3.6, 4.2),
+  (3,'Amarilia',5, 3, 3.2, 4.6, 5.0, 4.0, 4.7);
 
 INSERT INTO food VALUES
   (1,'HB'),
