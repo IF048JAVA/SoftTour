@@ -9,11 +9,9 @@ import java.sql.Date;
 import java.util.List;
 
 public interface HistoryRecordsService {
-    public void save(Date date, User user, Tour tour);
-    public void update(long id, Date date, User user, Tour tour);
+    public void save(HistoryRecord historyRecord);
+    public void update(long id, HistoryRecord historyRecord);
     public void delete(long id);
     public HistoryRecord findById(long id);
-    public List<HistoryRecord> findByTour(Tour tour);
-    public List<HistoryRecord> findByDate(Date date);
     public List<HistoryRecord> getAll();
 }

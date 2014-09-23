@@ -1,26 +1,31 @@
 package com.softserveinc.softtour.service.Impl;
 
 
-import com.softserveinc.softtour.repository.RoleDao;
+
 import com.softserveinc.softtour.entity.Role;
+import com.softserveinc.softtour.repository.RoleRepository;
 import com.softserveinc.softtour.service.RoleService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional(propagation= Propagation.REQUIRED, readOnly=true)
 public class RoleServiceImpl implements RoleService {
-    private RoleDao roleDao;
+    private RoleRepository roleRepository;
 
-    public void setRoleDao (RoleDao roleDao){this.roleDao = roleDao;}
+
     @Override
-    public void save(String name){roleDao.save(name);}
+    public void save(Role role){roleRepository.save(role);}
     @Override
-    public void update(long id, String name){roleDao.update(id, name);}
+    public void update(long id, Role role){roleRepository.saveAndFlush(role);}
     @Override
-    public void delete(long id){roleDao.delete(id);}
+    public void delete(long id){roleRepository.delete(id);}
     @Override
-    public Role findById(long id){return roleDao.findById(id);}
+    public Role findById(long id){return roleRepository.findOne(id);}
+
     @Override
-    public List<Role> findByName(String name){return roleDao.findByName(name);}
-    @Override
-    public List<Role> getAll(){return roleDao.getAll();}
+    public List<Role> getAll(){return roleRepository.findAll();}
 }

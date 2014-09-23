@@ -1,68 +1,69 @@
 package com.softserveinc.softtour.service.Impl;
 
-import com.softserveinc.softtour.repository.HistoryRequestDao;
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.HistoryRequest;
 import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.repository.HistoryRequestRepository;
 import com.softserveinc.softtour.service.HistoryRequestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
+@Service
+@Transactional(propagation= Propagation.SUPPORTS, readOnly = true)
 public class HistoryRequestServiceImpl implements HistoryRequestService {
 
-    private HistoryRequestDao historyRequestDao;
+    @Autowired
+    private HistoryRequestRepository historyRequestRepository;
 
-    public void setHistoryRequestDao(HistoryRequestDao historyRequestDao) {
-        this.historyRequestDao = historyRequestDao;
+    @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+    public void save(HistoryRequest historyRequest) {
+        this.historyRequestRepository.save(historyRequest);
     }
 
     @Override
-    public void save(String cityFrom, Date dateFrom, Date dateTo, int daysFrom, int daysTo, Set<String> stars, int adults, int children,
-                     BigDecimal priceFrom, BigDecimal priceTo, User user, Country country, Date requestDate) {
-        this.historyRequestDao.save(cityFrom, dateFrom, dateTo, daysFrom, daysTo, stars, adults, children, priceFrom, priceTo, user, country, requestDate);
-    }
-
-    @Override
-    public void update(long id, String cityFrom, Date dateFrom, Date dateTo, int daysFrom, int daysTo, Set<String> stars, int adults, int children,
-                       BigDecimal priceFrom, BigDecimal priceTo, User user, Country country, Date requestDate) {
-        this.historyRequestDao.update(id, cityFrom, dateFrom, dateTo, daysFrom, daysTo, stars, adults, children, priceFrom, priceTo, user, country, requestDate);
-    }
-
-    @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
     public void delete(long id) {
-        this.historyRequestDao.delete(id);
+        this.historyRequestRepository.delete(id);
     }
 
     @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
     public HistoryRequest findById(long id) {
-        return this.historyRequestDao.findById(id);
+        return this.historyRequestRepository.findOne(id);
     }
 
     @Override
     public List<HistoryRequest> findByUser(User user) {
-        return this.historyRequestDao.findByUser(user);
+        return this.historyRequestRepository.findByUser(user);
     }
 
     @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
     public List<HistoryRequest> findByStars(int... stars) {
-        return null;
+        return this.historyRequestRepository.findByStars(stars);
     }
 
     @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
     public List<HistoryRequest> findByCountry(Country country) {
-        return this.historyRequestDao.findByCountry(country);
+        return this.historyRequestRepository.findByCountry(country);
     }
 
     @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
     public List<HistoryRequest> findByRequestDate(Date requestDate) {
-        return this.historyRequestDao.findByRequestDate(requestDate);
+        return this.historyRequestRepository.findByRequestDate(requestDate);
     }
 
     @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
     public List<HistoryRequest> getAll() {
-        return this.historyRequestDao.getAll();
+        return this.historyRequestRepository.findAll();
     }
 }

@@ -12,8 +12,12 @@
     background-color: rgba(139, 150, 143, 0.35);
     border: inherit;
     border-radius: 10px;
-    margin-bottom: 15px;
     width: 140px;
+    margin-bottom: 10px;
+}
+
+.filter-button {
+    margin-top: 10px;
 }
 
 .hotels-result {
