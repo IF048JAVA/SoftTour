@@ -65,8 +65,17 @@ body {
     
 }
 
+span.tabulatedTitle{
+    margin-right: 30pt;
+    color: #ff362e
+
+}
+
+.tabTitleFont {
+    color: #246fff
+}
+
 
 P {
-
     font-size: 17px;
 }

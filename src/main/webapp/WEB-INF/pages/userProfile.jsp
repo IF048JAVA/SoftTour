@@ -20,21 +20,18 @@
 						<div class="panel-group" id="panel-1">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" href="#panel-element-f1">Tour #1</a>
+									 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" href="#panel-element-f1">
+                                         <span class="tabTitleFont">Країна:</span>
+                                         <span id="tourCountry-f1" class="tabulatedTitle">Country</span>
+                                         <span class="tabTitleFont">Тривалість туру:</span>
+                                         <span id="tourDays-f1" class="tabulatedTitle">Days</span>
+                                         <span class="tabTitleFont">Вартість туру:</span>
+                                         <span id="tourPrice-f1" class="tabulatedTitle">Price</span>
+                                     </a>
 								</div>
 								<div id="panel-element-f1" class="panel-collapse collapse">
 									<div class="panel-body">
-										Info abaut tour #1...
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" href="#panel-element-f2">Tour #2</a>
-								</div>
-								<div id="panel-element-f2" class="panel-collapse collapse">
-									<div class="panel-body">
-										Info abaut tour #2...
+										Info about tour #1...
 									</div>
 								</div>
 							</div>
@@ -50,21 +47,18 @@
 						<div class="panel-group" id="panel-2">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-2" href="#panel-element-f3">Tour #1</a>
+									 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-2" href="#panel-element-h1">
+                                         <span class="tabTitleFont">Країна:</span>
+                                         <span id="tourCountry-h1" class="tabulatedTitle">Country</span>
+                                         <span class="tabTitleFont">Тривалість туру:</span>
+                                         <span id="tourDays-h1" class="tabulatedTitle">Days</span>
+                                         <span class="tabTitleFont">Вартість туру:</span>
+                                         <span id="tourPrice-h1" class="tabulatedTitle">Price</span>
+                                     </a>
 								</div>
-								<div id="panel-element-f3" class="panel-collapse collapse">
+								<div id="panel-element-h1" class="panel-collapse collapse">
 									<div class="panel-body">
-										Info abaut tour #1...
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-2" href="#panel-element-f4">Tour #2</a>
-								</div>
-								<div id="panel-element-f4" class="panel-collapse collapse">
-									<div class="panel-body">
-										Info abaut tour #2...
+										Info about tour #1...
 									</div>
 								</div>
 							</div>
@@ -165,5 +159,6 @@
 						</fieldset>
 					</form>
 				</div>
-			</div>		  
+			</div>
+        </div>
 
