@@ -15,7 +15,22 @@ public class Hotel {
     private String name;
 
     @Column(name = "stars", nullable = false, length = 1)
-    private int Stars;
+    private int stars;
+
+    @Column(name = "rating")
+    private double rating;
+
+    @Column(name = "comfort")
+    private double comfort;
+
+    @Column(name = "cleanliness")
+    private double cleanliness;
+
+    @Column(name = "location")
+    private double location;
+
+    @Column(name = "valueForMoney")
+    private double valueForMoney;
 
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
@@ -25,8 +40,22 @@ public class Hotel {
     }
 
     public Hotel(String name, int stars, Region region) {
+
         this.name = name;
-        Stars = stars;
+        this.stars = stars;
+        this.region = region;
+    }
+
+    public Hotel(String name, int stars, double rating, double comfort,
+                 double cleanliness, double location, double valueForMoney, Region region) {
+
+        this.name = name;
+        this.stars = stars;
+        this.rating = rating;
+        this.comfort = comfort;
+        this.cleanliness = cleanliness;
+        this.location = location;
+        this.valueForMoney = valueForMoney;
         this.region = region;
     }
 
@@ -47,11 +76,11 @@ public class Hotel {
     }
 
     public int getStars() {
-        return Stars;
+        return stars;
     }
 
     public void setStars(int stars) {
-        Stars = stars;
+        this.stars = stars;
     }
 
     public Region getRegion() {
@@ -62,13 +91,43 @@ public class Hotel {
         this.region = region;
     }
 
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", Stars=" + Stars +
-                ", region=" + region.getName() +
-                '}';
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public double getComfort() {
+        return comfort;
+    }
+
+    public void setComfort(double comfort) {
+        this.comfort = comfort;
+    }
+
+    public double getCleanliness() {
+        return cleanliness;
+    }
+
+    public void setCleanliness(double cleanliness) {
+        this.cleanliness = cleanliness;
+    }
+
+    public double getLocation() {
+        return location;
+    }
+
+    public void setLocation(double location) {
+        this.location = location;
+    }
+
+    public double getValueForMoney() {
+        return valueForMoney;
+    }
+
+    public void setValueForMoney(double valueForMoney) {
+        this.valueForMoney = valueForMoney;
     }
 }
