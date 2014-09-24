@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //@RequestMapping(value = "/")
 public class RootController {
 
-
+    @RequestMapping(value="/")
+    public String indexPage() {
+        return "index";
+    }
 
     @RequestMapping(value = "/search")
     public String searchPage() {

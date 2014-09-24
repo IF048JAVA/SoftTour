@@ -41,7 +41,7 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> findByCustomParameters(String country, BigDecimal minPrice, BigDecimal maxPrice) {
-        return tourRepository.findByCustomParameters(country,minPrice,maxPrice);
+    public List<Tour> findByCustomParameters(String country, Integer minPrice, Integer maxPrice) {
+        return tourRepository.findByCustomParameters(country,BigDecimal.valueOf(minPrice),BigDecimal.valueOf(maxPrice));
     }
 }
