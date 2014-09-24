@@ -15,12 +15,33 @@ public class TourServiceImpl implements TourService {
     @Autowired
     private TourRepository tourRepository;
 
-    public void setTourRepository(TourRepository tourRepository) {
-        this.tourRepository = tourRepository;
+    @Override
+    public Tour save(Tour tour) {
+        return tourRepository.saveAndFlush(tour);
+    }
+
+    @Override
+    public Tour findOne(long id) {
+        return tourRepository.findOne(id);
     }
 
     @Override
     public List<Tour> findAll() {
         return tourRepository.findAll();
+    }
+
+    @Override
+    public void delete(Tour tour) {
+        tourRepository.delete(tour);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        tourRepository.delete(id);
+    }
+
+    @Override
+    public List<Tour> findByCustomParameters() {
+        return null;
     }
 }
