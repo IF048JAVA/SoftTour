@@ -21,6 +21,6 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> findAll() {
-        tourRepository.findAll();
+        return tourRepository.findAll();
     }
 }
