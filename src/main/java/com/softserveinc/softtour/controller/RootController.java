@@ -36,7 +36,7 @@ public class RootController {
     public String feedback() {
         return "feedback";
     }
-    
+
     @RequestMapping(value = "/hotels")
     public String hotels() {
         return "hotels";
