@@ -4,12 +4,12 @@ import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.repository.TourRepository;
 import com.softserveinc.softtour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * Created by oleksandrgasenuk on 04.09.14.
- */
+@Service
 public class TourServiceImpl implements TourService {
 
     @Autowired
@@ -41,7 +41,7 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> findByCustomParameters() {
-        return null;
+    public List<Tour> findByCustomParameters(String country, BigDecimal minPrice, BigDecimal maxPrice) {
+        return tourRepository.findByCustomParameters(country,minPrice,maxPrice);
     }
 }

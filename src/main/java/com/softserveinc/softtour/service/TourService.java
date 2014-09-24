@@ -2,11 +2,9 @@ package com.softserveinc.softtour.service;
 
 import com.softserveinc.softtour.entity.Tour;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * Created by oleksandrgasenuk on 04.09.14.
- */
 public interface TourService {
     Tour save(Tour tour);
 
@@ -18,5 +16,5 @@ public interface TourService {
 
     void deleteById(long id);
 
-    List<Tour> findByCustomParameters();
+    List<Tour> findByCustomParameters(String country,BigDecimal minPrice,BigDecimal maxPrice);
 }
