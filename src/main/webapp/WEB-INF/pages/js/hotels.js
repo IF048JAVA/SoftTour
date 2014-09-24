@@ -36,8 +36,10 @@ function searchHotels() {
 }
 
 $(document).ready(function () {
+
     $("#countrySelect2").select2({
-        placeholder: "Всі країни"
+        placeholder: "Оберіть країну",
+        allowClear: true
     });
 
     $.getJSON('/hotels/allCountry', {

@@ -20,7 +20,9 @@
 
             <div id="collapseFilter" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <select id="countrySelect2" class="populate placeholder select2-offscreen filter-element" placeholder="Всі країни" ></select>
+                    <select id="countrySelect2" class="select2-offscreen filter-element">
+                        <option></option>
+                    </select>
 
                     <form>
                         <label for="rating" class="muted">Рейтинг</label>
