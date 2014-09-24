@@ -35,6 +35,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 					Date birthday, byte age, Sex sex, String phone, Role role);
 
 	/**
+	 * Returns the list of the user's objects with the specified name or email
+	 */	
+	public List<User> findByNameOrEmail(String name, String email);
+	
+	/**
 	 *  Returns the list of the user's objects with the specified parameters
 	 */
 	public List<User> findByIdOrNameOrEmailOrPasswordOrBirthdayOrAgeOrSexOrPhoneOrRole(
