@@ -20,7 +20,7 @@ import com.softserveinc.softtour.service.UserService;
  *  Supports a transaction
  */
 @Service
-@Transactional(propagation=Propagation.SUPPORTS, readOnly = true)
+@Transactional(propagation=Propagation.REQUIRED, readOnly = true)
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	 * Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Transactional(readOnly=false)
 	public void save(User user) {
 		userRepository.save(user);
 	}
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	 * @param user - it's the object with the new values
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Transactional(readOnly=false)
 	public void update(long id,User user) {
 		userRepository.update( id, user.getName(), user.getEmail(), user.getPassword(), 
 				user.getBirthday(), user.getAge(), user.getSex(), user.getPhone(), user.getRole());
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 	 *  Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Transactional(readOnly=false)
 	public void delete(long id) {
 		userRepository.delete(id);
 	}
@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
 	 *  Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
 	public User findById(long id) {
 		return userRepository.findOne(id);
 	}
@@ -74,7 +73,6 @@ public class UserServiceImpl implements UserService {
 	 *  Returns the list of the user's objects with the specified parameters
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findByAnyParameters(long id, String name, String email, String password, 
 								Date birthday, byte age, Sex sex, String phone, Role role) {
 		return userRepository.findByIdOrNameOrEmailOrPasswordOrBirthdayOrAgeOrSexOrPhoneOrRole(
@@ -85,7 +83,6 @@ public class UserServiceImpl implements UserService {
 	 *  Returns the list of all user's objects which are contained in the table User
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}

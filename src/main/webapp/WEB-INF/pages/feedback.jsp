@@ -1,16 +1,16 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <!-- Form -->
     <div class="col-md-6 form">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action="#" onsubmit="return checkForm('name','email','area')">
             <fieldset>
                 <legend>Форма зворотнього зв'язку</legend>
 
                     <div class="form-group">
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
-                            <input type="text" id="user_name" class="form-control input-md" name="user_name"
+                            <input type="text" id="name" class="form-control input-md" name="name"
                                                  placeholder="Введіть Ваше ім'я:"/>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
-                            <input type="text" id="user_email" class="form-control input-md" name="user_email"
+                            <input type="text" id="email" class="form-control input-md" name="user_email"
                                                  placeholder="Введіть Ваш e-mail:"/>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                     <div class="form-group">
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
-                            <select name="user_select" id="user_select" class="form-control" size="1">
+                            <select name="select" id="select" class="form-control" size="1">
                                 <option value="1" class="option_style">Технічна несправність сайту</option>
                                 <option value="2" class="option_style">Оформлення сайту</option>
                                 <option value="3" class="option_style">Інше</option>
@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <div class="col-md-2 col-md-2-offset"> </div>
                         <div class="col-md-8">
-                            <textarea name="user_area" id="user_area" class="form-control" rows="4" placeholder="Текст повідомлення:"></textarea>
+                            <textarea name="area" id="area" class="form-control" rows="4" placeholder="Текст повідомлення:"></textarea>
                         </div>
                     </div>
 
