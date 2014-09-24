@@ -67,8 +67,16 @@ public class FavoriteServiceImpl implements FavoriteService{
 	public Favorite findById(long id) {
 		return favoriteRepository.findOne(id);
 	}
-	
-	/**
+
+    /**
+     * Returns the list of the favorite's objects from the specified User
+     */
+    @Override
+    public List<Favorite> findByUser(User user) {
+        return favoriteRepository.findByUser(user);
+    }
+
+    /**
 	 * Returns the list of the favorite's objects with the specified parameters
 	 */
 	@Override

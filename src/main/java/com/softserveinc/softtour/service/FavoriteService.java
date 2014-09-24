@@ -36,6 +36,11 @@ public interface FavoriteService {
 	 *  id - id of the object favorite which will be returned
 	 */
 	public Favorite findById(long id);
+
+    /**
+     * Returns the list of the favorite's objects from the specified User
+     */
+    public List<Favorite> findByUser(User user);
 	
 	/**
 	 * Returns the list of the favorite's objects with the specified parameters

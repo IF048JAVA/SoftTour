@@ -27,6 +27,11 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long>{
 	@Modifying
 	@Query("UPDATE Favorite SET date = ?2, user_id = ?3, tour_id = ?4 WHERE id = ?1")
 	public void update(long id, Date date, User user, Tour tour);
+
+    /**
+     * Returns the list of the favorite's objects from the specified User
+     */
+    public List<Favorite> findByUser(User user);
 	
 	/**
 	 * Returns the list of the favorite's objects with the specified parameters
