@@ -1,12 +1,15 @@
 package com.softserveinc.softtour.parsers;
 
-import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.entity.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -16,8 +19,102 @@ import java.util.*;
 public class TyrComUaParser {
     private WebDriver driver = new HtmlUnitDriver(true);
     private static final String URL = "http://www.tyr.com.ua/tours/search.php";
+    private List<Tour> tourList = new ArrayList<>();
+
+    private String country;
+    private String region;
+    private String hotel;
+    private int[] stars;
+    private String[] foods;
+    private int adults;
+    private int children;
+    private int[] childrenAge;
+    private String dateFlyFrom;
+    private String dateFlyTo;
+    private int countNightsFrom;
+    private int countNightsTo;
+    private int priceFrom;
+    private int priceTo;
+    private String currency;
+    private String departureCity;
 
     public TyrComUaParser() {
+        driver.get(URL);
+    }
+
+    public TyrComUaParser(WebDriver driver, String country, String region, String hotel, int[] stars, String[] foods,
+                int adults, int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
+                int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity) {
+        this.driver = driver;
+        this.country = country;
+        this.region = region;
+        this.hotel = hotel;
+        this.stars = stars;
+        this.foods = foods;
+        this.adults = adults;
+        this.children = children;
+        this.childrenAge = childrenAge;
+        this.dateFlyFrom = dateFlyFrom;
+        this.dateFlyTo = dateFlyTo;
+        this.countNightsFrom = countNightsFrom;
+        this.countNightsTo = countNightsTo;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
+        this.currency = currency;
+        this.departureCity = departureCity;
+        driver.get(URL);
+    }
+
+    public TyrComUaParser(String country, String region, String hotel, int[] stars, String[] foods,
+                          int adults, int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
+                          int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity) {
+        this.driver = driver;
+        this.country = country;
+        this.region = region;
+        this.hotel = hotel;
+        this.stars = stars;
+        this.foods = foods;
+        this.adults = adults;
+        this.children = children;
+        this.childrenAge = childrenAge;
+        this.dateFlyFrom = dateFlyFrom;
+        this.dateFlyTo = dateFlyTo;
+        this.countNightsFrom = countNightsFrom;
+        this.countNightsTo = countNightsTo;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
+        this.currency = currency;
+        this.departureCity = departureCity;
+        driver.get(URL);
+    }
+
+    public TyrComUaParser(String country, String region, String hotel, int[] stars, String[] foods, int adults,
+                          int children, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
+                          int countNightsTo, int priceFrom, int priceTo) {
+        this.country = country;
+        this.region = region;
+        this.hotel = hotel;
+        this.stars = stars;
+        this.foods = foods;
+        this.adults = adults;
+        this.children = children;
+        this.dateFlyFrom = dateFlyFrom;
+        this.dateFlyTo = dateFlyTo;
+        this.countNightsFrom = countNightsFrom;
+        this.countNightsTo = countNightsTo;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
+        this.currency = "грн";
+        driver.get(URL);
+    }
+
+    public TyrComUaParser(String country, int adults, int children, int countNightsFrom, int priceFrom, int priceTo){
+        this.country = country;
+        this.adults = adults;
+        this.children = children;
+        this.countNightsFrom = countNightsFrom;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
         driver.get(URL);
     }
 
@@ -26,11 +123,7 @@ public class TyrComUaParser {
         driver.get(URL);
     }
 
-    public List<Tour> parse(String country, String region, String hotel, int[] stars, String[] foods, int adults,
-                int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
-                int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity){
-        selectCountry(country);
-        selectRegion(country, region);
+    public List<Tour> parse(){
         selectHotel(country, region, hotel);
         selectStars(stars);
         selectFood(foods);
@@ -52,57 +145,49 @@ public class TyrComUaParser {
             e.printStackTrace();
         }
         addAllWebElementsToWebElementList();
-
-
-        //wait for 5 seconds
-
-
-
-        //create list of ?
-        return null;
+        return tourList;
     }
 
-    private void selectCountry(String country){
-        //Египет - default
-        switch(country){
-              case "Египет":{
-                break;
-            } case "Туреччина":{
-                Select dropCountry = new Select(driver.findElement(By.id("itt_country")));
-                dropCountry.selectByVisibleText("Турция");
-                break;
-            } case "Греція":{
-                Select dropCountry = new Select(driver.findElement(By.id("itt_country")));
-                dropCountry.selectByVisibleText("Греция");
-                break;
-            } default:{
-                throw new NoSuchElementException("There is no country named " + country);
-            }
-        }
-
-    }
-
-    private void selectRegion(String country, String region){
-        //Египет - default
+    private void selectHotel(String country, String region, String hotel){
+        NoSuchElementException noSuchElementException = new NoSuchElementException("There is no such hotel " + hotel);
         switch(country) {
-            case "Египет": {
+            case "Єгипет": {
                 switch (region) {
                     case "Дахаб": {
                         WebElement selectRegion = driver.findElement(By.id("region_list"));
                         Select dropRegion = new Select(selectRegion);
                         dropRegion.selectByVisibleText(region);
+                        switch (hotel){
+                            case "AA Grand Oasis Resort (ex.Tropicana Grand Oasis Resort)" :{
+                                WebElement selectHotel = driver.findElement(By.id("hotel_list"));
+                                Select dropHotel = new Select(selectHotel);
+                                dropHotel.selectByVisibleText(hotel);
+                                break;
+                            }
+                            default:{
+                                return;
+                            }
+                        }
                         break;
-                    }
-                    case "Макаді Бей": {
+                    } case "Макаді Бей": {
                         WebElement selectRegion = driver.findElement(By.id("region_list"));
                         Select dropRegion = new Select(selectRegion);
                         dropRegion.selectByVisibleText("Макади Бей");
+                        switch (hotel){
+                            default:{
+                                break;
+                            }
+                        }
                         break;
-                    }
-                    case "Марса Алам": {
+                    } case "Марса Алам": {
                         WebElement selectRegion = driver.findElement(By.id("region_list"));
                         Select dropRegion = new Select(selectRegion);
                         dropRegion.selectByVisibleText(region);
+                        switch (hotel){
+                            default:{
+                                break;
+                            }
+                        }
                         break;
                     }
                     default: {
@@ -112,6 +197,8 @@ public class TyrComUaParser {
                 break;
             }
             case "Туреччина": {
+                Select dropCountry = new Select(driver.findElement(By.id("itt_country")));
+                dropCountry.selectByVisibleText("Турция");
                 switch (region) {
                     default: {
                         break;
@@ -134,6 +221,10 @@ public class TyrComUaParser {
     }
 
     private void selectStars(int...stars){
+        //must be improve
+        if(stars.length == 0){
+            return;
+        }
         //almost all selected, 2 discarded
         boolean[] starsBoolean = new boolean[4];
         for(int star : stars){
@@ -173,65 +264,12 @@ public class TyrComUaParser {
         }
     }
 
-    private void selectHotel(String country, String region, String hotel){
-        NoSuchElementException noSuchElementException = new NoSuchElementException("There is no such hotel " + hotel);
-        switch(country) {
-            case "Египет": {
-                switch (region) {
-                    case "Дахаб": {
-                        switch (hotel){
-                            case "AA Grand Oasis Resort (ex.Tropicana Grand Oasis Resort)" :{
-                                WebElement selectHotel = driver.findElement(By.id("hotel_list"));
-                                Select dropHotel = new Select(selectHotel);
-                                dropHotel.selectByVisibleText(hotel);
-                                break;
-                            }
-                            default:{
-                                return;
-                            }
-                        }
-                    }
-                    case "Макаді Бей": {
-                        switch (hotel){
-                            default:{
-                                return;
-                            }
-                        }
-                    }
-                    case "Марса Алам": {
-                        switch (hotel){
-                            default:{
-                                return;
-                            }
-                        }
-                    }
-                    default: {
-                        break;
-                    }
-                }
-                break;
-            }
-            case "Туреччина": {
-                switch (region) {
-                    default: {
-                        break;
-                    }
-                }
-            }
-            case "Греція": {
-                switch (region) {
-                    default: {
-                        break;
-                    }
-                }
-            }
-            default: {
-                throw new NoSuchElementException("There is no country named " + country);
-            }
-        }
-    }
+
 
     private void selectFood(String...foods){
+        if(foods.length == 0){
+            return;
+        }
         ArrayList<String> list = new ArrayList<>();
         list.addAll(Arrays.asList(foods));
         if(!list.contains("HB")){
@@ -284,6 +322,9 @@ public class TyrComUaParser {
     }
 
     private void selectChildrenAge(int...childrenAge){
+        if(childrenAge.length == 0){
+            return;
+        }
         switch (childrenAge.length-1){
             case 0:{
                 WebElement childrenAge1 = driver.findElement(By.id("child1_age"));
@@ -302,30 +343,29 @@ public class TyrComUaParser {
                                                  childrenAge.length + " children. Sorry.");
             }
         }
-
-
-
     }
 
     private void selectDateFlyFrom(String dateFlyFrom){
+        if(dateFlyFrom == null){
+            return;
+        }
         WebElement dataFlyFrom = driver.findElement(By.id("itt_date_from"));
         dataFlyFrom.clear();
         dataFlyFrom.sendKeys(dateFlyFrom);
     }
 
     private void selectDateFlyTo(String dateFlyTo){
+        if(dateFlyTo == null){
+            return;
+        }
         WebElement dataFlyTo = driver.findElement(By.id("date_till"));
         dataFlyTo.clear();
         dataFlyTo.sendKeys(dateFlyTo);
     }
 
     private void selectCountNightsFrom(int countNightsFrom){
-        if(countNightsFrom == 6){
+        if(countNightsFrom == 6 || (countNightsFrom <= 0 || countNightsFrom > 21)){
             return;
-        }
-        if(countNightsFrom <= 0 || countNightsFrom > 21){
-            throw new NoSuchElementException("Count nights must be more then 0 and less then 22. It is " +
-                                             countNightsFrom);
         }
         WebElement nightsFrom = driver.findElement(By.id("night_from"));
         Select dropNightsFrom = new Select(nightsFrom);
@@ -333,12 +373,8 @@ public class TyrComUaParser {
     }
 
     private void selectCountNightsTo(int countNightsTo){
-        if(countNightsTo == 14){
+        if(countNightsTo == 14 || (countNightsTo <=0 || countNightsTo > 21)){
             return;
-        }
-        if(countNightsTo <=0 || countNightsTo > 21){
-            throw new NoSuchElementException("Count nights must be more then 0 and less then 22. It is " +
-                                             countNightsTo);
         }
         WebElement nightsTo = driver.findElement(By.id("night_till"));
         Select dropNightsTo = new Select(nightsTo);
@@ -359,7 +395,7 @@ public class TyrComUaParser {
     }
 
     private void selectPriceTo(int priceTo){
-        if(priceTo == 99000){
+        if(priceTo == 99000 || priceTo == 0){
             return;
         } else if(priceTo > 99999){
             priceTo = 99999;
@@ -375,7 +411,7 @@ public class TyrComUaParser {
         switch (currency){
             case "USD":{
                 break;
-            }case "грн":{
+            }case "Грн":{
                 WebElement selectCurrency = driver.findElement(By.id("switch_price"));
                 Select dropCurrency = new Select(selectCurrency);
                 dropCurrency.selectByVisibleText(currency);
@@ -434,7 +470,7 @@ public class TyrComUaParser {
         oddList.clear();
         evenList.clear();
         for(WebElement webElement : webElementList){
-            System.out.println(webElement.getText());
+            addTourToList(webElement);
         }
 
         for(int i = 2; i<100;i++){
@@ -463,23 +499,118 @@ public class TyrComUaParser {
                 webElementList2.add(oddList.get(oddList.size()-1));
             }
             for(WebElement webElement : webElementList2){
-                System.out.println(webElement.getText());
+                addTourToList(webElement);
             }
             oddList.clear();
             evenList.clear();
         }
+    }
 
+    public void addTourToList(WebElement webElement){
+        List<String> tourDataList = new ArrayList<>();
+        List<WebElement> listLeft = (ArrayList<WebElement>)webElement.findElements(By.className("itt_text-left"));
+        List<WebElement> listCenter = (ArrayList<WebElement>)webElement.findElements(By.className("text-center"));
+        WebElement textRight = webElement.findElement(By.className("text-right"));
+
+        for(int i = 0; i<listLeft.size();i++){
+            tourDataList.add(listLeft.get(i).getText());
+        }
+        listLeft.clear();
+        for(int i = 0; i<listCenter.size();i++){
+            tourDataList.add(listCenter.get(i).getText());
+        }
+        listCenter.clear();
+        tourDataList.add(textRight.getText());
+
+        /*
+      0  Хургада
+      1  Princess Palace Hotel
+      2  Std
+      3  Киев
+      4  3
+      5  HB
+      6  6
+      7  14.12.14
+      8  Подробнее
+      9  1067€
+         */
+
+        Tour tour = new Tour();
+
+        //set tour date
+        //Поки-що дата туру буде датою вильоту :)
+        String tourDate = tourDataList.get(7);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yy");
+        Date date = null;
+        try {
+            date = dateFormat.parse(tourDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        tour.setDate(date);
+
+        //set tour days
+        int days = Integer.parseInt(tourDataList.get(6));
+        tour.setDays(days);
+
+        //set departure city
+        String depCity = tourDataList.get(3);
+        if(depCity.equalsIgnoreCase("без перелета")) {
+            tour.setDepartureCity(departureCity);
+        } else {
+            tour.setDepartureCity(depCity);
+        }
+
+        //set departure time
+        String depTime = tourDataList.get(7);
+        SimpleDateFormat depDateFormat = new SimpleDateFormat("dd.mm.yy");
+        Date departureTime = null;
+        try {
+            departureTime = depDateFormat.parse(depTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        tour.setDepartureTime(departureTime);
+
+        String priceSt = tourDataList.get(9);
+        char [] priceCh = priceSt.toCharArray();
+        StringBuffer priceOnlyNumbers = new StringBuffer();
+        for(char ch : priceCh){
+            if(ch>=48 && ch <= 57){
+                priceOnlyNumbers.append(ch);
+            }
+        }
+        int priceInt = Integer.parseInt(priceOnlyNumbers.toString());
+        BigDecimal price = new BigDecimal(priceInt);
+        tour.setPrice(price);
+
+        //set Hotel
+        Country coun = new Country(country);
+        Region reg = new Region(region, coun);
+        int star = Integer.parseInt(tourDataList.get(4));
+        Hotel hot = new Hotel(hotel, star, reg);
+        tour.setHotel(hot);
+
+        //set Food
+        String foodSt = tourDataList.get(5);
+        Food food = new Food(foodSt);
+        tour.setFood(food);
+
+        //add tour
+        tourList.add(tour);
     }
 
     public static void main(String[] args) {
-        TyrComUaParser parser = new TyrComUaParser();
         int[] stars = {3,4,5};
         String[] foods = {"HB", "AI"};
         int[] childrenAge = {9};
         //null for now
-        List<Tour> resultList = parser.parse("Египет", "Мухосранськ", "Каліфорнія", stars, foods, 3, 1, childrenAge,
-                "01.10.14", "31.12.14", 6, 21, 400, 1070,"EUR", "Київ");
-
+        TyrComUaParser parser = new TyrComUaParser("Єгипет", "Foo", "Bar", stars, foods, 3, 1, childrenAge,
+                "01.10.14", "31.12.14", 6, 21, 4000, 12000, "Грн", "Львів");
+        List<Tour> resultList = parser.parse();
+        for(int i = 0; i<resultList.size(); i++){
+            System.out.println(resultList.get(i).toString());
+        }
         parser.driverQuit();
     }
 }
