@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
-
+    public Role findByName(String name);
 }
