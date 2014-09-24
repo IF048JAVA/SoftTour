@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface FoodRepository extends JpaRepository<Food, Long> {
-
+    public Food findByName(String name);
 }

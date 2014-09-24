@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface HistoryRecordsService {
     public void save(HistoryRecord historyRecord);
-    public void update(long id, HistoryRecord historyRecord);
     public void delete(long id);
     public HistoryRecord findById(long id);
+
     public List<HistoryRecord> getAll();
 }

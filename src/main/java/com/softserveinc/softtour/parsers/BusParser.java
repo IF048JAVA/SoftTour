@@ -9,13 +9,18 @@ import java.io.IOException;
 import java.util.*;
 
 public class BusParser {
-    private List<BusTransit> busList;
+    private List<BusTransit> busList = new ArrayList<>();
+    private String cityFrom;
+    private String cityTo;
+    private Date tourDate;
 
-    public BusParser() {
-        this.busList = new ArrayList<>();
+    public BusParser(String cityFrom, String cityTo, Date tourDate) {
+        this.cityFrom = cityFrom;
+        this.cityTo = cityTo;
+        this.tourDate = tourDate;
     }
 
-    public List<BusTransit> parse(String cityFrom, String cityTo, Date tourDate) throws IOException {
+    public List<BusTransit> parse() throws IOException {
         String url = createURL(cityFrom, cityTo);
         Document doc  = Jsoup.connect(url).get();
         Elements buses = doc.select("tr[class~=aslist(?)]");
@@ -122,6 +127,14 @@ public class BusParser {
         busTransit.setDepartureTime(departureTime);
         busTransit.setArrivalTime(arrivalTime);
         busTransit.setPrice(price);
+    }
+
+    public static void main(String[] args) throws IOException{
+        BusParser busParser = new BusParser("Київ", "Львів", new GregorianCalendar(2014, 9, 25).getTime());
+        List<BusTransit> list = busParser.parse();
+        for(int i = 0;i<list.size();i++){
+            System.out.println(list.get(i));
+        }
     }
 }
 
