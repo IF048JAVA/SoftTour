@@ -15,4 +15,9 @@ public class TourServiceImpl implements TourService {
     public void setTourRepository(TourRepository tourRepository) {
         this.tourRepository = tourRepository;
     }
+
+    @Override
+    public void findAll() {
+        tourRepository.findAll();
+    }
 }
