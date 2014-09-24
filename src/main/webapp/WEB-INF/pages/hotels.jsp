@@ -52,13 +52,13 @@
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
                     </form>
-                    <button type="button" class="btn btn-default btn-block filter-button">Пошук</button>
+                    <button id="search_hotel" type="button" class="btn btn-default btn-block filter-button" onclick="searchHotels()">Пошук</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-1"></div>
-    <div class="col-md-9 hotels-result">
+    <div id="hotels-result" class="col-md-9 hotels-result">
         <jsp:include page="hotelResult.jsp"></jsp:include>
     </div>
 </div>
