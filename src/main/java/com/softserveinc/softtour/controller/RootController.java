@@ -14,11 +14,6 @@ public class RootController {
         return "search";
     }
 
-    @RequestMapping(value = "/registration")
-    public String registrationPage() {
-        return "registration";
-    }
-
     @RequestMapping(value = "/about")
     public String aboutPage() {
         return "about";
