@@ -1,9 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+
 		<div class="col-md-3 col-md-3-offset"></div>
 		<div class="col-md-6 form">
-
-			<form class="form-horizontal" action="user/save" method="post" 
+		
+			<sf:form class="form-horizontal" method="POST" modelAttribute="user" 
 				onsubmit="return registrationControl('name', 'email', 'password', 'confirmPassword', 'birthday', 'phone')">
 				<fieldset>
 
@@ -14,8 +15,9 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="name">Ім'я</label>
 							<div class="col-md-5">
-								<input type="text" name="name"  id="name" class="form-control input-md"
-									placeholder="Bід 6 до 30 символів" >
+								<sf:input path="name" id="name" class="form-control input-md" 
+									placeholder="Bід 6 до 30 символів" />
+								<sf:errors path="name" cssClass="error" />
 							</div>
 						</div>
 
@@ -23,8 +25,9 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="email">Email/Login</label>
 							<div class="col-md-5">
-								<input type="text" name="email" id="email" class="form-control input-md"
-									placeholder="Bід 7 до 30 символів" >
+								<sf:input path="email" id="email" class="form-control input-md" 
+									placeholder="Bід 7 до 30 символів" />
+								<sf:errors path="email" cssClass="error" />
 							</div>
 						</div>
 
@@ -32,8 +35,8 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="password">Пароль</label>
 							<div class="col-md-5">
-								<input type="password" name="password" id="password" class="form-control input-md"
-									placeholder="Bід 6 до 30 символів" >
+								<sf:password path="password" id="password"  class="form-control input-md" 
+									placeholder="Bід 6 до 30 символів" />
 							</div>
 						</div>
 
@@ -41,8 +44,8 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="confirmPassword">Підтвердьте Пароль</label>
 							<div class="col-md-5">
-								<input type="password" name="confirmPassword" id="confirmPassword" class="form-control input-md"
-									 placeholder="Повторіть введення паролю" >
+								<sf:password path="password" id="confirmPassword" class="form-control input-md"
+									 placeholder="Повторіть введення паролю" />	 
 							</div>
 						</div>
 
@@ -50,8 +53,8 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="birthday">Дата народження</label> 
 							<div class="col-md-5">
-								<input type="text" name="birthday" id="birthday" class="form-control input-md"
-									placeholder="yyyy-mm-dd"> 
+								<sf:input path="birthday" id="birthday" class="form-control input-md"
+									placeholder="yyyy-mm-dd"/>
 							</div>
 						</div>
 
@@ -59,10 +62,10 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="sex">Стать</label>
 							<div class="col-md-5">
-								<select name="sexString" id="sex" class="form-control">
-									<option value="male">Чоловік</option>
-									<option value="female">Жінка</option>
-								</select>
+								<sf:select path="sex" id="sex" class="form-control">
+									<sf:option value="MALE">Чоловік</sf:option>
+									<sf:option value="FEMALE">Жінка</sf:option>
+								</sf:select>
 							</div>
 						</div>
 
@@ -70,20 +73,20 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="phone">Номер телефону</label>
 							<div class="col-md-5">
-								<input type="text" name="phone" id="phone" class="form-control input-md"
-									placeholder="До 20 символів">
+								<sf:input path="phone" id="phone" class="form-control input-md"
+									placeholder="До 20 символів"/>
 								<p class="help-block">+38(xxx)xxx-xx-xx</p>
 							</div>
 						</div>
 
 						<!-- Button of registration-->
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary" >
+							<sf:button type="submit" class="btn btn-primary" >
 								<span class="glyphicon glyphicon-ok"></span>
 								Реєстрація
-							</button>
+							</sf:button>
 						</div>
 
 				</fieldset>
-			</form>
+			</sf:form>
 		</div>
