@@ -8,5 +8,4 @@ import java.util.List;
  * Created by oleksandrgasenuk on 04.09.14.
  */
 public interface TourRepository extends JpaRepository<Tour, Long> {
-    List<Tour> findAll();
 }
