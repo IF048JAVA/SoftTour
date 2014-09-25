@@ -21,6 +21,8 @@
     <link href="css/select2-bootstrap.css" rel="stylesheet"/>
     <link href="css/star-rating.min.css" rel="stylesheet"/>
     <link href="css/hotels.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/left_right_style.css" rel="stylesheet"/>
 
 </head>
 <body bgcolor="#c0c0c0">
@@ -48,5 +50,6 @@
 <script src="js/userFavoritesProfile.js"></script>
 <script src="js/userInfo.js"></script>
 <script src="js/tours.js"></script>
+<script src="js/equal_div.js"></script>
 </body>
 </html>

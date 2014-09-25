@@ -2,8 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <!-- Form -->
-<div class="col-md-3 col-md-3-offset"></div>
-    <div class="col-md-6 form">
+    <div id="left_div" class="form">
         <form class="form-horizontal" action="#" onsubmit="return checkForm('name','email','area')">
             <fieldset>
                 <legend>Форма зворотнього зв'язку</legend>
@@ -47,13 +46,63 @@
                             Надіслати
                         </button>
                     </div>
-
             </fieldset>
         </form>
-        </div>
-
-
     </div>
+
+    <div id="right_div">
+        <section class="foto_container">
+
+            <input id="select-img-1" name="radio-set-1" type="radio" class="cr-selector-img-1" checked/>
+            <label for="select-img-1" class="cr-label-img-1"></label>
+
+            <input id="select-img-2" name="radio-set-1" type="radio" class="cr-selector-img-2" />
+            <label for="select-img-2" class="cr-label-img-2"></label>
+
+            <input id="select-img-3" name="radio-set-1" type="radio" class="cr-selector-img-3" />
+            <label for="select-img-3" class="cr-label-img-3"></label>
+
+            <input id="select-img-4" name="radio-set-1" type="radio" class="cr-selector-img-4" />
+            <label for="select-img-4" class="cr-label-img-4"></label>
+
+            <div class="clr"></div>
+            <div class="cr-bgimg">
+                <div>
+                    <span>Slice 1 - Image 1</span>
+                    <span>Slice 1 - Image 2</span>
+                    <span>Slice 1 - Image 3</span>
+                    <span>Slice 1 - Image 4</span>
+                </div>
+                <div>
+                    <span>Slice 2 - Image 1</span>
+                    <span>Slice 2 - Image 2</span>
+                    <span>Slice 2 - Image 3</span>
+                    <span>Slice 2 - Image 4</span>
+                </div>
+                <div>
+                    <span>Slice 3 - Image 1</span>
+                    <span>Slice 3 - Image 2</span>
+                    <span>Slice 3 - Image 3</span>
+                    <span>Slice 3 - Image 4</span>
+                </div>
+                <div>
+                    <span>Slice 4 - Image 1</span>
+                    <span>Slice 4 - Image 2</span>
+                    <span>Slice 4 - Image 3</span>
+                    <span>Slice 4 - Image 4</span>
+                </div>
+            </div>
+            <div class="cr-titles">
+                <h3><span>London</span><span>Tower Bridge</span></h3>
+                <h3><span>Rome</span><span>The Colosseum (Coliseum)</span></h3>
+                <h3><span>Rio de Janeiro</span><span>Christ the Redeemer</span></h3>
+                <h3><span>San Francisco</span><span>The Golden Gate Bridge</span></h3>
+            </div>
+        </section>
+    </div>
+
+
+
 
 
 
