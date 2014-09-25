@@ -27,6 +27,10 @@
                                          <span id="tourDays-f1" class="tabulatedTitle">Days</span>
                                          <span class="tabTitleFont">Вартість туру:</span>
                                          <span id="tourPrice-f1" class="tabulatedTitle">Price</span>
+                                         <span class="tabTitleFont">Харчування:</span>
+                                         <span id="tourFood-f1" class="tabulatedTitle">Food</span>
+                                         <span class="tabTitleFont">Дата вильоту:</span>
+                                         <span id="tourDepartureDate-f1" class="tabulatedTitle">Date DepartureCity</span>
                                      </a>
 								</div>
 								<div id="panel-element-f1" class="panel-collapse collapse">
@@ -54,6 +58,10 @@
                                          <span id="tourDays-h1" class="tabulatedTitle">Days</span>
                                          <span class="tabTitleFont">Вартість туру:</span>
                                          <span id="tourPrice-h1" class="tabulatedTitle">Price</span>
+                                         <span class="tabTitleFont">Харчування:</span>
+                                         <span id="tourFood-h1" class="tabulatedTitle">Food</span>
+                                         <span class="tabTitleFont">Дата вильоту:</span>
+                                         <span id="tourDepartureDate-h1" class="tabulatedTitle">Date DepartureCity</span>
                                      </a>
 								</div>
 								<div id="panel-element-h1" class="panel-collapse collapse">
