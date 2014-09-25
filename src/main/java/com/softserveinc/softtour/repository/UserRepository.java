@@ -44,6 +44,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 */
 	public List<User> findByIdOrNameOrEmailOrPasswordOrBirthdayOrAgeOrSexOrPhoneOrRole(
 			long id, String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
-	
-	
+
 }
