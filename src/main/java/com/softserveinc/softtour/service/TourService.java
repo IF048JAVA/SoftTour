@@ -7,7 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 public interface TourService {
-    List<Tour> findByHotelAndDaysAndPrice(String country, int days, BigDecimal price);
+    Tour save(Tour tour);
+    void delete(Tour tour);
+    void deleteById(long id);
+    Tour findOne(long id);
+    List<Tour> findAll();
+    List<Tour> findByCountryAndPrice(String country, int minPrice, int maxPrice);
+    List<Tour> findByCountryAndDaysAndPrice(String country, int days, BigDecimal price);
     List<Tour> findByCustomParameters(String country, Date date, int days, String departureCity, Date departureTime,
                                       BigDecimal price, String hotel, String food);
 }

@@ -4,22 +4,52 @@ import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.repository.TourRepository;
 import com.softserveinc.softtour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by oleksandrgasenuk on 04.09.14.
- */
+@Service
 public class TourServiceImpl implements TourService {
 
     @Autowired
     private TourRepository tourRepository;
 
+
     @Override
-    public List<Tour> findByHotelAndDaysAndPrice(String country, int days, BigDecimal price) {
-        return tourRepository.findByHotelAndDaysAndPrice(country, days, price);
+    public Tour save(Tour tour) {
+        return tourRepository.saveAndFlush(tour);
+    }
+
+    @Override
+    public void delete(Tour tour) {
+        tourRepository.delete(tour);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        tourRepository.delete(id);
+    }
+
+    @Override
+    public Tour findOne(long id) {
+        return tourRepository.findOne(id);
+    }
+
+    @Override
+    public List<Tour> findAll() {
+        return tourRepository.findAll();
+    }
+
+    @Override
+    public List<Tour> findByCountryAndPrice(String country, int minPrice, int maxPrice) {
+        return tourRepository.findByCountryAndPrice(country, minPrice, maxPrice);
+    }
+
+    @Override
+    public List<Tour> findByCountryAndDaysAndPrice(String country, int days, BigDecimal price) {
+        return tourRepository.findByCountryAndDaysAndPrice(country, days, price);
     }
 
     @Override
@@ -28,4 +58,5 @@ public class TourServiceImpl implements TourService {
         return tourRepository.findByCustomParameters(country, date, days, departureCity,
                                                      departureTime, price, hotel, food);
     }
+
 }

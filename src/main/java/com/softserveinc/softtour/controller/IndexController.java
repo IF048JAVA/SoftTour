@@ -24,7 +24,7 @@ public class IndexController {
             @RequestParam(value = "minPrice", required = true) Integer minPrice,
             @RequestParam(value = "maxPrice", required = true) Integer maxPrice) {
 
-        return tourService.findByCustomParameters(country, minPrice, maxPrice);
+        return tourService.findByCountryAndPrice(country, minPrice, maxPrice);
     }
 
 
