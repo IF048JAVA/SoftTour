@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/userProfile")
-public class MyProfileConroller {
+public class UserProfileConroller {
 
     @Autowired
     private FavoriteService favoriteService;

@@ -36,6 +36,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-datepicker-ua.js"></script>
+<script src="js/jquery.tmpl.js"></script>
 <script src="js/calendar.js"></script>
 <script src="js/selector.js"></script>
 <script src="js/registrationControl.js"></script>
@@ -44,7 +45,7 @@
 <script src="js/select2.min.js"></script>
 <script src="js/star-rating.min.js"></script>
 <script src="js/hotels.js"></script>
-<script src="js/myProfile.js"></script>
+<script src="js/userFavoritesProfile.js"></script>
 <script src="js/tours.js"></script>
 </body>
 </html>
