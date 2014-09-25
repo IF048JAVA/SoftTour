@@ -18,7 +18,7 @@
                 </a>
             </h4>
 
-            <div id="collapseFilter" class="panel-collapse collapse">
+            <div id="collapseFilter" class="panel-collapse collapse in">
                 <div class="panel-body">
                     <select id="countrySelect2" class="select2-offscreen filter-element">
                         <option></option>
@@ -61,6 +61,5 @@
     </div>
     <div class="col-md-1"></div>
     <div id="hotels-result" class="col-md-9 hotels-result">
-        <jsp:include page="hotelResult.jsp"></jsp:include>
     </div>
 </div>
