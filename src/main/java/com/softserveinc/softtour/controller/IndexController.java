@@ -21,11 +21,9 @@ public class IndexController {
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public @ResponseBody List<Tour> findTours(
             @RequestParam(value = "country", required = true) String country,
-            @RequestParam(value = "minPrice", required = true) Integer minPrice,
-            @RequestParam(value = "maxPrice", required = true) Integer maxPrice) {
+            @RequestParam(value = "minPrice", required = false) Integer minPrice,
+            @RequestParam(value = "maxPrice", required = false) Integer maxPrice) {
 
         return tourService.findByCountryAndPrice(country, minPrice, maxPrice);
     }
-
-
 }

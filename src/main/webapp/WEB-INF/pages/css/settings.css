@@ -38,7 +38,8 @@ body {
     text-align: center;
 }
 .imgfont :hover{
-    border:solid 1px; 
+    height:90%;
+    width: 90%;
 
 }
 
