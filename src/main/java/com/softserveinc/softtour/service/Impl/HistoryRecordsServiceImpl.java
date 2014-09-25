@@ -1,8 +1,6 @@
 package com.softserveinc.softtour.service.Impl;
 
 import com.softserveinc.softtour.entity.HistoryRecord;
-import com.softserveinc.softtour.entity.Tour;
-import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.repository.HistoryRecordsRepository;
 import com.softserveinc.softtour.service.HistoryRecordsService;
 import org.springframework.beans.factory.annotation.Autowired;
