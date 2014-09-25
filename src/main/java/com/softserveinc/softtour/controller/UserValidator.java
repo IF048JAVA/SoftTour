@@ -25,10 +25,10 @@ public class UserValidator implements Validator {
 		List<User> users = userService.findByNameOrEmail(currentUser.getName(), currentUser.getEmail());
 		
 		for (User registeredUser : users) {
-			if (currentUser.getName().equals(registeredUser.getName())) {
+			if (currentUser.getName().equalsIgnoreCase(registeredUser.getName())) {
 				errors.rejectValue("name", "error_name", "ПОМИЛКА !!! Дане ім'я уже використовується");
 				
-			}else if (currentUser.getEmail().equals(registeredUser.getEmail())) {
+			}else if (currentUser.getEmail().equalsIgnoreCase(registeredUser.getEmail().toLowerCase())) {
 				errors.rejectValue("email", "error_email", "ПОМИЛКА !!! Даний email уже використовується");
 			}
 		}

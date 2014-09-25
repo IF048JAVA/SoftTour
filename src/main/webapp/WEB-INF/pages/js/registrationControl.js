@@ -13,9 +13,9 @@ function registrationControl(name, email, password, confirmPassword, birthday, p
 	birthday = document.getElementById(birthday).value;
 	phone = document.getElementById(phone).value;
 	
-	if (name.length < 6 || name.length > 30 ) {
+	if (name.length < 2 || name.length > 30 ) {
 		alert("Ви ввели некоректне ім'я ! \n" +
-			"Ім'я повинно містити від 6 до 30 символів !");
+			"Ім'я повинно містити від 2 до 30 символів !");
 		return false;
 	}
 	
