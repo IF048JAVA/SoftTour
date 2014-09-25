@@ -44,7 +44,4 @@ public class HotelController {
     public @ResponseBody List<Hotel> findAllHotels(){
         return hotelService.findAll();
     }
-
-
-
 }
