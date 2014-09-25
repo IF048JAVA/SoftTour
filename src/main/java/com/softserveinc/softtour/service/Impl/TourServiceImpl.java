@@ -5,6 +5,8 @@ import com.softserveinc.softtour.repository.TourRepository;
 import com.softserveinc.softtour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,12 +17,15 @@ public class TourServiceImpl implements TourService {
     @Autowired
     private TourRepository tourRepository;
 
-    public void setTourRepository(TourRepository tourRepository) {
-        this.tourRepository = tourRepository;
+    @Override
+    public List<Tour> findByHotelAndDaysAndPrice(String country, int days, BigDecimal price) {
+        return tourRepository.findByHotelAndDaysAndPrice(country, days, price);
     }
 
     @Override
-    public List<Tour> findAll() {
-        return tourRepository.findAll();
+    public List<Tour> findByCustomParameters(String country, Date date, int days, String departureCity,
+                                             Date departureTime, BigDecimal price, String hotel, String food) {
+        return tourRepository.findByCustomParameters(country, date, days, departureCity,
+                                                     departureTime, price, hotel, food);
     }
 }
