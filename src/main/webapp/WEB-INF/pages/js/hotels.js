@@ -31,7 +31,7 @@ function searchHotels() {
             var len = data.length;
             for (var i = 0; i < len; i++) {
                 $("#hotel" + i).html(data[i].name);
-                $("#hotelImg" + i).html("src", data[i].imgUrl);
+                $("#hotelImg" + i).attr("src", data[i].imgUrl);
                 $("#hotelName" + i).html("  " + data[i].name);
                 $("#hotelRegion" + i).html("  " + data[i].region.name);
                 $("#hotelCountry" + i).html("  " + data[i].region.country.name);
