@@ -14,8 +14,8 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
             "where t.hotel.region.country.name = :country " +
             "and t.price between :minPrice and :maxPrice")
     List<Tour> findByCountryAndPrice(@Param("country") String country,
-                                      @Param("minPrice") int minPrice,
-                                      @Param("maxPrice") int maxPrice
+                                      @Param("minPrice") BigDecimal minPrice,
+                                      @Param("maxPrice") BigDecimal maxPrice
     );
 
     @Query("select t from Tour t " +

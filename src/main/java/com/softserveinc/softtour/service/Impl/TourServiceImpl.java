@@ -43,8 +43,8 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> findByCountryAndPrice(String country, int minPrice, int maxPrice) {
-        return tourRepository.findByCountryAndPrice(country, minPrice, maxPrice);
+    public List<Tour> findByCountryAndPrice(String country, Integer minPrice, Integer maxPrice) {
+        return tourRepository.findByCountryAndPrice(country, BigDecimal.valueOf(minPrice), BigDecimal.valueOf(maxPrice));
     }
 
     @Override
