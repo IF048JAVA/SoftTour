@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.RoleService;
 import com.softserveinc.softtour.service.UserService;
@@ -31,11 +30,16 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	/**
+	 *  Creates the object of the RoleServiceImpl class 
+	 */
 	@Autowired
 	private RoleService roleService;
 
-	// FIXME comment
-	// Enter point for save
+	/**
+	 * Creates the user's object which we use for adding data into the database
+	 * @return the name which redirect to the page registration.jsp
+	 */
 	@RequestMapping(method=RequestMethod.GET, params="new")
 	public String createUserProfile(Model model){
 		model.addAttribute(new User());
@@ -45,8 +49,7 @@ public class UserController {
 	/**
 	 * Saves the object user to the table User
 	 * @param user - it's object which will be saved
-	 * and which we need to cast to the type Sex 
-	 * @return the name of the main page 
+	 * @return the name which redirect to the page registration.jsp or userProfile.jsp
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String save(User user, BindingResult bindingResult) {
@@ -67,12 +70,14 @@ public class UserController {
 		}
 	}
 
-	
+	/**
+	 * Updates the object user
+	 * @param user - it's object which will be updated
+	 * @return the name which redirect to the page userProfile.jsp
+	 */
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(User user) {
-		
-		// FIXME Need to set id !?
-		long id= 0;
+		long id= 1;
 		
 		user.setAge(calculateAge(user.getBirthday()));
 		user.setRole(roleService.findByName("registeredUser"));	
@@ -84,11 +89,10 @@ public class UserController {
 	/**
 	 * Deletes the object user with the specified id
 	 * @param idString - id of the user's object which will be deleted
-	 * @return the name of the main page 
+	 * @return the name which redirect to the main page 
 	 */
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
 	public String delete(@RequestParam String idString) {
-		
 		long id = Long.parseLong(idString);
 		userService.delete(id);
 		
@@ -99,7 +103,7 @@ public class UserController {
 	 * Returns the object user with the specified id
 	 * @param idString - id of the user's object which will be returned
 	 * @param model - it's response in which we write the user's object with the specified id
-	 * @return the name of the main page 
+	 * @return the name which redirect to the main page 
 	 */
 	@RequestMapping(value="/findById", method=RequestMethod.GET)
 	public String findById(@RequestParam String idString, Model model) {
@@ -115,7 +119,7 @@ public class UserController {
 	 * Returns the list of the user's objects with the specified parameters
 	 * @param user - contains the parameters to search
 	 * @param model - it's response in which we write the user's object with the specified id
-	 * @return the name of the main page 
+	 * @return  the name which redirect to the main page 
 	 */
 	@RequestMapping(value="/findByAnyParameters", method=RequestMethod.GET)
 	public String findByAnyParameters(User user, Model model) {
@@ -131,7 +135,7 @@ public class UserController {
 	/**
 	 * Returns the list of all user's objects which are contained in the table User
 	 * @param model - it's response in which we write all user's objects which are contained in the table User
-	 * @return the name of the main page 
+	 * @return the name which redirect to the main page 
 	 */
 	@RequestMapping(value="/findAll")
 	public String findAll(Model model) {
@@ -141,7 +145,6 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-
 	/**
 	 * Calculates the age of user
 	 * @param birthday - it's user's birthday 
