@@ -1,16 +1,16 @@
 package com.softserveinc.softtour.service.Impl;
 
 import com.softserveinc.softtour.entity.HistoryRecord;
+import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.repository.HistoryRecordsRepository;
-import com.softserveinc.softtour.service.HistoryRecordsService;
+import com.softserveinc.softtour.service.HistoryRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 @Service
-public class HistoryRecordsServiceImpl implements HistoryRecordsService{
+public class HistoryRecordServiceImpl implements HistoryRecordService {
 
     @Autowired
     private HistoryRecordsRepository historyRecordsRepository;
@@ -23,6 +23,11 @@ public class HistoryRecordsServiceImpl implements HistoryRecordsService{
 
     @Override
     public HistoryRecord findById(long id){return historyRecordsRepository.findOne(id);}
+
+    @Override
+    public List<HistoryRecord> findByUser(User user) {
+        return historyRecordsRepository.findByUser(user);
+    }
 
     @Override
     public List<HistoryRecord> getAll(){return historyRecordsRepository.findAll();}
