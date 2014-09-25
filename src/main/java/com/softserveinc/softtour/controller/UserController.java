@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
-import com.softserveinc.softtour.entity.template.Sex;
 import com.softserveinc.softtour.service.UserService;
 
 /**
@@ -70,8 +69,7 @@ public class UserController {
         	
     		user.getPassword();
     		
-    		
-        	return "redirect:/";
+        	return "userProfile";
 		}
 	}
 
@@ -106,7 +104,7 @@ public class UserController {
 		long id = Long.parseLong(idString);
 		userService.delete(id);
 		
-		return "redirect:/index";
+		return "redirect:/";
 	}
 	
 	/**
