@@ -24,30 +24,10 @@ public class UserProfileConroller {
     @Autowired
     private UserService userService;
 
-// TestUser
-
-// @RequestMapping(value="/currentUser", method= RequestMethod.POST)
-// public @ResponseBody List<Favorite> findUserFavorites(
-// @RequestParam(value = "user", required = true) User user
-// ){
-// return favoriteService.findByUser(user);
-// }
-
-// @RequestMapping(value = "/userFavorite", method = RequestMethod.POST)
-// public List <Favorite> findUserFavorites(@RequestParam User user, ModelMap model) {
-// model.addAttribute("currentUser", user);
-// List <Favorite> currentUserFavorites = favoriteService.findByUser(user);
-// model.addAttribute("currentUserFavorites", currentUserFavorites);
-// return currentUserFavorites;
-// }
-
-// @RequestMapping(value = "/userFavorite", method = RequestMethod.GET)
-// public @ResponseBody List <Favorite> findUserFavorites(ModelMap model) {
-// model.addAttribute("currentUser", userService.findById(1));
-// List <Favorite> currentUserFavorites = favoriteService.findByUser(userService.findById(1));
-// model.addAttribute("currentUserFavorites", currentUserFavorites);
-// return currentUserFavorites;
-// }
+    @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
+    public @ResponseBody User getCurrentUser() {
+        return userService.findById(1);
+    }
 
     @RequestMapping(value = "/userFavorite", method = RequestMethod.GET)
     public @ResponseBody List<Favorite> findUserFavorites() {
