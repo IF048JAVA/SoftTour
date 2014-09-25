@@ -70,6 +70,14 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	/**
+	 * Returns the list of the user's objects with the specified name or email
+	 */
+	@Override
+	public List<User> findByNameOrEmail(String name, String  email) {
+		return userRepository.findByNameOrEmail(name, email);
+	}
+	
+	/**
 	 *  Returns the list of the user's objects with the specified parameters
 	 */
 	@Override

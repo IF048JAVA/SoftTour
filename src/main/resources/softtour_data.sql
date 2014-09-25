@@ -39,7 +39,9 @@ INSERT INTO tour VALUES
 
 INSERT INTO favorite VALUES
   (1,'2014-09-04',2,2),
-  (2,'2014-09-04',1,1);
+  (2,'2014-09-04',1,1),
+  (3,'2014-09-04',1,2),
+  (4,'2014-09-04',2,2);
 
 INSERT INTO feedback VALUES
   (1,4,3,4,5,'Not bed',2,2),

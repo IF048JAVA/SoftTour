@@ -38,6 +38,11 @@ public interface UserService {
 	public User findById(long id);
 	
 	/**
+	 * Returns the list of the user's objects with the specified name or email
+	 */
+	public List<User> findByNameOrEmail(String name, String  email);
+	
+	/**
 	 *  Returns the list of the user's objects with the specified parameters
 	 */
 	public List<User> findByAnyParameters(long id, String name, String email, String password, 
