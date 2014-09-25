@@ -16,7 +16,7 @@
 							<label class="col-md-4 control-label" for="name">Ім'я</label>
 							<div class="col-md-5">
 								<sf:input path="name" id="name" class="form-control input-md" 
-									placeholder="Bід 6 до 30 символів" />
+									placeholder="Bід 2 до 30 символів" />
 								<sf:errors path="name" cssClass="error" />
 							</div>
 						</div>
@@ -74,7 +74,7 @@
 							<label class="col-md-4 control-label" for="phone">Номер телефону</label>
 							<div class="col-md-5">
 								<sf:input path="phone" id="phone" class="form-control input-md"
-									placeholder="До 20 символів"/>
+									placeholder="+38(xxx)xxx-xx-xx"/>
 								<p class="help-block">+38(xxx)xxx-xx-xx</p>
 							</div>
 						</div>
