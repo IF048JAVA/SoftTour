@@ -6,8 +6,8 @@ INSERT INTO role VALUES
  (3,'registeredUser');
 
 INSERT INTO user VALUES
- (1,'Andriy','elips@gmail.com','1111','1987-11-24',26,'MALE','+380958000877',3),
- (2,'Taras','taras@gmail.com','2222','1990-06-12',24,'MALE','+380994455666',3);
+ (1,'Andriy','elips@gmail.com','1111','1987-11-24',26,'MALE','+38(095)800-08-77',3),
+ (2,'Taras','taras@gmail.com','2222','1990-06-12',24,'MALE','+38(099)445-56-66',3);
 
 INSERT INTO country VALUES
   (1,'Egypt'),
@@ -53,7 +53,9 @@ INSERT INTO tour VALUES
 
 INSERT INTO favorite VALUES
   (1,'2014-09-04',2,2),
-  (2,'2014-09-04',1,1);
+  (2,'2014-09-04',1,1),
+  (3,'2014-09-04',1,2),
+  (4,'2014-09-04',2,2);
 
 INSERT INTO feedback VALUES
   (1,4,3,4,5,'Not bed',2,2),

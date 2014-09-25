@@ -7,13 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
-import com.softserveinc.softtour.entity.template.Sex;
 import com.softserveinc.softtour.service.UserService;
 
 /**
@@ -29,43 +29,60 @@ public class UserController {
 	 */
 	@Autowired
 	private UserService userService;
+
+	// FIXME comment
+	// Enter point for save
+	@RequestMapping(method=RequestMethod.GET, params="new")
+	public String createUserProfile(Model model){
+		model.addAttribute(new User());
+		return "registration";
+	}
 	
 	/**
 	 * Saves the object user to the table User
 	 * @param user - it's object which will be saved
-	 * @param sexString - it's string which contains the value male or female
 	 * and which we need to cast to the type Sex 
 	 * @return the name of the main page 
 	 */
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String save(User user, @RequestParam String sexString) {
+	@RequestMapping(method=RequestMethod.POST)
+	public String save(User user, BindingResult bindingResult) {
 		
-		user.setAge(calculateAge(user.getBirthday()));
-		user.setSex(defineSex(sexString));
+		UserValidator userValidator = new UserValidator();
 		
-		// FIXME Need to use --  Role role = roleServise.findByName("registeredUser") !!!
-		// Temporary code ...   
-		Role role = new Role();
-		role.setId(3);
-		role.setName("registeredUser");
-		user.setRole(role);
+		Object[] staff = new Object[]{userService, user}; 
+		userValidator.validate(staff, bindingResult);
 		
-		userService.save(user);
-		
-		return "redirect:/";
+		if (bindingResult.hasErrors()) {
+			return "registration";
+		} else {
+			user.setAge(calculateAge(user.getBirthday()));
+			
+			// FIXME Need to use --  Role role = roleServise.findByName("registeredUser") !!!
+    		Role role = new Role();
+    		role.setId(3);
+    		role.setName("registeredUser");
+    		user.setRole(role);
+    		
+    		userService.save(user);
+        	
+        	// FIXME function md5   for   hide the password
+        	
+    		user.getPassword();
+    		
+        	return "userProfile";
+		}
 	}
+
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(User user, @RequestParam String sexString, Model model) {
+	public String update(User user) {
 		
 		// FIXME Need to set id !?
 		long id= 0;
 		
 		user.setAge(calculateAge(user.getBirthday()));
-		user.setSex(defineSex(sexString));
 		
 		// FIXME Need to use --  Role role = roleServise.findByName("registeredUser") !!!
-		// Temporary code ... !
 		Role role = new Role();
 		role.setId(3);
 		role.setName("registeredUser");
@@ -87,7 +104,7 @@ public class UserController {
 		long id = Long.parseLong(idString);
 		userService.delete(id);
 		
-		return "redirect:/index";
+		return "redirect:/";
 	}
 	
 	/**
@@ -103,7 +120,7 @@ public class UserController {
 		User user = userService.findById(id);
 		model.addAttribute("user", user);
 		
-		return "redirect:/index";
+		return "redirect:/";
 	}
 	
 	/**
@@ -120,7 +137,7 @@ public class UserController {
 				user.getSex(), user.getPhone(), user.getRole());
 		
 		model.addAttribute("users", list);
-		return "redirect:/index";
+		return "redirect:/";
 	}
 
 	/**
@@ -133,23 +150,9 @@ public class UserController {
 		List<User> list = userService.findAll();
 		model.addAttribute("allUsers", list);
 		
-		return "redirect:/index";
+		return "redirect:/";
 	}
 	
-	/**
-	 * Defines the sex for user
-	 * @param sexString - it's string which contains the value male or female
-	 * and which we need to cast to the type Sex 
-	 * @return the sex for user
-	 */
-	private Sex defineSex(String sexString) {
-		if (sexString.equals("male")) {
-			return Sex.MALE;
-		} else if (sexString.equals("female")) {
-			return Sex.FEMALE;
-		} 
-		return null;
-	}
 
 	/**
 	 * Calculates the age of user
