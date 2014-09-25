@@ -55,6 +55,7 @@ CREATE TABLE hotel (
   cleanliness decimal(2,1),
   location decimal(2,1),
   valueForMoney decimal(2,1),
+  imgUrl TEXT (500),
 
   PRIMARY KEY (id),
   FOREIGN KEY (region_id) REFERENCES region (id)
