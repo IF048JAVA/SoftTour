@@ -45,5 +45,6 @@
 <script src="js/star-rating.min.js"></script>
 <script src="js/hotels.js"></script>
 <script src="js/myProfile.js"></script>
+<script src="js/tours.js"></script>
 </body>
 </html>

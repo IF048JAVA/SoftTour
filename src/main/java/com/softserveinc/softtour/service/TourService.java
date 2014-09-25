@@ -16,5 +16,5 @@ public interface TourService {
 
     void deleteById(long id);
 
-    List<Tour> findByCustomParameters(String country,BigDecimal minPrice,BigDecimal maxPrice);
+    List<Tour> findByCustomParameters(String country,Integer minPrice,Integer maxPrice);
 }

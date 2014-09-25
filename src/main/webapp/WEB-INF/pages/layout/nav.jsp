@@ -20,7 +20,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="userProfile">Увійти</a></li>
-                <li><a href="registration">Реєстрація</a></li>
+                <li><a href="user?new">Реєстрація</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
