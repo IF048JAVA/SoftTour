@@ -8,6 +8,10 @@ import org.springframework.validation.Validator;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.UserService;
 
+/**
+ * @author Andriy
+ *  Validates user's name and email
+ */
 public class UserValidator implements Validator {
 
 	@Override
@@ -15,6 +19,10 @@ public class UserValidator implements Validator {
 		return User.class.equals(clazz);
 	}
 
+	/**
+	 * Validates whether the given name or email are in table User
+	 * target - it's array of objects which contains user's and userServiceImpl objects   
+	 */
 	@Override
 	public void validate(Object target, Errors errors) {
 		Object[] objs = (Object[])target;
