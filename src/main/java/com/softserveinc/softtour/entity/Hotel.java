@@ -33,6 +33,9 @@ public class Hotel {
     @Column(name = "valueForMoney")
     private BigDecimal valueForMoney;
 
+    @Column(name = "imgUrl")
+    private String imgUrl;
+
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
@@ -47,9 +50,7 @@ public class Hotel {
         this.region = region;
     }
 
-    public Hotel(String name, int stars, BigDecimal rating, BigDecimal comfort,
-                 BigDecimal cleanliness, BigDecimal location, BigDecimal valueForMoney, Region region) {
-
+    public Hotel(String name, int stars, BigDecimal rating, BigDecimal comfort, BigDecimal cleanliness, BigDecimal location, BigDecimal valueForMoney, String imgUrl, Region region) {
         this.name = name;
         this.stars = stars;
         this.rating = rating;
@@ -57,6 +58,7 @@ public class Hotel {
         this.cleanliness = cleanliness;
         this.location = location;
         this.valueForMoney = valueForMoney;
+        this.imgUrl = imgUrl;
         this.region = region;
     }
 
@@ -130,5 +132,13 @@ public class Hotel {
 
     public void setValueForMoney(BigDecimal valueForMoney) {
         this.valueForMoney = valueForMoney;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

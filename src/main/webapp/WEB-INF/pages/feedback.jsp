@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <!-- Form -->
+<div class="col-md-3 col-md-3-offset"></div>
     <div class="col-md-6 form">
         <form class="form-horizontal" action="#" onsubmit="return checkForm('name','email','area')">
             <fieldset>
@@ -37,7 +38,7 @@
                     <div class="form-group">
                         <div class="col-md-2 col-md-2-offset"> </div>
                         <div class="col-md-8">
-                            <textarea name="area" id="area" class="form-control" rows="4" placeholder="Текст повідомлення:"></textarea>
+                            <textarea name="area" id="area" class="form-control" rows="4" placeholder="Текст повідомлення:" style="max-width: 100%"></textarea>
                         </div>
                     </div>
 
@@ -51,13 +52,7 @@
         </form>
         </div>
 
-        <div id="right_div">
-            <span><img src="img/image1.jpg" class="user_img"></span><br>
-            <span><img src="img/image2.jpg" class="user_img"></span><br>
-            <span><img src="img/image3.jpg" class="user_img"></span><br>
-            <span><img src="img/image4.jpg" class="user_img"></span><br>
-            <span><img src="img/image5.jpg" class="user_img"></span><br>
-        </div>
+
     </div>
 
 

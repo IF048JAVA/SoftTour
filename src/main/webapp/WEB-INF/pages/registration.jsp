@@ -16,7 +16,7 @@
 							<label class="col-md-4 control-label" for="name">Ім'я</label>
 							<div class="col-md-5">
 								<sf:input path="name" id="name" class="form-control input-md" 
-									placeholder="Bід 6 до 30 символів" />
+									placeholder="Bід 2 до 30 символів" />
 								<sf:errors path="name" cssClass="error" />
 							</div>
 						</div>
@@ -26,7 +26,7 @@
 							<label class="col-md-4 control-label" for="email">Email/Login</label>
 							<div class="col-md-5">
 								<sf:input path="email" id="email" class="form-control input-md" 
-									placeholder="Bід 7 до 30 символів" />
+									placeholder="Bведіть email" />
 								<sf:errors path="email" cssClass="error" />
 							</div>
 						</div>
@@ -44,7 +44,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="confirmPassword">Підтвердьте Пароль</label>
 							<div class="col-md-5">
-								<sf:password path="password" id="confirmPassword" class="form-control input-md"
+								<sf:password path="" id="confirmPassword" class="form-control input-md"
 									 placeholder="Повторіть введення паролю" />	 
 							</div>
 						</div>
@@ -74,7 +74,7 @@
 							<label class="col-md-4 control-label" for="phone">Номер телефону</label>
 							<div class="col-md-5">
 								<sf:input path="phone" id="phone" class="form-control input-md"
-									placeholder="До 20 символів"/>
+									placeholder="+38(xxx)xxx-xx-xx"/>
 								<p class="help-block">+38(xxx)xxx-xx-xx</p>
 							</div>
 						</div>

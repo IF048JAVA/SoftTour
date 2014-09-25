@@ -24,10 +24,11 @@
     margin-left: 45px;
 
 }
-.img-hotel{
-    width: 150px;
-    height: 150px;
+.img-circle {
+    height: 170px;
+    width: 170px;
 }
+
 
 #filter {
     margin: 15px;
