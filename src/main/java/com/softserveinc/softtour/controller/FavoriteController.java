@@ -32,7 +32,6 @@ public class FavoriteController {
 	 */
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(Favorite favorite) {
-		
 		// FIXME Need to set user id
 		// FIXME Need to set tour id
 		

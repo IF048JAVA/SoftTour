@@ -47,7 +47,8 @@
 <script src="js/select2.min.js"></script>
 <script src="js/star-rating.min.js"></script>
 <script src="js/hotels.js"></script>
-<script src="js/userFavoritesProfile.js"></script>
+<script src="js/userFavoriteProfile.js"></script>
+<script src="js/userHistoryProfile.js"></script>
 <script src="js/userInfo.js"></script>
 <script src="js/tours.js"></script>
 <script src="js/equal_div.js"></script>
