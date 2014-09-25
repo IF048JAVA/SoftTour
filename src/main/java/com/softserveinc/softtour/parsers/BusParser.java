@@ -9,10 +9,17 @@ import java.io.IOException;
 import java.util.*;
 
 public class BusParser {
+    private static Map<String, String> urlParams = new HashMap<>();
     private List<BusTransit> busList = new ArrayList<>();
     private String cityFrom;
     private String cityTo;
     private Date tourDate;
+
+    static {
+        urlParams.put("Львів", "UA4610100000");
+        urlParams.put("Київ", "UA8000000000");
+        urlParams.put("Івано-Франківськ", "UA2610100000");
+    }
 
     public BusParser(String cityFrom, String cityTo, Date tourDate) {
         this.cityFrom = cityFrom;
@@ -31,36 +38,11 @@ public class BusParser {
 
     private String createURL(String cityFrom, String cityTo) {
         StringBuffer url = new StringBuffer("http://bus.com.ua/cgi-bin/poshuk?");
-        switch (cityFrom) {
-            case "Львів": {
-                url.append("fp=UA4610100000&");
-                break;
-            } case "Київ": {
-                url.append("fp=UA8000000000&");
-                break;
-            } case "Івано-Франківськ": {
-                url.append("fp=UA2610100000&");
-                break;
-            } default: {
-                System.err.print("Error!");
-                break;
-            }
-        }
-        switch (cityTo) {
-            case "Львів": {
-                url.append("tp=UA4610100000&Go=3");
-                break;
-            } case "Київ": {
-                url.append("tp=UA8000000000&Go=3");
-                break;
-            } case "Івано-Франківськ": {
-                url.append("tp=UA2610100000&Go=3");
-                break;
-            } default: {
-                System.err.print("Error!");
-                break;
-            }
-        }
+        url.append("fp=").
+            append(urlParams.get(cityFrom)).
+            append("&tp=").
+            append(urlParams.get(cityTo)).
+            append("&Go=3");
         return url.toString();
     }
 
@@ -87,9 +69,8 @@ public class BusParser {
             if (departure.compareTo(arrival) > 0) {
                 departure = new Date(departure.getTime() - 24 * 60 * 60 * 1000);
             }
-            int price = countPrice(cityFrom, cityTo);
             fillAllBusTransitSetters(busTransit, cityFromAndNameOfStation, cityToAndNameOfStation,
-                    departure, arrival, price);
+                    departure, arrival);
             busList.add(busTransit);
         }
     }
@@ -111,22 +92,12 @@ public class BusParser {
         return departureTime;
     }
 
-    private int countPrice(String cityFrom, String cityTo) {
-        if ((cityFrom.equals("Львів") && cityTo.equals("Івано-Франківськ")) ||
-                (cityFrom.equals("Івано-Франківськ") && cityTo.equals("Львів"))) {
-            return 70;
-        } else {
-            return 230;
-        }
-    }
-
     private void fillAllBusTransitSetters(BusTransit busTransit, String cityFrom, String cityTo,
-                                          Date departureTime, Date arrivalTime, int price) {
+                                          Date departureTime, Date arrivalTime) {
         busTransit.setCityFrom(cityFrom);
         busTransit.setCityTo(cityTo);
         busTransit.setDepartureTime(departureTime);
         busTransit.setArrivalTime(arrivalTime);
-        busTransit.setPrice(price);
     }
 
     public static void main(String[] args) throws IOException{
