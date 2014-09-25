@@ -12,7 +12,7 @@ public interface TourService {
     void deleteById(long id);
     Tour findOne(long id);
     List<Tour> findAll();
-    List<Tour> findByCountryAndPrice(String country, int minPrice, int maxPrice);
+    List<Tour> findByCountryAndPrice(String country, Integer minPrice, Integer maxPrice);
     List<Tour> findByCountryAndDaysAndPrice(String country, int days, BigDecimal price);
     List<Tour> findByCustomParameters(String country, Date date, int days, String departureCity, Date departureTime,
                                       BigDecimal price, String hotel, String food);

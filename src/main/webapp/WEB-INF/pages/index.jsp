@@ -25,24 +25,26 @@
         </div>
         <div class="col-md-2"></div>
 </div>
-<!--<button class="btn btn-primary" onclick="show()">Большая модаль</button>-->
 
-<div id="indexModal" class="modal fade">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" >
-            <div class="panel-group" style="margin:10px;">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a id="tourResult" class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-2" href="#panel-element-f3"></a>
-                    </div>
-                    <div id="panel-element-f3" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            Info about tour #1...
-                        </div>
-                    </div>
+<div id="indexResult" style="visibility: hidden; background-color:rgba(255,255,255,0.4); border-radius:6px; margin:10px;">
+<div class="panel-group" style="background-color:rgba(255,255,255,0); margin: 10px;">
+        <div class="panel panel-default">
+            <div class="panel-heading" >
+                <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-2" href="#panel-element-h1">
+                    <span class="tabTitleFont">Країна:</span>
+                    <span id="tourCountry-h1" class="tabulatedTitle"></span>
+                    <span class="tabTitleFont">Вартість туру:</span>
+                    <span id="tourPrice-h1" class="tabulatedTitle"></span>
+                    <span class="tabTitleFont">Харчування:</span>
+                    <span id="tourFood-h1" class="tabulatedTitle"></span>
+                </a>
+            </div>
+            <div id="panel-element-h1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Info about tour #1...
                 </div>
             </div>
         </div>
-    </div>
+</div>
 </div>
 

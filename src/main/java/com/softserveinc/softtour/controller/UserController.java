@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
-import com.softserveinc.softtour.entity.template.Sex;
+import com.softserveinc.softtour.service.RoleService;
 import com.softserveinc.softtour.service.UserService;
 
 /**
@@ -30,6 +30,9 @@ public class UserController {
 	 */
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
 
 	// FIXME comment
 	// Enter point for save
@@ -57,21 +60,10 @@ public class UserController {
 			return "registration";
 		} else {
 			user.setAge(calculateAge(user.getBirthday()));
-			
-			// FIXME Need to use --  Role role = roleServise.findByName("registeredUser") !!!
-    		Role role = new Role();
-    		role.setId(3);
-    		role.setName("registeredUser");
-    		user.setRole(role);
-    		
+			user.setRole(roleService.findByName("registeredUser"));
     		userService.save(user);
         	
-        	// FIXME function md5   for   hide the password
-        	
-    		user.getPassword();
-    		
-    		
-        	return "redirect:/";
+        	return "userProfile";
 		}
 	}
 
@@ -83,13 +75,7 @@ public class UserController {
 		long id= 0;
 		
 		user.setAge(calculateAge(user.getBirthday()));
-		
-		// FIXME Need to use --  Role role = roleServise.findByName("registeredUser") !!!
-		Role role = new Role();
-		role.setId(3);
-		role.setName("registeredUser");
-		user.setRole(role);		
-		
+		user.setRole(roleService.findByName("registeredUser"));	
 		userService.update(id, user);
 		
 		return "redirect:/userProfile";
@@ -106,7 +92,7 @@ public class UserController {
 		long id = Long.parseLong(idString);
 		userService.delete(id);
 		
-		return "redirect:/index";
+		return "redirect:/";
 	}
 	
 	/**

@@ -1,4 +1,5 @@
-function show(content){
-   $('#modal').modal('show');
-   $('#tourResult').html(content);
-};
+function showModal(){
+    alert("!");
+   $("#resultTours").css("visibility", "visible");
+   //$('#tourResult').html(content);
+}
