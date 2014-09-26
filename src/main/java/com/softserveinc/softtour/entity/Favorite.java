@@ -64,14 +64,4 @@ public class Favorite {
     public void setTour(Tour tour) {
         this.tour = tour;
     }
-
-    @Override
-    public String toString() {
-        return "Favorite{" +
-                "id=" + id +
-                ", date=" + date +
-                ", user=" + user +
-                ", tour=" + tour +
-                '}';
-    }
 }

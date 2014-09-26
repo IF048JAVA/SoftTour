@@ -113,18 +113,4 @@ public class Feedback {
     public void setUser(User user) {
         this.user = user;
     }
-
-    @Override
-    public String toString() {
-        return "Feedback{" +
-                "id=" + id +
-                ", cleanliness=" + cleanliness +
-                ", comfort=" + comfort +
-                ", location=" + location +
-                ", valueForMoney=" + valueForMoney +
-                ", comment='" + comment + '\'' +
-                ", hotel=" + hotel +
-                ", user=" + user +
-                '}';
-    }
 }

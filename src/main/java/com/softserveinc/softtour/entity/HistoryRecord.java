@@ -64,14 +64,4 @@ public class HistoryRecord {
     public void setTour(Tour tour) {
         this.tour = tour;
     }
-
-    @Override
-    public String toString() {
-        return "HistoryRecord{" +
-                "id=" + id +
-                ", date=" + date +
-                ", user=" + user +
-                ", tour=" + tour +
-                '}';
-    }
 }
