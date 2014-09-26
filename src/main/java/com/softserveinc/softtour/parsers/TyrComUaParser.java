@@ -1,12 +1,12 @@
 package com.softserveinc.softtour.parsers;
 
 import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.parsers.constants.TyrComUaParserConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
-
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +16,7 @@ import java.util.*;
  * Created by oleksandrgasenuk on 20.09.14.
  */
 
-public class TyrComUaParser {
+public class TyrComUaParser implements TyrComUaParserConstants {
     private static final String URL_tyr = "http://www.tyr.com.ua/tours/search.php";
     private static Map<String, String> countryUaRuVocabulary = new HashMap<>();
     private static Map<String, String> regionUaRuVocabulary = new HashMap<>();
@@ -117,29 +117,29 @@ public class TyrComUaParser {
     }
 
     private void selectCountry(String country){
-        if(country.equalsIgnoreCase("Єгипет")){
+        if(country.equalsIgnoreCase(DEFAULT_COUNTRY)){
             return;
         }
-        Select dropCountry = new Select(driver.findElement(By.id("itt_country")));
+        Select dropDownCountry = new Select(driver.findElement(By.id(DROP_DOWN_COUNTRY_ID)));
         String countryRu = countryUaRuVocabulary.get(country);
-        dropCountry.selectByVisibleText(countryRu);
+        dropDownCountry.selectByVisibleText(countryRu);
     }
 
     private void selectRegion(String region){
         if(region == null){
             return;
         }
-        WebElement selectRegion = driver.findElement(By.id("region_list"));
-        Select dropRegion = new Select(selectRegion);
+        WebElement selectRegion = driver.findElement(By.id(SELECT_REGION_ID));
+        Select dropDownRegion = new Select(selectRegion);
         String regionRu = regionUaRuVocabulary.get(region);
-        dropRegion.selectByVisibleText(regionRu);
+        dropDownRegion.selectByVisibleText(regionRu);
     }
 
     private void selectHotel(String hotel){
         if(hotel == null){
             return;
         }
-        WebElement selectHotel = driver.findElement(By.id("hotel_list"));
+        WebElement selectHotel = driver.findElement(By.id(SELECT_HOTEL_ID));
         Select dropHotel = new Select(selectHotel);
         dropHotel.selectByVisibleText(hotel);
     }
@@ -171,20 +171,20 @@ public class TyrComUaParser {
             }
         }
         if (starsBoolean[0]){
-            WebElement multiplyButtonStars2 = driver.findElement(By.xpath("//input[@value='7' and @name='hotel_rating_list']"));
-            multiplyButtonStars2.click();
+            WebElement multiplyStars2 = driver.findElement(By.xpath(MULTIPLY_STARS_2_XPATH));
+            multiplyStars2.click();
         }
         if (!starsBoolean[1]){
-            WebElement multiplyButtonStars3 = driver.findElement(By.xpath("//input[@value='3' and @name='hotel_rating_list']"));
-            multiplyButtonStars3.clear();
+            WebElement multiplyStars3 = driver.findElement(By.xpath(MULTIPLY_STARS_3_XPATH));
+            multiplyStars3.clear();
         }
         if (!starsBoolean[2]){
-            WebElement multiplyButtonStars4 = driver.findElement(By.xpath("//input[@value='4' and @name='hotel_rating_list']"));
-            multiplyButtonStars4.clear();
+            WebElement multiplyStars4 = driver.findElement(By.xpath(MULTIPLY_STARS_4_XPATH));
+            multiplyStars4.clear();
         }
         if (!starsBoolean[3]){
-            WebElement multiplyButtonStars5 = driver.findElement(By.xpath("//input[@value='78' and @name='hotel_rating_list']"));
-            multiplyButtonStars5.clear();
+            WebElement multiplyStars5 = driver.findElement(By.xpath(MULTIPLY_STARS_5_XPATH));
+            multiplyStars5.clear();
         }
     }
 
@@ -196,29 +196,29 @@ public class TyrComUaParser {
         }
         ArrayList<String> list = new ArrayList<>();
         list.addAll(Arrays.asList(foods));
-        if(!list.contains("HB")){
-            WebElement radioButtonFoodHB = driver.findElement(By.xpath("//input[@value='496' and @name='food_list']"));
-            radioButtonFoodHB.clear();
+        if(!list.contains(FOOD_HB_XPATH)){
+            WebElement multiplyFoodHB = driver.findElement(By.xpath(MULTIPLY_FOOD_HB_XPATH));
+            multiplyFoodHB.clear();
         }
-        if(!list.contains("BB")){
-            WebElement radioButtonFoodBB = driver.findElement(By.xpath("//input[@value='388' and @name='food_list']"));
-            radioButtonFoodBB.clear();
+        if(!list.contains(FOOD_BB_XPATH)){
+            WebElement multiplyFoodBB = driver.findElement(By.xpath(MULTIPLY_FOOD_BB_XPATH));
+            multiplyFoodBB.clear();
         }
-        if(!list.contains("FB")){
-            WebElement radioButtonFoodFB = driver.findElement(By.xpath("//input[@value='498' and @name='food_list']"));
-            radioButtonFoodFB.clear();
+        if(!list.contains(FOOD_FB_XPATH)){
+            WebElement multiplyFoodFB = driver.findElement(By.xpath(MULTIPLY_FOOD_FB_XPATH));
+            multiplyFoodFB.clear();
         }
-        if(!list.contains("AI")){
-            WebElement radioButtonFoodAI = driver.findElement(By.xpath("//input[@value='512' and @name='food_list']"));
-            radioButtonFoodAI.clear();
+        if(!list.contains(FOOD_AI_XPATH)){
+            WebElement multiplyFoodAI = driver.findElement(By.xpath(MULTIPLY_FOOD_AI_XPATH));
+            multiplyFoodAI.clear();
         }
-        if(!list.contains("UAI")){
-            WebElement radioButtonFoodUAI = driver.findElement(By.xpath("//input[@value='560' and @name='food_list']"));
-            radioButtonFoodUAI.clear();
+        if(!list.contains(FOOD_UAI_XPATH)){
+            WebElement multiplyFoodUAI = driver.findElement(By.xpath(MULTIPLY_FOOD_UAI_XPATH));
+            multiplyFoodUAI.clear();
         }
-        if(!list.contains("RO")){
-            WebElement radioButtonFoodRO = driver.findElement(By.xpath("//input[@value='1956' and @name='food_list']"));
-            radioButtonFoodRO.clear();
+        if(!list.contains(FOOD_RO_XPATH)){
+            WebElement multiplyFoodRO = driver.findElement(By.xpath(MULTIPLY_FOOD_RO_XPATH));
+            multiplyFoodRO.clear();
         }
     }
 
@@ -228,9 +228,9 @@ public class TyrComUaParser {
         } else if(adults > 5 || adults < 1){
             throw new NoSuchElementException("There are more then 5 adults or less then 1: " + adults);
         }
-        WebElement selectAdultsCount = driver.findElement(By.id("adult"));
-        Select dropAdults = new Select(selectAdultsCount);
-        dropAdults.selectByVisibleText(String.valueOf(adults));
+        WebElement selectAdultsCount = driver.findElement(By.id(DROP_DOWN_ADULTS_ID));
+        Select dropDownAdults = new Select(selectAdultsCount);
+        dropDownAdults.selectByVisibleText(String.valueOf(adults));
     }
 
     private void selectChildrenCount(int children){
@@ -239,7 +239,7 @@ public class TyrComUaParser {
         } else if (children > 3 || children < 0){
             throw new NoSuchElementException("There are more then 3 children or less then 0: " + children);
         }
-        WebElement selectChildrenCount = driver.findElement(By.id("children"));
+        WebElement selectChildrenCount = driver.findElement(By.id(DROP_DOWN_CHILDREN_ID));
         Select dropChildren = new Select(selectChildrenCount);
         dropChildren.selectByVisibleText(String.valueOf(children));
 
@@ -251,15 +251,15 @@ public class TyrComUaParser {
         }
         switch (childrenAge.length-1){
             case 0:{
-                WebElement childrenAge1 = driver.findElement(By.id("child1_age"));
+                WebElement childrenAge1 = driver.findElement(By.id(SEND_CHILD_1_AGE_ID));
                 childrenAge1.sendKeys(String.valueOf(childrenAge[0]));
                 break;
             }case 1:{
-                WebElement childrenAge2 = driver.findElement(By.id("child2_age"));
+                WebElement childrenAge2 = driver.findElement(By.id(SEND_CHILD_2_AGE_ID));
                 childrenAge2.sendKeys(String.valueOf(childrenAge[1]));
                 break;
             }case 2:{
-                WebElement childrenAge3 = driver.findElement(By.id("child3_age"));
+                WebElement childrenAge3 = driver.findElement(By.id(SEND_CHILD_3_AGE_ID));
                 childrenAge3.sendKeys(String.valueOf(childrenAge[2]));
                 break;
             }default:{
@@ -273,7 +273,7 @@ public class TyrComUaParser {
         if(dateFlyFrom == null){
             return;
         }
-        WebElement dataFlyFrom = driver.findElement(By.id("itt_date_from"));
+        WebElement dataFlyFrom = driver.findElement(By.id(SEND_DATE_FLY_FROM_ID));
         dataFlyFrom.clear();
         dataFlyFrom.sendKeys(dateFlyFrom);
     }
@@ -282,7 +282,7 @@ public class TyrComUaParser {
         if(dateFlyTo == null){
             return;
         }
-        WebElement dataFlyTo = driver.findElement(By.id("date_till"));
+        WebElement dataFlyTo = driver.findElement(By.id(SEND_DATE_FLY_TO_ID));
         dataFlyTo.clear();
         dataFlyTo.sendKeys(dateFlyTo);
     }
@@ -291,18 +291,18 @@ public class TyrComUaParser {
         if(countNightsFrom == 6 || (countNightsFrom <= 0 || countNightsFrom > 21)){
             return;
         }
-        WebElement nightsFrom = driver.findElement(By.id("night_from"));
-        Select dropNightsFrom = new Select(nightsFrom);
-        dropNightsFrom.selectByVisibleText(String.valueOf(countNightsFrom));
+        WebElement nightsFrom = driver.findElement(By.id(DROP_DOWN_NIGHTS_FROM_ID));
+        Select dropDownNightsFrom = new Select(nightsFrom);
+        dropDownNightsFrom.selectByVisibleText(String.valueOf(countNightsFrom));
     }
 
     private void selectCountNightsTo(int countNightsTo){
         if(countNightsTo == 14 || (countNightsTo <=0 || countNightsTo > 21)){
             return;
         }
-        WebElement nightsTo = driver.findElement(By.id("night_till"));
-        Select dropNightsTo = new Select(nightsTo);
-        dropNightsTo.selectByVisibleText(String.valueOf(countNightsTo));
+        WebElement nightsTo = driver.findElement(By.id(DROP_DOWN_NIGHTS_TO_ID));
+        Select dropDownNightsTo = new Select(nightsTo);
+        dropDownNightsTo.selectByVisibleText(String.valueOf(countNightsTo));
     }
 
     private void selectPriceFrom(int priceFrom){
@@ -313,7 +313,7 @@ public class TyrComUaParser {
         } else if(priceFrom < 0){
             priceFrom *= -1;
         }
-        WebElement price = driver.findElement(By.id("price_from"));
+        WebElement price = driver.findElement(By.id(SEND_PRICE_FROM_ID));
         price.clear();
         price.sendKeys(String.valueOf(priceFrom));
     }
@@ -326,42 +326,31 @@ public class TyrComUaParser {
         } else if(priceTo < 0){
             priceTo *= -1;
         }
-        WebElement price = driver.findElement(By.id("price_till"));
+        WebElement price = driver.findElement(By.id(SEND_PRICE_TO_ID));
         price.clear();
         price.sendKeys(String.valueOf(priceTo));
     }
 
     private void selectCurrency(String currency){
-        switch (currency){
-            case "USD":{
-                break;
-            }case "Грн":{
-                WebElement selectCurrency = driver.findElement(By.id("switch_price"));
-                Select dropCurrency = new Select(selectCurrency);
-                dropCurrency.selectByVisibleText(currency);
-                break;
-            }case "EUR":{
-                WebElement selectCurrency = driver.findElement(By.id("switch_price"));
-                Select dropCurrency = new Select(selectCurrency);
-                dropCurrency.selectByVisibleText(currency);
-                break;
-            } default:{
-                throw new NoSuchElementException("There are no currency: " + currency);
-            }
+        if(currency.equalsIgnoreCase("USD")){
+            return;
         }
+        WebElement selectCurrency = driver.findElement(By.id(DROP_DOWN_CURRENCY_ID));
+        Select dropDownCurrency = new Select(selectCurrency);
+        dropDownCurrency.selectByVisibleText(currency);
     }
 
     private void selectDepartureCity(String departureCity){
-        WebElement departure = driver.findElement(By.name("departure_city"));
-        Select dropDeparture = new Select(departure);
+        WebElement departure = driver.findElement(By.name(DROP_DOWN_DEPARTURE_CITY_NAME));
+        Select dropDownDeparture = new Select(departure);
         String departureCityRu = departureCityUaRuVocabulary.get(departureCity);
-        dropDeparture.selectByVisibleText(departureCityRu);
+        dropDownDeparture.selectByVisibleText(departureCityRu);
     }
 
     private void search(){
-        WebElement radioButtonCountOfShowPages = driver.findElement(By.id("items_per_page100"));
+        WebElement radioButtonCountOfShowPages = driver.findElement(By.id(RADIO_BUTTON_COUNT_PAGES_100_ID));
         radioButtonCountOfShowPages.click();
-        WebElement buttonSubmit = driver.findElement(By.xpath("//input[@value='Найти' and @type='button']"));
+        WebElement buttonSubmit = driver.findElement(By.xpath(BUTTON_SUBMIT_XPATH));
         buttonSubmit.click();
     }
 
@@ -370,8 +359,8 @@ public class TyrComUaParser {
     }
 
     public void addAllWebElementsToWebElementList(){
-        ArrayList<WebElement> oddList = (ArrayList<WebElement>) driver.findElements(By.className("itt_odd"));
-        ArrayList<WebElement> evenList = (ArrayList<WebElement>) driver.findElements(By.className("itt_even"));
+        ArrayList<WebElement> oddList = (ArrayList<WebElement>) driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
+        ArrayList<WebElement> evenList = (ArrayList<WebElement>) driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_EVEN));
 
         List<WebElement> webElementList = new ArrayList<>();
         //I do it to save same order of elements, as in search result
@@ -388,7 +377,7 @@ public class TyrComUaParser {
             addTourToList(webElement);
         }
 
-        for(int i = 2; i<100;i++){
+        for(int i = 2; i<COUNT_RESULT_PAGES;i++){
             WebElement nextPage = null;
             try{
                 nextPage = driver.findElement(By.linkText(String.valueOf(i)));
@@ -401,8 +390,8 @@ public class TyrComUaParser {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            oddList = (ArrayList<WebElement>) driver.findElements(By.className("itt_odd"));
-            evenList = (ArrayList<WebElement>) driver.findElements(By.className("itt_even"));
+            oddList = (ArrayList<WebElement>) driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
+            evenList = (ArrayList<WebElement>) driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_EVEN));
 
             //I do it to save same order of elements, as in search result
             List<WebElement> webElementList2 = new ArrayList<>();
@@ -423,9 +412,9 @@ public class TyrComUaParser {
 
     public void addTourToList(WebElement webElement){
         List<String> tourDataList = new ArrayList<>();
-        List<WebElement> listLeft = (ArrayList<WebElement>)webElement.findElements(By.className("itt_text-left"));
-        List<WebElement> listCenter = (ArrayList<WebElement>)webElement.findElements(By.className("text-center"));
-        WebElement textRight = webElement.findElement(By.className("text-right"));
+        List<WebElement> listLeft = (ArrayList<WebElement>)webElement.findElements(By.className(RESULT_LIST_LEFT_CLASS_NAME));
+        List<WebElement> listCenter = (ArrayList<WebElement>)webElement.findElements(By.className(RESULT_LIST_CENTER_CLASS_NAME));
+        WebElement textRight = webElement.findElement(By.className(RESULT_LIST_RIGHT_CLASS_NAME));
 
         for(int i = 0; i<listLeft.size();i++){
             tourDataList.add(listLeft.get(i).getText());
@@ -455,7 +444,7 @@ public class TyrComUaParser {
         //set tour date
         //Поки-що дата туру буде датою вильоту :)
         String tourDate = tourDataList.get(7);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
         Date date = null;
         try {
             date = dateFormat.parse(tourDate);
@@ -470,7 +459,7 @@ public class TyrComUaParser {
 
         //set departure city
         String depCity = tourDataList.get(3);
-        if(depCity.equalsIgnoreCase("без перелета")) {
+        if(depCity.equalsIgnoreCase(DEPARTURE_CITY_DEFAULT)) {
             tour.setDepartureCity(departureCity);
         } else {
             tour.setDepartureCity(depCity);
@@ -478,7 +467,7 @@ public class TyrComUaParser {
 
         //set departure time
         String depTime = tourDataList.get(7);
-        SimpleDateFormat depDateFormat = new SimpleDateFormat("dd.mm.yy");
+        SimpleDateFormat depDateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
         Date departureTime = null;
         try {
             departureTime = depDateFormat.parse(depTime);
