@@ -17,7 +17,7 @@ import java.util.*;
  */
 
 public class TyrComUaParser {
-    private static final String URL = "http://www.tyr.com.ua/tours/search.php";
+    private static final String URL_tyr = "http://www.tyr.com.ua/tours/search.php";
     private static Map<String, String> countryUaRuVocabulary = new HashMap<>();
     private static Map<String, String> regionUaRuVocabulary = new HashMap<>();
     private static Map<String, String> departureCityUaRuVocabulary = new HashMap<>();
@@ -67,6 +67,7 @@ public class TyrComUaParser {
         departureCityUaRuVocabulary.put("Дніпропетровськ", "Днепропетровск");
     }
 
+
     public TyrComUaParser(String country, String region, String hotel, int[] stars, String[] foods, int adults,
                           int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
                           int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity) {
@@ -86,7 +87,7 @@ public class TyrComUaParser {
         this.priceTo = priceTo;
         this.currency = currency;
         this.departureCity = departureCity;
-        driver.get(URL);
+        driver.get(URL_tyr);
     }
 
     public List<Tour> parse(){
@@ -142,6 +143,7 @@ public class TyrComUaParser {
         Select dropHotel = new Select(selectHotel);
         dropHotel.selectByVisibleText(hotel);
     }
+
 
     private void selectStars(int...stars){
         if(stars.length == 0){
@@ -350,19 +352,10 @@ public class TyrComUaParser {
     }
 
     private void selectDepartureCity(String departureCity){
-        switch (departureCity){
-            case "Київ":{
-                break;
-            }case "Львів":{
-                WebElement departure = driver.findElement(By.name("departure_city"));
-                Select dropDeparture = new Select(departure);
-                dropDeparture.selectByVisibleText("Львов");
-                break;
-            }default:{
-                throw new NoSuchElementException("There is no city: " + departureCity);
-            }
-        }
-
+        WebElement departure = driver.findElement(By.name("departure_city"));
+        Select dropDeparture = new Select(departure);
+        String departureCityRu = departureCityUaRuVocabulary.get(departureCity);
+        dropDeparture.selectByVisibleText(departureCityRu);
     }
 
     private void search(){
