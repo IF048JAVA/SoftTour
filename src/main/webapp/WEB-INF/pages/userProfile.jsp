@@ -137,7 +137,7 @@
                          <span class="tabTitleFont">Тривалість туру: </span>
                          <span id="tourDays-f\${id}" class="tabulatedTitle">\${days} Днів</span>
                          <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-f\${id}" class="tabulatedTitle">\${price} UAN</span>
+                         <span id="tourPrice-f\${id}" class="tabulatedTitle">\${price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
                          <span id="tourFood-f\${id}" class="tabulatedTitle">\${food.name}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
@@ -162,7 +162,7 @@
                          <span class="tabTitleFont">Тривалість туру: </span>
                          <span id="tourDays-h\${id}" class="tabulatedTitle">\${days} Днів</span>
                          <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${price} UAN</span>
+                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
                          <span id="tourFood-h\${id}" class="tabulatedTitle">\${food.name}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
