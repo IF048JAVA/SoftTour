@@ -29,6 +29,8 @@ $(document).ready(function () {})
                         '<span id="tourPrice-h' + idDataNew + '" class="tabulatedTitle">' + s[idData].price + '</span>' +
                         '<span class="tabTitleFont">Харчування:</span>' +
                         '<span id="tourFood-h' + idDataNew + '" class="tabulatedTitle">' + s[idData].food.name + '</span>' +
+                        '<span class="tabTitleFont">Дата:</span>'+
+                        '<span id="tourDate-h' + idDataNew + '" class="tabulatedTitle">' + s[idData].date + '</span>' +
                         '</a>' +
                         '</div>' +
                         '<div id="panel-element-h' + idDataNew + '" class="panel-collapse collapse">' +
