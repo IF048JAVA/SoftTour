@@ -24,36 +24,30 @@
                         <option></option>
                     </select>
 
-                    <form>
                         <label for="rating" class="muted">Рейтинг</label>
                         <input id="rating" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
-                    </form>
-                    <form>
+
                         <label for="comfort" class="muted">Комфорт</label>
                         <input id="comfort" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
-                    </form>
-                    <form>
+
                         <label for="cleanliness" class="muted">Чистота</label>
                         <input id="cleanliness" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
-                    </form>
-                    <form>
+
                         <label for="location" class="muted">Розташування</label>
                         <input id="location" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
-                    </form>
-                    <form>
+
                         <label for="value_for_money" class="muted">Ціна/Якість</label>
                         <input id="value_for_money" value="0" type="number" class="rating" min=0 max=5 step=1
                                data-size="xs"
                                data-show-clear="false" data-show-caption="false">
-                    </form>
                     <button id="search_hotel" type="button" class="btn btn-default btn-block filter-button" onclick="searchHotels()">Пошук</button>
                 </div>
             </div>
