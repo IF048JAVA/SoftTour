@@ -130,18 +130,19 @@
 
         <script id="favoriteTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                     <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" href="#panel-element-f\${id}">
+                <div class="panel-heading" data-toggle="collapse"  href="#panel-element-f\${id}">
+                     <a class="panel-title collapsed" data-parent="#panel-1">
                          <span class="tabTitleFont">Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle">\${hotel.region.country.name}</span>
                          <span class="tabTitleFont">Тривалість туру: </span>
                          <span id="tourDays-f\${id}" class="tabulatedTitle">\${days} Днів</span>
                          <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-f\${id}" class="tabulatedTitle">\${price} UAN</span>
+                         <span id="tourPrice-f\${id}" class="tabulatedTitle">\${price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
                          <span id="tourFood-f\${id}" class="tabulatedTitle">\${food.name}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
-                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${departureTime}</span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${date}</span>
+                          <span id="deleteButtonF\${id}" class="pull-right"><i class="glyphicon glyphicon-remove"></i></span>
                      </a>
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
@@ -154,18 +155,18 @@
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                     <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" href="#panel-element-h\${id}">
+                <div class="panel-heading" data-toggle="collapse" href="#panel-element-h\${id}">
+                     <a class="panel-title collapsed"  data-parent="#panel-1" >
                          <span class="tabTitleFont">Країна: </span>
                          <span id="tourCountry-h\${id}" class="tabulatedTitle">\${hotel.region.country.name}</span>
                          <span class="tabTitleFont">Тривалість туру: </span>
                          <span id="tourDays-h\${id}" class="tabulatedTitle">\${days} Днів</span>
                          <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${price} UAN</span>
+                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
                          <span id="tourFood-h\${id}" class="tabulatedTitle">\${food.name}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
-                         <span id="tourDepartureDate-h\${id}" class="tabulatedTitle">\${departureTime}</span>
+                         <span id="tourDepartureDate-h\${id}" class="tabulatedTitle">\${date}</span>
                      </a>
                 </div>
                 <div id="panel-element-h\${id}" class="panel-collapse collapse">

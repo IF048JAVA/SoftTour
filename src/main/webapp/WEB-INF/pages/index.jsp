@@ -15,7 +15,7 @@
         <div class="col-md-3">
             <strong>Введіть мінімальну ціну туру:</strong>
         <div class="input-group">
-             <span class="input-group-addon">UAH</span>
+             <span class="input-group-addon">$</span>
              <input type="text" id="minPrice" class="form-control" placeholder="0">
         </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="col-md-3">
             <strong>Введіть максимальну ціну туру:</strong>
         <div class="input-group">
-            <span class="input-group-addon">UAH</span>
+            <span class="input-group-addon">$</span>
             <input type="text" id="maxPrice" class="form-control" placeholder="9999">
         </div>
         </div>
@@ -31,6 +31,6 @@
     <div id="resText" class="col-md-12" style="visibility: hidden;"><h4  style="text-align: center;">Результати пошуку</h4></div>
 </div>
 
-<div id="indexResult" class="parent-group" style="visibility: hidden; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:10px;">
+<div id="indexResult" class="parent-group" style="visibility: hidden; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:10px;  margin-bottom:15px;">
     <!--Content from tour.js!-->
 </div>

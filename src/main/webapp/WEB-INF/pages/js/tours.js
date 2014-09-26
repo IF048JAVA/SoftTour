@@ -24,11 +24,15 @@ $(document).ready(function () {})
                         '<a class="panel-title collapsed" data-toggle="collapse" data-parent="#indexResult" href="#panel-element-h' +
                         idDataNew + '">' +
                         '<span class="tabTitleFont">Країна:</span>' +
-                        '<span id="tourCountry-h' + idDataNew + '" class="tabulatedTitle">' + s[idData].hotel.region.country.name + '</span>' +
+                        '<span id="tourCountry-h' + idDataNew + '" class="tabulatedTitle"> ' + s[idData].hotel.region.country.name + '</span>' +
+                        '<span class="tabTitleFont">Тривалість туру:</span>'+
+                        '<span id="tourDays-h' + idDataNew + '" class="tabulatedTitle"> ' + s[idData].days + ' Днів'+'</span>' +
                         '<span class="tabTitleFont">Вартість туру:</span>' +
-                        '<span id="tourPrice-h' + idDataNew + '" class="tabulatedTitle">' + s[idData].price + '</span>' +
+                        '<span id="tourPrice-h' + idDataNew + '" class="tabulatedTitle"> ' + s[idData].price + ' $'+'</span>' +
                         '<span class="tabTitleFont">Харчування:</span>' +
-                        '<span id="tourFood-h' + idDataNew + '" class="tabulatedTitle">' + s[idData].food.name + '</span>' +
+                        '<span id="tourFood-h' + idDataNew + '" class="tabulatedTitle"> ' + s[idData].food.name + '</span>' +
+                        '<span class="tabTitleFont">Дата:</span>'+
+                        '<span id="tourDate-h' + idDataNew + '" class="tabulatedTitle"> ' + s[idData].date + '</span>' +
                         '</a>' +
                         '</div>' +
                         '<div id="panel-element-h' + idDataNew + '" class="panel-collapse collapse">' +

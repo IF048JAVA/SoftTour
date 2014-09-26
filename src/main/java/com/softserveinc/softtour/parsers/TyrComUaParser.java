@@ -13,8 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by oleksandrgasenuk on 20.09.14.
- */
+* Created by oleksandrgasenuk on 20.09.14.
+*/
 
 public class TyrComUaParser implements TyrComUaParserConstants {
     private static final String URL_tyr = "http://www.tyr.com.ua/tours/search.php";
@@ -446,12 +446,15 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         String tourDate = tourDataList.get(7);
         SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
         Date date = null;
+        java.sql.Date sqlDate = null;
         try {
             date = dateFormat.parse(tourDate);
+            sqlDate = new java.sql.Date(date.getTime());
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        tour.setDate(date);
+        tour.setDate(sqlDate);
 
         //set tour days
         int days = Integer.parseInt(tourDataList.get(6));
@@ -469,12 +472,14 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         String depTime = tourDataList.get(7);
         SimpleDateFormat depDateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
         Date departureTime = null;
+        java.sql.Date sqlDateDepart = null;
         try {
             departureTime = depDateFormat.parse(depTime);
+            sqlDateDepart = new java.sql.Date(departureTime.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        tour.setDepartureTime(departureTime);
+        tour.setDepartureTime(sqlDateDepart);
 
         String priceSt = tourDataList.get(9);
         char [] priceCh = priceSt.toCharArray();
