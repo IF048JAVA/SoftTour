@@ -12,10 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
-* Created by oleksandrgasenuk on 20.09.14.
-*/
-
 public class TyrComUaParser implements TyrComUaParserConstants {
     private static final String URL_tyr = "http://www.tyr.com.ua/tours/search.php";
     private static Map<String, String> countryUaRuVocabulary = new HashMap<>();
