@@ -3,7 +3,7 @@ package com.softserveinc.softtour.service;
 import com.softserveinc.softtour.entity.Tour;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface TourService {
