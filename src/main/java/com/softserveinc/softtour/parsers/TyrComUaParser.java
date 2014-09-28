@@ -7,16 +7,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TyrComUaParser implements TyrComUaParserConstants {
-    private static final String URL_tyr = "http://www.tyr.com.ua/tours/search.php";
-    private static Map<String, String> countryUaRuVocabulary = new HashMap<>();
-    private static Map<String, String> regionUaRuVocabulary = new HashMap<>();
-    private static Map<String, String> departureCityUaRuVocabulary = new HashMap<>();
+    private static Properties countryUaRuVocabulary = new Properties();
+    private static Properties regionUaRuVocabulary = new Properties();
+    private static Properties departureCityUaRuVocabulary = new Properties();
     private WebDriver driver = new HtmlUnitDriver(true);
     private List<Tour> tourList = new ArrayList<>();
     private String country;
@@ -37,32 +39,20 @@ public class TyrComUaParser implements TyrComUaParserConstants {
     private String departureCity;
 
     static {
-        //Єгипет
-        countryUaRuVocabulary.put("Єгипет", "Египет");
-        regionUaRuVocabulary.put("Дахаб", "Дахаб");
-        regionUaRuVocabulary.put("Макаді Бей", "Макади Бей");
-        regionUaRuVocabulary.put("Марса Алам", "Марса Алам");
-
-        //Туреччина
-        countryUaRuVocabulary.put("Туреччина", "Турция");
-        regionUaRuVocabulary.put("Аланья", "Аланья");
-        regionUaRuVocabulary.put("Анталія", "Анталия");
-        regionUaRuVocabulary.put("Белек", "Белек");
-
-        //Греція
-        countryUaRuVocabulary.put("Греція", "Греция");
-        regionUaRuVocabulary.put("Агія Тріада", "Агия Триада");
-        regionUaRuVocabulary.put("Астіпалея", "Астипалея");
-        regionUaRuVocabulary.put("Аттика", "Аттика");
-
-        departureCityUaRuVocabulary.put("Київ", "Киев");
-        departureCityUaRuVocabulary.put("Львів", "Львов");
-        departureCityUaRuVocabulary.put("Харків", "Харьков");
-        departureCityUaRuVocabulary.put("Одеса", "Одесса");
-        departureCityUaRuVocabulary.put("Запоріжжя", "Запорожье");
-        departureCityUaRuVocabulary.put("Дніпропетровськ", "Днепропетровск");
+        try {
+            InputStream inputCountry = TyrComUaParser.class.getClass().
+                                       getResourceAsStream(RESOURCE_PATH_COUNTRY_VOCABULARY);
+            InputStream inputRegion = TyrComUaParser.class.getClass().
+                                      getResourceAsStream(RESOURCE_PATH_REGION_VOCABULARY);
+            InputStream inputDepCity = TyrComUaParser.class.getClass().
+                                       getResourceAsStream(RESOURCE_PATH_DEPARTURE_CITY_VOCABULARY);
+            countryUaRuVocabulary.load(new InputStreamReader(inputCountry, DEFAULT_CHARSET));
+            regionUaRuVocabulary.load(new InputStreamReader(inputRegion, DEFAULT_CHARSET));
+            departureCityUaRuVocabulary.load(new InputStreamReader(inputDepCity, DEFAULT_CHARSET));
+        }catch (IOException e){
+            System.out.println(e.getStackTrace());
+        }
     }
-
 
     public TyrComUaParser(String country, String region, String hotel, int[] stars, String[] foods, int adults,
                           int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
@@ -83,7 +73,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         this.priceTo = priceTo;
         this.currency = currency;
         this.departureCity = departureCity;
-        driver.get(URL_tyr);
+        driver.get(URL_TYR_COM_UA_SEARCH_PHP);
     }
 
     public List<Tour> parse(){
@@ -117,7 +107,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
             return;
         }
         Select dropDownCountry = new Select(driver.findElement(By.id(DROP_DOWN_COUNTRY_ID)));
-        String countryRu = countryUaRuVocabulary.get(country);
+        String countryRu = countryUaRuVocabulary.getProperty(country);
         dropDownCountry.selectByVisibleText(countryRu);
     }
 
@@ -127,7 +117,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
         WebElement selectRegion = driver.findElement(By.id(SELECT_REGION_ID));
         Select dropDownRegion = new Select(selectRegion);
-        String regionRu = regionUaRuVocabulary.get(region);
+        String regionRu = regionUaRuVocabulary.getProperty(region);
         dropDownRegion.selectByVisibleText(regionRu);
     }
 
@@ -328,7 +318,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
     }
 
     private void selectCurrency(String currency){
-        if(currency.equalsIgnoreCase("USD")){
+        if(currency.equalsIgnoreCase(DEFAULT_CURRENCY)){
             return;
         }
         WebElement selectCurrency = driver.findElement(By.id(DROP_DOWN_CURRENCY_ID));
@@ -337,9 +327,12 @@ public class TyrComUaParser implements TyrComUaParserConstants {
     }
 
     private void selectDepartureCity(String departureCity){
+        if(departureCity.equals("Київ")){
+            return;
+        }
         WebElement departure = driver.findElement(By.name(DROP_DOWN_DEPARTURE_CITY_NAME));
         Select dropDownDeparture = new Select(departure);
-        String departureCityRu = departureCityUaRuVocabulary.get(departureCity);
+        String departureCityRu = departureCityUaRuVocabulary.getProperty(departureCity);
         dropDownDeparture.selectByVisibleText(departureCityRu);
     }
 
@@ -423,16 +416,17 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         tourDataList.add(textRight.getText());
 
         /*
-      0  Хургада
-      1  Princess Palace Hotel
-      2  Std
-      3  Киев
-      4  3
-      5  HB
-      6  6
-      7  14.12.14
-      8  Подробнее
-      9  1067€
+        list elements
+      0  region
+      1  Hotel name
+      2  ? Std
+      3  departure city
+      4  stars
+      5  food
+      6  tour days
+      7  departure date
+      8  link
+      9  price
          */
 
         Tour tour = new Tour();
@@ -481,7 +475,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         char [] priceCh = priceSt.toCharArray();
         StringBuffer priceOnlyNumbers = new StringBuffer();
         for(char ch : priceCh){
-            if(ch>=48 && ch <= 57){
+            if(ch >= 48 && ch <= 57){
                 priceOnlyNumbers.append(ch);
             }
         }
@@ -508,10 +502,10 @@ public class TyrComUaParser implements TyrComUaParserConstants {
     public static void main(String[] args) {
         int[] stars = {2, 3, 4, 5};
         String[] foods = {"HB", "AI"};
-        int[] childrenAge = {9};
+        int[] childrenAge = {};
         //null for now
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", "Анталія", "Adalia Hotel", stars, foods, 3, 1, childrenAge,
-                "01.10.14", "31.12.14", 6, 21, 4000, 12000, "Грн", "Львів");
+        TyrComUaParser parser = new TyrComUaParser("Греція", "Агія Тріада", "Sun Beach Hotel", stars, foods, 3, 0, childrenAge,
+                "01.10.14", "31.12.14", 6, 21, 5000, 120000, "Грн", "Київ");
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){
             System.out.println(resultList.get(i).toString());
