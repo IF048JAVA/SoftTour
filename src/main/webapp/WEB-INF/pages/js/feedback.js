@@ -1,6 +1,6 @@
 ﻿function checkName(field){
-    reg = /^[a-zA-Z'][a-zA-Z-' ]+[a-zA-Z']?$/;
-    if(field.value.length==0){
+    reg = /^[а-яА-Яa-zA-Z0-9]{1,20}+$/;
+    if(field.value.length==0||field.value.length==1){
         document.getElementById("text_help").innerHTML = "Введіть ім'я";
         return false;
     }else if(!field.value.match(reg)){
@@ -32,12 +32,20 @@ function checkArea(field){
     if(field.value.length==0){
         document.getElementById("text_help3").innerHTML = "Введіть коментар";
         return false;
-    }else if(field.value<10){
+    }else if(field.value.length<10){
         document.getElementById("text_help3").innerHTML = "Закороткий коментар";
         return false;
     }
     else {
         document.getElementById("text_help3").innerHTML = "";
         return true;
+    }
+}
+
+function checkForm(form){
+    if(checkName(form["name"])&&checkEmail(form["email"])&&checkArea(["area"])){
+        form.submit();
+    }else{
+        alert("Некоректно заповнена форма");
     }
 }
