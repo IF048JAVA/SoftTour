@@ -25,7 +25,7 @@ public class HotelController {
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public @ResponseBody List<Hotel> findHotels(
-            @RequestParam(value = "country", required = true) String country,
+            @RequestParam(value = "country", required = true) List<String> country,
             @RequestParam(value = "rating", required = false) Integer rating,
             @RequestParam(value = "comfort", required = false) Integer comfort,
             @RequestParam(value = "cleanliness", required = false) Integer cleanliness,

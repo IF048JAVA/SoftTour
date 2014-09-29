@@ -11,7 +11,7 @@ public interface HotelService {
     List <Hotel> findByName(String name);
     List<Hotel> findAll();
     void deleteById(long id);
-    List<Hotel> findByCustomParameters(String country, Integer rating,
+    List<Hotel> findByCustomParameters(List<String> country, Integer rating,
                                        Integer comfort, Integer cleanliness,
                                        Integer location, Integer valueForMoney);
 

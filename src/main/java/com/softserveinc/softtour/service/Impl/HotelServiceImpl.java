@@ -42,7 +42,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findByCustomParameters(String country, Integer rating, Integer comfort,
+    public List<Hotel> findByCustomParameters(List<String> country, Integer rating, Integer comfort,
                                               Integer cleanliness, Integer location, Integer valueForMoney) {
         return hotelRepository.findByCustomParameters(country, BigDecimal.valueOf(rating),
                 BigDecimal.valueOf(comfort), BigDecimal.valueOf(cleanliness),
