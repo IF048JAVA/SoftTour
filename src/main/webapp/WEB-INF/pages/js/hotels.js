@@ -11,14 +11,17 @@ function setData() {
 }
 function searchHotels() {
 
-    var queryObj = {};
+    var queryObj = '';
 
-    queryObj.country = $("#countrySelect2").val();
-    queryObj.rating = $("#rating").val();
-    queryObj.comfort = $("#comfort").val();
-    queryObj.cleanliness = $("#cleanliness").val();
-    queryObj.location = $("#location").val();
-    queryObj.valueForMoney = $("#value_for_money").val();
+    var country=new Array();
+    country=$('#countrySelect2').val();
+    queryObj += (queryObj.length==0)?"country="+country:"&country="+country;
+    queryObj += (queryObj.length==0)?"rating="+$("#rating").val():"&rating="+$("#rating").val();
+    queryObj += (queryObj.length==0)?"comfort="+$("#comfort").val():"&comfort="+$("#comfort").val();
+    queryObj += (queryObj.length==0)?"cleanliness="+$("#cleanliness").val():"&cleanliness="+$("#cleanliness").val();
+    queryObj += (queryObj.length==0)?"location="+$("#location").val():"&location="+$("#location").val();
+    queryObj += (queryObj.length==0)?"valueForMoney="+$("#value_for_money").val():"&valueForMoney="+$("#value_for_money").val();
+
 
     $.ajax({
         url: "/hotels/result",

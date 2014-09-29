@@ -20,7 +20,7 @@
 
             <div id="collapseFilter" class="panel-collapse collapse in">
                 <div class="panel-body">
-                    <select id="countrySelect2" class="select2-offscreen filter-element">
+                    <select id="countrySelect2" multiple="multiple" class="select2-offscreen filter-element">
                         <option></option>
                     </select>
 
