@@ -3,7 +3,7 @@
 
     <!-- Form -->
     <div id="left_div" class="form">
-        <form class="form-horizontal" action="#" onsubmit="return checkForm('name','email','area')">
+        <form class="form-horizontal" action="#")">
             <fieldset>
                 <legend>Форма зворотнього зв'язку</legend>
 
@@ -11,7 +11,8 @@
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
                             <input type="text" id="name" class="form-control input-md" name="name"
-                                                 placeholder="Введіть Ваше ім'я:"/>
+                                                 placeholder="Введіть Ваше ім'я:" onblur="checkName(this)"/>
+                            <span id="text_help" class="help"></span>
                         </div>
                     </div>
 
@@ -19,7 +20,8 @@
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
                             <input type="text" id="email" class="form-control input-md" name="user_email"
-                                                 placeholder="Введіть Ваш e-mail:"/>
+                                                 placeholder="Введіть Ваш e-mail:" onblur="checkEmail(this)"/>
+                            <span id="text_help2" class="help"></span>
                         </div>
                     </div>
 
@@ -37,7 +39,8 @@
                     <div class="form-group">
                         <div class="col-md-2 col-md-2-offset"> </div>
                         <div class="col-md-8">
-                            <textarea name="area" id="area" class="form-control" rows="4" placeholder="Текст повідомлення:" style="max-width: 100%"></textarea>
+                            <textarea name="area" id="area" class="form-control" rows="4" placeholder="Текст повідомлення:" onblur="checkArea(this)" style="max-width: 100%"></textarea>
+                            <span id="text_help3" class="help"></span>
                         </div>
                     </div>
 
