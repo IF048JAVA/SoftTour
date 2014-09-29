@@ -1,26 +1,31 @@
 package com.softserveinc.softtour.service.Impl;
 
-
-import com.softserveinc.softtour.dao.RoleDao;
 import com.softserveinc.softtour.entity.Role;
+import com.softserveinc.softtour.repository.RoleRepository;
 import com.softserveinc.softtour.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RoleServiceImpl implements RoleService {
-    private RoleDao roleDao;
 
-    public void setRoleDao (RoleDao roleDao){this.roleDao = roleDao;}
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Override
-    public void save(String name){roleDao.save(name);}
+    public void save(Role role){roleRepository.save(role);}
+
     @Override
-    public void update(long id, String name){roleDao.update(id, name);}
+    public void delete(long id){roleRepository.delete(id);}
+
     @Override
-    public void delete(long id){roleDao.delete(id);}
+    public Role findById(long id){return roleRepository.findOne(id);}
+
     @Override
-    public Role findById(long id){return roleDao.findById(id);}
+    public Role findByName(String name){return roleRepository.findByName(name);}
+
     @Override
-    public List<Role> findByName(String name){return roleDao.findByName(name);}
-    @Override
-    public List<Role> getAll(){return roleDao.getAll();}
+    public List<Role> getAll(){return roleRepository.findAll();}
 }

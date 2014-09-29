@@ -1,58 +1,51 @@
 package com.softserveinc.softtour.service.Impl;
 
-import com.softserveinc.softtour.dao.HotelDao;
 import com.softserveinc.softtour.entity.Hotel;
-import com.softserveinc.softtour.entity.Region;
+import com.softserveinc.softtour.repository.HotelRepository;
 import com.softserveinc.softtour.service.HotelService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * Created by oleksandrgasenuk on 04.09.14.
- */
+@Service
 public class HotelServiceImpl implements HotelService {
-    private HotelDao hotelDao;
 
-    public void setHotelDao(HotelDao hotelDao) {
-        this.hotelDao = hotelDao;
+    @Autowired
+    private HotelRepository hotelRepository;
+
+    @Override
+    public Hotel save(Hotel hotel) {
+        return hotelRepository.saveAndFlush(hotel);
     }
 
     @Override
-    public void save(String name, int stars, Region region) {
-        hotelDao.save(name, stars, region);
+    public Hotel findOne(long id) {
+        return hotelRepository.findOne(id);
     }
 
     @Override
-    public void update(long id, String name, int stars, Region region) {
-        hotelDao.update(id, name, stars, region);
+    public List <Hotel> findByName(String name) {
+        return hotelRepository.findByName(name);
     }
 
     @Override
-    public void delete(long id) {
-        hotelDao.delete(id);
+    public List<Hotel> findAll() {
+        return hotelRepository.findAll();
     }
 
     @Override
-    public Hotel findById(long id) {
-        return hotelDao.findById(id);
+    public void deleteById(long id) {
+        hotelRepository.delete(id);
+
     }
 
     @Override
-    public List<Hotel> findByName(String...name) {
-        return hotelDao.findByName(name);
-    }
-
-    @Override
-    public List<Hotel> findByStars(int...stars) {
-        return hotelDao.findByStars(stars);
-    }
-
-    @Override
-    public List<Hotel> findByRegion(Region...region) {
-        return hotelDao.findByRegion(region);
-    }
-
-    @Override
-    public List<Hotel> getAll() {
-        return hotelDao.getAll();
+    public List<Hotel> findByCustomParameters(String country, Integer rating, Integer comfort,
+                                              Integer cleanliness, Integer location, Integer valueForMoney) {
+        return hotelRepository.findByCustomParameters(country, BigDecimal.valueOf(rating),
+                BigDecimal.valueOf(comfort), BigDecimal.valueOf(cleanliness),
+                BigDecimal.valueOf(location), BigDecimal.valueOf(valueForMoney));
     }
 }

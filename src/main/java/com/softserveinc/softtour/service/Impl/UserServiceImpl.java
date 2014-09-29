@@ -3,10 +3,12 @@ package com.softserveinc.softtour.service.Impl;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softserveinc.softtour.dao.UserDao;
+import com.softserveinc.softtour.repository.UserRepository;
 import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Sex;
@@ -17,154 +19,80 @@ import com.softserveinc.softtour.service.UserService;
  * 	Contains the methods for work with table User in the SoftTour database
  *  Supports a transaction
  */
-@Transactional(propagation=Propagation.SUPPORTS, readOnly = true)
+@Service
+@Transactional(propagation=Propagation.REQUIRED, readOnly = true)
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao;
-
-	/**
-	 * Sets the userDao object
-	 * @param userDao - object of the class UserDaoImpl
-	 */
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
+	@Autowired
+	private UserRepository userRepository;
 
 	/**
 	 * Saves the object user to the table User
 	 * Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-	public void save(String name, String email, String password, Date birthday,
-			byte age, Sex sex, String phone, Role role) {
-		userDao.save(name, email, password, birthday, age, sex, phone, role);
+	@Transactional(readOnly=false)
+	public void save(User user) {
+		userRepository.save(user);
 	}
-
+	
 	/**
-	 *  Updates the object user with the specified id
-	 *  id - id of the object user which will updated
-	 *  Supports a transaction
+	 * Updates the object user with the specified id
+	 * @param id - id of the object user which will be updated
+	 * @param user - it's the object with the new values
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-	public void update(long id, String name, String email, String password,
-			Date birthday, byte age, Sex sex, String phone, Role role) {
-
-		userDao.update(id, name, email, password, birthday, age, sex, phone,
-				role);
+	@Transactional(readOnly=false)
+	public void update(long id,User user) {
+		userRepository.update( id, user.getName(), user.getEmail(), user.getPassword(), 
+				user.getBirthday(), user.getAge(), user.getSex(), user.getPhone(), user.getRole());
 	}
 
 	/**
 	 *  Deletes the object user with the specified id
-	 *  id - id of the object user which will deleted
+	 *  id - id of the object user which will be deleted
 	 *  Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED, readOnly=false)
+	@Transactional(readOnly=false)
 	public void delete(long id) {
-		userDao.delete(id);
+		userRepository.delete(id);
 	}
 
 	/**
 	 *  Returns the object user with the specified id
-	 *  id - id of the object user which will returned
+	 *  id - id of the object user which will be returned
 	 *  Supports a transaction
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
 	public User findById(long id) {
-		return userDao.findById(id);
-	}
-
-	/**
-	 *  Returns list of the objects user with the specified name or names
-	 *   Supports a transaction
-	 */
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> findByName(String...name) {
-		return userDao.findByName(name);
+		return userRepository.findOne(id);
 	}
 	
 	/**
-	 *  Returns list of the objects user with the specified email or emails
-	 *   Supports a transaction
+	 * Returns the list of the user's objects with the specified name or email
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> findByEmail(String... email) {
-		return userDao.findByEmail(email);
+	public List<User> findByNameOrEmail(String name, String  email) {
+		return userRepository.findByNameOrEmail(name, email);
 	}
 	
 	/**
-	 *  Returns list of the objects user with the specified password or passwords
-	 *   Supports a transaction
+	 *  Returns the list of the user's objects with the specified parameters
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> findByPassword(String... password) {
-		return userDao.findByPassword(password);
+	public List<User> findByAnyParameters(long id, String name, String email, String password, 
+								Date birthday, byte age, Sex sex, String phone, Role role) {
+		return userRepository.findByIdOrNameOrEmailOrPasswordOrBirthdayOrAgeOrSexOrPhoneOrRole(
+				id, name, email, password, birthday, age, sex, phone, role);
 	}
 	
 	/**
-	 *  Returns list of the objects user with the specified birthday or birthdays
-	 *   Supports a transaction
+	 *  Returns the list of all user's objects which are contained in the table User
 	 */
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> findByBirthday(Date... birthday) {
-		return userDao.findByBirthday(birthday);
-	}
-	
-	/**
-	 *  Returns list of the objects user with the specified age
-	 *   Supports a transaction
-	 */
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> findByAge(Byte... age) {
-		return userDao.findByAge(age);
-	}
-	
-	/**
-	 *  Returns list of the objects user with the specified sex
-	 *   Supports a transaction
-	 */
-		@Override
-		@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> findBySex(Sex sex) {
-		return userDao.findBySex(sex);
-	}
-		
-	/**
-	 *  Returns list of the objects user with the specified phone or phones
-	 *   Supports a transaction
-	 */
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> findByPhone(String... phone) {
-		return userDao.findByPhone(phone);
-	}
-		
-	/**
-	 *  Returns the list of the objects user which contain the specified object or objects role
-	 *   Supports a transaction
-	 */
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> findByRole(Role...role) {
-		return userDao.findByRole(role);
-	}
-	
-	/**
-	 *  Returns the list of all objects user which are contained in the table User
-	 *   Supports a transaction
-	 */
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public List<User> getAll() {
-		return userDao.getAll();
+	public List<User> findAll() {
+		return userRepository.findAll();
 	}
 
 }

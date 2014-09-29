@@ -1,7 +1,6 @@
 package com.softserveinc.softtour.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "Role")
@@ -14,9 +13,6 @@ public class Role {
 
     @Column(name = "name", nullable = false, length = 45)
     private String name;
-
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
 
     public Role() {
     }
@@ -39,21 +35,5 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

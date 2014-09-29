@@ -49,4 +49,15 @@ public class BusTransit {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "BusTransit{" +
+                "cityFrom='" + cityFrom + '\'' +
+                ", cityTo='" + cityTo + '\'' +
+                ", departureTime=" + departureTime +
+                ", arrivalTime=" + arrivalTime +
+                ", price=" + price +
+                '}';
+    }
 }

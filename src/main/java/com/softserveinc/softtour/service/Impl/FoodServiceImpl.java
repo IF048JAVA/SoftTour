@@ -1,26 +1,31 @@
 package com.softserveinc.softtour.service.Impl;
 
-
-import com.softserveinc.softtour.dao.FoodDao;
 import com.softserveinc.softtour.entity.Food;
+import com.softserveinc.softtour.repository.FoodRepository;
 import com.softserveinc.softtour.service.FoodService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FoodServiceImpl implements FoodService {
-    private FoodDao foodDao;
 
-    public void setFoodDao (FoodDao foodDao) {this.foodDao = foodDao;}
+    @Autowired
+    private FoodRepository foodRepository;
+
     @Override
-    public void save(String name){foodDao.save(name);}
+    public void save(Food food){foodRepository.save(food);}
+
     @Override
-    public void update(long id, String name){foodDao.update(id, name);}
+    public void delete(long id){foodRepository.delete(id);}
+
     @Override
-    public void delete(long id){foodDao.delete(id);}
+    public Food findById(long id){return foodRepository.findOne(id);}
+
     @Override
-    public Food findById(long id){return foodDao.findById(id);}
+    public Food findByName(String name){return foodRepository.findByName(name); }
+
     @Override
-    public List<Food> findByName(String name){return foodDao.findByName(name);}
-    @Override
-    public List<Food> getAll(){return foodDao.getAll();}
+    public List<Food> getAll(){return foodRepository.findAll();}
 }

@@ -1,81 +1,62 @@
 package com.softserveinc.softtour.service.Impl;
 
-import com.softserveinc.softtour.dao.TourDao;
-import com.softserveinc.softtour.entity.Food;
-import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.repository.TourRepository;
 import com.softserveinc.softtour.service.TourService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
-/**
- * Created by oleksandrgasenuk on 04.09.14.
- */
+@Service
 public class TourServiceImpl implements TourService {
-    private TourDao tourDao;
 
-    public void setTourDao(TourDao tourDao) {
-        this.tourDao = tourDao;
+    @Autowired
+    private TourRepository tourRepository;
+
+
+    @Override
+    public Tour save(Tour tour) {
+        return tourRepository.saveAndFlush(tour);
     }
 
     @Override
-    public void save(Date date, int days, String departureCity, Date departureTime, BigDecimal price, Hotel hotel, Food food) {
-        tourDao.save(date, days, departureCity, departureTime, price, hotel, food);
+    public void delete(Tour tour) {
+        tourRepository.delete(tour);
     }
 
     @Override
-    public void update(long id, Date date, int days, String departureCity, Date departureTime, BigDecimal price, Hotel hotel, Food food) {
-        tourDao.update(id, date, days, departureCity, departureTime, price, hotel, food);
+    public void deleteById(long id) {
+        tourRepository.delete(id);
     }
 
     @Override
-    public void delete(long id) {
-        tourDao.delete(id);
+    public Tour findOne(long id) {
+        return tourRepository.findOne(id);
     }
 
     @Override
-    public Tour findById(long id) {
-        return tourDao.findById(id);
+    public List<Tour> findAll() {
+        return tourRepository.findAll();
     }
 
     @Override
-    public List<Tour> findByDate(Date dateFrom, Date dateTo) {
-        return tourDao.findByDate(dateFrom, dateTo);
+    public List<Tour> findByCountryAndPrice(String country, Integer minPrice, Integer maxPrice) {
+        return tourRepository.findByCountryAndPrice(country, BigDecimal.valueOf(minPrice), BigDecimal.valueOf(maxPrice));
     }
 
     @Override
-    public List<Tour> findByDays(int daysFrom, int daysTo) {
-        return tourDao.findByDays(daysFrom, daysTo);
+    public List<Tour> findByCountryAndDaysAndPrice(String country, int days, BigDecimal price) {
+        return tourRepository.findByCountryAndDaysAndPrice(country, days, price);
     }
 
     @Override
-    public List<Tour> findByDepartureCity(String...departureCity) {
-        return tourDao.findByDepartureCity(departureCity);
+    public List<Tour> findByCustomParameters(String country, Date date, int days, String departureCity,
+                                             Date departureTime, BigDecimal price, String hotel, String food) {
+        return tourRepository.findByCustomParameters(country, date, days, departureCity,
+                                                     departureTime, price, hotel, food);
     }
 
-    @Override
-    public List<Tour> findByDepartureTime(Date departureTimeFrom, Date departureTimeTo) {
-        return tourDao.findByDepartureTime(departureTimeFrom, departureTimeTo);
-    }
-
-    @Override
-    public List<Tour> findByPrice(BigDecimal priceFrom, BigDecimal priceTo) {
-        return tourDao.findByPrice(priceFrom, priceTo);
-    }
-
-    @Override
-    public List<Tour> findByHotel(Hotel...hotel) {
-        return tourDao.findByHotel(hotel);
-    }
-
-    @Override
-    public List<Tour> findByFood(Food...food) {
-        return tourDao.findByFood(food);
-    }
-
-    @Override
-    public List<Tour> getAll() {
-        return tourDao.getAll();
-    }
 }

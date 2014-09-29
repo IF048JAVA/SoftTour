@@ -1,7 +1,6 @@
 package com.softserveinc.softtour.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "Food")
@@ -14,9 +13,6 @@ public class Food {
 
     @Column(name = "name", nullable = false, length = 3)
     private String name;
-
-    @OneToMany(mappedBy = "food")
-    private Set<Tour> tours;
 
     public Food() {
     }
@@ -39,21 +35,5 @@ public class Food {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Tour> getTours() {
-        return tours;
-    }
-
-    public void setTours(Set<Tour> tours) {
-        this.tours = tours;
-    }
-
-    @Override
-    public String toString() {
-        return "Food{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

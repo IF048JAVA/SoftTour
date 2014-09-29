@@ -1,0 +1,43 @@
+.hotels-filter {
+    background-color: rgba(139, 150, 143, 0.30);
+    text-align: center;
+    border: inherit;
+    border-radius: 15px;
+    box-shadow: 4px 5px 38px #4b4b4b;
+    margin-bottom: 20px;
+    width: 200px;
+}
+
+.filter-element {
+    background-color: rgba(139, 150, 143, 0.35);
+    border: inherit;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.filter-button {
+    margin-top: 10px;
+}
+
+.hotels-result {
+    margin-left: 45px;
+
+}
+.img-circle {
+    height: 170px;
+    width: 170px;
+}
+
+
+#filter {
+    margin: 15px;
+}
+
+#collapseHotel {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.country_selector {
+    width: 100%;
+}

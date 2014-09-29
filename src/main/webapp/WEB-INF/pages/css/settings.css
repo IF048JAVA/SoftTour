@@ -1,0 +1,70 @@
+#login {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin:10px auto 5px;
+    
+    
+}
+#top {
+    height:100px;
+    
+    
+}
+#red {
+    background: #000000;
+}
+body {
+    background: url("../img/back.jpg") no-repeat; background-attachment:fixed;
+    background-size: cover; 
+}
+
+#white_main {
+    background-color:  rgba(255, 255, 255, 0.6);
+    margin-top:75px;
+    border-radius:6px;
+    
+    
+    
+}
+#heading {
+    color: #F5F5F5;
+    vertical-align: middle;
+    
+    
+}
+.imgfont {
+    font-size: 30px;
+    text-align: center;
+}
+.imgfont :hover{
+    height:90%;
+    width: 90%;
+
+}
+
+
+.formstyle {
+    background-color:  rgba(160, 210, 155, 0.4);
+    font-family: serif;
+    text-align: center;
+    margin-bottom: 15px;
+    border: solid 1px;
+    border-color: rgb(150,150,150);
+    border-radius:3px;
+    
+}
+p {
+  
+    font-size: 17px;
+}
+.mycarousel{
+    height: 305px    ;
+}
+.center {
+    text-align: center;
+}
+
+.error {
+	color: red;
+}

@@ -1,36 +1,46 @@
 package com.softserveinc.softtour.service.Impl;
 
-import com.softserveinc.softtour.dao.FeedbackDao;
 import com.softserveinc.softtour.entity.Feedback;
-import com.softserveinc.softtour.entity.Hotel;
-import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.repository.FeedbackRepository;
 import com.softserveinc.softtour.service.FeedbackService;
+import com.softserveinc.softtour.service.FeedbackService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+@Service
+public class FeedbackServiceImpl implements FeedbackService {
 
-public class FeedbackServiceImpl implements FeedbackService{
-    private FeedbackDao feedbackDao;
-    public void setFeedbackDao (FeedbackDao feedbackDao) {
-        this.feedbackDao=feedbackDao;
+    @Autowired
+    private FeedbackRepository feedbackRepository;
+
+    @Override
+    public Feedback save(Feedback feedback) {
+        return feedbackRepository.saveAndFlush(feedback);
     }
-    public void save (int cleanliness, int comfort, int location, int valueForMoney, String comment, Hotel hotel,
-    User user) {
-        feedbackDao.save(cleanliness,comfort,location,valueForMoney,comment,hotel,user);
+
+    @Override
+    public Feedback findOne(long id) {
+        return feedbackRepository.findOne(id);
     }
-    public void update (long id, int cleanliness, int comfort, int location, int valueForMoney, String comment, Hotel
-            hotel, User user) {
-        feedbackDao.update(id, cleanliness, comfort, location, valueForMoney, comment, hotel, user);
+
+    @Override
+    public List<Feedback> findAll() {
+        return feedbackRepository.findAll();
     }
-    public void delete (long id) {
-        feedbackDao.delete(id);
+
+    @Override
+    public void delete(Feedback feedback) {
+        feedbackRepository.delete(feedback);
     }
-    public Feedback findById (long id) {
-        return feedbackDao.findById(id);
+
+    @Override
+    public void deleteById(long id) {
+        feedbackRepository.delete(id);
     }
-    public List<Feedback> getAll () {
-        return feedbackDao.getAll();
-    }
-    public List<Feedback> findByUser (User user) {
-        return feedbackDao.findByUser(user);
+
+    @Override
+    public List<Feedback> findByCustomParameters() {
+        return null;
     }
 }

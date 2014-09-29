@@ -2,10 +2,10 @@ package com.softserveinc.softtour.entity;
 
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
-@Table(name = "HistoryRecord")
+@Table(name = "HistoryRecords")
 public class HistoryRecord {
 
     @Id
@@ -63,15 +63,5 @@ public class HistoryRecord {
 
     public void setTour(Tour tour) {
         this.tour = tour;
-    }
-
-    @Override
-    public String toString() {
-        return "HistoryRecord{" +
-                "id=" + id +
-                ", date=" + date +
-                ", user=" + user +
-                ", tour=" + tour +
-                '}';
     }
 }
