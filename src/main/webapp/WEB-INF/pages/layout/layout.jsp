@@ -52,5 +52,6 @@
 <script src="js/userInfo.js"></script>
 <script src="js/tours.js"></script>
 <script src="js/equal_div.js"></script>
+<script src="js/validator.js"></script>
 </body>
 </html>
