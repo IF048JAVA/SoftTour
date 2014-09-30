@@ -35,6 +35,13 @@ public class HotelController {
         return hotelService.findByCustomParameters(country, rating, comfort, cleanliness, location, valueForMoney);
     }
 
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public @ResponseBody List<Hotel> findByName(
+            @RequestParam(value = "name", required = false) String name){
+        return hotelService.findByName(name);
+    }
+
+
     @RequestMapping(value = "/allCountry")
     public @ResponseBody List<Country> findCounties(){
         return countryService.findAll();

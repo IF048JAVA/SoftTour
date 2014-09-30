@@ -6,27 +6,57 @@ function closeModalWindow() {
     $('#myModal').modal('hide');
 }
 
-function setData() {
+function searchByName() {
+    alert($("#searchHotelByName").val());
+    var queryObj = {};
+    queryObj.name = $("#searchHotelByName").val();
+    $.ajax({
+        url: "/hotels/search",
+        type: "GET",
+        data: queryObj,
+        dataType: 'json',
 
+        success: function (data) {
+
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                $("#hotel" + i).html(data[i].name);
+                $("#hotelImg" + i).attr("src", data[i].imgUrl);
+                $("#hotelName" + i).html("  " + data[i].name);
+                $("#hotelRegion" + i).html("  " + data[i].region.name);
+                $("#hotelCountry" + i).html("  " + data[i].region.country.name);
+                $("#hotelRating" + i).html("  " + data[i].rating);
+                $("#hotelComfort" + i).html("  " + data[i].comfort);
+                $("#hotelLocation" + i).html("  " + data[i].location);
+                $("#hotelCleanliness" + i).html("  " + data[i].cleanliness);
+                $("#hotelValueForMoney" + i).html("  " + data[i].valueForMoney);
+
+
+            }
+        },
+
+        error: function () {
+            alert("ERROR");
+        }
+    });
 }
+
 function searchHotels() {
 
-    var queryObj = '';
-
-    var country=new Array();
-    country=$('#countrySelect2').val();
-    queryObj += (queryObj.length==0)?"country="+country:"&country="+country;
-    queryObj += (queryObj.length==0)?"rating="+$("#rating").val():"&rating="+$("#rating").val();
-    queryObj += (queryObj.length==0)?"comfort="+$("#comfort").val():"&comfort="+$("#comfort").val();
-    queryObj += (queryObj.length==0)?"cleanliness="+$("#cleanliness").val():"&cleanliness="+$("#cleanliness").val();
-    queryObj += (queryObj.length==0)?"location="+$("#location").val():"&location="+$("#location").val();
-    queryObj += (queryObj.length==0)?"valueForMoney="+$("#value_for_money").val():"&valueForMoney="+$("#value_for_money").val();
-
+    var query = '';
+    var country = new Array();
+    country = $('#countrySelect2').val();
+    query += (query.length == 0) ? "country=" + country : "&country=" + country;
+    query += (query.length == 0) ? "rating=" + $("#rating").val() : "&rating=" + $("#rating").val();
+    query += (query.length == 0) ? "comfort=" + $("#comfort").val() : "&comfort=" + $("#comfort").val();
+    query += (query.length == 0) ? "cleanliness=" + $("#cleanliness").val() : "&cleanliness=" + $("#cleanliness").val();
+    query += (query.length == 0) ? "location=" + $("#location").val() : "&location=" + $("#location").val();
+    query += (query.length == 0) ? "valueForMoney=" + $("#value_for_money").val() : "&valueForMoney=" + $("#value_for_money").val();
 
     $.ajax({
         url: "/hotels/result",
         type: "GET",
-        data: queryObj,
+        data: query,
         dataType: 'json',
 
         success: function (data) {
@@ -49,9 +79,6 @@ function searchHotels() {
         error: function () {
             alert("ERROR");
         }
-
-
-
     });
 }
 
@@ -65,12 +92,15 @@ $(document).ready(function () {
     $.getJSON('/hotels/allCountry', {
         ajax: 'true'
     }, function (country) {
+
         var html = ' ';
         var len = country.length;
+
         for (var i = 0; i < len; i++) {
             html += '<option value="' + country[i].name + '">'
                 + country[i].name + '</option>';
         }
+
         $('#countrySelect2').html(html);
     });
 
@@ -82,7 +112,9 @@ $(document).ready(function () {
     $.getJSON('/hotels/all', {
         ajax: 'true'
     }, function (hotel) {
+
         var len = hotel.length;
+
         for (var i = 0; i < len; i++) {
             $("#hotel" + i).html(hotel[i].name);
             $("#hotelImg" + i).attr("src", hotel[i].imgUrl);
@@ -96,5 +128,4 @@ $(document).ready(function () {
             $("#hotelValueForMoney" + i).append("  " + hotel[i].valueForMoney);
         }
     });
-
 });

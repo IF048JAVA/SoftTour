@@ -25,6 +25,8 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
                                        @Param("location") BigDecimal location,
                                        @Param("valueForMoney") BigDecimal valueForMoney);
 
-    List <Hotel> findByName(String name);
+    @Query("select h from Hotel h " +
+            "where h.name like concat('%',:name,'%')")
+    List <Hotel> findByName(@Param("name")String name);
 }
 

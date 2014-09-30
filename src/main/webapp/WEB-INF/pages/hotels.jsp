@@ -5,9 +5,11 @@
     <div class="col-md-2">
         <form class="navbar-form hotel_search" role="search">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Пошук...">
+            <input type="text" class="form-control" placeholder="Пошук..." id="searchHotelByName">
             <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                <button class="btn btn-default" type="button" onclick="searchByName()">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
             </div>
         </div>
     </form>
