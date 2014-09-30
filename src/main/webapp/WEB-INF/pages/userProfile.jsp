@@ -129,9 +129,9 @@
         </div>
 
         <script id="favoriteTemplate" type="text/x-jquery-tmpl">
-            <div class="panel panel-default">
-                <div class="panel-heading" data-toggle="collapse"  href="#panel-element-f\${id}">
-                     <a class="panel-title collapsed" data-parent="#panel-1">
+            <div class="panel panel-default" id="panel-favorite\${id}">
+                <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${id}">
+                     <span class="panel-title collapsed" data-parent="#panel-1">
                          <span class="tabTitleFont">Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle">\${hotel.region.country.name}</span>
                          <span class="tabTitleFont">Тривалість туру: </span>
@@ -142,7 +142,7 @@
                          <span id="tourFood-f\${id}" class="tabulatedTitle">\${food.name}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${date}</span>
-                          <span id="deleteButtonF\${id}" class="pull-right"><i class="glyphicon glyphicon-remove"></i></span>
+                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id})"></i></span>
                      </a>
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
@@ -156,7 +156,7 @@
         <script id="historyTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default">
                 <div class="panel-heading" data-toggle="collapse" href="#panel-element-h\${id}">
-                     <a class="panel-title collapsed"  data-parent="#panel-1" >
+                     <span class="panel-title collapsed"  data-parent="#panel-1" >
                          <span class="tabTitleFont">Країна: </span>
                          <span id="tourCountry-h\${id}" class="tabulatedTitle">\${hotel.region.country.name}</span>
                          <span class="tabTitleFont">Тривалість туру: </span>

@@ -65,6 +65,10 @@ body {
     
 }
 
+.glyphicon-remove{
+    cursor: pointer;
+}
+
 span.tabulatedTitle{
     margin-right: 30pt;
     color: #ff362e

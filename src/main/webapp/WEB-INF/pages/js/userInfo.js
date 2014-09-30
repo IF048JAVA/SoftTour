@@ -1,6 +1,4 @@
 if( $('#myProfile').length){
-    $('#myProfile').ready (function () {
-
 
         $.getJSON("/userProfile/currentUser", function (userDates) {
 
@@ -13,5 +11,4 @@ if( $('#myProfile').length){
             $('#phone').val(userDates.phone);
 
         })
-    })
 }
