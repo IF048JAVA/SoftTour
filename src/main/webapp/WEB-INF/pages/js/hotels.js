@@ -7,7 +7,6 @@ function closeModalWindow() {
 }
 
 function searchByName() {
-    alert($("#searchHotelByName").val());
     var queryObj = {};
     queryObj.name = $("#searchHotelByName").val();
     $.ajax({
