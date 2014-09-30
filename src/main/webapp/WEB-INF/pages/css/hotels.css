@@ -38,6 +38,10 @@
     background-color: rgba(255, 255, 255, 0.7);
 }
 
+.hotel_search{
+    width: 230px;
+}
+
 .country_selector {
     width: 100%;
 }

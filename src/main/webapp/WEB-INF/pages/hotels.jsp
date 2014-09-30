@@ -3,14 +3,14 @@
 <div class="row">
 
     <div class="col-md-2">
-        <div class="form-group">
-            <form id="search_form" class="navbar-form" role="search">
-                <div class="form-group">
-                    <input id="search_tenders" type="text" class="form-control"
-                           placeholder="Пошук...">
-                </div>
-            </form>
+        <form class="navbar-form hotel_search" role="search">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Пошук...">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
         </div>
+    </form>
         <div class="panel-heading hotels-filter" id="filter">
             <h4 class="panel-title">
                 <a data-toggle="collapse" href="#collapseFilter">
