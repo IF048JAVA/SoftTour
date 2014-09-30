@@ -34,11 +34,18 @@ public class UserValidator implements Validator {
 		
 		for (User registeredUser : users) {
 			if (currentUser.getName().equalsIgnoreCase(registeredUser.getName())) {
-				errors.rejectValue("name", "error_name", "ПОМИЛКА !!! Дане ім'я уже використовується");
+				errors.rejectValue("name", "error_name", "ПОМИЛКА ! Дане ім'я уже використовується");
 				
 			}else if (currentUser.getEmail().equalsIgnoreCase(registeredUser.getEmail().toLowerCase())) {
-				errors.rejectValue("email", "error_email", "ПОМИЛКА !!! Даний email уже використовується");
+				errors.rejectValue("email", "error_email", "ПОМИЛКА ! Даний email уже використовується");
 			}
+		}
+		
+		long birthdayInMilliseconds = currentUser.getBirthday().getTime();
+		long currentTimeInMillisends = System.currentTimeMillis();
+		
+		if(birthdayInMilliseconds > currentTimeInMillisends) {
+			errors.rejectValue("birthday", "error_date", "ПОМИЛКА ! Невірно введена дата");
 		}
 	}
 	
