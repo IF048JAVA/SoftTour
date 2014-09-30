@@ -1,5 +1,5 @@
 ﻿function checkName(field){
-    reg = /^[а-яА-Яa-zA-Z0-9]{1,20}+$/;
+    reg = /^[а-яА-ЯёЁіІїЇєЄa-zA-Z0-9]+$/;
     if(field.value.length==0||field.value.length==1){
         document.getElementById("text_help").innerHTML = "Введіть ім'я";
         return false;
