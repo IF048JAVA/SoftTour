@@ -38,20 +38,19 @@ function searchByName() {
 
 function searchHotels() {
 
-    var query = '';
-    var country = new Array();
-    country = $('#countrySelect2').val();
-    if(country!=null){
-        query += (query.length == 0) ? "country=" + country : "&country=" + country;
-    } else {
-        query += (query.length == 0) ? "country=" + ALL_COUNTRIES : "&country=" + ALL_COUNTRIES;
-    }
+    var query = {};
+    query.country = '';
 
-    query += (query.length == 0) ? "rating=" + $("#rating").val() : "&rating=" + $("#rating").val();
-    query += (query.length == 0) ? "comfort=" + $("#comfort").val() : "&comfort=" + $("#comfort").val();
-    query += (query.length == 0) ? "cleanliness=" + $("#cleanliness").val() : "&cleanliness=" + $("#cleanliness").val();
-    query += (query.length == 0) ? "location=" + $("#location").val() : "&location=" + $("#location").val();
-    query += (query.length == 0) ? "valueForMoney=" + $("#value_for_money").val() : "&valueForMoney=" + $("#value_for_money").val();
+    var country = $('#countrySelect2').val();
+    $.each(country, function(key, value){
+        query.country+=value + ",";
+    })
+
+    query.rating = $("#rating").val();
+    query.comfort = $("#comfort").val();
+    query.cleanliness = $("#cleanliness").val();
+    query.location = $("#location").val();
+    query.valueForMoney = $("#value_for_money").val();
 
     $.ajax({
         url: "/hotels/result",
