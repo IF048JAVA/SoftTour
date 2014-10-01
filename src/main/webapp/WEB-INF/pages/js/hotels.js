@@ -8,6 +8,10 @@ function closeModalWindow() {
     $('#myModal').modal('hide');
 }
 
+$(".hotel_search").on("submit", function (e) {
+    e.preventDefault();
+});
+
 function searchByName() {
     var queryObj = {};
     queryObj.name = $("#searchHotelByName").val();

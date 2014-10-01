@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS softtour;
-CREATE DATABASE softtour;
+CREATE DATABASE softtour default charset=utf8 COLLATE=utf8_general_ci;
 
 USE softtour;
 
