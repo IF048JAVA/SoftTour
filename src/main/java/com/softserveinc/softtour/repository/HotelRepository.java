@@ -11,7 +11,8 @@ import java.util.List;
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
     @Query("select h from Hotel h " +
-            "where h.region.country.name in (:country) " +
+            "where (h.region.country.name in (:country) " +
+            "or 'allCountries' in (:country)) " +
             "and h.rating >= :rating " +
             "and h.comfort >= :comfort " +
             "and h.cleanliness >= :cleanliness " +

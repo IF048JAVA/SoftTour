@@ -1,3 +1,5 @@
+var ALL_COUNTRIES = "allCountries";
+
 function openModalWindow() {
     $('#myModal').modal('show');
 }
@@ -35,7 +37,12 @@ function searchHotels() {
     var query = '';
     var country = new Array();
     country = $('#countrySelect2').val();
-    query += (query.length == 0) ? "country=" + country : "&country=" + country;
+    if(country!=null){
+        query += (query.length == 0) ? "country=" + country : "&country=" + country;
+    } else {
+        query += (query.length == 0) ? "country=" + ALL_COUNTRIES : "&country=" + ALL_COUNTRIES;
+    }
+
     query += (query.length == 0) ? "rating=" + $("#rating").val() : "&rating=" + $("#rating").val();
     query += (query.length == 0) ? "comfort=" + $("#comfort").val() : "&comfort=" + $("#comfort").val();
     query += (query.length == 0) ? "cleanliness=" + $("#cleanliness").val() : "&cleanliness=" + $("#cleanliness").val();
@@ -64,7 +71,7 @@ function searchHotels() {
 
 $(document).ready(function () {
 
-    $("#countrySelect2").select2({
+    $("#countrySelect2").val(["AllCountry"]).select2({
         placeholder: "Оберіть країну",
         allowClear: true
     });
