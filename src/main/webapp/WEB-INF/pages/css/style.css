@@ -1,4 +1,9 @@
 /* �������� ��������� */
+
+body {
+    overflow: scroll;
+}
+
 .foto_container{
 	width:100%;
 	position: relative;

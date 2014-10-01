@@ -68,6 +68,16 @@ body {
     cursor: pointer;
 }
 
+.panel-default{
+
+}
+
+.panel-default:hover{
+    outline-color: #2785D1;
+    outline-style:solid;
+    outline-width:2px;
+}
+
 span.tabulatedTitle{
     margin-right: 30pt;
     color: #ff362e
@@ -80,4 +90,8 @@ span.tabulatedTitle{
 
 P {
     font-size: 17px;
+}
+
+.button:hover {
+
 }
