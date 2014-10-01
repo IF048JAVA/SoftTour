@@ -1,24 +1,30 @@
 package com.softserveinc.softtour.parsers;
 
 import com.softserveinc.softtour.dto.BusTransit;
+import com.softserveinc.softtour.parsers.constants.BusParserConstants;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
-public class BusParser {
-    private static Map<String, String> urlParams = new HashMap<>();
+public class BusParser implements BusParserConstants {
+    private static Properties busParserParams = new Properties();
     private List<BusTransit> busList = new ArrayList<>();
     private String cityFrom;
     private String cityTo;
     private Date tourDate;
 
     static {
-        urlParams.put("Львів", "UA4610100000");
-        urlParams.put("Київ", "UA8000000000");
-        urlParams.put("Івано-Франківськ", "UA2610100000");
+        try {
+            InputStream inputParams = BusParser.class.getClass().getResourceAsStream(RESOURCE_PATH_PARAMS);
+            busParserParams.load(new InputStreamReader(inputParams, DEFAULT_CHARSET));
+        }catch (IOException e){
+            System.out.println(e.getStackTrace());
+        }
     }
 
     public BusParser(String cityFrom, String cityTo, Date tourDate) {
@@ -30,27 +36,27 @@ public class BusParser {
     public List<BusTransit> parse() throws IOException {
         String url = createURL(cityFrom, cityTo);
         Document doc  = Jsoup.connect(url).get();
-        Elements buses = doc.select("tr[class~=aslist(?)]");
-        removeNotUsefulLines(buses);
+        Elements buses = doc.select(BUS_SELECT);
+        removeRedundantLines(buses);
         addBusesToList(buses, cityFrom, cityTo, tourDate);
         return busList;
     }
 
     private String createURL(String cityFrom, String cityTo) {
-        StringBuffer url = new StringBuffer("http://bus.com.ua/cgi-bin/poshuk?");
-        url.append("fp=").
-            append(urlParams.get(cityFrom)).
-            append("&tp=").
-            append(urlParams.get(cityTo)).
-            append("&Go=3");
+        StringBuffer url = new StringBuffer(URL);
+        url.append(QUESTION_MARK).
+            append(PARAM_CITY_FROM).append(EQUAL_MARK).append(busParserParams.getProperty(cityFrom)).
+            append(AMPERSAND_MARK).
+            append(PARAM_CITY_TO).append(EQUAL_MARK).append(busParserParams.getProperty(cityTo)).
+            append(AMPERSAND_MARK).
+            append(PARAM_GO).append(EQUAL_MARK).append(VALUE_GO);
         return url.toString();
     }
-
-    private void removeNotUsefulLines(Elements raises) {
+    private void removeRedundantLines(Elements raises) {
         Iterator<Element> iterator = raises.iterator();
         while (iterator.hasNext()){
             String regularity = iterator.next().text();
-            if(regularity.contains("Рейси з регулярністю від")){
+            if(regularity.contains(REDUNDANT_LINE)){
                 iterator.remove();
             }
         }
@@ -59,7 +65,7 @@ public class BusParser {
     private void addBusesToList(Elements buses, String cityFrom, String cityTo, Date tourDate){
         for(Element element : buses) {
             BusTransit busTransit = new BusTransit();
-            Elements elementsByTag = element.getElementsByTag("td");
+            Elements elementsByTag = element.getElementsByTag(FIND_BY_TAG);
             String cityFromAndNameOfStation = elementsByTag.get(2).text();
             String cityToAndNameOfStation = elementsByTag.get(5).text();
             String timeDeparture = elementsByTag.get(3).text();
@@ -67,7 +73,7 @@ public class BusParser {
             Date departure = parseTimeStringToDate(timeDeparture, tourDate);
             Date arrival = parseTimeStringToDate(timeArrival, tourDate);
             if (departure.compareTo(arrival) > 0) {
-                departure = new Date(departure.getTime() - 24 * 60 * 60 * 1000);
+                departure = new Date(departure.getTime() - MILLISECONDS_IN_DAY);
             }
             fillAllBusTransitSetters(busTransit, cityFromAndNameOfStation, cityToAndNameOfStation,
                     departure, arrival);
@@ -76,8 +82,8 @@ public class BusParser {
     }
 
     private Date parseTimeStringToDate(String dateF, Date tourDate) {
-        long dateFH = Integer.parseInt(dateF.substring(0, 2))*60*60*1000;
-        long dateFM = Integer.parseInt(dateF.substring(3, 5))*60*1000;
+        long dateFH = Integer.parseInt(dateF.substring(0, 2)) * MILLISECONDS_IN_HOUR;
+        long dateFM = Integer.parseInt(dateF.substring(3, 5)) * MILLISECONDS_IN_MINUTE;
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(tourDate);
         calendar.set(GregorianCalendar.HOUR_OF_DAY, 0);
@@ -87,7 +93,7 @@ public class BusParser {
         Date newTourDate = calendar.getTime();
         Date departureTime = new Date(newTourDate.getTime() + dateFH + dateFM);
         if (departureTime.compareTo(tourDate) > 0){
-            departureTime = new Date(departureTime.getTime() - 24*60*60*1000);
+            departureTime = new Date(departureTime.getTime() - MILLISECONDS_IN_DAY);
         }
         return departureTime;
     }

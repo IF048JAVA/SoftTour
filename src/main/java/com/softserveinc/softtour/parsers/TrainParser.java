@@ -1,24 +1,30 @@
 package com.softserveinc.softtour.parsers;
 
 import com.softserveinc.softtour.dto.TrainTransit;
+import com.softserveinc.softtour.parsers.constants.TrainParserConstants;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Date;
 import java.util.*;
 
-public class TrainParser {
-private static Map<String, String> urlParams = new HashMap<>();
-private List<TrainTransit> trainList = new ArrayList<>();
-private String cityFrom;
-private String cityTo;
-private java.sql.Date tourDate;
+public class TrainParser implements TrainParserConstants {
+    private static Properties trainParserParams = new Properties();
+    private List<TrainTransit> trainList = new ArrayList<>();
+    private String cityFrom;
+    private String cityTo;
+    private java.sql.Date tourDate;
 
     static {
-        urlParams.put("Львів", "2218161%2C2218092%2C2218543%2C2218081%2C2218074%2C2218058%2C2218215%2C2218921%2C2218203%2C2218000");
-        urlParams.put("Київ", "739%2C2200008%2C2200007%2C2200006%2C2200005%2C2200004%2C2200003%2C2200002%2C2200001%2C2200009%2C3723");
-        urlParams.put("Івано-Франківськ", "2218200");
+        try {
+            InputStream inputParams = TrainParser.class.getClass().getResourceAsStream(RESOURCE_PATH_PARAMS);
+            trainParserParams.load(new InputStreamReader(inputParams, DEFAULT_CHARSET));
+        }catch (IOException e){
+            System.out.println(e.getStackTrace());
+        }
     }
 
     public TrainParser(String cityFrom, String cityTo, java.sql.Date tourDate) {
@@ -30,14 +36,13 @@ private java.sql.Date tourDate;
     public List<TrainTransit> parse() throws IOException {
         String url = createURL(cityFrom, cityTo, tourDate);
         Document doc  = Jsoup.connect(url).get();
-        Elements trains = doc.select("td");
-        removeNotUsefulLines(trains);
+        Elements trains = doc.select(TRAIN_SELECT);
+        removeRedundantLines(trains);
         addTrainsToList(trains, cityFrom, cityTo, tourDate);
         return trainList;
     }
 
     private String createURL(String cityFrom, String cityTo, java.sql.Date tourDate) {
-        StringBuffer url = new StringBuffer("http://www.uz.gov.ua/passengers/timetables_cis/?");
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(tourDate);
         int dd = calendar.get(GregorianCalendar.DAY_OF_MONTH);
@@ -46,37 +51,40 @@ private java.sql.Date tourDate;
         StringBuilder date = new StringBuilder();
 
         if(dd < 10){
-            date.append("0").append(dd).append(".");
+            date.append(ZERO_MARK).append(dd).append(POINT_MARK);
         } else {
-            date.append(dd).append(".");
+            date.append(dd).append(POINT_MARK);
         }
-
         if(mm < 10){
-            date.append("0").append(mm).append(".");
+            date.append(ZERO_MARK).append(mm).append(POINT_MARK);
         } else {
-            date.append(mm).append(".");
+            date.append(mm).append(POINT_MARK);
         }
-
-        date.append(yyyy).append(".");
-        url.append("from_station=").
-                append(urlParams.get(cityFrom)).
-                append("&to_station=").
-                append(urlParams.get(cityTo)).
-                append("&start_date=").
-                append(date).
-                append("&select_time=2&time_from=00&time_to=24").
-                append("&by_route=Пошук");
+        date.append(yyyy);
+        StringBuilder url = new StringBuilder(URL);
+        url.append(QUESTION_MARK).
+            append(PARAM_CITY_FROM).append(EQUAL_MARK).append(trainParserParams.getProperty(cityFrom)).
+            append(AMPERSAND_MARK).
+            append(PARAM_CITY_TO).append(EQUAL_MARK).append(trainParserParams.getProperty(cityTo)).
+            append(AMPERSAND_MARK).
+            append(PARAM_DATE).append(EQUAL_MARK).append(date).
+            append(AMPERSAND_MARK).
+            append(PARAM_TIME).append(EQUAL_MARK).append(VALUE_TIME).
+            append(AMPERSAND_MARK).
+            append(PARAM_TIME_FROM).append(EQUAL_MARK).append(VALUE_TIME_FROM).
+            append(PARAM_TIME_TO).append(EQUAL_MARK).append(VALUE_TIME_TO).
+            append(AMPERSAND_MARK).
+            append(PARAM_SEARCH).append(EQUAL_MARK).append(VALUE_SEARCH);
         return url.toString();
     }
 
-    private void removeNotUsefulLines(Elements raises) {
+    private void removeRedundantLines(Elements raises) {
         for(int i = 0; i < 10; i++){
             raises.remove(0);
         }
     }
 
     private void addTrainsToList(Elements trains, String cityFrom, String cityTo, Date tourDate){
-        int step = 10;
         /*
  0 : Київ-Пас.
 1 : Львів
@@ -88,18 +96,19 @@ private java.sql.Date tourDate;
 7 : 04:08
 8 : 13:22
 9 :
+
         * */
-        for(int i = 0; i<trains.size(); i+=step){
-            if(i > step){
+        for(int i = 0; i<trains.size(); i+=FOR_CYCLE_STEP){
+            if(i > FOR_CYCLE_STEP){
                 TrainTransit trainTransit = new TrainTransit();
-                String stationFrom = trains.get(0+step).text();
-                String stationTo = trains.get(1+step).text();
-                String timeDep = trains.get(7+step).text();
-                String arriv = trains.get(8+step).text();
+                String stationFrom = trains.get(0+FOR_CYCLE_STEP).text();
+                String stationTo = trains.get(1+FOR_CYCLE_STEP).text();
+                String timeDep = trains.get(7+FOR_CYCLE_STEP).text();
+                String arriv = trains.get(8+FOR_CYCLE_STEP).text();
                 java.util.Date departure = parseTimeStringToDate(timeDep, tourDate);
                 java.util.Date arrival = parseTimeStringToDate(arriv, tourDate);
                 if (departure.compareTo(arrival) > 0) {
-                    departure = new Date(departure.getTime() - 24 * 60 * 60 * 1000);
+                    departure = new Date(departure.getTime() - MILLISECONDS_IN_DAY);
                 }
                 fillAllTrainTransitSetters(trainTransit, stationFrom, stationTo, departure, arrival);
                 trainList.add(trainTransit);
@@ -112,7 +121,7 @@ private java.sql.Date tourDate;
                 java.util.Date departure = parseTimeStringToDate(timeDep, tourDate);
                 java.util.Date arrival = parseTimeStringToDate(arriv, tourDate);
                 if (departure.compareTo(arrival) > 0) {
-                    departure = new Date(departure.getTime() - 24 * 60 * 60 * 1000);
+                    departure = new Date(departure.getTime() - MILLISECONDS_IN_DAY);
                 }
                 fillAllTrainTransitSetters(trainTransit, stationFrom, stationTo, departure, arrival);
                 trainList.add(trainTransit);
@@ -121,14 +130,14 @@ private java.sql.Date tourDate;
         }
 
     private java.util.Date parseTimeStringToDate(String dateF, java.util.Date tourDate) {
-        long dateFH = Integer.parseInt(dateF.substring(0, 2))*60*60*1000;
-        long dateFM = Integer.parseInt(dateF.substring(3, 5))*60*1000;
+        long dateFH = Integer.parseInt(dateF.substring(0, 2)) * MILLISECONDS_IN_HOUR;
+        long dateFM = Integer.parseInt(dateF.substring(3, 5)) * MILLISECONDS_IN_MINUTE;
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(tourDate);
         java.util.Date newTourDate = calendar.getTime();
         java.util.Date departureTime = new java.util.Date(newTourDate.getTime() + dateFH + dateFM);
         if (departureTime.compareTo(tourDate) > 0){
-            departureTime = new java.util.Date(departureTime.getTime() - 24*60*60*1000);
+            departureTime = new java.util.Date(departureTime.getTime() - MILLISECONDS_IN_DAY);
         }
         return departureTime;
     }
