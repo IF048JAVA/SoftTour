@@ -1,7 +1,7 @@
 package com.softserveinc.softtour.parsers.constants;
 
 public interface TrainParserConstants {
-    static final String RESOURCE_PATH_PARAMS = "/train_parser_params";
+    static final String RESOURCE_PATH_PARAMS = "/parser_properties/train_parser_params";
     static final String DEFAULT_CHARSET = "UTF-8";
     static final String TRAIN_SELECT = "td";
     static final String ZERO_MARK = "0";
@@ -9,7 +9,7 @@ public interface TrainParserConstants {
     static final String QUESTION_MARK = "?";
     static final String AMPERSAND_MARK = "&";
     static final String EQUAL_MARK = "=";
-    static final String URL = "http://www.uz.gov.ua/passengers/timetables_cis/";
+    static final String URL_UZ_GOV_UA = "http://www.uz.gov.ua/passengers/timetables_cis/";
     static final String PARAM_CITY_FROM = "from_station";
     static final String PARAM_CITY_TO = "to_station";
     static final String PARAM_DATE = "start_date";
