@@ -4,7 +4,8 @@
 		<div class="col-md-3 col-md-3-offset"></div>
 		<div class="col-md-6 form">
 		
-			<sf:form class="form-horizontal" method="POST" modelAttribute="user" data-toggle="validator" role="form">
+			<sf:form action="userSave" method="POST" modelAttribute="user"
+				class="form-horizontal"   data-toggle="validator" role="form">
 				<fieldset>
 
 						<!-- Form Name -->

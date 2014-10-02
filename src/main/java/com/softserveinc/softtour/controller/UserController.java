@@ -21,7 +21,6 @@ import com.softserveinc.softtour.service.UserService;
  * Processes user's data
  */
 @Controller
-@RequestMapping(value="/user")
 public class UserController {
 	
 	/**
@@ -40,7 +39,7 @@ public class UserController {
 	 * Creates the user's object which we use for adding data into the database
 	 * @return the name which redirect to the page registration.jsp
 	 */
-	@RequestMapping(method=RequestMethod.GET, params="new")
+	@RequestMapping(value="/userRegistration")
 	public String createUserProfile(Model model){
 		model.addAttribute(new User());
 		return "registration";
@@ -51,7 +50,7 @@ public class UserController {
 	 * @param user - it's object which will be saved
 	 * @return the name which redirect to the page registration.jsp or userProfile.jsp
 	 */
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="/userSave", method=RequestMethod.POST)
 	public String save(User user, BindingResult bindingResult) {
 		
 		UserValidator userValidator = new UserValidator();
@@ -75,7 +74,7 @@ public class UserController {
 	 * @param user - it's object which will be updated
 	 * @return the name which redirect to the page userProfile.jsp
 	 */
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value="/userUpdate", method=RequestMethod.POST)
 	public String update(User user) {
 		long id= 1;
 		
@@ -91,7 +90,7 @@ public class UserController {
 	 * @param idString - id of the user's object which will be deleted
 	 * @return the name which redirect to the main page 
 	 */
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	@RequestMapping(value="/userDelete")
 	public String delete(@RequestParam String idString) {
 		long id = Long.parseLong(idString);
 		userService.delete(id);
@@ -105,7 +104,7 @@ public class UserController {
 	 * @param model - it's response in which we write the user's object with the specified id
 	 * @return the name which redirect to the main page 
 	 */
-	@RequestMapping(value="/findById", method=RequestMethod.GET)
+	@RequestMapping(value="/userFindById")
 	public String findById(@RequestParam String idString, Model model) {
 		
 		long id = Long.parseLong(idString);
@@ -121,7 +120,7 @@ public class UserController {
 	 * @param model - it's response in which we write the user's object with the specified id
 	 * @return  the name which redirect to the main page 
 	 */
-	@RequestMapping(value="/findByAnyParameters", method=RequestMethod.GET)
+	@RequestMapping(value="/userFindByAnyParameters")
 	public String findByAnyParameters(User user, Model model) {
 		
 		List<User> list = userService.findByAnyParameters(user.getId(), user.getName(),
@@ -137,7 +136,7 @@ public class UserController {
 	 * @param model - it's response in which we write all user's objects which are contained in the table User
 	 * @return the name which redirect to the main page 
 	 */
-	@RequestMapping(value="/findAll")
+	@RequestMapping(value="/userFindAll")
 	public String findAll(Model model) {
 		List<User> list = userService.findAll();
 		model.addAttribute("allUsers", list);
