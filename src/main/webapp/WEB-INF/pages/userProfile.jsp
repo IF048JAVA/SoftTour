@@ -50,7 +50,7 @@
 
                             <!-- Name input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="name">Ім'я</label>
+                                <label class="col-md-4 control-label" for="name">Ім'я&ensp;*</label>
                                 <div class="col-md-5">
                                     <input type="text" name="name"  id="name" class="form-control input-md"
                                            placeholder="Bід 6 до 30 символів" >
@@ -59,7 +59,7 @@
 
                             <!-- Email input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="email">Email/Login</label>
+                                <label class="col-md-4 control-label" for="email">Email/Login&ensp;*</label>
                                 <div class="col-md-5">
                                     <input type="text" name="email" id="email" class="form-control input-md"
                                            placeholder="Bід 7 до 30 символів" >
@@ -68,7 +68,7 @@
 
                             <!-- Password input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="password">Пароль</label>
+                                <label class="col-md-4 control-label" for="password">Пароль&ensp;*</label>
                                 <div class="col-md-5">
                                     <input type="password" name="password" id="password" class="form-control input-md"
                                            placeholder="Bід 6 до 30 символів" >
@@ -77,7 +77,7 @@
 
                             <!-- Confirm password input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="confirmPassword">Підтвердьте Пароль</label>
+                                <label class="col-md-4 control-label" for="confirmPassword">Підтвердьте Пароль&ensp;*</label>
                                 <div class="col-md-5">
                                     <input type="password" name="confirmPassword" id="confirmPassword" class="form-control input-md"
                                            placeholder="Повторіть введення паролю" >
@@ -86,7 +86,7 @@
 
                             <!-- Birthday input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="birthday">Дата народження</label>
+                                <label class="col-md-4 control-label" for="birthday">Дата народження&ensp;*</label>
                                 <div class="col-md-5">
                                     <input type="text" name="birthday" id="birthday" class="form-control input-md"
                                            placeholder="dd/mm/yyyy">
@@ -95,7 +95,7 @@
 
                             <!-- Sex Select -->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="sex">Стать</label>
+                                <label class="col-md-4 control-label" for="sex">Стать&ensp;*</label>
                                 <div class="col-md-5">
                                     <select name="sex" id="sex" class="form-control">
                                         <option value="male">Чоловік</option>
@@ -106,11 +106,9 @@
 
                             <!-- Phone input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="phone">Номер телефону</label>
+                                <label class="col-md-4 control-label" for="phone">Номер телефону &ensp;&nbsp;</label>
                                 <div class="col-md-5">
-                                    <input type="text" name="phone" id="phone" class="form-control input-md"
-                                           placeholder="До 20 символів">
-                                    <p class="help-block">+38(xxx)xxx-xx-xx</p>
+                                    <input type="text" name="phone" id="phone" class="form-control bfh-phone" data-format="+3d (ddd) ddd-dddd">
                                 </div>
                             </div>
 							
