@@ -1,104 +1,28 @@
-package com.softserveinc.softtour.parsers;
+package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.entity.*;
-import com.softserveinc.softtour.parsers.constants.TyrComUaParserConstants;
-import org.openqa.selenium.*;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import com.softserveinc.softtour.parsers.TyrComUaParserTemplateMethod;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.NoSuchElementException;
 
-public class TyrComUaParser implements TyrComUaParserConstants {
-    private static WebDriver driver = new HtmlUnitDriver(true);
-    private static Properties countryUaRuVocabulary = new Properties();
-    private static Properties regionUaRuVocabulary = new Properties();
-    private static Properties departureCityUaRuVocabulary = new Properties();
-    private List<Tour> tourList = new ArrayList<>();
-    private String country;
-    private String region;
-    private String hotel;
-    private int[] stars;
-    private String[] foods;
-    private int adults;
-    private int children;
-    private int[] childrenAge;
-    private String dateFlyFrom;
-    private String dateFlyTo;
-    private int countNightsFrom;
-    private int countNightsTo;
-    private int priceFrom;
-    private int priceTo;
-    private String currency;
-    private String departureCity;
-
-    static {
-        try {
-            InputStream inputCountry = TyrComUaParser.class.getClass().
-                                       getResourceAsStream(RESOURCE_PATH_COUNTRY_VOCABULARY);
-            InputStream inputRegion = TyrComUaParser.class.getClass().
-                                      getResourceAsStream(RESOURCE_PATH_REGION_VOCABULARY);
-            InputStream inputDepCity = TyrComUaParser.class.getClass().
-                                       getResourceAsStream(RESOURCE_PATH_DEPARTURE_CITY_VOCABULARY);
-            countryUaRuVocabulary.load(new InputStreamReader(inputCountry, DEFAULT_CHARSET));
-            regionUaRuVocabulary.load(new InputStreamReader(inputRegion, DEFAULT_CHARSET));
-            departureCityUaRuVocabulary.load(new InputStreamReader(inputDepCity, DEFAULT_CHARSET));
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
+public class TyrComUaParser extends TyrComUaParserTemplateMethod {
 
     public TyrComUaParser(String country, String region, String hotel, int[] stars, String[] foods, int adults,
                           int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
                           int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity) {
-        this.country = country;
-        this.region = region;
-        this.hotel = hotel;
-        this.stars = stars;
-        this.foods = foods;
-        this.adults = adults;
-        this.children = children;
-        this.childrenAge = childrenAge;
-        this.dateFlyFrom = dateFlyFrom;
-        this.dateFlyTo = dateFlyTo;
-        this.countNightsFrom = countNightsFrom;
-        this.countNightsTo = countNightsTo;
-        this.priceFrom = priceFrom;
-        this.priceTo = priceTo;
-        this.currency = currency;
-        this.departureCity = departureCity;
-        driver.get(URL_TYR_COM_UA);
+        super(country, region, hotel, stars, foods, adults, children, childrenAge, dateFlyFrom, dateFlyTo,
+              countNightsFrom, countNightsTo, priceFrom, priceTo, currency, departureCity);
     }
 
-    public List<Tour> parse(){
-        selectCountry(country);
-        selectRegion(region);
-        selectHotel(hotel);
-        selectStars(stars);
-        selectFood(foods);
-        selectAdultsCount(adults);
-        selectChildrenCount(children);
-        selectChildrenAge(childrenAge);
-        selectDateFlyFrom(dateFlyFrom);
-        selectDateFlyTo(dateFlyTo);
-        selectCountNightsFrom(countNightsFrom);
-        selectCountNightsTo(countNightsTo);
-        selectPriceFrom(priceFrom);
-        selectPriceTo(priceTo);
-        selectCurrency(currency);
-        selectDepartureCity(departureCity);
-        search();
-        addAllWebElementsToWebElementList();
-        return tourList;
-    }
-
-    private void selectCountry(String country){
+    @Override
+    protected void selectCountry(String country){
         if(country.equalsIgnoreCase(DEFAULT_COUNTRY)){
             return;
         } else {
@@ -108,7 +32,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectRegion(String region){
+    @Override
+    protected void selectRegion(String region){
         //TODO can be default region
         if(region == null){
             return;
@@ -120,7 +45,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectHotel(String hotel){
+    @Override
+    protected void selectHotel(String hotel){
         //TODO can be default hotel
         if(hotel == null){
             return;
@@ -131,7 +57,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectStars(int...stars){
+    @Override
+    protected void selectStars(int...stars){
         //TODO How to select stars? Almost all selected, 2 discarded by default
         if(stars.length == 0){
             return;
@@ -174,7 +101,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectFood(String...foods){
+    @Override
+    protected void selectFood(String...foods){
         if(foods.length == 0){
             return;
         }
@@ -206,7 +134,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectAdultsCount(int adults){
+    @Override
+    protected void selectAdultsCount(int adults){
         if(adults==2){
             return;
         } else if(adults > 5 || adults < 1){
@@ -218,7 +147,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectChildrenCount(int children){
+    @Override
+    protected void selectChildrenCount(int children){
         if(children==0){
             return;
         } else if (children > 3 || children < 0){
@@ -230,7 +160,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectChildrenAge(int...childrenAge){
+    @Override
+    protected void selectChildrenAge(int...childrenAge){
         if(childrenAge.length == 0){
             return;
         }
@@ -253,7 +184,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectDateFlyFrom(String dateFlyFrom){
+    @Override
+    protected void selectDateFlyFrom(String dateFlyFrom){
         //TODO What date is default in our app?
         if(dateFlyFrom == null){
             return;
@@ -264,7 +196,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectDateFlyTo(String dateFlyTo){
+    @Override
+    protected void selectDateFlyTo(String dateFlyTo){
         //TODO What date is default in our app?
         if(dateFlyTo == null){
             return;
@@ -275,7 +208,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectCountNightsFrom(int countNightsFrom){
+    @Override
+    protected void selectCountNightsFrom(int countNightsFrom){
         //TODO Is count nights from 1 to 21 in our app?
         if (countNightsFrom == 6 || (countNightsFrom <= 0 || countNightsFrom > 21)){
             return;
@@ -286,7 +220,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectCountNightsTo(int countNightsTo){
+    @Override
+    protected void selectCountNightsTo(int countNightsTo){
         //TODO Is count nights from 1 to 21 in our app?
         if (countNightsTo == 14 || (countNightsTo <=0 || countNightsTo > 21)){
             return;
@@ -297,7 +232,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectPriceFrom(int priceFrom){
+    @Override
+    protected void selectPriceFrom(int priceFrom){
         if (priceFrom == 0){
             return;
         } else {
@@ -307,7 +243,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectPriceTo(int priceTo){
+    @Override
+    protected void selectPriceTo(int priceTo){
         if (priceTo == 99000){
             return;
         } else {
@@ -317,7 +254,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectCurrency(String currency){
+    @Override
+    protected void selectCurrency(String currency){
         if (currency.equalsIgnoreCase(DEFAULT_CURRENCY)){
             return;
         } else {
@@ -327,7 +265,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void selectDepartureCity(String departureCity){
+    @Override
+    protected void selectDepartureCity(String departureCity){
         if(departureCity.equals(DEFAULT_DEPARTURE_CITY)){
             return;
         } else {
@@ -338,18 +277,17 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    private void search(){
+    @Override
+    protected void search(){
         WebElement radioButtonCountOfShowPages = driver.findElement(By.id(RADIO_BUTTON_COUNT_PAGES_100_ID));
         radioButtonCountOfShowPages.click();
         WebElement buttonSubmit = driver.findElement(By.xpath(BUTTON_SUBMIT_XPATH));
         buttonSubmit.click();
     }
 
-    public void quit(){
-        driver.quit();
-    }
 
-    public void addAllWebElementsToWebElementList(){
+    @Override
+    protected void addAllWebElementsToWebElementList(){
         for(int i = 2; i<COUNT_RESULT_PAGES;i++){
             ArrayList<WebElement> oddList = (ArrayList<WebElement>)
                     driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
@@ -379,7 +317,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         }
     }
 
-    public void addTourToList(WebElement webElement){
+
+     private void addTourToList(WebElement webElement){
         List<String> tourDataList = new ArrayList<>();
         List<WebElement> listLeft = webElement.findElements(By.className(RESULT_LIST_LEFT_CLASS_NAME));
         List<WebElement> listCenter = webElement.findElements(By.className(RESULT_LIST_CENTER_CLASS_NAME));
@@ -510,7 +449,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         int[] stars = {2, 3, 4, 5};
         String[] foods = {"HB", "AI"};
         int[] childrenAge = {};
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", null, null, stars, foods, 3, 0, childrenAge,
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", "Аланья", "Ada Beach Hotel", stars, foods, 3, 0, childrenAge,
                 "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){

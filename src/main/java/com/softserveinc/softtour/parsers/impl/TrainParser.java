@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.parsers;
+package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.dto.TrainTransit;
 import com.softserveinc.softtour.parsers.constants.TrainParserConstants;
