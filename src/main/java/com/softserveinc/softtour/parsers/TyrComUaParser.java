@@ -2,11 +2,10 @@ package com.softserveinc.softtour.parsers;
 
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.parsers.constants.TyrComUaParserConstants;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Select;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +13,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.NoSuchElementException;
 
 public class TyrComUaParser implements TyrComUaParserConstants {
     private static WebDriver driver = new HtmlUnitDriver(true);
@@ -381,8 +381,8 @@ public class TyrComUaParser implements TyrComUaParserConstants {
 
     public void addTourToList(WebElement webElement){
         List<String> tourDataList = new ArrayList<>();
-        List<WebElement> listLeft = (ArrayList<WebElement>)webElement.findElements(By.className(RESULT_LIST_LEFT_CLASS_NAME));
-        List<WebElement> listCenter = (ArrayList<WebElement>)webElement.findElements(By.className(RESULT_LIST_CENTER_CLASS_NAME));
+        List<WebElement> listLeft = webElement.findElements(By.className(RESULT_LIST_LEFT_CLASS_NAME));
+        List<WebElement> listCenter = webElement.findElements(By.className(RESULT_LIST_CENTER_CLASS_NAME));
         WebElement textRight = webElement.findElement(By.className(RESULT_LIST_RIGHT_CLASS_NAME));
 
         for(int i = 0; i<listLeft.size();i++){
@@ -464,11 +464,7 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         tour.setPrice(price);
 
         //set Hotel
-        Country coun = new Country(country);
-        Region reg = new Region(region, coun);
-        int star = Integer.parseInt(tourDataList.get(4));
-        Hotel hot = new Hotel(hotel, star, reg);
-        tour.setHotel(hot);
+        setHotel(tour, tourDataList);
 
         //set Food
         String foodSt = tourDataList.get(5);
@@ -479,12 +475,43 @@ public class TyrComUaParser implements TyrComUaParserConstants {
         tourList.add(tour);
     }
 
+    private void setHotel(Tour tour, List<String> tourDataList){
+        Country coun = new Country(country);
+        Region reg = new Region(region, coun);
+        int star = Integer.parseInt(tourDataList.get(4));
+        String hotelName = tourDataList.get(1);
+        Hotel hot = new Hotel(hotelName, star, reg);
+        // it makes parser faster
+        int size = tourList.size();
+        if (size > 0) {
+            Hotel prevHot = tourList.get(size-1).getHotel();
+            String prevHotelName = prevHot.getName();
+            if (prevHotelName.equals(hotelName) || hotel != null){
+                hot.setImgUrl(prevHot.getImgUrl());
+                tour.setHotel(hot);
+                return;
+            }
+        }
+
+        WebElement linkToPicture = driver.findElement(By.xpath(LINK_TO_PICTURE));
+        linkToPicture.click();
+        String st = "";
+        try {
+            st = (String) ((JavascriptExecutor) driver).executeScript(JAVASCRIPT_CODE);
+        } catch (WebDriverException e){
+            st = NO_PICTURE;
+        } finally {
+            hot.setImgUrl(st);
+            tour.setHotel(hot);
+        }
+    }
+
     public static void main(String[] args) {
         int[] stars = {2, 3, 4, 5};
         String[] foods = {"HB", "AI"};
         int[] childrenAge = {};
-        TyrComUaParser parser = new TyrComUaParser("Греція", "Агія Тріада", "Sun Beach Hotel", stars, foods, 3, 0, childrenAge,
-                "01.10.14", "31.12.14", 6, 21, 5000, 120000, "Грн", "Київ");
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", null, null, stars, foods, 3, 0, childrenAge,
+                "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){
             System.out.println(resultList.get(i).toString());

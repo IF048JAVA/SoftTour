@@ -52,4 +52,7 @@ public interface TyrComUaParserConstants {
     static final String NO_DEPARTURE = "без перелета";
     static final String NO_DEPARTURE_UA = "Авіапереліт не входить у вартість туру";
     static final String SIMPLE_DATE_FORMAT_DATE = "dd.mm.yy";
+    static final String LINK_TO_PICTURE = "//a[@class='it_small_price']";
+    static final String NO_PICTURE = "No picture";
+    static final String JAVASCRIPT_CODE = "return(function foo(){var bar = document.getElementById('main_img_tour_in_view_open_').getAttribute('src');return bar})()";
 }
