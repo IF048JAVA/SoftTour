@@ -7,7 +7,7 @@
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="active"><a href="#favorites" role="tab" data-toggle="tab">Favorites</a></li>
 			<li><a href="#history" role="tab" data-toggle="tab">History</a></li>
-			<li><a href="#myProfile" role="tab" data-toggle="tab">My Profile</a></li>				  
+			<li><a href="#myProfile" role="tab" data-toggle="tab">My Profile</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -40,8 +40,7 @@
 				<div class="col-md-3 col-md-3-offset"></div>
 				<div class="col-md-6 form">
 				
-					<form class="form-horizontal" action="user/save"
-                          onsubmit="return registrationControl('name', 'email', 'password', 'confirmPassword', 'birthday', 'phone')">
+					<form class="form-horizontal">
 						
 						<fieldset>
 						
@@ -61,7 +60,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="email">Email/Login&ensp;*</label>
                                 <div class="col-md-5">
-                                    <input type="text" name="email" id="email" class="form-control input-md"
+                                    <input type="email" name="email" id="email" class="form-control input-md"
                                            placeholder="Bід 7 до 30 символів" >
                                 </div>
                             </div>
@@ -112,16 +111,18 @@
                                 </div>
                             </div>
 							
-							<!-- Save Button -->
-							<div class="form-group">
-							<button class="btn btn-primary" type="submit">
-								<span class="glyphicon glyphicon-ok"></span>
-								Зберегти
-							</button>
-						</div>
-							
 						</fieldset>
+
 					</form>
+
+                    <!-- Save Button -->
+                    <div class="form-group">
+                        <button class="btn btn-primary" onclick="userUpdate()">
+                            <span class="glyphicon glyphicon-ok"></span>
+                            Зберегти
+                        </button>
+                    </div>
+
 				</div>
 			</div>
         </div>

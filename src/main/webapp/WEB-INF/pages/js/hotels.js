@@ -42,9 +42,13 @@ function searchHotels() {
     query.country = '';
 
     var country = $('#countrySelect2').val();
+    if(country!=null){
     $.each(country, function(key, value){
         query.country+=value + ",";
     })
+    } else {
+        query.country = ALL_COUNTRIES;
+    }
 
     query.rating = $("#rating").val();
     query.comfort = $("#comfort").val();
