@@ -13,6 +13,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TyrComUaParser extends TyrComUaParserTemplateMethod {
+    private Map <String, String> hotelNameAndPicture = new HashMap<>();
+    private boolean hasTourDate;
+    private boolean hasHotelPicture;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
 
     public TyrComUaParser(String country, String region, String hotel, int[] stars, String[] foods, int adults,
                           int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
@@ -350,46 +354,32 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
 
         Tour tour = new Tour();
 
-        //set tour date
-        //Поки-що дата туру буде датою вильоту :(
-        String tourDate = tourDataList.get(7);
-        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
-        Date date = null;
-        java.sql.Date sqlDate = null;
-        try {
-            date = dateFormat.parse(tourDate);
-            sqlDate = new java.sql.Date(date.getTime());
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        tour.setDate(sqlDate);
-
         //set tour days
         int days = Integer.parseInt(tourDataList.get(6));
         tour.setDays(days);
 
+         //set departure time
+         String depTime = tourDataList.get(7);
+         Date departureTime = null;
+         java.sql.Date sqlDateDepart = null;
+         try {
+             departureTime = dateFormat.parse(depTime);
+             sqlDateDepart = new java.sql.Date(departureTime.getTime());
+         } catch (ParseException e) {
+             e.printStackTrace();
+         }
+         tour.setDepartureTime(sqlDateDepart);
+
         //set departure city
         String depCity = tourDataList.get(3);
-        if(depCity.equalsIgnoreCase(NO_DEPARTURE)) {
-            tour.setDepartureCity(NO_DEPARTURE_UA);
+        if(depCity.equals(NO_DEPARTURE)) {
+            tour.setDate(sqlDateDepart);
         } else {
             tour.setDepartureCity(depCity);
+            hasTourDate = true;
         }
 
-        //set departure time
-        String depTime = tourDataList.get(7);
-        SimpleDateFormat depDateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
-        Date departureTime = null;
-        java.sql.Date sqlDateDepart = null;
-        try {
-            departureTime = depDateFormat.parse(depTime);
-            sqlDateDepart = new java.sql.Date(departureTime.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        tour.setDepartureTime(sqlDateDepart);
-
+         //set price
         String priceSt = tourDataList.get(9);
         char [] priceCh = priceSt.toCharArray();
         StringBuffer priceOnlyNumbers = new StringBuffer();
@@ -403,53 +393,61 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         tour.setPrice(price);
 
         //set Hotel
-        setHotel(tour, tourDataList);
+        Country coun = new Country(country);
+        Region reg = new Region(region, coun);
+        int star = Integer.parseInt(tourDataList.get(4));
+        String hotelName = tourDataList.get(1);
+        Hotel hot = new Hotel(hotelName, star, reg);
+         if (hotelNameAndPicture.containsKey(hotelName)) {
+             hot.setImgUrl(hotelNameAndPicture.get(hotelName));
+             tour.setHotel(hot);
+             hasHotelPicture = true;
+         }
 
         //set Food
         String foodSt = tourDataList.get(5);
         Food food = new Food(foodSt);
         tour.setFood(food);
 
+         if(hasTourDate || !hasHotelPicture){
+             WebElement linkToPicture = driver.findElement(By.xpath(LINK_TO_PICTURE));
+             linkToPicture.click();
+             if(hasTourDate){
+                 WebElement tourDat = driver.findElements(By.className(GET_TOUR_TIME)).get(1);
+                 String tourDatTxt = tourDat.getText().substring(0, 8);
+                 Date dateT = null;
+                 java.sql.Date sqlTDate = null;
+                 try {
+                     dateT = dateFormat.parse(tourDatTxt);
+                     sqlTDate = new java.sql.Date(dateT.getTime());
+                 } catch (ParseException e) {
+                     e.printStackTrace();
+                 }
+                 tour.setDate(sqlTDate);
+             }
+             if(!hasHotelPicture){
+                 String st = "";
+                 try {
+                     st = (String) ((JavascriptExecutor) driver).executeScript(JAVASCRIPT_CODE);
+                 } catch (WebDriverException e) {
+                     st = NO_PICTURE;
+                 }
+                     hot.setImgUrl(st);
+                     hotelNameAndPicture.put(hotelName, st);
+                     tour.setHotel(hot);
+             }
+         }
         //add tour
         tourList.add(tour);
-    }
-
-    private void setHotel(Tour tour, List<String> tourDataList){
-        Country coun = new Country(country);
-        Region reg = new Region(region, coun);
-        int star = Integer.parseInt(tourDataList.get(4));
-        String hotelName = tourDataList.get(1);
-        Hotel hot = new Hotel(hotelName, star, reg);
-        // it makes parser faster
-        int size = tourList.size();
-        if (size > 0) {
-            Hotel prevHot = tourList.get(size-1).getHotel();
-            String prevHotelName = prevHot.getName();
-            if (prevHotelName.equals(hotelName) || hotel != null){
-                hot.setImgUrl(prevHot.getImgUrl());
-                tour.setHotel(hot);
-                return;
-            }
-        }
-
-        WebElement linkToPicture = driver.findElement(By.xpath(LINK_TO_PICTURE));
-        linkToPicture.click();
-        String st = "";
-        try {
-            st = (String) ((JavascriptExecutor) driver).executeScript(JAVASCRIPT_CODE);
-        } catch (WebDriverException e){
-            st = NO_PICTURE;
-        } finally {
-            hot.setImgUrl(st);
-            tour.setHotel(hot);
-        }
+        hasTourDate = false;
+        hasHotelPicture = false;
     }
 
     public static void main(String[] args) {
         int[] stars = {2, 3, 4, 5};
         String[] foods = {"HB", "AI"};
         int[] childrenAge = {};
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", "Аланья", "Ada Beach Hotel", stars, foods, 3, 0, childrenAge,
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", "Анталія", "Acropol Beach Hotel", stars, foods, 3, 0, childrenAge,
                 "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){
