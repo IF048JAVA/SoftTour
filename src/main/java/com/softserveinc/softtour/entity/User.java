@@ -3,11 +3,13 @@ package com.softserveinc.softtour.entity;
 import com.softserveinc.softtour.entity.template.Sex;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "User")
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

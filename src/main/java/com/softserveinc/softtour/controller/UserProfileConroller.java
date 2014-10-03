@@ -46,22 +46,23 @@ public class UserProfileConroller {
     }
 
     @RequestMapping(value="userToUpdate", method = RequestMethod.POST)
-    public @ResponseBody void post( @RequestBody final  User userToUpdate) {
-        User user;
-        User userx;
-
-        List<User> u = userService.findByNameOrEmail(null, userToUpdate.getEmail());
-        u.get(0).setName(userToUpdate.getName());
+    public @ResponseBody User post( @RequestBody final User userToUpdate) {
+        User updatedUser;
 
 
 
-        userx = userService.findById(0);
-        userx.setName("Petro");
+        List<User> u = userService.findByNameOrEmail(userToUpdate.getName(), userToUpdate.getEmail());
+        updatedUser = u.get(0);
+        updatedUser.setName(userToUpdate.getName());
 
 
 
-        userService.save(userx);
 
 
+
+
+        userService.save(updatedUser);
+
+        return userToUpdate;
     }
 }
