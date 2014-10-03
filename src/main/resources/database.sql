@@ -15,7 +15,7 @@ CREATE TABLE user (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   name varchar(30) NOT NULL UNIQUE,
   email varchar(30) NOT NULL UNIQUE,
-  password varchar(30) NOT NULL,
+  password varchar(100) NOT NULL,
   birthday date NOT NULL,
   age tinyint(3) unsigned NOT NULL,
   sex enum('MALE','FEMALE') NOT NULL,
