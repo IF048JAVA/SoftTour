@@ -2,15 +2,15 @@ package com.softserveinc.softtour.controller;
 
 import java.sql.Date;
 import java.util.Calendar;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.RoleService;
@@ -65,6 +65,12 @@ public class RegistrationController {
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		} else {
+			
+			String password = user.getPassword();
+			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String hashedPassword = passwordEncoder.encode(password);
+			
+			user.setPassword(hashedPassword);
 			user.setAge(calculateAge(user.getBirthday()));
 			user.setRole(roleService.findByName("registeredUser"));
     		userService.save(user);
