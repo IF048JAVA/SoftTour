@@ -438,6 +438,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
              }
          }
         //add tour
+
         tourList.add(tour);
         hasTourDate = false;
         hasHotelPicture = false;
