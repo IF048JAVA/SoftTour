@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.parsers;
+package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.dto.TrainTransit;
 import com.softserveinc.softtour.parsers.constants.TrainParserConstants;
@@ -33,9 +33,15 @@ public class TrainParser implements TrainParserConstants {
         this.tourDate = tourDate;
     }
 
-    public List<TrainTransit> parse() throws IOException {
+    public List<TrainTransit> parse() {
         String url = createURL(cityFrom, cityTo, tourDate);
-        Document doc  = Jsoup.connect(url).get();
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(url).get();
+        }catch (IOException e){
+            //TODO If there are no connect
+            System.out.println(e.getMessage());
+        }
         Elements trains = doc.select(TRAIN_SELECT);
         removeRedundantLines(trains);
         addTrainsToList(trains, cityFrom, cityTo, tourDate);
@@ -49,7 +55,6 @@ public class TrainParser implements TrainParserConstants {
         int mm = calendar.get(GregorianCalendar.MONTH) + 1;
         int yyyy = calendar.get(GregorianCalendar.YEAR);
         StringBuilder date = new StringBuilder();
-
         if(dd < 10){
             date.append(ZERO_MARK).append(dd).append(POINT_MARK);
         } else {
@@ -61,7 +66,7 @@ public class TrainParser implements TrainParserConstants {
             date.append(mm).append(POINT_MARK);
         }
         date.append(yyyy);
-        StringBuilder url = new StringBuilder(URL);
+        StringBuilder url = new StringBuilder(URL_UZ_GOV_UA);
         url.append(QUESTION_MARK).
             append(PARAM_CITY_FROM).append(EQUAL_MARK).append(trainParserParams.getProperty(cityFrom)).
             append(AMPERSAND_MARK).
@@ -78,9 +83,13 @@ public class TrainParser implements TrainParserConstants {
         return url.toString();
     }
 
-    private void removeRedundantLines(Elements raises) {
-        for(int i = 0; i < 10; i++){
-            raises.remove(0);
+    private void removeRedundantLines(Elements trains) {
+        if(trains.size() == 0){
+            System.out.println("There are no trains");
+        } else {
+            for (int i = 0; i < 10; i++) {
+                trains.remove(0);
+            }
         }
     }
 
@@ -96,7 +105,6 @@ public class TrainParser implements TrainParserConstants {
 7 : 04:08
 8 : 13:22
 9 :
-
         * */
         for(int i = 0; i<trains.size(); i+=FOR_CYCLE_STEP){
             if(i > FOR_CYCLE_STEP){
@@ -150,8 +158,9 @@ public class TrainParser implements TrainParserConstants {
         trainTransit.setArrivalTime(arrivalTime);
     }
 
-    public static void main(String[] args) throws IOException{
-        TrainParser trainParser = new TrainParser("Київ", "Львів", new Date(new GregorianCalendar(2014, 9, 25).getTime().getTime()));
+    public static void main(String[] args) {
+        TrainParser trainParser = new TrainParser("Київ", "Львів",
+                                  new Date(new GregorianCalendar(2014, 9, 25).getTime().getTime()));
         List<TrainTransit> list = trainParser.parse();
         for(int i = 0;i<list.size();i++){
             System.out.println(list.get(i));

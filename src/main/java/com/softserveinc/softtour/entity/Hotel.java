@@ -141,4 +141,20 @@ public class Hotel {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", stars=" + stars +
+                ", rating=" + rating +
+                ", comfort=" + comfort +
+                ", cleanliness=" + cleanliness +
+                ", location=" + location +
+                ", valueForMoney=" + valueForMoney +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", region=" + region +
+                '}';
+    }
 }

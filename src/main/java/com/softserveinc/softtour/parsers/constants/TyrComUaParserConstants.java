@@ -1,11 +1,11 @@
 package com.softserveinc.softtour.parsers.constants;
 
 public interface TyrComUaParserConstants {
-    static final String RESOURCE_PATH_COUNTRY_VOCABULARY = "/country_ua-ru_vocabulary";
-    static final String RESOURCE_PATH_REGION_VOCABULARY = "/region_ua-ru_vocabulary";
-    static final String RESOURCE_PATH_DEPARTURE_CITY_VOCABULARY = "/departure-city_ua-ru_vocabulary";
+    static final String RESOURCE_PATH_COUNTRY_VOCABULARY = "/parser_properties/country_ua-ru_vocabulary";
+    static final String RESOURCE_PATH_REGION_VOCABULARY = "/parser_properties/region_ua-ru_vocabulary";
+    static final String RESOURCE_PATH_DEPARTURE_CITY_VOCABULARY = "/parser_properties/departure-city_ua-ru_vocabulary";
     static final String DEFAULT_CHARSET = "UTF-8";
-    static final String URL_TYR_COM_UA_SEARCH_PHP = "http://www.tyr.com.ua/tours/search.php";
+    static final String URL_TYR_COM_UA = "http://www.tyr.com.ua/tours/search.php";
     static final String DEFAULT_COUNTRY = "Єгипет";
     static final String DROP_DOWN_COUNTRY_ID = "itt_country";
     static final String SELECT_REGION_ID = "region_list";
@@ -38,6 +38,7 @@ public interface TyrComUaParserConstants {
     static final String SEND_PRICE_FROM_ID = "price_from";
     static final String SEND_PRICE_TO_ID = "price_till";
     static final String DEFAULT_CURRENCY = "USD";
+    static final String DEFAULT_DEPARTURE_CITY = "Київ";
     static final String DROP_DOWN_CURRENCY_ID = "switch_price";
     static final String DROP_DOWN_DEPARTURE_CITY_NAME = "departure_city";
     static final String RADIO_BUTTON_COUNT_PAGES_100_ID = "items_per_page100";
@@ -48,6 +49,10 @@ public interface TyrComUaParserConstants {
     static final String RESULT_LIST_LEFT_CLASS_NAME = "itt_text-left";
     static final String RESULT_LIST_CENTER_CLASS_NAME = "text-center";
     static final String RESULT_LIST_RIGHT_CLASS_NAME = "text-right";
-    static final String DEPARTURE_CITY_DEFAULT = "без перелета";
+    static final String NO_DEPARTURE = "без перелета";
+    static final String NO_DEPARTURE_UA = "Авіапереліт не входить у вартість туру";
     static final String SIMPLE_DATE_FORMAT_DATE = "dd.mm.yy";
+    static final String LINK_TO_PICTURE = "//a[@class='it_small_price']";
+    static final String NO_PICTURE = "No picture";
+    static final String JAVASCRIPT_CODE = "return(function foo(){var bar = document.getElementById('main_img_tour_in_view_open_').getAttribute('src');return bar})()";
 }

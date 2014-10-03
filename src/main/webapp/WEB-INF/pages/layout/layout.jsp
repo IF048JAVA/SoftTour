@@ -53,5 +53,6 @@
 <script src="js/tours.js"></script>
 <script src="js/equal_div.js"></script>
 <script src="js/validator.js"></script>
+<script src="js/bootstrap-formhelpers-phone.js"></script>
 </body>
 </html>

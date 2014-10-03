@@ -9,10 +9,7 @@ import com.softserveinc.softtour.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,5 +43,25 @@ public class UserProfileConroller {
     public @ResponseBody List<HistoryRecord> findUserHistory() {
         List<HistoryRecord> currentUserRecords = historyRecordService.findByUser(userService.findById(1));
         return currentUserRecords;
+    }
+
+    @RequestMapping(value="userToUpdate", method = RequestMethod.POST)
+    public @ResponseBody void post( @RequestBody final  User userToUpdate) {
+        User user;
+        User userx;
+
+        List<User> u = userService.findByNameOrEmail(null, userToUpdate.getEmail());
+        u.get(0).setName(userToUpdate.getName());
+
+
+
+        userx = userService.findById(0);
+        userx.setName("Petro");
+
+
+
+        userService.save(userx);
+
+
     }
 }

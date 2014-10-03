@@ -115,4 +115,18 @@ public class Tour {
     public void setFood(Food food) {
         this.food = food;
     }
+
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "id=" + id +
+                ", date=" + date +
+                ", days=" + days +
+                ", departureCity='" + departureCity + '\'' +
+                ", departureTime=" + departureTime +
+                ", price=" + price +
+                ", hotel=" + hotel +
+                ", food=" + food +
+                '}';
+    }
 }

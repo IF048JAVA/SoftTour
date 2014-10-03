@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.parsers;
+package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.dto.BusTransit;
 import com.softserveinc.softtour.parsers.constants.BusParserConstants;
@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Date;
 import java.util.*;
 
 public class BusParser implements BusParserConstants {
@@ -16,7 +17,7 @@ public class BusParser implements BusParserConstants {
     private List<BusTransit> busList = new ArrayList<>();
     private String cityFrom;
     private String cityTo;
-    private Date tourDate;
+    private java.sql.Date tourDate;
 
     static {
         try {
@@ -27,15 +28,21 @@ public class BusParser implements BusParserConstants {
         }
     }
 
-    public BusParser(String cityFrom, String cityTo, Date tourDate) {
+    public BusParser(String cityFrom, String cityTo, java.sql.Date tourDate) {
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
         this.tourDate = tourDate;
     }
 
-    public List<BusTransit> parse() throws IOException {
+    public List<BusTransit> parse() {
         String url = createURL(cityFrom, cityTo);
-        Document doc  = Jsoup.connect(url).get();
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(url).get();
+        }catch (IOException e){
+            //TODO If there are no connect
+            System.out.println(e.getMessage());
+        }
         Elements buses = doc.select(BUS_SELECT);
         removeRedundantLines(buses);
         addBusesToList(buses, cityFrom, cityTo, tourDate);
@@ -43,7 +50,7 @@ public class BusParser implements BusParserConstants {
     }
 
     private String createURL(String cityFrom, String cityTo) {
-        StringBuffer url = new StringBuffer(URL);
+        StringBuffer url = new StringBuffer(URL_BUS_COM_UA);
         url.append(QUESTION_MARK).
             append(PARAM_CITY_FROM).append(EQUAL_MARK).append(busParserParams.getProperty(cityFrom)).
             append(AMPERSAND_MARK).
@@ -52,6 +59,7 @@ public class BusParser implements BusParserConstants {
             append(PARAM_GO).append(EQUAL_MARK).append(VALUE_GO);
         return url.toString();
     }
+
     private void removeRedundantLines(Elements raises) {
         Iterator<Element> iterator = raises.iterator();
         while (iterator.hasNext()){
@@ -70,8 +78,8 @@ public class BusParser implements BusParserConstants {
             String cityToAndNameOfStation = elementsByTag.get(5).text();
             String timeDeparture = elementsByTag.get(3).text();
             String timeArrival = elementsByTag.get(6).text();
-            Date departure = parseTimeStringToDate(timeDeparture, tourDate);
-            Date arrival = parseTimeStringToDate(timeArrival, tourDate);
+            java.util.Date departure = parseTimeStringToDate(timeDeparture, tourDate);
+            java.util.Date arrival = parseTimeStringToDate(timeArrival, tourDate);
             if (departure.compareTo(arrival) > 0) {
                 departure = new Date(departure.getTime() - MILLISECONDS_IN_DAY);
             }
@@ -81,7 +89,7 @@ public class BusParser implements BusParserConstants {
         }
     }
 
-    private Date parseTimeStringToDate(String dateF, Date tourDate) {
+    private java.util.Date parseTimeStringToDate(String dateF, java.util.Date tourDate) {
         long dateFH = Integer.parseInt(dateF.substring(0, 2)) * MILLISECONDS_IN_HOUR;
         long dateFM = Integer.parseInt(dateF.substring(3, 5)) * MILLISECONDS_IN_MINUTE;
         GregorianCalendar calendar = new GregorianCalendar();
@@ -90,8 +98,8 @@ public class BusParser implements BusParserConstants {
         calendar.set(GregorianCalendar.MINUTE, 0);
         calendar.set(GregorianCalendar.SECOND, 0);
         calendar.set(GregorianCalendar.MILLISECOND, 0);
-        Date newTourDate = calendar.getTime();
-        Date departureTime = new Date(newTourDate.getTime() + dateFH + dateFM);
+        java.util.Date newTourDate = calendar.getTime();
+        java.util.Date departureTime = new Date(newTourDate.getTime() + dateFH + dateFM);
         if (departureTime.compareTo(tourDate) > 0){
             departureTime = new Date(departureTime.getTime() - MILLISECONDS_IN_DAY);
         }
@@ -99,15 +107,16 @@ public class BusParser implements BusParserConstants {
     }
 
     private void fillAllBusTransitSetters(BusTransit busTransit, String cityFrom, String cityTo,
-                                          Date departureTime, Date arrivalTime) {
+                                          java.util.Date departureTime, java.util.Date arrivalTime) {
         busTransit.setCityFrom(cityFrom);
         busTransit.setCityTo(cityTo);
         busTransit.setDepartureTime(departureTime);
         busTransit.setArrivalTime(arrivalTime);
     }
 
-    public static void main(String[] args) throws IOException{
-        BusParser busParser = new BusParser("Київ", "Львів", new GregorianCalendar(2014, 9, 25).getTime());
+    public static void main(String[] args) {
+        BusParser busParser = new BusParser("Київ", "Львів",
+                              new Date(new GregorianCalendar(2014, 9, 25).getTime().getTime()));
         List<BusTransit> list = busParser.parse();
         for(int i = 0;i<list.size();i++){
             System.out.println(list.get(i));

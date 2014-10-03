@@ -1,13 +1,13 @@
 package com.softserveinc.softtour.parsers.constants;
 
 public interface BusParserConstants {
-    static final String RESOURCE_PATH_PARAMS = "/bus_parser_params";
+    static final String RESOURCE_PATH_PARAMS = "/parser_properties/bus_parser_params";
     static final String DEFAULT_CHARSET = "UTF-8";
     static final String BUS_SELECT = "tr[class~=aslist(?)]";
     static final String QUESTION_MARK = "?";
     static final String AMPERSAND_MARK = "&";
     static final String EQUAL_MARK = "=";
-    static final String URL = "http://bus.com.ua/cgi-bin/poshuk";
+    static final String URL_BUS_COM_UA = "http://bus.com.ua/cgi-bin/poshuk";
     static final String PARAM_CITY_FROM = "fp";
     static final String PARAM_CITY_TO = "tp";
     static final String PARAM_GO = "Go";
