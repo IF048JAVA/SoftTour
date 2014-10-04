@@ -75,12 +75,12 @@ public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserCons
     public List<Tour> parse(){
         selectCountry(country);
         selectRegion(region);
-        selectHotel(hotel);
         selectStars(stars);
         selectFood(foods);
         selectAdultsCount(adults);
         selectChildrenCount(children);
         selectChildrenAge(childrenAge);
+        selectHotel(hotel);
         selectDateFlyFrom(dateFlyFrom);
         selectDateFlyTo(dateFlyTo);
         selectCountNightsFrom(countNightsFrom);

@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,18 +47,6 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
             Select dropDownRegion = new Select(selectRegion);
             String regionRu = regionUaRuVocabulary.getProperty(region);
             dropDownRegion.selectByVisibleText(regionRu);
-        }
-    }
-
-    @Override
-    protected void selectHotel(String hotel){
-        //TODO can be default hotel
-        if(hotel == null){
-            return;
-        } else {
-            WebElement selectHotel = driver.findElement(By.id(SELECT_HOTEL_ID));
-            Select dropHotel = new Select(selectHotel);
-            dropHotel.selectByVisibleText(hotel);
         }
     }
 
@@ -185,6 +174,19 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
             }default:{
                 throw new NoSuchElementException("There are must be count of children less then 3 ");
             }
+        }
+    }
+
+    @Override
+    protected void selectHotel(String hotel){
+        //TODO can be default hotel
+        // when we select stars and food, select hotel can be drop to all hotels
+        if(hotel == null){
+            return;
+        } else {
+            WebElement selectHotel = driver.findElement(By.id(SELECT_HOTEL_ID));
+            Select dropHotel = new Select(selectHotel);
+            dropHotel.selectByVisibleText(hotel);
         }
     }
 
