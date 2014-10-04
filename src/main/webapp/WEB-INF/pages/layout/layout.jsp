@@ -9,20 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="css/settings.css" rel="stylesheet">
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="css/profileStyle.css" rel="stylesheet">
-    <link href="css/datepicker.css" rel="stylesheet">
-    <link href="css/feedback.css" rel="stylesheet"/>
-    <link href="css/select2.css" rel="stylesheet"/>
-    <link href="css/select2-bootstrap.css" rel="stylesheet"/>
-    <link href="css/star-rating.min.css" rel="stylesheet"/>
-    <link href="css/hotels.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
-    <link href="css/left_right_style.css" rel="stylesheet"/>
+	<link href="<c:url value='/css/settings.css' />" rel="stylesheet">
+    <link href="<c:url value='/css/bootstrap.css' />" rel="stylesheet">
+    <link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet">
+    <link href="<c:url value='/css/bootstrap-theme.css' />" rel="stylesheet">
+    <link href="<c:url value='/css/bootstrap-theme.min.css' />" rel="stylesheet">
+    <link href="<c:url value='/css/profileStyle.css' />" rel="stylesheet">
+    <link href="<c:url value='/css/datepicker.css' />" rel="stylesheet">
+    <link href="<c:url value='/css/feedback.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/select2.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/select2-bootstrap.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/star-rating.min.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/hotels.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/style.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/left_right_style.css' />" rel="stylesheet"/>
 
 </head>
 <body bgcolor="#c0c0c0">
@@ -34,25 +34,24 @@
         <tiles:insertAttribute name="footer"/>
     </div>
 </div>
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/bootstrap-datepicker-ua.js"></script>
-<script src="js/jquery.tmpl.js"></script>
-<script src="js/calendar.js"></script>
-<script src="js/selector.js"></script>
-<script src="js/registrationControl.js"></script>
-<script src="js/feedback.js"></script>
-<script src="js/modal2.js"></script>
-<script src="js/select2.min.js"></script>
-<script src="js/star-rating.min.js"></script>
-<script src="js/hotels.js"></script>
-<script src="js/userFavoriteProfile.js"></script>
-<script src="js/userHistoryProfile.js"></script>
-<script src="js/userInfo.js"></script>
-<script src="js/tours.js"></script>
-<script src="js/equal_div.js"></script>
-<script src="js/validator.js"></script>
-<script src="js/bootstrap-formhelpers-phone.js"></script>
+<script src="<c:url value='/js/jquery.js' />" ></script>
+<script src="<c:url value='/js/bootstrap.min.js' />" ></script>
+<script src="<c:url value='/js/bootstrap.js' />" ></script>
+<script src="<c:url value='/js/bootstrap-datepicker-ua.js' />" ></script>
+<script src="<c:url value='/js/jquery.tmpl.js' />" ></script>
+<script src="<c:url value='/js/calendar.js' />" ></script>
+<script src="<c:url value='/js/selector.js' />" ></script>
+<script src="<c:url value='/js/registrationControl.js' />" ></script>
+<script src="<c:url value='/js/feedback.js' />" ></script>
+<script src="<c:url value='/js/modal2.js' />" ></script>
+<script src="<c:url value='/js/select2.min.js' />" ></script>
+<script src="<c:url value='/js/star-rating.min.js' />" ></script>
+<script src="<c:url value='/js/hotels.js' />" ></script>
+<script src="<c:url value='/js/userFavoriteProfile.js' />" ></script>
+<script src="<c:url value='/js/userHistoryProfile.js' />" ></script>
+<script src="<c:url value='/js/userInfo.js' />" ></script>
+<script src="<c:url value='/js/tours.js' />" ></script>
+<script src="<c:url value='/js/equal_div.js' />" ></script>
+<script src="<c:url value='/js/validator.js' />" ></script>
 </body>
 </html>

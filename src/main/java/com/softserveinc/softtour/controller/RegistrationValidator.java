@@ -2,6 +2,8 @@ package com.softserveinc.softtour.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -12,8 +14,15 @@ import com.softserveinc.softtour.service.UserService;
  * @author Andriy
  *  Validates user's name and email
  */
-public class UserValidator implements Validator {
+@Component
+public class RegistrationValidator implements Validator {
 
+	/**
+	 *  Creates the object of the UserServiceImpl class 
+	 */
+	@Autowired
+	private UserService userService;
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return User.class.equals(clazz);
@@ -25,11 +34,8 @@ public class UserValidator implements Validator {
 	 */
 	@Override
 	public void validate(Object target, Errors errors) {
-		Object[] objs = (Object[])target;
 		
-		UserService userService = (UserService) objs[0];
-		User currentUser = (User) objs[1];
-		
+		User currentUser = (User) target;
 		List<User> users = userService.findByNameOrEmail(currentUser.getName(), currentUser.getEmail());
 		
 		for (User registeredUser : users) {
