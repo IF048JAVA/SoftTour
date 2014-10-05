@@ -34,8 +34,10 @@ public interface TyrComUaParserConstants {
     String SEND_DATE_FLY_FROM_ID = "itt_date_from";
     String SEND_DATE_FLY_TO_ID = "date_till";
     String DROP_DOWN_NIGHTS_FROM_ID = "night_from";
+    int DEFAULT_NIGHTS_COUNT_FROM = 6;
     String DROP_DOWN_NIGHTS_TO_ID = "night_till";
     String SEND_PRICE_FROM_ID = "price_from";
+    int DEFAULT_NIGHTS_COUNT_TO = 14;
     String SEND_PRICE_TO_ID = "price_till";
     String DEFAULT_CURRENCY = "USD";
     String DEFAULT_DEPARTURE_CITY = "Київ";

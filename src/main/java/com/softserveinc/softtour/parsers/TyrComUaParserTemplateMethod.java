@@ -72,6 +72,26 @@ public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserCons
         driver.get(URL_TYR_COM_UA);
     }
 
+    protected TyrComUaParserTemplateMethod(String country, int adults, int children, int priceFrom, int priceTo) {
+        this.country = country;
+        this.region = null;
+        this.hotel = null;
+        this.stars = null;
+        this.foods = null;
+        this.adults = adults;
+        this.children = children;
+        this.childrenAge = null; //TODO how to be with age
+        this.dateFlyFrom = null;
+        this.dateFlyTo = null;
+        this.countNightsFrom = DEFAULT_NIGHTS_COUNT_FROM;
+        this.countNightsTo = DEFAULT_NIGHTS_COUNT_TO;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
+        this.currency = DEFAULT_CURRENCY;
+        this.departureCity = DEFAULT_DEPARTURE_CITY;
+        driver.get(URL_TYR_COM_UA);
+    }
+
     public List<Tour> parse(){
         selectCountry(country);
         selectRegion(region);

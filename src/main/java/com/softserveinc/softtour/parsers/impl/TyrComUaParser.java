@@ -26,6 +26,10 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
               countNightsFrom, countNightsTo, priceFrom, priceTo, currency, departureCity);
     }
 
+    public TyrComUaParser(String country, int adults, int children, int priceFrom, int priceTo) {
+        super(country, adults, children, priceFrom, priceTo);
+    }
+
     @Override
     protected void selectCountry(String country){
         if(country.equalsIgnoreCase(DEFAULT_COUNTRY)){
@@ -52,8 +56,9 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
 
     @Override
     protected void selectStars(int...stars){
-        //TODO How to select stars? Almost all selected, 2 discarded by default
-        if(stars.length == 0){
+        if(stars == null || stars.length == 4){
+            WebElement multiplyStars2 = driver.findElement(By.xpath(MULTIPLY_STARS_2_XPATH));
+            multiplyStars2.click();
             return;
         }
         boolean[] starsBoolean = new boolean[4];
@@ -96,7 +101,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
 
     @Override
     protected void selectFood(String...foods){
-        if(foods.length == 0){
+        if(foods == null){
             return;
         }
         ArrayList<String> list = new ArrayList<>();
@@ -155,7 +160,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
 
     @Override
     protected void selectChildrenAge(int...childrenAge){
-        if(childrenAge.length == 0){
+        if(childrenAge == null){
             return;
         }
         switch (childrenAge.length-1){
@@ -217,7 +222,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
     @Override
     protected void selectCountNightsFrom(int countNightsFrom){
         //TODO Is count nights from 1 to 21 in our app?
-        if (countNightsFrom == 6 || (countNightsFrom <= 0 || countNightsFrom > 21)){
+        if (countNightsFrom == DEFAULT_NIGHTS_COUNT_FROM ){
             return;
         } else {
             WebElement nightsFrom = driver.findElement(By.id(DROP_DOWN_NIGHTS_FROM_ID));
@@ -229,7 +234,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
     @Override
     protected void selectCountNightsTo(int countNightsTo){
         //TODO Is count nights from 1 to 21 in our app?
-        if (countNightsTo == 14 || (countNightsTo <=0 || countNightsTo > 21)){
+        if (countNightsTo == DEFAULT_NIGHTS_COUNT_TO){
             return;
         } else {
             WebElement nightsTo = driver.findElement(By.id(DROP_DOWN_NIGHTS_TO_ID));
@@ -294,6 +299,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
 
     @Override
     protected void addAllWebElementsToWebElementList(){
+        //TODO next page if pages are more then 4
         for(int i = 2; i<COUNT_RESULT_PAGES;i++){
             ArrayList<WebElement> oddList = (ArrayList<WebElement>)
                     driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
@@ -447,11 +453,14 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
     }
 
     public static void main(String[] args) {
+        /*
         int[] stars = {2, 3, 4, 5};
         String[] foods = {"HB", "AI"};
         int[] childrenAge = {};
         TyrComUaParser parser = new TyrComUaParser("Туреччина", "Анталія", "Acropol Beach Hotel", stars, foods, 3, 0, childrenAge,
-                "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
+                                "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
+        */
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 1500);
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){
             System.out.println(resultList.get(i).toString());
