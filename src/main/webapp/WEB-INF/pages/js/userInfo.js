@@ -23,7 +23,7 @@ function userUpdate() {
     userToUpdate.sex = $('#sex').val().toUpperCase();
     userToUpdate.phone = $('#phone').val();
 
-    console.log(userToUpdate)
+    console.log(userToUpdate);
 
 //    var userx = {"name": "Andriy", "id": 1, "password": "1111", "role": {"name": "registeredUser", "id": 3}, "birthday": "1987-11-24", "email": "elips@gmail.com", "age": 26, "sex": "MALE", "phone": "+38(095)800-08-77"};
 
@@ -31,14 +31,14 @@ function userUpdate() {
     userx.name= "aaa";
     userx.id= 1;
     userx.password = 1111;
-    userx.role = {"name":"registeredUser","id":3}
+    userx.role = {"name":"registeredUser","id":3};
     userx.age = 24;
     userx.birthday= "1987-11-24";
     userx.email= "elips@gmail.com";
     userx.sex= "MALE";
     userx.phone= "+38(095)800-08-77";
 
-    console.log(userx)
+    console.log(userx);
 
 
     $.ajax({
