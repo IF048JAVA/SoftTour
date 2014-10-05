@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.parsers.impl.TyrComUaParser;
 import com.softserveinc.softtour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import java.util.List;
 @RequestMapping(value = "/")
 public class IndexController {
 
+   /* @Autowired
+    private TyrComUaParser parser;*/
     @Autowired
     private TourService tourService;
 
@@ -26,4 +29,13 @@ public class IndexController {
 
         return tourService.findByCountryAndPrice(country, minPrice, maxPrice);
     }
+
+    @RequestMapping(value="/tourParse", method = RequestMethod.POST)
+    public @ResponseBody List<Tour> searchTour(){
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 1500);
+        List<Tour> resultList = parser.parse();
+        parser.quit();
+        return resultList;
+    }
+
 }
