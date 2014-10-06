@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.controller;
+package com.softserveinc.softtour.util;
 
 import java.util.List;
 

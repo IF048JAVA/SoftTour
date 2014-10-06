@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.RoleService;
 import com.softserveinc.softtour.service.UserService;
+import com.softserveinc.softtour.util.RegistrationValidator;
 
 /**
  * @author Andriy
