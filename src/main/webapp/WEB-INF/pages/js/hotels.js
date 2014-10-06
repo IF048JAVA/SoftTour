@@ -1,11 +1,11 @@
 var ALL_COUNTRIES = "allCountries";
 
-function openModalWindow() {
-    $('#myModal').modal('show');
+function openModalWindow(id) {
+    $('#myModal' + id).modal('show');
 }
 
-function closeModalWindow() {
-    $('#myModal').modal('hide');
+function closeModalWindow(id) {
+    $('#myModal' + id).modal('hide');
 }
 
 $(".hotel_search").on("submit", function (e) {
@@ -77,6 +77,8 @@ function searchHotels() {
 }
 
 $(document).ready(function () {
+
+    $("#stars").rating();
 
     $("#countrySelect2").val(["AllCountry"]).select2({
         placeholder: "Оберіть країну",

@@ -36,6 +36,11 @@ public interface UserService {
 	 *  id - id of the object user which will be returned
 	 */
 	public User findById(long id);
+
+    /**
+     * Returns the list of the user's objects with the specified email
+     */
+    public User findByEmail(String name);
 	
 	/**
 	 * Returns the list of the user's objects with the specified name or email
