@@ -40,7 +40,7 @@
 				<div class="col-md-3 col-md-3-offset"></div>
 				<div class="col-md-6 form">
 				
-					<form class="form-horizontal">
+					<form class="form-horizontal" data-toggle="validator" role="form">
 						
 						<fieldset>
 						
@@ -49,52 +49,78 @@
 
                             <!-- Name input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="name">Ім'я&ensp;*</label>
+                                <label class="col-md-4 control-label" for="name">Ім'я</label>
                                 <div class="col-md-5">
                                     <input type="text" name="name"  id="name" class="form-control input-md"
-                                           placeholder="Bід 6 до 30 символів" >
+                                        pattern="\b[A-Za-z0-9]{2,30}\b"
+                                        placeholder="Bід 2 до 30 символів"
+                                        data-error="Ви ввели некоректне ім'я !"
+                                        required="required"/>
                                 </div>
                             </div>
 
                             <!-- Email input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="email">Email/Login&ensp;*</label>
+                                <label class="col-md-4 control-label" for="email">Email/Login</label>
                                 <div class="col-md-5">
                                     <input type="email" name="email" id="email" class="form-control input-md"
-                                           placeholder="Bід 7 до 30 символів" >
+                                        pattern="\b(?!.{31})([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})\b"
+                                        placeholder="Bведіть email"
+                                        data-error="Ви ввели некоректний email !"
+                                        required="required"/>
+
+                                    <div class="help-block with-errors"></div>
+                                    <errors path="email" cssClass="error"/>
+
                                 </div>
                             </div>
 
                             <!-- Password input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="password">Пароль&ensp;*</label>
+                                <label class="col-md-4 control-label" for="password">Пароль</label>
                                 <div class="col-md-5">
                                     <input type="password" name="password" id="password" class="form-control input-md"
-                                           placeholder="Bід 6 до 30 символів" >
+                                        pattern="\b[A-Za-z0-9._%+-]{6,30}\b"
+                                        placeholder="Bід 6 до 30 символів"
+                                        data-error="Ви ввели некоректний пароль !"
+                                        required="required"/>
+
+                                    <div class="help-block with-errors"></div>
                                 </div>
                             </div>
 
                             <!-- Confirm password input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="confirmPassword">Підтвердьте Пароль&ensp;*</label>
+                                <label class="col-md-4 control-label" for="confirmPassword">Підтвердьте Пароль</label>
                                 <div class="col-md-5">
                                     <input type="password" name="confirmPassword" id="confirmPassword" class="form-control input-md"
-                                           placeholder="Повторіть введення паролю" >
+                                           placeholder="Повторіть введення паролю"
+                                           data-match="#password"
+                                           data-match-error="Некоректно підтверджений пароль !"
+                                           required="required"/>
+
+                                    <div class="help-block with-errors"></div>
                                 </div>
                             </div>
 
                             <!-- Birthday input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="birthday">Дата народження&ensp;*</label>
+                                <label class="col-md-4 control-label" for="birthday">Дата народження</label>
                                 <div class="col-md-5">
                                     <input type="text" name="birthday" id="birthday" class="form-control input-md"
-                                           placeholder="dd/mm/yyyy">
+                                           pattern="(((19|20)[0-9][0-9])-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]))\b"
+                                           placeholder="yyyy-mm-dd"
+                                           data-error="Ви ввели некоректну дату !"
+                                           required="required"/>
+
+                                    <div class="help-block with-errors"></div>
+                                    <errors path="birthday" cssClass="error" />
                                 </div>
                             </div>
 
                             <!-- Sex Select -->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="sex">Стать&ensp;*</label>
+                                <label class="col-md-4 control-label" for="sex">Стать</label>
                                 <div class="col-md-5">
                                     <select name="sex" id="sex" class="form-control">
                                         <option value="male">Чоловік</option>
@@ -107,7 +133,13 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="phone">Номер телефону &ensp;&nbsp;</label>
                                 <div class="col-md-5">
-                                    <input type="text" name="phone" id="phone" class="form-control bfh-phone" data-format="+3d (ddd) ddd-dddd">
+                                    <input type="text" name="phone" id="phone" class="form-control input-md"
+                                        pattern="[\+]?[0-9]{4,19}\b"
+                                        placeholder="Введіть номер телефону"
+                                        data-error="Ви ввели некоректний номер телефону !">
+
+                                    <div class="help-block with-errors"></div>
+                                    <errors path="email" cssClass="error"/>
                                 </div>
                             </div>
 							

@@ -35,18 +35,18 @@ public class UserProfileConroller {
 
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     public @ResponseBody User getCurrentUser() {
-        return userService.findById(1);
+        return userService.findById(2);
     }
 
     @RequestMapping(value = "/userFavorite", method = RequestMethod.GET)
     public @ResponseBody List<Favorite> findUserFavorite() {
-        List<Favorite> currentUserFavorites = favoriteService.findByUser(userService.findById(1));
+        List<Favorite> currentUserFavorites = favoriteService.findByUser(userService.findById(2));
         return currentUserFavorites;
     }
 
     @RequestMapping(value = "/userHistory", method = RequestMethod.GET)
     public @ResponseBody List<HistoryRecord> findUserHistory() {
-        List<HistoryRecord> currentUserRecords = historyRecordService.findByUser(userService.findById(1));
+        List<HistoryRecord> currentUserRecords = historyRecordService.findByUser(userService.findById(2));
         return currentUserRecords;
     }
 
@@ -56,7 +56,7 @@ public class UserProfileConroller {
 
         updatedUser = userService.findByEmail(userToUpdate.getEmail());
         updatedUser.setName(userToUpdate.getName());
-//        updatedUser.setPassword(userToUpdate.getPassword());
+        updatedUser.setPassword(userToUpdate.getPassword());
         updatedUser.setBirthday(userToUpdate.getBirthday());
         updatedUser.setSex(userToUpdate.getSex());
         updatedUser.setPhone(userToUpdate.getPhone());

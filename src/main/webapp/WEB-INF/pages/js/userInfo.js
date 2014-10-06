@@ -19,6 +19,7 @@ function userUpdate() {
 
     userToUpdate.name = $('#name').val();
     userToUpdate.email = $('#email').val();
+    userToUpdate.password = $('#password').val();
     userToUpdate.birthday = $('#birthday').val();
     userToUpdate.sex = $('#sex').val().toUpperCase();
     userToUpdate.phone = $('#phone').val();
