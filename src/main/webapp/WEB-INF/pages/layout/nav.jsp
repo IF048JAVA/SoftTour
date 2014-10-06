@@ -13,13 +13,13 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="search">Пошук</a></li>
-                <li><a href="hotels">Готелі</a></li>
-                <li><a href="about">Про нас</a></li>
-                <li><a href="feedback">Зворотній зв'язок</a></li>
+                <li><a href="/search">Пошук</a></li>
+                <li><a href="/hotels">Готелі</a></li>
+                <li><a href="/about">Про нас</a></li>
+                <li><a href="/feedback">Зворотній зв'язок</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="userProfile">Увійти</a></li>
+                <li><a href="/userProfile">Увійти</a></li>
                 <li><a href="/registration/new">Реєстрація</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
