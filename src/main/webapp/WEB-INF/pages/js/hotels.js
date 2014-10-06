@@ -24,10 +24,10 @@ function searchByName() {
         success: function (data) {
 
             $('#hotelResult').empty();
-            $.each(data, function (key, value) {
+            //$.each(data, function (key, value) {
 
-                $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
-            })
+                $('#hotelTemplate').tmpl(data).appendTo('#hotelResult');
+            //})
         },
 
         error: function () {
