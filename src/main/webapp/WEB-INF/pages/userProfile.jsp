@@ -141,7 +141,7 @@
                          <span id="tourFood-f\${id}" class="tabulatedTitle">\${food.name}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${date}</span>
-                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id})"></i></span>
+                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})"></i></span>
                      </a>
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">

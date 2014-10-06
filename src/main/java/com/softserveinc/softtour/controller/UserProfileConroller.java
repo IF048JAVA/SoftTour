@@ -56,7 +56,7 @@ public class UserProfileConroller {
 
         updatedUser = userService.findByEmail(userToUpdate.getEmail());
         updatedUser.setName(userToUpdate.getName());
-        updatedUser.setPassword(userToUpdate.getPassword());
+//        updatedUser.setPassword(userToUpdate.getPassword());
         updatedUser.setBirthday(userToUpdate.getBirthday());
         updatedUser.setSex(userToUpdate.getSex());
         updatedUser.setPhone(userToUpdate.getPhone());
@@ -64,6 +64,17 @@ public class UserProfileConroller {
         userService.save(updatedUser);
 
         return userToUpdate;
+
+    }
+
+    @RequestMapping(value="favoriteToDelete", method = RequestMethod.POST)
+    public @ResponseBody Favorite deleteFavorite( @RequestBody final Favorite favoriteToDelete) {
+
+        favoriteService.delete(favoriteToDelete.getId());
+
+
+
+        return favoriteToDelete;
     }
 
 
