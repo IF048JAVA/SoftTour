@@ -24,15 +24,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 * @param email - updated email
 	 * @param password - updated password
 	 * @param birthday - updated birthday
-	 * @param age - updated age
 	 * @param sex - updated sex
 	 * @param phone - updated phone
 	 * @param role - updated role
 	 */
 	@Modifying
-	@Query("UPDATE User SET name=?2, email=?3, password=?4, birthday=?5, age=?6, sex=?7, phone=?8, role_id=?9 WHERE id=?1" )
+	@Query("UPDATE User SET name=?2, email=?3, password=?4, birthday=?5, sex=?6, phone=?7, role_id=?8 WHERE id=?1" )
 	public void update(long id, String name, String email, String password, 
-					Date birthday, byte age, Sex sex, String phone, Role role);
+					Date birthday, Sex sex, String phone, Role role);
 
     /**
      * Returns the list of the user's objects with the specified email
@@ -47,7 +46,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /**
 	 *  Returns the list of the user's objects with the specified parameters
 	 */
-	public List<User> findByIdOrNameOrEmailOrPasswordOrBirthdayOrAgeOrSexOrPhoneOrRole(
-			long id, String name, String email, String password, Date birthday, byte age, Sex sex, String phone, Role role);
+	public List<User> findByIdOrNameOrEmailOrPasswordOrBirthdayOrSexOrPhoneOrRole(
+			long id, String name, String email, String password, Date birthday, Sex sex, String phone, Role role);
 
 }
