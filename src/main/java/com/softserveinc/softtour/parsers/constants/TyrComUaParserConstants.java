@@ -47,7 +47,7 @@ public interface TyrComUaParserConstants {
     String BUTTON_SUBMIT_XPATH = "//input[@value='Найти' and @type='button']";
     String PARSE_RESULTS_BY_CLASS_NAME_ODD = "itt_odd";
     String PARSE_RESULTS_BY_CLASS_NAME_EVEN = "itt_even";
-    int COUNT_RESULT_PAGES = 50;
+    String WHILE_NEXT_BUTTON = "Следующая";
     String RESULT_LIST_LEFT_CLASS_NAME = "itt_text-left";
     String RESULT_LIST_CENTER_CLASS_NAME = "text-center";
     String RESULT_LIST_RIGHT_CLASS_NAME = "text-right";
