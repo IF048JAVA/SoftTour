@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/")
 public class IndexController {
 
-   /* @Autowired
-    private TyrComUaParser parser;*/
     @Autowired
     private TourService tourService;
 
@@ -26,15 +26,14 @@ public class IndexController {
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "minPrice", required = false) Integer minPrice,
             @RequestParam(value = "maxPrice", required = false) Integer maxPrice) {
-
+        //return tourService.findAll();
         return tourService.findByCountryAndPrice(country, minPrice, maxPrice);
     }
 
-    @RequestMapping(value="/tourParse", method = RequestMethod.POST)
+    @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 1500);
-        List<Tour> resultList = parser.parse();
-        return resultList;
+        //return tourService.findAll();
+        return tourService.parse();
     }
 
 }

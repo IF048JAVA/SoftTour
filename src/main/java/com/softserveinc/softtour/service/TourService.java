@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.util.List;
 
 public interface TourService {
+    List<Tour> parse ();
     Tour save(Tour tour);
     void delete(Tour tour);
     void deleteById(long id);

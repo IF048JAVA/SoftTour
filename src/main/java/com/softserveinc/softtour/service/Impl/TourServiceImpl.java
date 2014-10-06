@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.service.Impl;
 
 import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.parsers.impl.TyrComUaParser;
 import com.softserveinc.softtour.repository.TourRepository;
 import com.softserveinc.softtour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,8 +17,13 @@ public class TourServiceImpl implements TourService {
 
     @Autowired
     private TourRepository tourRepository;
-
-
+    @Override
+    public List<Tour> parse(){
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 500);
+        //List<Tour> resultList = parser.parse();
+        return new ArrayList<Tour>();
+        //return resultList;
+    }
     @Override
     public Tour save(Tour tour) {
         return tourRepository.saveAndFlush(tour);
@@ -59,4 +66,6 @@ public class TourServiceImpl implements TourService {
                                                      departureTime, price, hotel, food);
     }
 
+
 }
+

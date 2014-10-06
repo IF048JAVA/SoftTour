@@ -460,7 +460,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         TyrComUaParser parser = new TyrComUaParser("Туреччина", "Анталія", "Acropol Beach Hotel", stars, foods, 3, 0, childrenAge,
                                 "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
         */
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 510);
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 500);
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){
             System.out.println(resultList.get(i).toString());
