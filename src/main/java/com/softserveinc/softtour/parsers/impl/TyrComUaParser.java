@@ -296,11 +296,11 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         buttonSubmit.click();
     }
 
-
     @Override
-    protected void addAllWebElementsToWebElementList(){
+    protected void addWebElementsToWebElementList(){
         //TODO next page if pages are more then 4
-        for(int i = 2; i<COUNT_RESULT_PAGES;i++){
+        while (true){
+        //for(int i = 2; i<COUNT_RESULT_PAGES;i++){
             ArrayList<WebElement> oddList = (ArrayList<WebElement>)
                     driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
             ArrayList<WebElement> evenList = (ArrayList<WebElement>)
@@ -321,14 +321,13 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
             evenList.clear();
             WebElement nextPage = null;
             try{
-                nextPage = driver.findElement(By.linkText(String.valueOf(i)));
+                nextPage = driver.findElement(By.linkText(WHILE_NEXT_BUTTON));
                 nextPage.click();
             } catch (org.openqa.selenium.NoSuchElementException e){
                 return;
             }
         }
     }
-
 
      private void addTourToList(WebElement webElement){
         List<String> tourDataList = new ArrayList<>();
@@ -381,6 +380,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         //set departure city
         String depCity = tourDataList.get(3);
         if(depCity.equals(NO_DEPARTURE)) {
+            tour.setDepartureCity(NO_DEPARTURE_UA);
             tour.setDate(sqlDateDepart);
         } else {
             tour.setDepartureCity(depCity);
@@ -446,7 +446,6 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
              }
          }
         //add tour
-
         tourList.add(tour);
         hasTourDate = false;
         hasHotelPicture = false;
@@ -460,7 +459,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         TyrComUaParser parser = new TyrComUaParser("Туреччина", "Анталія", "Acropol Beach Hotel", stars, foods, 3, 0, childrenAge,
                                 "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
         */
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 1500);
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 510);
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){
             System.out.println(resultList.get(i).toString());

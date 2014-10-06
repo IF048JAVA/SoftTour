@@ -62,10 +62,7 @@ public class RegistrationController {
 		
 		registrationValidator.validate(user, bindingResult);
 		
-		if (bindingResult.hasErrors()) {
-			return "registration";
-		} else {
-			
+		if (!bindingResult.hasErrors()) {
 			String password = user.getPassword();
 			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String hashedPassword = passwordEncoder.encode(password);
@@ -76,6 +73,8 @@ public class RegistrationController {
     		userService.save(user);
         	
         	return "userProfile";
+		} else {
+			return "registration";
 		}
 	}
 	

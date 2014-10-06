@@ -36,3 +36,8 @@
 .country_selector {
     width: 100%;
 }
+
+.hotel_rating{
+    margin-bottom: 10px;
+    font-size: 30;
+}
