@@ -114,10 +114,6 @@ public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserCons
         return tourList;
     }
 
-    public void quit(){
-        driver.quit();
-    }
-
     protected abstract void selectCountry(String country);
     protected abstract void selectRegion(String region);
     protected abstract void selectHotel(String hotel);

@@ -300,7 +300,6 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
     protected void addWebElementsToWebElementList(){
         //TODO next page if pages are more then 4
         while (true){
-        //for(int i = 2; i<COUNT_RESULT_PAGES;i++){
             ArrayList<WebElement> oddList = (ArrayList<WebElement>)
                     driver.findElements(By.className(PARSE_RESULTS_BY_CLASS_NAME_ODD));
             ArrayList<WebElement> evenList = (ArrayList<WebElement>)
@@ -324,12 +323,14 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
                 nextPage = driver.findElement(By.linkText(WHILE_NEXT_BUTTON));
                 nextPage.click();
             } catch (org.openqa.selenium.NoSuchElementException e){
+                driver.quit();
+                hotelNameAndPicture.clear();
                 return;
             }
         }
     }
 
-     private void addTourToList(WebElement webElement){
+    private void addTourToList(WebElement webElement){
         List<String> tourDataList = new ArrayList<>();
         List<WebElement> listLeft = webElement.findElements(By.className(RESULT_LIST_LEFT_CLASS_NAME));
         List<WebElement> listCenter = webElement.findElements(By.className(RESULT_LIST_CENTER_CLASS_NAME));
@@ -347,17 +348,17 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
 
         /*
         list elements
-      0  region
-      1  Hotel name
-      2  ? Std
-      3  departure city
-      4  stars
-      5  food
-      6  tour days
-      7  departure date
-      8  link
-      9  price
-         */
+        0  region
+        1  Hotel name
+        2  ? Std
+        3  departure city
+        4  stars
+        5  food
+        6  tour days
+        7  departure date
+        8  link
+        9  price
+        */
 
         Tour tour = new Tour();
 
@@ -365,17 +366,17 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         int days = Integer.parseInt(tourDataList.get(6));
         tour.setDays(days);
 
-         //set departure time
-         String depTime = tourDataList.get(7);
-         Date departureTime = null;
-         java.sql.Date sqlDateDepart = null;
-         try {
-             departureTime = dateFormat.parse(depTime);
-             sqlDateDepart = new java.sql.Date(departureTime.getTime());
-         } catch (ParseException e) {
-             e.printStackTrace();
-         }
-         tour.setDepartureTime(sqlDateDepart);
+        //set departure time
+        String depTime = tourDataList.get(7);
+        Date departureTime = null;
+        java.sql.Date sqlDateDepart = null;
+        try {
+            departureTime = dateFormat.parse(depTime);
+            sqlDateDepart = new java.sql.Date(departureTime.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        tour.setDepartureTime(sqlDateDepart);
 
         //set departure city
         String depCity = tourDataList.get(3);
@@ -417,34 +418,34 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         Food food = new Food(foodSt);
         tour.setFood(food);
 
-         if(hasTourDate || !hasHotelPicture){
-             WebElement linkToPicture = driver.findElement(By.xpath(LINK_TO_PICTURE));
-             linkToPicture.click();
-             if(hasTourDate){
-                 WebElement tourDat = driver.findElements(By.className(GET_TOUR_TIME)).get(1);
-                 String tourDatTxt = tourDat.getText().substring(0, 8);
-                 Date dateT = null;
-                 java.sql.Date sqlTDate = null;
-                 try {
-                     dateT = dateFormat.parse(tourDatTxt);
-                     sqlTDate = new java.sql.Date(dateT.getTime());
-                 } catch (ParseException e) {
-                     e.printStackTrace();
-                 }
-                 tour.setDate(sqlTDate);
-             }
-             if(!hasHotelPicture){
-                 String st = "";
-                 try {
-                     st = (String) ((JavascriptExecutor) driver).executeScript(JAVASCRIPT_CODE);
-                 } catch (WebDriverException e) {
-                     st = NO_PICTURE;
-                 }
-                     hot.setImgUrl(st);
-                     hotelNameAndPicture.put(hotelName, st);
-                     tour.setHotel(hot);
-             }
-         }
+        if(hasTourDate || !hasHotelPicture){
+            WebElement linkToPicture = driver.findElement(By.xpath(LINK_TO_PICTURE));
+            linkToPicture.click();
+            if(hasTourDate){
+                WebElement tourDat = driver.findElements(By.className(GET_TOUR_TIME)).get(1);
+                String tourDatTxt = tourDat.getText().substring(0, 8);
+                Date dateT = null;
+                java.sql.Date sqlTDate = null;
+                try {
+                    dateT = dateFormat.parse(tourDatTxt);
+                    sqlTDate = new java.sql.Date(dateT.getTime());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                tour.setDate(sqlTDate);
+            }
+            if(!hasHotelPicture){
+                String st = "";
+                try {
+                    st = (String) ((JavascriptExecutor) driver).executeScript(JAVASCRIPT_CODE);
+                } catch (WebDriverException e) {
+                    st = NO_PICTURE;
+                }
+                    hot.setImgUrl(st);
+                    hotelNameAndPicture.put(hotelName, st);
+                    tour.setHotel(hot);
+            }
+        }
         //add tour
         tourList.add(tour);
         hasTourDate = false;
@@ -465,7 +466,6 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
             System.out.println(resultList.get(i).toString());
         }
         //don't forget to use this method
-        parser.quit();
     }
 }
 
