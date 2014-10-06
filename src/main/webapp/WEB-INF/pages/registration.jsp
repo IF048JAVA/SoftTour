@@ -31,7 +31,7 @@
 							<label class="col-md-4 control-label" for="email">Email/Login</label>
 							<div class="col-md-5">
 								<sf:input path="email" id="email" class="form-control input-md" 
-									pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b"
+									pattern="\b(?!.{31})([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})\b"
 									placeholder="Bведіть email"
 								 	data-error="Ви ввели некоректний email !" 
 								 	required="required"/>
