@@ -34,7 +34,6 @@ public class IndexController {
     public @ResponseBody List<Tour> searchTour(){
         TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 1500);
         List<Tour> resultList = parser.parse();
-        parser.quit();
         return resultList;
     }
 
