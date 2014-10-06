@@ -30,7 +30,7 @@
         <div class="col-md-2"></div>
     <div id="resText" class="col-md-12" style="visibility: hidden;"><h4  style="text-align: center;">Результати пошуку</h4></div>
 </div>
-
+<button type="button" class="btn btn-primary" onclick="parseTour()">Primary</button>
 <div id="indexResult" class="parent-group" style="visibility: hidden; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:10px;  margin-bottom:15px;">
     <!--Content from tour.js!-->
 </div>
