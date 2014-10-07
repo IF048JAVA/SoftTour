@@ -19,7 +19,7 @@
                 <li><a href="/feedback">Зворотній зв'язок</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/userProfile">Увійти</a></li>
+                <li><a href="/login/form">Увійти</a></li>
                 <li><a href="/registration/new">Реєстрація</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
