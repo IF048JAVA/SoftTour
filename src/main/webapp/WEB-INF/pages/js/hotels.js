@@ -1,5 +1,5 @@
 var ALL_COUNTRIES = "allCountries";
-var PAGE_SIZE = 4;
+var PAGE_SIZE = 5;
 
 function openModalWindow(id) {
     $('#myModal' + id).modal('show');
@@ -12,30 +12,6 @@ function closeModalWindow(id) {
 $(".hotel_search").on("submit", function (e) {
     e.preventDefault();
 });
-
-function showAll(page){
-    var query = {};
-    query.pageNum = page;
-    query.pageSize = PAGE_SIZE;
-
-    $.ajax({
-        url: "/hotels/all",
-        type: "GET",
-        data: query,
-        dataType: 'json',
-
-        success: function (data) {
-            $('#hotelResult').empty();
-            $.each(data, function (key, value) {
-
-                $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
-            })
-        },
-        error: function(){
-            alert("Error");
-        }
-    })
-}
 
 function searchByName() {
     var queryObj = {};
@@ -104,59 +80,47 @@ function searchHotels(pageNum) {
     });
 }
 
-function showPagination() {
-
-    searchHotels(1);
-    $('.pagination').jqPagination({
-        paged: function (page) {
-            searchHotels(page);
-        }
-    });
-
+function showSearchResult(){
+    showPagination(searchHotels);
 }
 
-$(document).ready(function () {
+function showPagination(callback) {
+    callback(1);
+    $('.pagination-md').twbsPagination({
+        totalPages: 10,
+        visiblePages: 7,
+        onPageClick: function (event, page) {
 
-    showAll(1);
+            callback(page);
 
-    $('.pagination').jqPagination({
-        paged: function (page) {
-
-            showAll(page);
-
-        }
-    });
-
-
-    $("#stars").rating();
-
-    $("#countrySelect2").val(["AllCountry"]).select2({
-        placeholder: "Оберіть країну",
-        allowClear: true
-    });
-
-    $.getJSON('/hotels/allCountry', {
-        ajax: 'true'
-    }, function (country) {
-
-        var html = ' ';
-        var len = country.length;
-
-        for (var i = 0; i < len; i++) {
-            html += '<option value="' + country[i].name + '">'
-                + country[i].name + '</option>';
-        }
-
-        $('#countrySelect2').html(html);
-    });
-
-   /* $.getJSON('/hotels/all', {
-        ajax: 'true'
-    }, function (hotel) {
-
-        $.each(hotel, function (key, value) {
-
-            $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+            }
         })
-    })*/
-});
+}
+
+if ($('#hotel_page').length) {
+    $('#hotel_page').ready(function () {
+
+        showSearchResult();
+
+        $("#countrySelect2").val(["AllCountry"]).select2({
+            placeholder: "Оберіть країну",
+            allowClear: true
+        });
+
+        $.getJSON('/hotels/allCountry', {
+            ajax: 'true'
+        }, function (country) {
+
+            var html = ' ';
+            var len = country.length;
+
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + country[i].name + '">'
+                    + country[i].name + '</option>';
+            }
+
+            $('#countrySelect2').html(html);
+        });
+    })
+}
+

@@ -32,11 +32,6 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findAll(Pageable pageable) {
-        return hotelRepository.findAll(pageable).getContent();
-    }
-
-    @Override
     public void deleteById(long id) {
         hotelRepository.delete(id);
     }

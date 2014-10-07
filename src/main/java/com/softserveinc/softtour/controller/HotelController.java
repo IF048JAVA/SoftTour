@@ -50,11 +50,4 @@ public class HotelController {
     public @ResponseBody List<Country> findCounties(){
         return countryService.findAll();
     }
-
-    @RequestMapping(value = "/all")
-    public @ResponseBody List<Hotel> findAllHotels(
-            @RequestParam(value = "pageNum", required = false) Integer pageNum,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-        return hotelService.findAll(new PageRequest(--pageNum, pageSize));
-    }
 }

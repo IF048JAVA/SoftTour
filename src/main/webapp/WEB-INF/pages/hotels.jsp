@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="row">
+<div class="row" id="hotel_page">
 
     <div class="col-md-2">
 
@@ -55,7 +55,7 @@
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
                     <button id="search_hotel" type="button" class="btn btn-default btn-block filter-button"
-                            onclick="showPagination()">Пошук
+                            onclick="showSearchResult()">Пошук
                     </button>
                 </div>
             </div>
@@ -66,16 +66,11 @@
 
     <!-- Result panel -->
     <div id="hotels-result" class="col-md-9 hotels-result">
-        <div class="pagination">
-            <a href="#" class="first" data-action="first">&laquo;</a>
-            <a href="#" class="previous" data-action="previous">&lsaquo;</a>
-            <input id="paginationNum" type="text" readonly="readonly" data-max-page="10" />
-            <a href="#" class="next" data-action="next">&rsaquo;</a>
-            <a href="#" class="last" data-action="last">&raquo;</a>
-        </div>
+        <ul class="pagination-md"></ul>
         <div class="panel-group" id="hotelResult">
 
         </div>
+        <ul class="pagination-md"></ul>
     </div>
 </div>
 

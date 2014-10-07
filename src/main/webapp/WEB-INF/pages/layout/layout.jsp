@@ -23,7 +23,7 @@
     <link href="<c:url value='/css/hotels.css' />" rel="stylesheet"/>
     <link href="<c:url value='/css/style.css' />" rel="stylesheet"/>
     <link href="<c:url value='/css/left_right_style.css' />" rel="stylesheet"/>
-    <link href="<c:url value='/css/jqpagination.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/jPages.css' />" rel="stylesheet"/>
 
 </head>
 <body bgcolor="#c0c0c0">
@@ -54,6 +54,6 @@
 <script src="<c:url value='/js/tours.js' />" ></script>
 <script src="<c:url value='/js/equal_div.js' />" ></script>
 <script src="<c:url value='/js/validator.js' />" ></script>
-<script src="<c:url value='/js/jquery.jqpagination.min.js' />" ></script>
+<script src="<c:url value='/js/jquery.twbsPagination.min.js' />" ></script>
 </body>
 </html>
