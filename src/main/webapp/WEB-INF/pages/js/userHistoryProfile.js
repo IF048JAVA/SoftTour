@@ -4,11 +4,7 @@ if( $('#panel-2').length){
         var tourArr = [];
         $.getJSON("/userProfile/userHistory", function (history) {
 
-            $.each(history, function(key, value){
-                tourArr.push(value.tour)
-            })
-
-            $('#historyTemplate').tmpl(tourArr).appendTo('#panel-2');
+            $('#historyTemplate').tmpl(history).appendTo('#panel-2');
         })
     })
 }

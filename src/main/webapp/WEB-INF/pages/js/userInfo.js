@@ -13,6 +13,10 @@ if( $('#myProfile').length){
         })
 }
 
+$("#userProfileForm").on("submit", function (e) {
+    e.preventDefault();
+});
+
 function userUpdate() {
 
     var userToUpdate = {};
