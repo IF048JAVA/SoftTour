@@ -4,6 +4,7 @@ import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.repository.HotelRepository;
 import com.softserveinc.softtour.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,8 +32,8 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findAll() {
-        return hotelRepository.findAll();
+    public List<Hotel> findAll(Pageable pageable) {
+        return hotelRepository.findAll(pageable).getContent();
     }
 
     @Override
@@ -41,10 +42,11 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findByCustomParameters(List<String> country, Integer rating, Integer comfort,
-                                              Integer cleanliness, Integer location, Integer valueForMoney) {
+    public List<Hotel> findByCustomParameters(List<String> country, Integer rating, Integer comfort,Integer cleanliness,
+                                              Integer location, Integer valueForMoney, Pageable pageable) {
+
         return hotelRepository.findByCustomParameters(country, BigDecimal.valueOf(rating),
                 BigDecimal.valueOf(comfort), BigDecimal.valueOf(cleanliness),
-                BigDecimal.valueOf(location), BigDecimal.valueOf(valueForMoney));
+                BigDecimal.valueOf(location), BigDecimal.valueOf(valueForMoney), pageable);
     }
 }

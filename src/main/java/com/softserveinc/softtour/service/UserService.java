@@ -51,7 +51,7 @@ public interface UserService {
 	 *  Returns the list of the user's objects with the specified parameters
 	 */
 	public List<User> findByAnyParameters(long id, String name, String email, String password, 
-			Date birthday, byte age, Sex sex, String phone, Role role);
+			Date birthday, Sex sex, String phone, Role role);
 	
 	/**
 	 *  Returns the list of all user's objects which are contained in the table User

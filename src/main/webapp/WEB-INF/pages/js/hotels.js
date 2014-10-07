@@ -1,4 +1,5 @@
 var ALL_COUNTRIES = "allCountries";
+var PAGE_SIZE = 4;
 
 function openModalWindow(id) {
     $('#myModal' + id).modal('show');
@@ -11,6 +12,30 @@ function closeModalWindow(id) {
 $(".hotel_search").on("submit", function (e) {
     e.preventDefault();
 });
+
+function showAll(page){
+    var query = {};
+    query.pageNum = page;
+    query.pageSize = PAGE_SIZE;
+
+    $.ajax({
+        url: "/hotels/all",
+        type: "GET",
+        data: query,
+        dataType: 'json',
+
+        success: function (data) {
+            $('#hotelResult').empty();
+            $.each(data, function (key, value) {
+
+                $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+            })
+        },
+        error: function(){
+            alert("Error");
+        }
+    })
+}
 
 function searchByName() {
     var queryObj = {};
@@ -26,7 +51,7 @@ function searchByName() {
             $('#hotelResult').empty();
             //$.each(data, function (key, value) {
 
-                $('#hotelTemplate').tmpl(data).appendTo('#hotelResult');
+            $('#hotelTemplate').tmpl(data).appendTo('#hotelResult');
             //})
         },
 
@@ -36,25 +61,28 @@ function searchByName() {
     });
 }
 
-function searchHotels() {
+function searchHotels(pageNum) {
 
     var query = {};
     query.country = '';
 
     var country = $('#countrySelect2').val();
-    if(country!=null){
-    $.each(country, function(key, value){
-        query.country+=value + ",";
-    })
+    if (country != null) {
+        $.each(country, function (key, value) {
+            query.country += value + ",";
+        })
     } else {
         query.country = ALL_COUNTRIES;
     }
+
 
     query.rating = $("#rating").val();
     query.comfort = $("#comfort").val();
     query.cleanliness = $("#cleanliness").val();
     query.location = $("#location").val();
     query.valueForMoney = $("#value_for_money").val();
+    query.pageNum = pageNum;
+    query.pageSize = PAGE_SIZE;
 
     $.ajax({
         url: "/hotels/result",
@@ -76,7 +104,29 @@ function searchHotels() {
     });
 }
 
+function showPagination() {
+
+    searchHotels(1);
+    $('.pagination').jqPagination({
+        paged: function (page) {
+            searchHotels(page);
+        }
+    });
+
+}
+
 $(document).ready(function () {
+
+    showAll(1);
+
+    $('.pagination').jqPagination({
+        paged: function (page) {
+
+            showAll(page);
+
+        }
+    });
+
 
     $("#stars").rating();
 
@@ -100,7 +150,7 @@ $(document).ready(function () {
         $('#countrySelect2').html(html);
     });
 
-    $.getJSON('/hotels/all', {
+   /* $.getJSON('/hotels/all', {
         ajax: 'true'
     }, function (hotel) {
 
@@ -108,5 +158,5 @@ $(document).ready(function () {
 
             $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
         })
-    })
+    })*/
 });

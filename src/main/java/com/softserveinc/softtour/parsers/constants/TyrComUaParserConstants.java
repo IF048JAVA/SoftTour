@@ -5,7 +5,7 @@ public interface TyrComUaParserConstants {
     String RESOURCE_PATH_REGION_VOCABULARY = "/parser_properties/region_ua-ru_vocabulary";
     String RESOURCE_PATH_DEPARTURE_CITY_VOCABULARY = "/parser_properties/departure-city_ua-ru_vocabulary";
     String DEFAULT_CHARSET = "UTF-8";
-    String URL_TYR_COM_UA = "http://www.tyr.com.ua/tours/search.php";
+    String URL_TYR_COM_UA = "http://tyr.com.ua/tours/search.php";
     String DEFAULT_COUNTRY = "Єгипет";
     String DROP_DOWN_COUNTRY_ID = "itt_country";
     String SELECT_REGION_ID = "region_list";

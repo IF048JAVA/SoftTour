@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,7 +31,9 @@ public class IndexController {
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
         //return tourService.findAll();
-        return tourService.parse();
+        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 500);
+        List<Tour> resultList = parser.parse();
+        return resultList;
     }
 
 }

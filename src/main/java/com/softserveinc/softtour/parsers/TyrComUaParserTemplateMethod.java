@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Properties;
 
 public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserConstants {
-    protected static WebDriver driver = new HtmlUnitDriver(true);
-    protected static Properties countryUaRuVocabulary = new Properties();
-    protected static Properties regionUaRuVocabulary = new Properties();
-    protected static Properties departureCityUaRuVocabulary = new Properties();
+    protected WebDriver driver = new HtmlUnitDriver(true);
+    protected Properties countryUaRuVocabulary = new Properties();
+    protected Properties regionUaRuVocabulary = new Properties();
+    protected Properties departureCityUaRuVocabulary = new Properties();
     protected List<Tour> tourList = new ArrayList<>();
     protected String country;
     protected String region;
@@ -34,13 +34,13 @@ public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserCons
     protected String currency;
     protected String departureCity;
 
-    static {
+    {
         try {
-            InputStream inputCountry = TyrComUaParserTemplateMethod.class.getClass().
+            InputStream inputCountry = this.getClass().
                     getResourceAsStream(RESOURCE_PATH_COUNTRY_VOCABULARY);
-            InputStream inputRegion = TyrComUaParserTemplateMethod.class.getClass().
+            InputStream inputRegion = this.getClass().
                     getResourceAsStream(RESOURCE_PATH_REGION_VOCABULARY);
-            InputStream inputDepCity = TyrComUaParserTemplateMethod.class.getClass().
+            InputStream inputDepCity = this.getClass().
                     getResourceAsStream(RESOURCE_PATH_DEPARTURE_CITY_VOCABULARY);
             countryUaRuVocabulary.load(new InputStreamReader(inputCountry, DEFAULT_CHARSET));
             regionUaRuVocabulary.load(new InputStreamReader(inputRegion, DEFAULT_CHARSET));

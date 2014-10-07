@@ -465,7 +465,6 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         for(int i = 0; i<resultList.size(); i++){
             System.out.println(resultList.get(i).toString());
         }
-        //don't forget to use this method
     }
 }
 

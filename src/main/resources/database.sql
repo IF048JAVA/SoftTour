@@ -17,7 +17,6 @@ CREATE TABLE user (
   email varchar(30) NOT NULL UNIQUE,
   password varchar(100) NOT NULL,
   birthday date NOT NULL,
-  age tinyint(3) unsigned NOT NULL,
   sex enum('MALE','FEMALE') NOT NULL,
   phone varchar(20) DEFAULT NULL,
   role_id bigint(20) NOT NULL,

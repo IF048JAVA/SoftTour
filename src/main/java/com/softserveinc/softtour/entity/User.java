@@ -28,9 +28,6 @@ public class User implements Serializable {
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 
-    @Column(name = "age", nullable = false, length = 3)
-    private byte age;
-
     @Column(name = "sex", nullable = false)
     @Enumerated(EnumType.STRING)
     private Sex sex;
@@ -53,7 +50,6 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.birthday = birthday;
-        this.age = age;
         this.sex = sex;
         this.phone = phone;
         this.role = role;
@@ -97,14 +93,6 @@ public class User implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
-    }
-
-    public byte getAge() {
-        return age;
-    }
-
-    public void setAge(byte age) {
-        this.age = age;
     }
 
     public Sex getSex() {

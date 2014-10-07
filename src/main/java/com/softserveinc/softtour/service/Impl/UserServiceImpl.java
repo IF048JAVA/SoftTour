@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly=false)
 	public void update(long id,User user) {
 		userRepository.update( id, user.getName(), user.getEmail(), user.getPassword(), 
-				user.getBirthday(), user.getAge(), user.getSex(), user.getPhone(), user.getRole());
+				user.getBirthday(), user.getSex(), user.getPhone(), user.getRole());
 	}
 
 	/**
@@ -90,9 +90,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public List<User> findByAnyParameters(long id, String name, String email, String password, 
-								Date birthday, byte age, Sex sex, String phone, Role role) {
-		return userRepository.findByIdOrNameOrEmailOrPasswordOrBirthdayOrAgeOrSexOrPhoneOrRole(
-				id, name, email, password, birthday, age, sex, phone, role);
+								Date birthday, Sex sex, String phone, Role role) {
+		return userRepository.findByIdOrNameOrEmailOrPasswordOrBirthdayOrSexOrPhoneOrRole(
+				id, name, email, password, birthday, sex, phone, role);
 	}
 	
 	/**
