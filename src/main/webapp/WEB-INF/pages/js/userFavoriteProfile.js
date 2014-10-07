@@ -9,7 +9,7 @@ if( $('#panel-1').length){
                 tourArr.push(value.tour)
 
             })
-            $('#favoriteTemplate').tmpl(tourArr).appendTo('#panel-1');
+            $('#favoriteTemplate').tmpl(favorites).appendTo('#panel-1');
         })
 
     })

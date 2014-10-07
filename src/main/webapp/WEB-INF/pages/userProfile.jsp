@@ -40,7 +40,8 @@
 				<div class="col-md-3 col-md-3-offset"></div>
 				<div class="col-md-6 form">
 				
-					<form class="form-horizontal" data-toggle="validator" role="form">
+					<form id="userProfileForm" class="form-horizontal" action="save" method="POST"
+                          data-toggle="validator" role="form" onsubmit="userUpdate()">
 						
 						<fieldset>
 						
@@ -55,7 +56,8 @@
                                         pattern="\b[A-Za-z0-9]{2,30}\b"
                                         placeholder="Bід 2 до 30 символів"
                                         data-error="Ви ввели некоректне ім'я !"
-                                        required="required"/>
+                                        required="required"
+                                        disabled/>
                                 </div>
                             </div>
 
@@ -67,7 +69,8 @@
                                         pattern="\b(?!.{31})([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})\b"
                                         placeholder="Bведіть email"
                                         data-error="Ви ввели некоректний email !"
-                                        required="required"/>
+                                        required="required"
+                                        disabled/>
 
                                     <div class="help-block with-errors"></div>
                                     <errors path="email" cssClass="error"/>
@@ -82,8 +85,7 @@
                                     <input type="password" name="password" id="password" class="form-control input-md"
                                         pattern="\b[A-Za-z0-9._%+-]{6,30}\b"
                                         placeholder="Bід 6 до 30 символів"
-                                        data-error="Ви ввели некоректний пароль !"
-                                        required="required"/>
+                                        data-error="Ви ввели некоректний пароль !"/>
 
                                     <div class="help-block with-errors"></div>
                                 </div>
@@ -96,8 +98,7 @@
                                     <input type="password" name="confirmPassword" id="confirmPassword" class="form-control input-md"
                                            placeholder="Повторіть введення паролю"
                                            data-match="#password"
-                                           data-match-error="Некоректно підтверджений пароль !"
-                                           required="required"/>
+                                           data-match-error="Некоректно підтверджений пароль !"/>
 
                                     <div class="help-block with-errors"></div>
                                 </div>
@@ -142,18 +143,21 @@
                                     <errors path="email" cssClass="error"/>
                                 </div>
                             </div>
+
+                            <!-- Save Button -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    Зберегти
+                                </button>
+                            </div>
 							
 						</fieldset>
 
 					</form>
 
-                    <!-- Save Button -->
-                    <div class="form-group">
-                        <button class="btn btn-primary" onclick="userUpdate()">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            Зберегти
-                        </button>
-                    </div>
+
+
 
 				</div>
 			</div>
@@ -164,17 +168,16 @@
                 <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${id}">
                      <span class="panel-title collapsed" data-parent="#panel-1">
                          <span class="tabTitleFont">Країна: </span>
-                         <span id="tourCountry-f\${id}" class="tabulatedTitle">\${hotel.region.country.name}</span>
+                         <span id="tourCountry-f\${id}" class="tabulatedTitle">\${tour.hotel.region.country.name}</span>
                          <span class="tabTitleFont">Тривалість туру: </span>
-                         <span id="tourDays-f\${id}" class="tabulatedTitle">\${days} Днів</span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle">\${tour.days} Днів</span>
                          <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-f\${id}" class="tabulatedTitle">\${price} $</span>
+                         <span id="tourPrice-f\${id}" class="tabulatedTitle">\${tour.price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
-                         <span id="tourFood-f\${id}" class="tabulatedTitle">\${food.name}</span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle">\${tour.food.name}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
-                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${date}</span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${tour.date}</span>
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})"></i></span>
-                     </a>
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
                     <div class="panel-body">
@@ -189,16 +192,15 @@
                 <div class="panel-heading" data-toggle="collapse" href="#panel-element-h\${id}">
                      <span class="panel-title collapsed"  data-parent="#panel-1" >
                          <span class="tabTitleFont">Країна: </span>
-                         <span id="tourCountry-h\${id}" class="tabulatedTitle">\${hotel.region.country.name}</span>
+                         <span id="tourCountry-h\${id}" class="tabulatedTitle">\${tour.hotel.region.country.name}</span>
                          <span class="tabTitleFont">Тривалість туру: </span>
-                         <span id="tourDays-h\${id}" class="tabulatedTitle">\${days} Днів</span>
+                         <span id="tourDays-h\${id}" class="tabulatedTitle">\${tour.days} Днів</span>
                          <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${price} $</span>
+                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${tour.price} </span>
                          <span class="tabTitleFont">Харчування: </span>
-                         <span id="tourFood-h\${id}" class="tabulatedTitle">\${food.name}</span>
+                         <span id="tourFood-h\${id}" class="tabulatedTitle">\${tour.food.name}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
-                         <span id="tourDepartureDate-h\${id}" class="tabulatedTitle">\${date}</span>
-                     </a>
+                         <span id="tourDepartureDate-h\${id}" class="tabulatedTitle">\${tour.date}</span>
                 </div>
                 <div id="panel-element-h\${id}" class="panel-collapse collapse">
                     <div class="panel-body">
