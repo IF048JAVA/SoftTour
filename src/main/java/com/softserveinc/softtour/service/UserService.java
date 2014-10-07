@@ -40,7 +40,7 @@ public interface UserService {
     /**
      * Returns the list of the user's objects with the specified email
      */
-    public User findByEmail(String name);
+    public User findByEmail(String email);
 	
 	/**
 	 * Returns the list of the user's objects with the specified name or email
