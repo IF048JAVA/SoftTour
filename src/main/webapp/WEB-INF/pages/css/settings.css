@@ -16,7 +16,7 @@
 }
 body {
     background: url("../img/back.jpg") no-repeat; background-attachment:fixed;
-    background-size: cover; 
+    background-size: cover;
 }
 
 #white_main {
@@ -75,4 +75,7 @@ p {
     position: absolute;
     margin-left: 8px;
     top:7px;
+}
+.glyphicon-pointer {
+    cursor: pointer;
 }

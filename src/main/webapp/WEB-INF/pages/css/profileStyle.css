@@ -79,12 +79,14 @@ body {
 }
 
 span.tabulatedTitle{
+    font-weight: bold ;
     margin-right: 30pt;
-    color: #ff362e
+    color: #285e8e;
 }
 
 .tabTitleFont {
-    color: #246fff
+    font-weight: bold ;
+    color: #30aaff;
 }
 
 

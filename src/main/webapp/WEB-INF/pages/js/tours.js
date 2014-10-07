@@ -36,6 +36,13 @@ $(document).ready(function () {})
             dataType: 'json',
 
             success: function (data) {
+                showModal();
+                var new_id=0;
+                $.each(data,function(key,value){
+                    value.id=new_id;
+                    new_id++;
+                })
+                console.log (data);
                 $('#indexResult').empty();
                 $('#indexTemplate').tmpl(data).appendTo('#indexResult');
             },
@@ -46,3 +53,7 @@ $(document).ready(function () {})
 
         });
     }
+function uncollapse(id){
+    $(".collapse").collapse('hide')
+
+}
