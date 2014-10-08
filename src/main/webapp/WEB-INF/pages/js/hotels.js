@@ -28,11 +28,14 @@ function searchByName(pageNum) {
 
         success: function (data) {
 
-            $('#hotelResult').empty();
-            $.each(data, function (key, value) {
+            var numOfPages = data.totalPages;
 
-            $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+            $('#hotelResult').empty();
+            $.each(data.content, function (key, value) {
+
+                $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
             })
+            showPagination(searchByName, numOfPages, pageNum)
         },
 
         error: function () {
@@ -71,49 +74,55 @@ function searchHotels(pageNum) {
         dataType: 'json',
 
         success: function (data) {
+            var numOfPages = data.totalPages;
+
             $('#hotelResult').empty();
-            $.each(data, function (key, value) {
+
+            $.each(data.content, function (key, value) {
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
             })
-        },
 
+            showPagination(searchHotels, numOfPages, pageNum)
+        },
         error: function () {
             alert("ERROR");
         }
+
     });
+
+    return numOfPages;
 }
 
-function search(){
-    showPagination(searchByName);
+function search() {
+    searchByName(1);
 }
 
-function showSearchResult(){
-    showPagination(searchHotels);
+function showSearchResult() {
+    searchHotels(1);
 }
 
-function showPagination(callback) {
+function showPagination(callback, numOfPages, pageNum) {
 
-    callback(1);
-
-    $(".pagin").html('<ul class="pagination-md"></ul>');
+    if (pageNum == 0) {
+        $(".pagin").html('<ul class="pagination-md"></ul>');
+    }
 
     $('.pagination-md').twbsPagination({
-        totalPages: 10,
-        visiblePages: 7,
+        totalPages: numOfPages,
+        visiblePages: 15,
         startPage: 1,
         onPageClick: function (event, page) {
-
             callback(page);
 
-            }
-        })
+        }
+    })
 }
 
-if ($('#hotel_page').length) {
-    $(this.$element).ready(function () {
 
-        showSearchResult();
+if ($('#hotel_page').length) {
+
+    $(this.$element).ready(function () {
 
         $("#countrySelect2").val(["AllCountry"]).select2({
             placeholder: "Оберіть країну",
@@ -135,5 +144,7 @@ if ($('#hotel_page').length) {
             $('#countrySelect2').html(html);
         });
     })
+
+    showSearchResult();
 }
 

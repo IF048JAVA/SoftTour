@@ -4,6 +4,7 @@ import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.repository.HotelRepository;
 import com.softserveinc.softtour.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List <Hotel> findByName(String name, Pageable pageable) {
+    public Page <Hotel> findByName(String name, Pageable pageable) {
         return hotelRepository.findByName(name, pageable);
     }
 
@@ -37,7 +38,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findByCustomParameters(List<String> country, Integer rating, Integer comfort,Integer cleanliness,
+    public Page<Hotel> findByCustomParameters(List<String> country, Integer rating, Integer comfort,Integer cleanliness,
                                               Integer location, Integer valueForMoney, Pageable pageable) {
 
         return hotelRepository.findByCustomParameters(country, BigDecimal.valueOf(rating),

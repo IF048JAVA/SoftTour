@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.repository;
 
 import com.softserveinc.softtour.entity.Hotel;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "and h.location >= :location " +
             "and h.valueForMoney >= :valueForMoney " +
             "order by h.rating desc")
-    List<Hotel> findByCustomParameters(@Param("country") List<String> country,
+    Page<Hotel> findByCustomParameters(@Param("country") List<String> country,
                                        @Param("rating") BigDecimal rating,
                                        @Param("comfort") BigDecimal comfort,
                                        @Param("cleanliness") BigDecimal cleanliness,
@@ -31,7 +32,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
     @Query("select h from Hotel h " +
             "where h.name like concat('%',:name,'%') " +
             "order by h.name asc ")
-    List <Hotel> findByName(@Param("name")String name,
+    Page <Hotel> findByName(@Param("name")String name,
                             Pageable pageable);
 }
 
