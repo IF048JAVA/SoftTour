@@ -36,13 +36,15 @@ public class HotelController {
             @RequestParam(value = "pageSize", required = false) Integer pageSize) {
 
         return hotelService.findByCustomParameters(country, rating, comfort, cleanliness, location, valueForMoney,
-                new PageRequest(--pageNum, pageSize));
+                new PageRequest(pageNum, pageSize));
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public @ResponseBody List<Hotel> findByName(
-            @RequestParam(value = "name", required = false) String name){
-        return hotelService.findByName(name);
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "pageNum", required = false) Integer pageNum,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize){
+        return hotelService.findByName(name, new PageRequest(pageNum, pageSize));
     }
 
 

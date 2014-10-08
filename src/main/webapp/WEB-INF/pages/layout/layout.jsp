@@ -23,7 +23,6 @@
     <link href="<c:url value='/css/hotels.css' />" rel="stylesheet"/>
     <link href="<c:url value='/css/style.css' />" rel="stylesheet"/>
     <link href="<c:url value='/css/left_right_style.css' />" rel="stylesheet"/>
-    <link href="<c:url value='/css/jPages.css' />" rel="stylesheet"/>
     <link href="<c:url value='/css/login.css' />" rel="stylesheet"/>
 
 </head>

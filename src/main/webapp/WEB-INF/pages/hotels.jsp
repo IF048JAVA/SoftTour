@@ -5,7 +5,7 @@
     <div class="col-md-2">
 
         <!-- Search field -->
-        <form class="navbar-form hotel_search" role="search" onsubmit="searchByName()">
+        <form class="navbar-form hotel_search" role="search" onsubmit="search()">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Пошук..." id="searchHotelByName">
 
@@ -66,11 +66,12 @@
 
     <!-- Result panel -->
     <div id="hotels-result" class="col-md-9 hotels-result">
-        <ul class="pagination-md"></ul>
+        <div class="pagin"></div>
         <div class="panel-group" id="hotelResult">
 
         </div>
-        <ul class="pagination-md"></ul>
+        <div class="pagin"></div>
+
     </div>
 </div>
 

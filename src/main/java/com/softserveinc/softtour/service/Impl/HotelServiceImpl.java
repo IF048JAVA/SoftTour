@@ -27,8 +27,8 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List <Hotel> findByName(String name) {
-        return hotelRepository.findByName(name);
+    public List <Hotel> findByName(String name, Pageable pageable) {
+        return hotelRepository.findByName(name, pageable);
     }
 
     @Override

@@ -29,7 +29,9 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
                                        Pageable pageable);
 
     @Query("select h from Hotel h " +
-            "where h.name like concat('%',:name,'%')")
-    List <Hotel> findByName(@Param("name")String name);
+            "where h.name like concat('%',:name,'%') " +
+            "order by h.name asc ")
+    List <Hotel> findByName(@Param("name")String name,
+                            Pageable pageable);
 }
 
