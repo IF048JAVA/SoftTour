@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.UserService;
@@ -15,6 +16,7 @@ import com.softserveinc.softtour.util.LoginValidator;
 
 @Controller
 @RequestMapping(value="/login")
+@SessionAttributes ({"user"})
 public class LoginController {
 	
 	/**
@@ -40,8 +42,8 @@ public class LoginController {
 		loginValidator.validate(user, bindingResult);
 		
 		if (!bindingResult.hasErrors()) {
-			// FIXME Check
-			model.addAttribute("user_email", user.getEmail());
+			model.addAttribute(user);
+			
 			return "redirect:/userProfile";
 		}else {
 			return "login";
