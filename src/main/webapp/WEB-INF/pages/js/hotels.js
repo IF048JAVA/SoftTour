@@ -94,7 +94,6 @@ function showSearchResult(){
 
 function showPagination(callback) {
 
-    getPageNums();
     callback(1);
 
     $(".pagin").html('<ul class="pagination-md"></ul>');
