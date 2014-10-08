@@ -1,9 +1,12 @@
 package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.Country;
+import com.softserveinc.softtour.entity.Feedback;
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.service.CountryService;
+import com.softserveinc.softtour.service.FeedbackService;
 import com.softserveinc.softtour.service.HotelService;
+import com.softserveinc.softtour.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,12 +21,19 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/hotels")
 public class HotelController {
+private static final Long TEST_USER_ID = (long) 1;
 
     @Autowired
     private HotelService hotelService;
 
     @Autowired
     private CountryService countryService;
+
+    @Autowired
+    private FeedbackService feedbackService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public @ResponseBody Page<Hotel> findHotels(
@@ -54,4 +64,15 @@ public class HotelController {
         return countryService.findAll();
     }
 
+    @RequestMapping(value = "/leaveFeedback", method = RequestMethod.POST)
+    public @ResponseBody void saveFeedback(
+            @RequestParam(value = "comfort", required = true) Integer comfort,
+            @RequestParam(value = "cleanliness", required = true) Integer cleanliness,
+            @RequestParam(value = "location", required = true) Integer location,
+            @RequestParam(value = "valueForMoney", required = true) Integer valueForMoney,
+            @RequestParam(value = "comment", required = false) String comment,
+            @RequestParam(value = "hotelId", required = true) Long hotelId){
+        feedbackService.save(new Feedback(cleanliness, comfort, location, valueForMoney, comment,
+                hotelService.findOne(hotelId), userService.findById(TEST_USER_ID)));
+    }
 }

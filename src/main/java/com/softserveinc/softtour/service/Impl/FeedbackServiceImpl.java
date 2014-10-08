@@ -3,7 +3,6 @@ package com.softserveinc.softtour.service.Impl;
 import com.softserveinc.softtour.entity.Feedback;
 import com.softserveinc.softtour.repository.FeedbackRepository;
 import com.softserveinc.softtour.service.FeedbackService;
-import com.softserveinc.softtour.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +31,5 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public void delete(Feedback feedback) {
         feedbackRepository.delete(feedback);
-    }
-
-    @Override
-    public void deleteById(long id) {
-        feedbackRepository.delete(id);
-    }
-
-    @Override
-    public List<Feedback> findByCustomParameters() {
-        return null;
     }
 }

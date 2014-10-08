@@ -40,3 +40,15 @@
 .pagin{
     margin-left: 30px;
 }
+
+.comment_fb{
+    margin-top: 20px;
+    margin-left: 25px;
+    width: 520px;
+    max-width: 520px;
+    max-height: 200px;
+}
+
+.stars_fb{
+    text-align: center;
+}
