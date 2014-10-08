@@ -3,9 +3,11 @@ package com.softserveinc.softtour.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.RoleService;
@@ -19,6 +21,7 @@ import com.softserveinc.softtour.util.RegistrationValidator;
  */
 @Controller
 @RequestMapping(value="/registration")
+@SessionAttributes ({"user"})
 public class RegistrationController {
 	
 	/**
@@ -55,7 +58,7 @@ public class RegistrationController {
 	 * @return the name which redirect to the page registration.jsp or userProfile.jsp
 	 */
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String save(User user, BindingResult bindingResult) {
+	public String save(User user, BindingResult bindingResult, ModelMap model) {
 		
 		registrationValidator.validate(user, bindingResult);
 		
@@ -64,6 +67,7 @@ public class RegistrationController {
 			user.setRole(roleService.findByName("registeredUser"));
 			userService.save(user);
         	
+			model.addAttribute(user);
         	return "userProfile";
 		} else {
 			return "registration";

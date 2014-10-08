@@ -6,8 +6,8 @@ INSERT INTO role VALUES
   (3, 'registeredUser');
 
 INSERT INTO user VALUES
-  (1, 'Andriy', 'elips@gmail.com', '1111', '1987-11-24', 'MALE', '+380958000877', 3),
-  (2, 'Taras', 'taras@gmail.com', '2222', '1990-06-12', 'MALE', '+380994455666', 3);
+  (1, 'Ronaldo', 'cristiano@gmail.com', 'c519e76f6719da3d089433d16ec68662b80087361af1253b0f1ca12fa4da9781', '1985-05-02', 'MALE', '+380506007733', 3),
+  (2, 'Messi', 'lionel@gmail.com', '7b443e7a5d6f7b0b3b700b540cd46338be7808dfc815acf83a9e80111c4bdd97', '1987-06-24', 'MALE', '+380994455666', 3);
 
 INSERT INTO country VALUES
   (1, 'Egypt'),
