@@ -2,6 +2,7 @@ package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.parsers.TyrComUaParserTemplateMethod;
+import com.softserveinc.softtour.parsers.constants.TyrComUaParserConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriverException;
@@ -13,8 +14,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class TyrComUaParser extends TyrComUaParserTemplateMethod {
-    private Map <String, String> hotelNameAndPicture = new HashMap<>();
+public class TyrComUaParser extends TyrComUaParserTemplateMethod implements TyrComUaParserConstants {
+    private Map<String, String> hotelNameAndPicture = new HashMap<>();
     private boolean hasTourDate;
     private boolean hasHotelPicture;
     private SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
@@ -23,7 +24,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
                           int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
                           int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity) {
         super(country, region, hotel, stars, foods, adults, children, childrenAge, dateFlyFrom, dateFlyTo,
-              countNightsFrom, countNightsTo, priceFrom, priceTo, currency, departureCity);
+                countNightsFrom, countNightsTo, priceFrom, priceTo, currency, departureCity);
     }
 
     public TyrComUaParser(String country, int adults, int children, int priceFrom, int priceTo) {
@@ -346,19 +347,19 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         listCenter.clear();
         tourDataList.add(textRight.getText());
 
-        /*
-        list elements
-        0  region
-        1  Hotel name
-        2  ? Std
-        3  departure city
-        4  stars
-        5  food
-        6  tour days
-        7  departure date
-        8  link
-        9  price
-        */
+    /*
+    list elements
+    0  region
+    1  Hotel name
+    2  ? Std
+    3  departure city
+    4  stars
+    5  food
+    6  tour days
+    7  departure date
+    8  link
+    9  price
+    */
 
         Tour tour = new Tour();
 
@@ -388,7 +389,7 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
             hasTourDate = true;
         }
 
-         //set price
+        //set price
         String priceSt = tourDataList.get(9);
         char [] priceCh = priceSt.toCharArray();
         StringBuffer priceOnlyNumbers = new StringBuffer();
@@ -407,11 +408,11 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         int star = Integer.parseInt(tourDataList.get(4));
         String hotelName = tourDataList.get(1);
         Hotel hot = new Hotel(hotelName, star, reg);
-         if (hotelNameAndPicture.containsKey(hotelName)) {
-             hot.setImgUrl(hotelNameAndPicture.get(hotelName));
-             tour.setHotel(hot);
-             hasHotelPicture = true;
-         }
+        if (hotelNameAndPicture.containsKey(hotelName)) {
+            hot.setImgUrl(hotelNameAndPicture.get(hotelName));
+            tour.setHotel(hot);
+            hasHotelPicture = true;
+        }
 
         //set Food
         String foodSt = tourDataList.get(5);
@@ -441,9 +442,9 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
                 } catch (WebDriverException e) {
                     st = NO_PICTURE;
                 }
-                    hot.setImgUrl(st);
-                    hotelNameAndPicture.put(hotelName, st);
-                    tour.setHotel(hot);
+                hot.setImgUrl(st);
+                hotelNameAndPicture.put(hotelName, st);
+                tour.setHotel(hot);
             }
         }
         //add tour
@@ -453,13 +454,13 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
     }
 
     public static void main(String[] args) {
-        /*
-        int[] stars = {2, 3, 4, 5};
-        String[] foods = {"HB", "AI"};
-        int[] childrenAge = {};
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", "Анталія", "Acropol Beach Hotel", stars, foods, 3, 0, childrenAge,
-                                "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
-        */
+    /*
+    int[] stars = {2, 3, 4, 5};
+    String[] foods = {"HB", "AI"};
+    int[] childrenAge = {};
+    TyrComUaParser parser = new TyrComUaParser("Туреччина", "Анталія", "Acropol Beach Hotel", stars, foods, 3, 0, childrenAge,
+                            "01.10.14", "31.12.14", 6, 21, 6000, 120000, "Грн", "Київ");
+    */
         TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 500);
         List<Tour> resultList = parser.parse();
         for(int i = 0; i<resultList.size(); i++){
@@ -467,4 +468,5 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod {
         }
     }
 }
+
 

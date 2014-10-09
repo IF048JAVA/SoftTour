@@ -4,6 +4,7 @@ import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.parsers.constants.TyrComUaParserConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -51,8 +52,8 @@ public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserCons
     }
 
     protected TyrComUaParserTemplateMethod(String country, String region, String hotel, int[] stars, String[] foods,
-            int adults, int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
-            int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity) {
+                                           int adults, int children, int[] childrenAge, String dateFlyFrom, String dateFlyTo, int countNightsFrom,
+                                           int countNightsTo, int priceFrom, int priceTo, String currency, String departureCity) {
         this.country = country;
         this.region = region;
         this.hotel = hotel;
@@ -133,3 +134,4 @@ public abstract class TyrComUaParserTemplateMethod implements TyrComUaParserCons
     protected abstract void search();
     protected abstract void addWebElementsToWebElementList();
 }
+

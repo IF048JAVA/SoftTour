@@ -1,7 +1,7 @@
 package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.Tour;
-import com.softserveinc.softtour.parsers.impl.TyrComUaParser;
+import com.softserveinc.softtour.parsers.impl.ItTourParser;
 import com.softserveinc.softtour.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +30,7 @@ public class IndexController {
 
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
-        //return tourService.findAll();
-        TyrComUaParser parser = new TyrComUaParser("Туреччина", 3, 1, 500, 500);
+        ItTourParser parser = new ItTourParser("Єгипет", 3, 1 ,500, 1000);
         List<Tour> resultList = parser.parse();
         return resultList;
     }
