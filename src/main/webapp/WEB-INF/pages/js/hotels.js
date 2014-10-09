@@ -5,10 +5,6 @@ function openModalWindow(id) {
     $('#myModal' + id).modal('show');
 }
 
-function closeModalWindow(id) {
-    $('#myModal' + id).modal('hide');
-}
-
 $(".hotel_search").on("submit", function (e) {
     e.preventDefault();
 });
@@ -119,9 +115,26 @@ function showPagination(callback, numOfPages, pageNum) {
     })
 }
 
+function leaveFeedback(hotelId){
+    var feedbackQuery = {};
+    feedbackQuery.cleanliness = $("#cleanliness-fb" + hotelId).val();
+    feedbackQuery.comfort = $("#comfort-fb" + hotelId).val();
+    feedbackQuery.location = $("#location-fb" + hotelId).val();
+    feedbackQuery.valueForMoney = $("#value_for_money-fb" + hotelId).val();
+    feedbackQuery.comment = $("#comment" + hotelId).val();
+    feedbackQuery.hotelId =  + hotelId;
+
+    function closeModalWindow(hotelId) {
+        $('#myModal' + hotelId).modal('hide');
+    }
+    $.ajax({
+        url: "/hotels/leaveFeedback",
+        type: "POST",
+        data: feedbackQuery
+    })
+}
 
 if ($('#hotel_page').length) {
-
     $(this.$element).ready(function () {
 
         $("#countrySelect2").val(["AllCountry"]).select2({

@@ -18,6 +18,9 @@ public class Hotel {
     @Column(name = "stars", nullable = false, length = 1)
     private int stars;
 
+    @Column(name = "feedbacksNum")
+    private int feedbackNum;
+
     @Column(name = "rating")
     private BigDecimal rating;
 
@@ -142,19 +145,11 @@ public class Hotel {
         this.imgUrl = imgUrl;
     }
 
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", stars=" + stars +
-                ", rating=" + rating +
-                ", comfort=" + comfort +
-                ", cleanliness=" + cleanliness +
-                ", location=" + location +
-                ", valueForMoney=" + valueForMoney +
-                ", imgUrl='" + imgUrl + '\'' +
-                ", region=" + region +
-                '}';
+    public int getFeedbackNum() {
+        return feedbackNum;
+    }
+
+    public void setFeedbackNum(int feedbackNum) {
+        this.feedbackNum = feedbackNum;
     }
 }

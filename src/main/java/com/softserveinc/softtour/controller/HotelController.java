@@ -7,6 +7,7 @@ import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.FeedbackService;
 import com.softserveinc.softtour.service.HotelService;
 import com.softserveinc.softtour.service.UserService;
+import com.softserveinc.softtour.util.HotelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +36,10 @@ private static final Long TEST_USER_ID = (long) 1;
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HotelUtil hotelUtil;
+
+
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public @ResponseBody Page<Hotel> findHotels(
             @RequestParam(value = "country", required = true) List<String> country,
@@ -56,6 +61,7 @@ private static final Long TEST_USER_ID = (long) 1;
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "pageNum", required = false) Integer pageNum,
             @RequestParam(value = "pageSize", required = false) Integer pageSize){
+
         return hotelService.findByName(name, new PageRequest(pageNum, pageSize));
     }
 
@@ -65,14 +71,20 @@ private static final Long TEST_USER_ID = (long) 1;
     }
 
     @RequestMapping(value = "/leaveFeedback", method = RequestMethod.POST)
-    public @ResponseBody void saveFeedback(
+    public void saveFeedback(
             @RequestParam(value = "comfort", required = true) Integer comfort,
             @RequestParam(value = "cleanliness", required = true) Integer cleanliness,
             @RequestParam(value = "location", required = true) Integer location,
             @RequestParam(value = "valueForMoney", required = true) Integer valueForMoney,
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam(value = "hotelId", required = true) Long hotelId){
-        feedbackService.save(new Feedback(cleanliness, comfort, location, valueForMoney, comment,
-                hotelService.findOne(hotelId), userService.findById(TEST_USER_ID)));
+
+        Hotel hotel = hotelService.findOne(hotelId);
+
+        Feedback feedback = new Feedback(cleanliness, comfort, location, valueForMoney, comment,
+                hotel, userService.findById(TEST_USER_ID));
+        feedbackService.save(feedback);
+
+        hotelService.save(hotelUtil.updateHotelRate(hotelId, cleanliness, comfort, location, valueForMoney));
     }
 }
