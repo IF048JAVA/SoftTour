@@ -1,5 +1,5 @@
 var ALL_COUNTRIES = "allCountries";
-var PAGE_SIZE = 5;
+var PAGE_SIZE = 10;
 
 function openModalWindow(id) {
     $('#myModal' + id).modal('show');
@@ -13,7 +13,7 @@ function searchByName(pageNum) {
 
     var queryObj = {};
     queryObj.name = $("#searchHotelByName").val();
-    queryObj.pageNum = --pageNum;
+    queryObj.page = --pageNum;
     queryObj.pageSize = PAGE_SIZE;
 
     $.ajax({
@@ -60,8 +60,9 @@ function searchHotels(pageNum) {
     query.cleanliness = $("#cleanliness").val();
     query.location = $("#location").val();
     query.valueForMoney = $("#value_for_money").val();
-    query.pageNum = --pageNum;
+    query.page = --pageNum;
     query.pageSize = PAGE_SIZE;
+    query.property = $("#sort").val();
 
     $.ajax({
         url: "/hotels/result",
@@ -136,6 +137,8 @@ function leaveFeedback(hotelId){
 
 if ($('#hotel_page').length) {
     $(this.$element).ready(function () {
+
+        $("#sort").select2();
 
         $("#countrySelect2").val(["AllCountry"]).select2({
             placeholder: "Оберіть країну",
