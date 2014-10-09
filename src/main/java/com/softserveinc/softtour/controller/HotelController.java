@@ -11,6 +11,7 @@ import com.softserveinc.softtour.util.HotelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,21 +49,23 @@ private static final Long TEST_USER_ID = (long) 1;
             @RequestParam(value = "cleanliness", required = false) Integer cleanliness,
             @RequestParam(value = "location", required = false) Integer location,
             @RequestParam(value = "valueForMoney", required = false) Integer valueForMoney,
-            @RequestParam(value = "pageNum", required = false) Integer pageNum,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+            @RequestParam(value = "property", required = false) String property
+    ) {
 
 
         return hotelService.findByCustomParameters(country, rating, comfort, cleanliness, location, valueForMoney,
-                new PageRequest(pageNum, pageSize));
+                new PageRequest(page, pageSize, Sort.Direction.DESC, property));
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public @ResponseBody Page<Hotel> findByName(
             @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "pageNum", required = false) Integer pageNum,
+            @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "pageSize", required = false) Integer pageSize){
 
-        return hotelService.findByName(name, new PageRequest(pageNum, pageSize));
+        return hotelService.findByName(name, new PageRequest(page, pageSize));
     }
 
     @RequestMapping(value = "/allCountry")
