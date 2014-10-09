@@ -49,6 +49,7 @@ CREATE TABLE hotel (
   name varchar(45) NOT NULL,
   stars int(1) NOT NULL,
   region_id bigint(20) NOT NULL,
+  feedbacksNum int(13) NOT NULL,
   rating decimal(2,1),
   comfort decimal(2,1),
   cleanliness decimal(2,1),

@@ -141,6 +141,7 @@
             </div>
         </div>
     </div>
+
     <!-- Modal -->
     <div class="modal fade" id="myModal\${id}" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel\${id}" aria-hidden="true">
@@ -180,15 +181,16 @@
                             </div>
                         </div>
                         <div class="col-md-12 comment">
-                            <textarea class="comment_fb" id="comment\${id}" rows="5" placeholder="Залиште свій коментар!"></textarea>
+                            <textarea class="comment_fb" id="comment\${id}" rows="5"
+                            placeholder="Залиште свій коментар!" maxlength="300"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Закрити
                         </button>
-                        <button type="button" class="btn btn-primary"
-                                onclick="saveFeedback(\${id})">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                onclick="leaveFeedback(\${id})">
                             Залишити відгук
                         </button>
                     </div>
