@@ -31,7 +31,7 @@ public class ItTourParser {
     {
         try {
             InputStream inputCountry = this.getClass().
-                    getResourceAsStream("/parser_properties/tyr_com_ua_country_parameters");
+                    getResourceAsStream("/parser_properties/it_tour_country_parameters");
             countryProperties.load(new InputStreamReader(inputCountry, "UTF-8"));
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -149,7 +149,7 @@ listRight : 8 $
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Єгипет", 3, 1 ,500, 1000);
+        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000);
         List<Tour> list = parser.parse();
         for(Tour tour : list){
             System.out.println(tour);
