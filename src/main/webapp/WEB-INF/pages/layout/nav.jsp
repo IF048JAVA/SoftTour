@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
 <nav class="navbar navbar-default" role="navigation" style="margin-top:5px;">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -18,9 +20,35 @@
                 <li><a href="/about">Про нас</a></li>
                 <li><a href="/feedback">Зворотній зв'язок</a></li>
             </ul>
+          
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login/form">Увійти</a></li>
-                <li><a href="/registration/new">Реєстрація</a></li>
+             
+               <security:authorize access="hasRole('ROLE_ANONYMOUS')">
+	                <li><a href="/login/form">Увійти</a></li>
+	                <li><a href="/registration/new">Реєстрація</a></li>
+                </security:authorize>
+             
+                <security:authorize access="hasRole('ROLE_USER')">
+                	  	<c:url value="/j_spring_security_logout" var="logoutUrl" />
+                	   <form action="${logoutUrl}" method="post" id="logoutForm">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						</form>
+						<script>
+							function formSubmit() {
+								document.getElementById("logoutForm").submit();	}
+						</script>
+                	  	
+                	  	<li><a>${pageContext.request.userPrincipal.name}</a></li>
+						<li>
+                			<a href="/userProfile">Mій профіль</a>
+                		</li>
+                	   <li>
+	                	   	<c:if test="${pageContext.request.userPrincipal.name != null}">
+									 <a href="javascript:formSubmit()">Вийти</a>
+							</c:if>
+                	   </li>
+                </security:authorize>
+                
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
