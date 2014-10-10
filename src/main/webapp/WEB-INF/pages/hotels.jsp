@@ -89,9 +89,9 @@
 <!-- Hotel template -->
 <script id="hotelTemplate" type="text/x-jquery-tmpl">
 <div id="result" class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" href="#collapseHotel\${id}">
+    <div class="panel-heading"  data-toggle="collapse" data-parent="#hotelResult" href="#collapseHotel\${id}">
         <h4 class="panel-title">
-            <strong class="text-info pull-left" id="hotel\${id}" data-toggle="collapse">
+            <strong class="text-info pull-left" id="hotel\${id}">
                 \${name}
             </strong>
                 <span class="text-info pull-right h4">
@@ -107,10 +107,9 @@
                 </span>
 
         </h4>
-
+    </div>
         <div id="collapseHotel\${id}" class="panel-collapse collapse">
             <div class="panel-body">
-
                 <div class="col-sm-4">
                     <div class="input-group backdown">
                         <div>
@@ -149,7 +148,7 @@
                     <div class="col-md-5"></div>
                 </div>
             </div>
-        </div>
+
     </div>
     <!-- Modal -->
     <div class="modal fade" id="myModal\${id}" tabindex="-1" role="dialog"
@@ -209,6 +208,4 @@
     </div>
 </div>
 <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'>
-
-
 </script>
