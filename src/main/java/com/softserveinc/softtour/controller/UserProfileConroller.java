@@ -65,18 +65,19 @@ public class UserProfileConroller {
 //    }
 
     @RequestMapping(value="/userToUpdate", method=RequestMethod.POST)
-    public String userToUpdate(User updatedUser, BindingResult bindingResult) {
+    public String userToUpdate(User updatedUser) {
 
         User userToUpdate = userService.findByEmail(updatedUser.getEmail());
 
-        userToUpdate.setPassword(EncodePassword.encode(updatedUser.getPassword()));
+        if (!(updatedUser.getPassword()=="")) {
+            userToUpdate.setPassword(EncodePassword.encode(updatedUser.getPassword()));
+        }
         userToUpdate.setBirthday(updatedUser.getBirthday());
         userToUpdate.setSex(updatedUser.getSex());
         userToUpdate.setPhone(updatedUser.getPhone());
 
         userService.save(userToUpdate);
         return "userProfile";
-
         }
 
     @RequestMapping(value="favoriteToDelete", method = RequestMethod.POST)
