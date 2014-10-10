@@ -7,7 +7,7 @@ import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.FavoriteService;
 import com.softserveinc.softtour.service.HistoryRecordService;
 import com.softserveinc.softtour.service.UserService;
-import com.softserveinc.softtour.util.EncodePassword;
+import com.softserveinc.softtour.util.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -70,7 +70,7 @@ public class UserProfileConroller {
         User userToUpdate = userService.findByEmail(updatedUser.getEmail());
 
         if (!(updatedUser.getPassword()=="")) {
-            userToUpdate.setPassword(EncodePassword.encode(updatedUser.getPassword()));
+            userToUpdate.setPassword(PasswordEncoder.encode(updatedUser.getPassword()));
         }
         userToUpdate.setBirthday(updatedUser.getBirthday());
         userToUpdate.setSex(updatedUser.getSex());
