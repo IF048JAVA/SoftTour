@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.RoleService;
 import com.softserveinc.softtour.service.UserService;
-import com.softserveinc.softtour.util.EncodePassword;
+import com.softserveinc.softtour.util.PasswordEncoder;
 import com.softserveinc.softtour.util.RegistrationValidator;
 
 /**
@@ -63,8 +63,8 @@ public class RegistrationController {
 		registrationValidator.validate(user, bindingResult);
 		
 		if (!bindingResult.hasErrors()) {
-			user.setPassword(EncodePassword.encode(user.getPassword()));
-			user.setRole(roleService.findByName("registeredUser"));
+			user.setPassword(PasswordEncoder.encode(user.getPassword()));
+			user.setRole(roleService.findByName("ROLE_USER"));
 			userService.save(user);
         	
 			model.addAttribute(user);
