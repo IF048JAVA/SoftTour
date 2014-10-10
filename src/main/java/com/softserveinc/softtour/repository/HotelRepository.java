@@ -19,8 +19,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "and h.comfort >= :comfort " +
             "and h.cleanliness >= :cleanliness " +
             "and h.location >= :location " +
-            "and h.valueForMoney >= :valueForMoney " +
-            "order by h.rating desc")
+            "and h.valueForMoney >= :valueForMoney")
     Page<Hotel> findByCustomParameters(@Param("country") List<String> country,
                                        @Param("rating") BigDecimal rating,
                                        @Param("comfort") BigDecimal comfort,

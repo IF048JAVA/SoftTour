@@ -1,7 +1,8 @@
  
 .backLogin{
  	background-image: url("/img/login.jpg");
- 	background-size: auto; 
+ 	background-size: auto;
+    margin-bottom: 15px;
  }
  
 .wrapper {	

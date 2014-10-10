@@ -7,42 +7,41 @@ if( $('#myProfile').length){
             $('#name').val(userDates.name);
             $('#email').val(userDates.email);
             $('#birthday').val(userDates.birthday);
-            $('#sex').val(userDates.sex.toLowerCase());
+            $('#sex').val(userDates.sex);
             $('#phone').val(userDates.phone);
-
         })
 }
 
-$("#userProfileForm").on("submit", function (e) {
-    e.preventDefault();
-});
+//$("#userProfileForm").on("submit", function (e) {
+//    e.preventDefault();
+//});
 
-function userUpdate() {
-
-    var userToUpdate = {};
-
-    userToUpdate.name = $('#name').val();
-    userToUpdate.email = $('#email').val();
-    userToUpdate.password = $('#password').val();
-    userToUpdate.birthday = $('#birthday').val();
-    userToUpdate.sex = $('#sex').val().toUpperCase();
-    userToUpdate.phone = $('#phone').val();
-
-    console.log(userToUpdate);
-
-    $.ajax({
-        url: "/userProfile/userToUpdate",
-        type: 'POST',
-        dataType: 'json',
-        data: JSON.stringify(userToUpdate),
-        contentType: 'application/json',
-        mimeType: 'application/json',
-
-        success: function(data) {
-            alert(data.id + " " + data.name);
-        },
-        error:function(data,status,er) {
-            alert("error:")
-        }
-    });
-}
+//function userUpdate() {
+//
+//    var userToUpdate = {};
+//
+//    userToUpdate.name = $('#name').val();
+//    userToUpdate.email = $('#email').val();
+//    userToUpdate.password = $('#password').val();
+//    userToUpdate.birthday = $('#birthday').val();
+//    userToUpdate.sex = $('#sex').val().toUpperCase();
+//    userToUpdate.phone = $('#phone').val();
+//
+//    console.log(userToUpdate);
+//
+//    $.ajax({
+//        url: "/userProfile/userToUpdate",
+//        type: 'POST',
+//        dataType: 'json',
+//        data: JSON.stringify(userToUpdate),
+//        contentType: 'application/json',
+//        mimeType: 'application/json',
+//
+//        success: function(data) {
+//            alert(data.id + " " + data.name);
+//        },
+//        error:function(data,status,er) {
+//            alert("error:")
+//        }
+//    });
+//}
