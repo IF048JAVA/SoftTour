@@ -3,7 +3,6 @@
 <div class="row" id="hotel_page">
 
     <div class="col-md-2">
-
         <!-- Search field -->
         <form class="navbar-form hotel_search" role="search" onsubmit="search()">
             <div class="input-group">
@@ -16,6 +15,8 @@
                 </div>
             </div>
         </form>
+
+        <!-- Filter -->
         <div class="panel-heading hotels-filter" id="filter">
             <h4 class="panel-title">
                 <a data-toggle="collapse" href="#collapseFilter">
@@ -23,37 +24,47 @@
                 </a>
             </h4>
 
-            <!-- Filter -->
             <div id="collapseFilter" class="panel-collapse collapse in">
                 <div class="panel-body">
+
                     <select id="countrySelect2" multiple="multiple" class="select2-offscreen filter-element">
                         <option></option>
                     </select>
 
-                    <label for="rating" class="muted">Рейтинг</label>
+                    <label for="rating">Рейтинг</label>
                     <input id="rating" value="0" type="number" class="rating" min=0 max=5 step=1
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
-                    <label for="comfort" class="muted">Комфорт</label>
+                    <label for="comfort">Комфорт</label>
                     <input id="comfort" value="0" type="number" class="rating" min=0 max=5 step=1
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
-                    <label for="cleanliness" class="muted">Чистота</label>
+                    <label for="cleanliness">Чистота</label>
                     <input id="cleanliness" value="0" type="number" class="rating" min=0 max=5 step=1
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
-                    <label for="location" class="muted">Розташування</label>
+                    <label for="location">Розташування</label>
                     <input id="location" value="0" type="number" class="rating" min=0 max=5 step=1
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
-                    <label for="value_for_money" class="muted">Ціна/Якість</label>
+                    <label for="value_for_money">Ціна/Якість</label>
                     <input id="value_for_money" value="0" type="number" class="rating" min=0 max=5 step=1
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
+
+                    <label for="sort">Сортування</label>
+                    <select id="sort" name="selectbasic" class="form-control">
+                        <option value="rating">Рейтинг</option>
+                        <option value="comfort">Комфортом</option>
+                        <option value="cleanliness">Чистота</option>
+                        <option value="location">Розташування</option>
+                        <option value="valueForMoney">Ціна/якість</option>
+                    </select>
+
                     <button id="search_hotel" type="button" class="btn btn-default btn-block filter-button"
                             onclick="showSearchResult()">Пошук
                     </button>
@@ -61,7 +72,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-md-1"></div>
 
     <!-- Result panel -->
@@ -141,7 +151,6 @@
             </div>
         </div>
     </div>
-
     <!-- Modal -->
     <div class="modal fade" id="myModal\${id}" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel\${id}" aria-hidden="true">
@@ -200,4 +209,6 @@
     </div>
 </div>
 <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'>
+
+
 </script>
