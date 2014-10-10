@@ -20,6 +20,7 @@ CREATE TABLE user (
   sex enum('MALE','FEMALE') NOT NULL,
   phone varchar(20) DEFAULT NULL,
   role_id bigint(20) NOT NULL,
+  enabled TINYINT NOT NULL DEFAULT 1,
 
   PRIMARY KEY (id),
   FOREIGN KEY (role_id) REFERENCES role (id)
