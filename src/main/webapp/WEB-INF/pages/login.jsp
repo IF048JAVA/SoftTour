@@ -7,47 +7,50 @@
 		
 		<div class="col-md-5 wrapper">
 		
-			<sf:form action="enter" method="POST" modelAttribute="user"
+			<form name="loginForm" action="<c:url value='/j_spring_security_check' />" method="POST"
 				class="form-signin"   data-toggle="validator" role="form">
 				<fieldset>
 
 						<!-- Form Name -->
 						<legend class="form-signin-heading">Login</legend>
 
-						<!-- Email input-->
+						<!-- Email input -->
 						<div class="form-group required">
-								<sf:input path="email" id="email" class="form-control" 
+								<input type="text" id="email" class="form-control" 
+									name="email"
 									pattern="\b(?!.{31})([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})\b"
 									placeholder="Bведіть email"
 								 	data-error="Ви ввели некоректний email !" 
-								 	required="required" 
-								 	autofocus=""/>
+								 	required="required" />
 								 	
 								<div class="help-block with-errors"></div>
-								<sf:errors path="email" cssClass="error" />
 						</div>
 
 						<!-- Password input-->
 						<div class="form-group required">
-								<sf:password path="password" id="password" class="form-control" 
+								<input type="password" id="password" class="form-control" 
+									name="password"
 									pattern="\b[A-Za-z0-9._%+-]{6,30}\b"
 									placeholder="Bведіть пароль" 
 									data-error="Ви ввели некоректний пароль !" 
 									required="required"/>
 									
 								<div class="help-block with-errors"></div>	
-								<sf:errors path="password" cssClass="error" />
 						</div>
 
 						<!-- Button of registration-->
 						<div class="form-group">
-							<sf:button type="submit" class="btn btn-lg btn-primary btn-block" >
+							<button type="submit" class="btn btn-lg btn-primary btn-block" >
 								<span class="glyphicon glyphicon-ok"></span>
 								Увійти
-							</sf:button>
+							</button>
 						</div>
 
 				</fieldset>
-			</sf:form>
+				
+				<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+				
+			</form>
 		</div>
 	</div>	
