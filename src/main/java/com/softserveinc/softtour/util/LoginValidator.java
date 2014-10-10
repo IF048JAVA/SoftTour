@@ -35,7 +35,7 @@ public class LoginValidator implements Validator{
 			errors.rejectValue("email", "error_email", "ПОМИЛКА ! Користувача із даним email не існує");
 			
 		}else {
-			String hashedPassword = EncodePassword.encode(currentUser.getPassword());
+			String hashedPassword = PasswordEncoder.encode(currentUser.getPassword());
 			String hashPasswordDB = user.getPassword();
 			
 			if (!hashPasswordDB.equals(hashedPassword)) {
