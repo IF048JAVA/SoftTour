@@ -1,6 +1,5 @@
 package com.softserveinc.softtour.controller;
 
-import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.entity.HistoryRecord;
 import com.softserveinc.softtour.entity.User;
@@ -8,12 +7,11 @@ import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.FavoriteService;
 import com.softserveinc.softtour.service.HistoryRecordService;
 import com.softserveinc.softtour.service.UserService;
-
+import com.softserveinc.softtour.util.EncodePassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -50,35 +48,42 @@ public class UserProfileConroller {
         return currentUserRecords;
     }
 
-    @RequestMapping(value="userToUpdate", method = RequestMethod.POST)
-    public @ResponseBody User updateUserProfile( @RequestBody final User userToUpdate) {
-        User updatedUser;
+//    @RequestMapping(value="userToUpdate", method = RequestMethod.POST)
+//    public @ResponseBody User updateUserProfile( @RequestBody final User userToUpdate) {
+//        User updatedUser;
+//
+//        updatedUser = userService.findByEmail(userToUpdate.getEmail());
+//        updatedUser.setName(userToUpdate.getName());
+//        updatedUser.setPassword(userToUpdate.getPassword());
+//        updatedUser.setBirthday(userToUpdate.getBirthday());
+//        updatedUser.setSex(userToUpdate.getSex());
+//        updatedUser.setPhone(userToUpdate.getPhone());
+//
+//        userService.save(updatedUser);
+//
+//        return userToUpdate;
+//    }
 
-        updatedUser = userService.findByEmail(userToUpdate.getEmail());
-        updatedUser.setName(userToUpdate.getName());
-        updatedUser.setPassword(userToUpdate.getPassword());
-        updatedUser.setBirthday(userToUpdate.getBirthday());
-        updatedUser.setSex(userToUpdate.getSex());
-        updatedUser.setPhone(userToUpdate.getPhone());
+    @RequestMapping(value="/userToUpdate", method=RequestMethod.POST)
+    public String userToUpdate(User updatedUser, BindingResult bindingResult) {
 
-        userService.save(updatedUser);
+        User userToUpdate = userService.findByEmail(updatedUser.getEmail());
 
-        return userToUpdate;
+        userToUpdate.setPassword(EncodePassword.encode(updatedUser.getPassword()));
+        userToUpdate.setBirthday(updatedUser.getBirthday());
+        userToUpdate.setSex(updatedUser.getSex());
+        userToUpdate.setPhone(updatedUser.getPhone());
 
-    }
+        userService.save(userToUpdate);
+        return "userProfile";
+
+        }
 
     @RequestMapping(value="favoriteToDelete", method = RequestMethod.POST)
     public @ResponseBody Favorite deleteFavorite( @RequestBody final Favorite favoriteToDelete) {
 
         favoriteService.delete(favoriteToDelete.getId());
-
-
-
         return favoriteToDelete;
     }
-
-
-
-
 
 }

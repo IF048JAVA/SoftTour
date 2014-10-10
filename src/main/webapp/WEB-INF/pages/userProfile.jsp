@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 
 			
@@ -39,9 +41,9 @@
 			<div class="tab-pane" id="myProfile">
 				<div class="col-md-3 col-md-3-offset"></div>
 				<div class="col-md-6 form">
-				
-					<form id="userProfileForm" class="form-horizontal" action="save" method="POST"
-                          data-toggle="validator" role="form" onsubmit="userUpdate()">
+
+					<form:form id="userProfileForm" class="form-horizontal" action="/userProfile/userToUpdate" method="POST"
+                          data-toggle="validator" role="form" >
 						
 						<fieldset>
 						
@@ -124,15 +126,15 @@
                                 <label class="col-md-4 control-label" for="sex">Стать</label>
                                 <div class="col-md-5">
                                     <select name="sex" id="sex" class="form-control">
-                                        <option value="male">Чоловік</option>
-                                        <option value="female">Жінка</option>
+                                        <option value="MALE">Чоловік</option>
+                                        <option value="FEMALE">Жінка</option>
                                     </select>
                                 </div>
                             </div>
 
                             <!-- Phone input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="phone">Номер телефону &ensp;&nbsp;</label>
+                                <label class="col-md-4 control-label" for="phone">Номер телефону</label>
                                 <div class="col-md-5">
                                     <input type="text" name="phone" id="phone" class="form-control input-md"
                                         pattern="[\+]?[0-9]{4,19}\b"
@@ -146,7 +148,7 @@
 
                             <!-- Save Button -->
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" name="submit" class="btn btn-primary">
                                     <span class="glyphicon glyphicon-ok"></span>
                                     Зберегти
                                 </button>
@@ -154,7 +156,7 @@
 							
 						</fieldset>
 
-					</form>
+                    </form:form>
 
 
 
