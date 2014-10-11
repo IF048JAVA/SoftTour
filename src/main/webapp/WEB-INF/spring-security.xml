@@ -18,8 +18,7 @@
 			password-parameter="password" />
 		
 		<logout logout-success-url="/"  />
-		<!-- enable csrf protection -->
-		<csrf/>
+	
 		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
 	</http>
 
