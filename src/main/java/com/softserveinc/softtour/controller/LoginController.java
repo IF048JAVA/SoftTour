@@ -2,6 +2,7 @@ package com.softserveinc.softtour.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,17 +34,12 @@ public class LoginController {
 
 	@RequestMapping(value="/form")	
 	public String loginUser (@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout){
+			@RequestParam(value = "logout", required = false) String logout, Model model){
 		
-		ModelAndView model = new ModelAndView();
 		if (error != null) {
-			model.addObject("error", "Invalid username and password!");
+			model.addAttribute("error", "Invalid email or password!");
 		}
 
-		if (logout != null) {
-			model.addObject("msg", "You've been logged out successfully.");
-		}
-		
 		return "login";
 	}
 	

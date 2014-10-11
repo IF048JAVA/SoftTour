@@ -8,8 +8,9 @@
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/**" access="permitAll()" />
-
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/userProfile/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+		
 		<form-login 
 		    login-page="/login/form" 
 		    default-target-url="/" 
@@ -18,7 +19,7 @@
 			password-parameter="password" />
 		
 		<logout logout-success-url="/"  />
-	
+
 		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
 	</http>
 
@@ -26,10 +27,10 @@
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query=
-					"select email, password, enabled from user where email=?"
+					"SELECT email, password, enabled FROM user WHERE email=?"
 				authorities-by-username-query=
-					"select user.email, role.name from user, role 
-					where user.role_id = role.id AND user.email = ? " />
+					"SELECT user.email, role.name FROM user, role 
+						WHERE user.role_id = role.id AND user.email = ? " />
 					
 			<password-encoder hash="sha-256"/> 
 		</authentication-provider>
