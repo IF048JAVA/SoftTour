@@ -2,12 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
+<c:url value="/j_spring_security_check" var="loginUrl" />
+
 	<div class="col-md-12 backLogin">
 		<div class="col-md-7"></div>
-		
 		<div class="col-md-5 wrapper">
 		
-			<form name="loginForm" action="<c:url value='/j_spring_security_check' />" method="POST"
+		<c:if test="${not empty error}">
+			<div class="errorLogin">${error}</div>
+		</c:if>
+			<form name="loginForm" action="${loginUrl}" method="POST"
 				class="form-signin"   data-toggle="validator" role="form">
 				<fieldset>
 
