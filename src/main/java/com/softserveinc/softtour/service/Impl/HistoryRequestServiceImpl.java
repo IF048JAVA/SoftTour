@@ -22,8 +22,8 @@ public class HistoryRequestServiceImpl implements HistoryRequestService {
 
     @Override
     @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-    public void save(HistoryRequest historyRequest) {
-        this.historyRequestRepository.save(historyRequest);
+    public HistoryRequest save(HistoryRequest historyRequest) {
+         return this.historyRequestRepository.save(historyRequest);
     }
 
     @Override

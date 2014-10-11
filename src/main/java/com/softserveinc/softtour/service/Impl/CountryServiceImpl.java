@@ -19,8 +19,8 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-    public void save(Country country) {
-        this.countryRepository.save(country);
+    public Country save(Country country) {
+        return this.countryRepository.save(country);
     }
 
     @Override

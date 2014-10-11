@@ -16,7 +16,7 @@ public interface UserService {
 	/**
 	 * Saves the object user to the table User
 	 */
-	public void save(User user);
+	public User save(User user);
 	
 	/**
 	 * Updates the object user with the specified id

@@ -16,7 +16,7 @@ public class HistoryRecordServiceImpl implements HistoryRecordService {
     private HistoryRecordsRepository historyRecordsRepository;
 
     @Override
-    public void save(HistoryRecord historyRecord){historyRecordsRepository.save(historyRecord);}
+    public HistoryRecord save(HistoryRecord historyRecord){ return  historyRecordsRepository.save(historyRecord);}
 
     @Override
     public void delete(long id){historyRecordsRepository.delete(id);}

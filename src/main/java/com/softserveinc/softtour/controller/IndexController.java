@@ -1,15 +1,14 @@
 package com.softserveinc.softtour.controller;
 
-import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.parsers.impl.ItTourParser;
-import com.softserveinc.softtour.service.TourService;
+import com.softserveinc.softtour.parsers.impl.TyrComUaParser;
+import com.softserveinc.softtour.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -18,21 +17,59 @@ public class IndexController {
 
     @Autowired
     private TourService tourService;
+    @Autowired
+    private FavoriteService favoriteService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private HotelService hotelService;
+    @Autowired
+    private CountryService countryService;
+    @Autowired
+    private RegionService regionService;
+    @Autowired
+    private FoodService foodService;
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public @ResponseBody List<Tour> findTours(
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "minPrice", required = false) Integer minPrice,
             @RequestParam(value = "maxPrice", required = false) Integer maxPrice) {
+
         //return tourService.findAll();
         return tourService.findByCountryAndPrice(country, minPrice, maxPrice);
     }
 
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
-        ItTourParser parser = new ItTourParser("Єгипет", 3, 1 ,500, 1000);
+        //return tourService.findAll();
+        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000);
         List<Tour> resultList = parser.parse();
         return resultList;
+
     }
 
+    @RequestMapping(value="/saveFavorites", method = RequestMethod.POST)
+    public @ResponseBody void saveFavorites(@RequestBody(required = true) final Tour currentTour){
+        java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
+        Date sqlDate = new Date(utilDate.getTime());
+        User currentUser = userService.findById(1);//hardcode
+        Hotel currentHotel = currentTour.getHotel();
+        Food currentFood = currentTour.getFood();
+        Region currentRegion = currentHotel.getRegion();
+        Country currentCountry = currentRegion.getCountry();
+        Country country = countryService.save(currentCountry);
+        Food food = foodService.save(currentFood);
+        currentRegion.setCountry(country);
+        Region region = regionService.save(currentRegion);
+        currentHotel.setRegion(region);
+        Hotel hotel = hotelService.save(currentHotel);
+        currentTour.setHotel(hotel);
+        currentTour.setFood(food);
+        currentTour.setDepartureCity("Null");//tell Sasha to make changes in parser
+        currentTour.setDepartureTime(new Date(12354));//tell Sasha that Date is not in java.util..
+        Tour tourToFav=tourService.save(currentTour);
+        Favorite favorite=new Favorite(sqlDate,currentUser,tourToFav);
+        favoriteService.save(favorite);
+    }
 }

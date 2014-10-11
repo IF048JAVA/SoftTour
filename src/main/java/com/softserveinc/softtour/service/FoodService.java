@@ -6,7 +6,7 @@ import com.softserveinc.softtour.entity.Food;
 import java.util.List;
 
 public interface FoodService {
-    public void save(Food food);
+    public Food save(Food food);
     public void delete(long id);
     public Food findById(long id);
     public Food findByName(String name);

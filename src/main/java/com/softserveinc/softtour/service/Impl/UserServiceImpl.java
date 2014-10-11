@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional(readOnly=false)
-	public void save(User user) {
-		userRepository.save(user);
+	public User save(User user) {
+		return userRepository.save(user);
 	}
 	
 	/**

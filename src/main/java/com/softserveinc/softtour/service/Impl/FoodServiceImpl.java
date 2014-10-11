@@ -15,7 +15,7 @@ public class FoodServiceImpl implements FoodService {
     private FoodRepository foodRepository;
 
     @Override
-    public void save(Food food){foodRepository.save(food);}
+    public Food save(Food food){return foodRepository.saveAndFlush(food);}
 
     @Override
     public void delete(long id){foodRepository.delete(id);}

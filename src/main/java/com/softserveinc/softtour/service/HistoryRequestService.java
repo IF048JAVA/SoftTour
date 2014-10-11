@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface HistoryRequestService {
 
-    public void save(HistoryRequest historyRequest);
+    public HistoryRequest save(HistoryRequest historyRequest);
     public void delete(long id);
     public HistoryRequest findById(long id);
     public List<HistoryRequest> findByUser(User user);

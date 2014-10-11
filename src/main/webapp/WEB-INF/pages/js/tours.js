@@ -1,8 +1,9 @@
 $(document).ready(function () {})
-
+var queryObj = {};
+var favData = {};
     function searchTours(countryPar) {
         showModal();
-        var queryObj = {};
+
         queryObj.country = countryPar;
         queryObj.minPrice = $("#minPrice").val();
         queryObj.maxPrice = $("#maxPrice").val();
@@ -17,6 +18,7 @@ $(document).ready(function () {})
             dataType: 'json',
 
             success: function (data) {
+                favData=data;
                 $('#indexResult').empty();
                 $('#indexTemplate').tmpl(data).appendTo('#indexResult');
             },
@@ -28,11 +30,11 @@ $(document).ready(function () {})
         });
     }
     function parseTour () {
-        var queryObject = {};
+
         $.ajax({
             url: "/parseTour",
             type: "POST",
-            data: queryObject,
+            data: queryObj,
             dataType: 'json',
 
             success: function (data) {
@@ -42,9 +44,11 @@ $(document).ready(function () {})
                     value.id=new_id;
                     new_id++;
                 })
+                favData=data;
                 console.log (data);
                 $('#indexResult').empty();
                 $('#indexTemplate').tmpl(data).appendTo('#indexResult');
+
             },
 
             error: function () {
@@ -53,7 +57,21 @@ $(document).ready(function () {})
 
         });
     }
-function uncollapse(id){
-    $(".collapse").collapse('hide')
-
+function saveFavorites (id){
+    var favObj = {}
+    $.each(favData,function(key,value){
+        if(value.id == id){
+            favObj = value;
+        }
+    })
+    console.log(favObj);
+    $.ajax({
+        url: "/saveFavorites",
+        type: "POST",
+        data: JSON.stringify(favObj),
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json'
+    })
+    $("#deleteButtonF"+id).remove();
 }

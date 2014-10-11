@@ -36,18 +36,19 @@
 </div>
 <script id="indexTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default" id="panel-favorite\${id}">
-                <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${id}">
-                         <span class="tabTitleFont">Країна: </span>
-                         <span id="tourCountry-f\${id}" class="tabulatedTitle">\${hotel.region.country.name}</span>
-                         <span class="tabTitleFont">Тривалість туру: </span>
-                         <span id="tourDays-f\${id}" class="tabulatedTitle">\${days} Днів</span>
-                         <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-f\${id}" class="tabulatedTitle">\${price} $</span>
-                         <span class="tabTitleFont">Харчування: </span>
-                         <span id="tourFood-f\${id}" class="tabulatedTitle">\${food.name}</span>
-                         <span class="tabTitleFont">Дата вильоту: </span>
-                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${date}</span>
-                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty glyphicon-pointer" onclick="uncollapse(\${id}})"></i></span>
+                <div class="panel-heading">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}">
+                         <span class="tabTitleFont cursor-pointer" >Країна: </span>
+                         <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
+                         <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
+                         <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
+                         <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
+                         <span class="tabTitleFont cursor-pointer">Харчування: </span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food.name}</span>
+                         <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
+                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
                     <div class="panel-body">

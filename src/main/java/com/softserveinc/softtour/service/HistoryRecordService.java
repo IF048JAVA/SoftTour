@@ -7,7 +7,7 @@ import com.softserveinc.softtour.entity.User;
 import java.util.List;
 
 public interface HistoryRecordService {
-    public void save(HistoryRecord historyRecord);
+    public HistoryRecord save(HistoryRecord historyRecord);
     public void delete(long id);
     public HistoryRecord findById(long id);
     public List<HistoryRecord> findByUser(User user);
