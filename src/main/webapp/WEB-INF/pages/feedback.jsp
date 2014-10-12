@@ -29,9 +29,9 @@
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
                             <select name="select" id="select" class="form-control" size="1">
-                                <option value="1" class="option_style">Технічна несправність сайту</option>
-                                <option value="2" class="option_style">Оформлення сайту</option>
-                                <option value="3" class="option_style">Інше</option>
+                                <option value="Технічна несправність сайту" class="option_style">Технічна несправність сайту</option>
+                                <option value="Оформлення сайту" class="option_style">Оформлення сайту</option>
+                                <option value="Інше" class="option_style">Інше</option>
                             </select>
                         </div>
                     </div>
