@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -371,13 +372,15 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod implements TyrC
         String depTime = tourDataList.get(7);
         Date departureTime = null;
         java.sql.Date sqlDateDepart = null;
+        Time sqlTimeDepart = null;
         try {
             departureTime = dateFormat.parse(depTime);
             sqlDateDepart = new java.sql.Date(departureTime.getTime());
+            sqlTimeDepart = new Time(departureTime.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        tour.setDepartureTime(sqlDateDepart);
+        tour.setDepartureTime(sqlTimeDepart);
 
         //set departure city
         String depCity = tourDataList.get(3);

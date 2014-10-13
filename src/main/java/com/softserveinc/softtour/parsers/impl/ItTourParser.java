@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -125,13 +126,16 @@ listRight : 8 $
             String depTime = listCenter.get(3).text();
             Date departure = null;
             java.sql.Date sqlDateDepart = null;
+            Time sqlTimeDepart = null;
             try {
                 departure = format.parse(depTime);
                 sqlDateDepart = new java.sql.Date(departure.getTime());
+                sqlTimeDepart = new Time(departure.getTime());
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            tour.setDepartureTime(sqlDateDepart);
+            tour.setDepartureTime(sqlTimeDepart);
             tour.setDate(sqlDateDepart);
 
             //set hotel
