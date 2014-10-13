@@ -9,6 +9,7 @@ import com.softserveinc.softtour.service.HistoryRecordService;
 import com.softserveinc.softtour.service.UserService;
 import com.softserveinc.softtour.util.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -32,19 +33,22 @@ public class UserProfileConroller {
     private CountryService countryService;
 
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
-    public @ResponseBody User getCurrentUser(@ModelAttribute User user) {
-        return userService.findByEmail(user.getEmail());
+    public @ResponseBody User getCurrentUser() {
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userService.findByEmail(loggedUserEmail);
     }
 
     @RequestMapping(value = "/userFavorite", method = RequestMethod.GET)
-    public @ResponseBody List<Favorite> findUserFavorite(@ModelAttribute User user) {
-        List<Favorite> currentUserFavorites = favoriteService.findByUser(userService.findByEmail(user.getEmail()));
+    public @ResponseBody List<Favorite> findUserFavorite() {
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<Favorite> currentUserFavorites = favoriteService.findByUser(userService.findByEmail(loggedUserEmail));
         return currentUserFavorites;
     }
 
     @RequestMapping(value = "/userHistory", method = RequestMethod.GET)
-    public @ResponseBody List<HistoryRecord> findUserHistory(@ModelAttribute User user) {
-        List<HistoryRecord> currentUserRecords = historyRecordService.findByUser(userService.findByEmail(user.getEmail()));
+    public @ResponseBody List<HistoryRecord> findUserHistory() {
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<HistoryRecord> currentUserRecords = historyRecordService.findByUser(userService.findByEmail(loggedUserEmail));
         return currentUserRecords;
     }
 
@@ -66,8 +70,8 @@ public class UserProfileConroller {
 
     @RequestMapping(value="/userToUpdate", method=RequestMethod.POST)
     public String userToUpdate(User updatedUser) {
-
-        User userToUpdate = userService.findByEmail(updatedUser.getEmail());
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userToUpdate = userService.findByEmail(loggedUserEmail);
 
         if (!(updatedUser.getPassword()=="")) {
             userToUpdate.setPassword(PasswordEncoder.encode(updatedUser.getPassword()));
