@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
 <div class="row" id="hotel_page">
 
     <div class="col-md-2">
@@ -140,10 +142,12 @@
                 <div class="row clearfix">
                     <div class="col-md-5"></div>
                     <div class="col-md-2">
-                        <!-- Button trigger modal -->
-                        <button class="btn btn-default btn-sm" data-toggle="modal" onclick="openModalWindow(\${id})">
-                            Залишити відгук
-                        </button>
+					    <!-- Button trigger modal -->
+  						<security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">                    
+					    	<button class="btn btn-default btn-sm" data-toggle="modal" onclick="openModalWindow(\${id})">
+                            	Залишити відгук
+                        	</button>
+						 </security:authorize>
                     </div>
                     <div class="col-md-5"></div>
                 </div>
