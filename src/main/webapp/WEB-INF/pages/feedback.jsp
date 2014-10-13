@@ -3,7 +3,7 @@
 
     <!-- Form -->
     <div id="left_div" class="form">
-        <form class="form-horizontal" action="#" id="form">
+        <form class="form-horizontal" action="send" id="form" method="post">
             <fieldset>
                 <legend>Форма зворотнього зв'язку</legend>
 
@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
-                            <input type="text" id="email" class="form-control input-md" name="user_email"
+                            <input type="text" id="email" class="form-control input-md" name="email"
                                                  placeholder="Введіть Ваш e-mail:" onblur="checkEmail(this)"/>
                             <span id="text_help2" class="help" style="color: red"></span>
                         </div>
@@ -29,9 +29,9 @@
                         <div class="col-md-3 col-md-3-offset"> </div>
                         <div class="col-md-6">
                             <select name="select" id="select" class="form-control" size="1">
-                                <option value="1" class="option_style">Технічна несправність сайту</option>
-                                <option value="2" class="option_style">Оформлення сайту</option>
-                                <option value="3" class="option_style">Інше</option>
+                                <option value="Технічна несправність сайту" class="option_style">Технічна несправність сайту</option>
+                                <option value="Оформлення сайту" class="option_style">Оформлення сайту</option>
+                                <option value="Інше" class="option_style">Інше</option>
                             </select>
                         </div>
                     </div>
