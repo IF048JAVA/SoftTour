@@ -1,13 +1,13 @@
 package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.template.Food;
+import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.ParseException;
@@ -15,52 +15,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 
 public class ItTourParser {
-    private String baseParams = "http://www.ittour.com.ua/tour_search.php?" +
-            "callback=jQuery17109648473216220737_1412803322658&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38" +
-            "&action=package_tour_search&package_tour_type=0&tour_kind=0&default_form_select=1&items_per_page=100&preview=1";
-    private String country;
-    private int adults;
-    private int children;
-    private int priceFrom;
-    private int priceTo;
     private List<Tour> tourList = new ArrayList<>();
-    private Properties countryProperties = new Properties();
+    private String country;
 
-    {
-        try {
-            InputStream inputCountry = this.getClass().
-                    getResourceAsStream("/parser_properties/it_tour_country_parameters");
-            countryProperties.load(new InputStreamReader(inputCountry, "UTF-8"));
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo) {
+    public ItTourParser(String country) {
         this.country = country;
-        this.adults = adults;
-        this.children = children;
-        this.priceFrom = priceFrom;
-        this.priceTo = priceTo;
     }
 
-    public List<Tour> parse(){
-        String url = creareURL();
+    public List<Tour> parse(String url){
         searchTours(url);
         return tourList;
-    }
-
-    private String creareURL(){
-        StringBuilder stringBuilder = new StringBuilder(baseParams);
-        stringBuilder.append("&country=").append(countryProperties.getProperty(country));
-        stringBuilder.append("&adults=").append(adults);
-        stringBuilder.append("&children=").append(children);
-        stringBuilder.append("&price_from=").append(priceFrom);
-        stringBuilder.append("&price_till=").append(priceTo);
-        return stringBuilder.toString();
     }
 
     private void searchTours(String url){
@@ -117,9 +83,11 @@ listRight : 8 $
             tour.setPrice(new BigDecimal(price$));
 
             //set food
-            String foodSt = listCenter.get(1).text();
-            Food food = new Food(foodSt);
-            tour.setFood(food);
+
+//            FIX ME! food is Enum now!
+//            String foodSt = listCenter.get(1).text();
+//            Food food = new Food(foodSt);
+//            tour.setFood(food);
 
             //set departure time & date
             SimpleDateFormat format = new SimpleDateFormat("dd.mm.yy");
@@ -153,8 +121,9 @@ listRight : 8 $
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000);
-        List<Tour> list = parser.parse();
+        String url = new ItTourParserUtil().createUrl("Греція", 3, 1 ,500, 1000);
+        ItTourParser parser = new ItTourParser("Греція");
+        List<Tour> list = parser.parse(url);
         for(Tour tour : list){
             System.out.println(tour);
         }

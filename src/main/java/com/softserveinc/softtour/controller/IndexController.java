@@ -2,8 +2,8 @@ package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.parsers.impl.ItTourParser;
-import com.softserveinc.softtour.parsers.impl.TyrComUaParser;
 import com.softserveinc.softtour.service.*;
+import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,8 +29,6 @@ public class IndexController {
     private CountryService countryService;
     @Autowired
     private RegionService regionService;
-    @Autowired
-    private FoodService foodService;
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public @ResponseBody List<Tour> findTours(
@@ -43,10 +41,14 @@ public class IndexController {
     }
 
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
-    public @ResponseBody List<Tour> searchTour(){
+    public @ResponseBody List<Tour> searchTour(
+            @RequestParam(value = "country", required = true) String country,
+            @RequestParam(value = "minPrice", required = false) Integer minPrice,
+            @RequestParam(value = "maxPrice", required = false) Integer maxPrice){
         //return tourService.findAll();
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000);
-        List<Tour> resultList = parser.parse();
+        String url = new ItTourParserUtil().createUrl(country, 3, 1 ,minPrice, maxPrice);
+        ItTourParser parser = new ItTourParser(country);
+        List<Tour> resultList = parser.parse(url);
         return resultList;
 
     }
@@ -58,19 +60,19 @@ public class IndexController {
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser =userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
-        Food currentFood = currentTour.getFood();
+//        Food currentFood = currentTour.getFood();         correct food (food is enum now)
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
         Country country = countryService.save(currentCountry);
-        Food food = foodService.save(currentFood);
+//        Food food = foodService.save(currentFood);         correct food (food is enum now)
         currentRegion.setCountry(country);
         Region region = regionService.save(currentRegion);
         currentHotel.setRegion(region);
         Hotel hotel = hotelService.save(currentHotel);
         currentTour.setHotel(hotel);
-        currentTour.setFood(food);
-        currentTour.setDepartureCity("Null");//tell Sasha to make changes in parser
-        currentTour.setDepartureTime(new Time(12354));//tell Sasha that Date is not in java.util..
+//        currentTour.setFood(food);                        correct food (food is enum now)
+        currentTour.setDepartureCity("Null");
+        currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);
         Favorite favorite=new Favorite(sqlDate,currentUser,tourToFav);
         favoriteService.save(favorite);

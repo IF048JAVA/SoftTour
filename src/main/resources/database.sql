@@ -63,14 +63,6 @@ CREATE TABLE hotel (
 
 );
 
-CREATE TABLE food (
-  id bigint(20) NOT NULL AUTO_INCREMENT,
-  name varchar(45) NOT NULL,
-
-  PRIMARY KEY (id)
-
-);
-
 CREATE TABLE tour (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   date date NOT NULL,
@@ -79,11 +71,10 @@ CREATE TABLE tour (
   departureCity varchar(45) NOT NULL,
   price decimal(7,2) NOT NULL,
   hotel_id bigint(20) NOT NULL,
-  food_id bigint(20) NOT NULL,
+  food enum('HB','BB','FB','AI','UAI','RO') NOT NULL,
 
   PRIMARY KEY (id),
-  FOREIGN KEY (hotel_id) REFERENCES hotel (id),
-  FOREIGN KEY (food_id) REFERENCES food (id)
+  FOREIGN KEY (hotel_id) REFERENCES hotel (id)
 
 );
 
