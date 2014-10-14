@@ -69,8 +69,8 @@ public class IndexController {
         Hotel hotel = hotelService.save(currentHotel);
         currentTour.setHotel(hotel);
         currentTour.setFood(food);
-        currentTour.setDepartureCity("Null");//tell Sasha to make changes in parser
-        currentTour.setDepartureTime(new Time(12354));//tell Sasha that Date is not in java.util..
+        currentTour.setDepartureCity("Null");
+        currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);
         Favorite favorite=new Favorite(sqlDate,currentUser,tourToFav);
         favoriteService.save(favorite);

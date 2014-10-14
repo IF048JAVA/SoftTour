@@ -5,8 +5,8 @@ var favData = {};
         showModal();
 
         queryObj.country = countryPar;
-        queryObj.minPrice = $("#minPrice").val();
-        queryObj.maxPrice = $("#maxPrice").val();
+        queryObj.minPrice = $("#Budget").val()*0.7;
+        queryObj.maxPrice = $("#maxPrice").val()*1.1;
         if ($('#minPrice').val() == '')
             queryObj.minPrice = 0;
         if ($('#maxPrice').val() == '')
