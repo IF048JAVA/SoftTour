@@ -4,6 +4,7 @@ import com.softserveinc.softtour.entity.Tour;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 public interface TourService {
@@ -15,6 +16,6 @@ public interface TourService {
     List<Tour> findAll();
     List<Tour> findByCountryAndPrice(String country, Integer minPrice, Integer maxPrice);
     List<Tour> findByCountryAndDaysAndPrice(String country, int days, BigDecimal price);
-    List<Tour> findByCustomParameters(String country, Date date, int days, String departureCity, Date departureTime,
+    List<Tour> findByCustomParameters(String country, Date date, int days, String departureCity, Time departureTime,
                                       BigDecimal price, String hotel, String food);
 }

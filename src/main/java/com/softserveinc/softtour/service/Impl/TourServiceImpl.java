@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> findByCustomParameters(String country, Date date, int days, String departureCity,
-                                             Date departureTime, BigDecimal price, String hotel, String food) {
+                                             Time departureTime, BigDecimal price, String hotel, String food) {
         return tourRepository.findByCustomParameters(country, date, days, departureCity,
                                                      departureTime, price, hotel, food);
     }

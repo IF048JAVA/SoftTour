@@ -5,6 +5,7 @@ import com.softserveinc.softtour.parsers.impl.ItTourParser;
 import com.softserveinc.softtour.service.*;
 import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +56,8 @@ public class IndexController {
     public @ResponseBody void saveFavorites(@RequestBody(required = true) final Tour currentTour){
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
-        User currentUser = userService.findById(1);//hardcode
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser =userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
         Food currentFood = currentTour.getFood();
         Region currentRegion = currentHotel.getRegion();

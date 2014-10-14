@@ -9,8 +9,8 @@ import com.softserveinc.softtour.service.HistoryRecordService;
 import com.softserveinc.softtour.service.UserService;
 import com.softserveinc.softtour.util.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -32,53 +32,44 @@ public class UserProfileConroller {
     private CountryService countryService;
 
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
-    public @ResponseBody User getCurrentUser(@ModelAttribute User user) {
-        return userService.findByEmail(user.getEmail());
+    public @ResponseBody User getCurrentUser() {
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = userService.findByEmail(loggedUserEmail);
+        return currentUser;
     }
 
     @RequestMapping(value = "/userFavorite", method = RequestMethod.GET)
-    public @ResponseBody List<Favorite> findUserFavorite(@ModelAttribute User user) {
-        List<Favorite> currentUserFavorites = favoriteService.findByUser(userService.findByEmail(user.getEmail()));
+    public @ResponseBody List<Favorite> findUserFavorite() {
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = userService.findByEmail(loggedUserEmail);
+        List<Favorite> currentUserFavorites = favoriteService.findByUser(currentUser);
         return currentUserFavorites;
     }
 
     @RequestMapping(value = "/userHistory", method = RequestMethod.GET)
-    public @ResponseBody List<HistoryRecord> findUserHistory(@ModelAttribute User user) {
-        List<HistoryRecord> currentUserRecords = historyRecordService.findByUser(userService.findByEmail(user.getEmail()));
+    public @ResponseBody List<HistoryRecord> findUserHistory() {
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = userService.findByEmail(loggedUserEmail);
+        List<HistoryRecord> currentUserRecords = historyRecordService.findByUser(currentUser);
         return currentUserRecords;
     }
 
-//    @RequestMapping(value="userToUpdate", method = RequestMethod.POST)
-//    public @ResponseBody User updateUserProfile( @RequestBody final User userToUpdate) {
-//        User updatedUser;
-//
-//        updatedUser = userService.findByEmail(userToUpdate.getEmail());
-//        updatedUser.setName(userToUpdate.getName());
-//        updatedUser.setPassword(userToUpdate.getPassword());
-//        updatedUser.setBirthday(userToUpdate.getBirthday());
-//        updatedUser.setSex(userToUpdate.getSex());
-//        updatedUser.setPhone(userToUpdate.getPhone());
-//
-//        userService.save(updatedUser);
-//
-//        return userToUpdate;
-//    }
 
     @RequestMapping(value="/userToUpdate", method=RequestMethod.POST)
     public String userToUpdate(User updatedUser) {
-
-        User userToUpdate = userService.findByEmail(updatedUser.getEmail());
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = userService.findByEmail(loggedUserEmail);
 
         if (!(updatedUser.getPassword()=="")) {
-            userToUpdate.setPassword(PasswordEncoder.encode(updatedUser.getPassword()));
+            currentUser.setPassword(PasswordEncoder.encode(updatedUser.getPassword()));
         }
-        userToUpdate.setBirthday(updatedUser.getBirthday());
-        userToUpdate.setSex(updatedUser.getSex());
-        userToUpdate.setPhone(updatedUser.getPhone());
+        currentUser.setBirthday(updatedUser.getBirthday());
+        currentUser.setSex(updatedUser.getSex());
+        currentUser.setPhone(updatedUser.getPhone());
 
-        userService.save(userToUpdate);
+        userService.save(currentUser);
         return "userProfile";
-        }
+    }
 
     @RequestMapping(value="favoriteToDelete", method = RequestMethod.POST)
     public @ResponseBody Favorite deleteFavorite( @RequestBody final Favorite favoriteToDelete) {
