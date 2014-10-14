@@ -29,8 +29,6 @@ public class IndexController {
     private CountryService countryService;
     @Autowired
     private RegionService regionService;
-    @Autowired
-    private FoodService foodService;
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public @ResponseBody List<Tour> findTours(
@@ -62,17 +60,17 @@ public class IndexController {
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser =userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
-        Food currentFood = currentTour.getFood();
+//        Food currentFood = currentTour.getFood();         correct food (food is enum now)
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
         Country country = countryService.save(currentCountry);
-        Food food = foodService.save(currentFood);
+//        Food food = foodService.save(currentFood);         correct food (food is enum now)
         currentRegion.setCountry(country);
         Region region = regionService.save(currentRegion);
         currentHotel.setRegion(region);
         Hotel hotel = hotelService.save(currentHotel);
         currentTour.setHotel(hotel);
-        currentTour.setFood(food);
+//        currentTour.setFood(food);                        correct food (food is enum now)
         currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);

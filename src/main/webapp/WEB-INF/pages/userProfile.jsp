@@ -182,7 +182,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group backdown">
                                     <div>
-                                        <img src='\${tour.imgUrl}' class="avatar img-circle" id="hotelImg\${id}">
+                                        <img src='\${tour.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@
                          <span class="tabTitleFont">Вартість туру: </span>
                          <span id="tourPrice-f\${id}" class="tabulatedTitle">\${tour.price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
-                         <span id="tourFood-f\${id}" class="tabulatedTitle">\${tour.food.name}</span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle">\${tour.food}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${tour.date}</span>
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})"></i></span>
@@ -247,7 +247,7 @@
                         <div class="col-sm-4">
                             <div class="input-group backdown">
                                 <div>
-                                    <img src='\${tour.hotel.imgUrl}' class="avatar img-circle" id="hotelImg\${id}">
+                                    <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
                                 </div>
                             </div>
                         </div>
@@ -298,9 +298,9 @@
                          <span class="tabTitleFont">Тривалість туру: </span>
                          <span id="tourDays-h\${id}" class="tabulatedTitle">\${tour.days} Днів</span>
                          <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${tour.price} </span>
+                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${tour.price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
-                         <span id="tourFood-h\${id}" class="tabulatedTitle">\${tour.food.name}</span>
+                         <span id="tourFood-h\${id}" class="tabulatedTitle">\${tour.food}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
                          <span id="tourDepartureDate-h\${id}" class="tabulatedTitle">\${tour.date}</span>
                      </span>
@@ -311,7 +311,7 @@
                         <div class="col-sm-4">
                             <div class="input-group backdown">
                                 <div>
-                                    <img src='\${tour.hotel.imgUrl}' class="avatar img-circle" id="hotelImg\${id}">
+                                    <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
                                 </div>
                             </div>
                         </div>
