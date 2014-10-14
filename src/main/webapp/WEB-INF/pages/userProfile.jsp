@@ -182,7 +182,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group backdown">
                                     <div>
-                                        <img src='\${tour.imgUrl}' class="avatar img-circle" id="hotelImg\${id}">
+                                        <img src='\${tour.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +247,7 @@
                         <div class="col-sm-4">
                             <div class="input-group backdown">
                                 <div>
-                                    <img src='\${tour.hotel.imgUrl}' class="avatar img-circle" id="hotelImg\${id}">
+                                    <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
                                 </div>
                             </div>
                         </div>
@@ -311,7 +311,7 @@
                         <div class="col-sm-4">
                             <div class="input-group backdown">
                                 <div>
-                                    <img src='\${tour.hotel.imgUrl}' class="avatar img-circle" id="hotelImg\${id}">
+                                    <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
                                 </div>
                             </div>
                         </div>
