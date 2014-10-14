@@ -90,7 +90,7 @@
 
 <!-- Hotel template -->
 <script id="hotelTemplate" type="text/x-jquery-tmpl">
-<div id="result" class="panel panel-default">
+<div id="result" class="panel panel-default hotel-panel">
     <div class="panel-heading" data-toggle="collapse" data-parent="#hotelResult" href="#collapseHotel\${id}">
         <h4 class="panel-title">
             <strong class="text-info pull-left" id="hotel\${id}">
@@ -143,12 +143,14 @@
              <!-- Button trigger modal -->
             <div class="row clearfix">
                 <div class="col-md-4">
-                <button class="btn btn-block hotel-btn">Шукати тур</button>
+                <button class="btn btn-block hotel-btn">
+                <i class="glyphicon glyphicon-globe"></i> Шукати тур
+                </button>
                 </div>
                 <div class="col-md-4">
                         <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
                         <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="openFeedbackWindow(\${id})">
-                            Залишити відгук
+    <i class="glyphicon glyphicon-bullhorn"></i> Залишити відгук
                         </button>
                         </security:authorize>
                 </div>
@@ -229,7 +231,7 @@
                         aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title"> відгуки про готель \${name}</h4>
+                <h4 class="modal-title"> Відгуки про готель \${name}</h4>
             </div>
             <div class="modal-body comment-body">
                 <div class="container" id="comment-list\${id}">

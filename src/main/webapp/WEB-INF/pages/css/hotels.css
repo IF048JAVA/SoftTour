@@ -19,6 +19,12 @@
 .hotels-result {
     margin-left: 65px;
 }
+.hotel-panel{
+    background-color: rgba(139, 150, 143, 0.30);
+    margin-top: 5px;
+    border-radius: 15px;
+    box-shadow: 4px 5px 38px #4b4b4b;
+}
 
 .hotel-btn{
     border-radius: 15px;

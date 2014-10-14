@@ -24,16 +24,19 @@ function showComments(id) {
             var img = '';
 
             for(var i = 0; i < length; i++){
+
                 if(data[i].user.sex == "MALE"){
                     img = "/img/male.jpg"
                 } else {
                     img = "/img/female.jpg"
                 }
 
-                html += '<div class=row><div class="col-md-2 commentInfo">' +
-                    '<img src="' + img + '" class="img-circle avatar">' +
-                    '<p>' + data[i].user.name +'</p></div><div class="col-md-10 comment"><p>' +
-                    data[i].comment + '</p></div></div>';
+                if(data[i].comment != '') {
+                    html += '<div class=row><div class="col-md-2 commentInfo">' +
+                        '<img src="' + img + '" class="img-circle avatar">' +
+                        '<p>' + data[i].user.name + '</p></div><div class="col-md-10 comment"><p>' +
+                        data[i].comment + '</p></div></div>';
+                }
             }
                 $("#comment-list" + id).html(html);
                 $('#commentModal' + id).modal('show');
@@ -72,6 +75,10 @@ function searchByName(pageNum) {
             $.each(data.content, function (key, value) {
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+
+                if(key == 0){
+                    $("#collapseHotel" + value.id).attr("class", "panel-collapse collapse in");
+                }
             })
             showPagination(searchByName, numOfPages, pageNum)
         },
@@ -120,6 +127,9 @@ function searchHotels(pageNum) {
             $.each(data.content, function (key, value) {
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
+                if(key == 0){
+                    $("#collapseHotel" + value.id).attr("class", "panel-collapse collapse in");
+                }
             })
 
             showPagination(searchHotels, numOfPages, pageNum)
