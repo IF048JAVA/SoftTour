@@ -139,23 +139,23 @@
                 <h5 id="hotelLocation\${id}">\${location}</h5>
                 <h5 id="hotelValueForMoney\${id}">\${valueForMoney}</h5>
             </div>
+
+             <!-- Button trigger modal -->
             <div class="row clearfix">
-                <div class="col-md-4"></div>
-                <div class="col-md-6">
-                    <!-- Button trigger modal -->
-                    <div class=btn-group>
-                        <button class="btn btn-sm">Шукати тур</button>
+                <div class="col-md-4">
+                <button class="btn btn-block hotel-btn">Шукати тур</button>
+                </div>
+                <div class="col-md-4">
                         <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-                        <button class="btn btn-sm" data-toggle="modal" onclick="openFeedbackWindow(\${id})">
+                        <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="openFeedbackWindow(\${id})">
                             Залишити відгук
                         </button>
                         </security:authorize>
-                        <button class="btn btn-sm" data-toggle="modal" onclick="showComments(\${id})">Переглянути
-                            відгуки
-                        </button>
-                    </div>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="showComments(\${id})">
+                        <i class="glyphicon glyphicon-comment"></i> Переглянути коментарі
+                        </button></div>
             </div>
         </div>
     </div>

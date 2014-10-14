@@ -32,18 +32,18 @@ function showComments(id) {
 
                 html += '<div class=row><div class="col-md-2 commentInfo">' +
                     '<img src="' + img + '" class="img-circle avatar">' +
-                    '<p>' + data[i].user.name +'<small class="commentDateStamp">15/11/2012</small></p>' +
-                        '</div><div class="col-md-10 comment"><p>' + data[i].comment + '</p></div></div>';
+                    '<p>' + data[i].user.name +'</p></div><div class="col-md-10 comment"><p>' +
+                    data[i].comment + '</p></div></div>';
             }
-            $("#comment-list" + id).html(html);
+                $("#comment-list" + id).html(html);
+                $('#commentModal' + id).modal('show');
 
-            $('#commentModal' + id).modal('show');
         },
 
         error: function () {
             alert("ERROR");
         }
-    });;
+    });
 
 }
 

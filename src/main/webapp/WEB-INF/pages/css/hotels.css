@@ -20,6 +20,11 @@
     margin-left: 65px;
 }
 
+.hotel-btn{
+    border-radius: 15px;
+    box-shadow: 3px 4px 10px #4b4b4b;
+}
+
 .hotel-img {
     height: 170px;
     width: 170px;
@@ -84,7 +89,6 @@
     margin-top: 25px;
     text-align: center;
 }
-
 
 .comment
 {
