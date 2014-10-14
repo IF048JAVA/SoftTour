@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -82,9 +83,11 @@ listRight : 8 $
             tour.setPrice(new BigDecimal(price$));
 
             //set food
-            String foodSt = listCenter.get(1).text();
-            Food food = new Food(foodSt);
-            tour.setFood(food);
+
+//            FIX ME! food is Enum now!
+//            String foodSt = listCenter.get(1).text();
+//            Food food = new Food(foodSt);
+//            tour.setFood(food);
 
             //set departure time & date
             SimpleDateFormat format = new SimpleDateFormat("dd.mm.yy");

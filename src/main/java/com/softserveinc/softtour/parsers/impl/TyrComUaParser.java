@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.parsers.impl;
 
 import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.TyrComUaParserTemplateMethod;
 import com.softserveinc.softtour.parsers.constants.TyrComUaParserConstants;
 import org.openqa.selenium.By;
@@ -417,9 +418,11 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod implements TyrC
         }
 
         //set Food
-        String foodSt = tourDataList.get(5);
-        Food food = new Food(foodSt);
-        tour.setFood(food);
+
+//        FIX ME! food is Enum now!
+//        String foodSt = tourDataList.get(5);
+//        Food food = new Food(foodSt);
+//        tour.setFood(food);
 
         if(hasTourDate || !hasHotelPicture){
             WebElement linkToPicture = driver.findElement(By.xpath(LINK_TO_PICTURE));
