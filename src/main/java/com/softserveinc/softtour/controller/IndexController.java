@@ -1,7 +1,6 @@
 package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.*;
-import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.impl.ItTourParser;
 import com.softserveinc.softtour.service.*;
 import com.softserveinc.softtour.util.ItTourParserUtil;
@@ -31,7 +30,6 @@ public class IndexController {
     @Autowired
     private RegionService regionService;
 
-
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public @ResponseBody List<Tour> findTours(
             @RequestParam(value = "country", required = true) String country,
@@ -59,7 +57,7 @@ public class IndexController {
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser =userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
-        Food currentFood = currentTour.getFood();
+//        Food currentFood = currentTour.getFood();         correct food (food is enum now)
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
         Country country = countryService.save(currentCountry);
@@ -70,8 +68,8 @@ public class IndexController {
         Hotel hotel = hotelService.save(currentHotel);
         currentTour.setHotel(hotel);
 //        currentTour.setFood(food);                        correct food (food is enum now)
-        currentTour.setDepartureCity("Null");//tell Sasha to make changes in parser
-        currentTour.setDepartureTime(new Time(12354));//tell Sasha that Date is not in java.util..
+        currentTour.setDepartureCity("Null");
+        currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);
         Favorite favorite=new Favorite(sqlDate,currentUser,tourToFav);
         favoriteService.save(favorite);
