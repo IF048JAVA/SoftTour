@@ -43,10 +43,13 @@ public class IndexController {
     }
 
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
-    public @ResponseBody List<Tour> searchTour(){
+    public @ResponseBody List<Tour> searchTour(
+            @RequestParam(value = "country", required = true) String country,
+            @RequestParam(value = "minPrice", required = false) Integer minPrice,
+            @RequestParam(value = "maxPrice", required = false) Integer maxPrice){
         //return tourService.findAll();
-        String url = new ItTourParserUtil().createUrl("Греція", 3, 1 ,500, 1000);
-        ItTourParser parser = new ItTourParser("Греція");
+        String url = new ItTourParserUtil().createUrl(country, 3, 1 ,minPrice, maxPrice);
+        ItTourParser parser = new ItTourParser(country);
         List<Tour> resultList = parser.parse(url);
         return resultList;
 

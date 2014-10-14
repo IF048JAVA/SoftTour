@@ -1,5 +1,5 @@
 $(document).ready(function () {})
-var queryObj = {};
+
 var favData = {};
     function searchTours(countryPar) {
         showModal();
@@ -29,7 +29,13 @@ var favData = {};
 
         });
     }
-    function parseTour () {
+    function parseTour (countryPar) {
+        showModal();
+        var queryObj = {};
+        var Budget = $("#Budget").val();
+        queryObj.country = countryPar;
+        queryObj.minPrice = Budget*0.7;
+        queryObj.maxPrice = Budget*1.1;
 
         $.ajax({
             url: "/parseTour",
@@ -47,6 +53,7 @@ var favData = {};
                 favData=data;
                 console.log (data);
                 $('#indexResult').empty();
+                $('#indexResult').append('<strong>Результати пошуку:</strong>');
                 $('#indexTemplate').tmpl(data).appendTo('#indexResult');
 
             },
