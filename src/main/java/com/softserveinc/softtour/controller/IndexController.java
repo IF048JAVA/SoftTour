@@ -2,13 +2,14 @@ package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.parsers.impl.ItTourParser;
-import com.softserveinc.softtour.parsers.impl.TyrComUaParser;
 import com.softserveinc.softtour.service.*;
+import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 @Controller
@@ -43,8 +44,9 @@ public class IndexController {
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
         //return tourService.findAll();
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000);
-        List<Tour> resultList = parser.parse();
+        String url = new ItTourParserUtil().createUrl("Греція", 3, 1 ,500, 1000);
+        ItTourParser parser = new ItTourParser("Греція");
+        List<Tour> resultList = parser.parse(url);
         return resultList;
 
     }
@@ -67,7 +69,7 @@ public class IndexController {
         currentTour.setHotel(hotel);
         currentTour.setFood(food);
         currentTour.setDepartureCity("Null");//tell Sasha to make changes in parser
-        currentTour.setDepartureTime(new Date(12354));//tell Sasha that Date is not in java.util..
+        currentTour.setDepartureTime(new Time(12354));//tell Sasha that Date is not in java.util..
         Tour tourToFav=tourService.save(currentTour);
         Favorite favorite=new Favorite(sqlDate,currentUser,tourToFav);
         favoriteService.save(favorite);
