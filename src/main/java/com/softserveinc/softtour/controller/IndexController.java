@@ -2,8 +2,8 @@ package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.parsers.impl.ItTourParser;
-import com.softserveinc.softtour.parsers.impl.TyrComUaParser;
 import com.softserveinc.softtour.service.*;
+import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -45,8 +45,9 @@ public class IndexController {
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
         //return tourService.findAll();
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000);
-        List<Tour> resultList = parser.parse();
+        String url = new ItTourParserUtil().createUrl("Греція", 3, 1 ,500, 1000);
+        ItTourParser parser = new ItTourParser("Греція");
+        List<Tour> resultList = parser.parse(url);
         return resultList;
 
     }
