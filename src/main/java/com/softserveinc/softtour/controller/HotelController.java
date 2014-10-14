@@ -3,6 +3,7 @@ package com.softserveinc.softtour.controller;
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Feedback;
 import com.softserveinc.softtour.entity.Hotel;
+import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.FeedbackService;
 import com.softserveinc.softtour.service.HotelService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,9 +53,7 @@ public class HotelController {
             @RequestParam(value = "valueForMoney", required = false) Integer valueForMoney,
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
-            @RequestParam(value = "property", required = false) String property
-    ) {
-
+            @RequestParam(value = "property", required = false) String property) {
 
         return hotelService.findByCustomParameters(country, rating, comfort, cleanliness, location, valueForMoney,
                 new PageRequest(page, pageSize, Sort.Direction.DESC, property));
@@ -84,8 +84,11 @@ public class HotelController {
 
         Hotel hotel = hotelService.findOne(hotelId);
 
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser = userService.findByEmail(loggedUserEmail);
+
         Feedback feedback = new Feedback(cleanliness, comfort, location, valueForMoney, comment,
-                hotel, userService.findById(TEST_USER_ID));
+                hotel, currentUser);
         feedbackService.save(feedback);
 
         hotelService.save(hotelUtil.updateHotelRate(hotelId, cleanliness, comfort, location, valueForMoney));

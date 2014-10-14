@@ -1,8 +1,50 @@
 var ALL_COUNTRIES = "allCountries";
 var PAGE_SIZE = 10;
 
-function openModalWindow(id) {
-    $('#myModal' + id).modal('show');
+function openFeedbackWindow(id) {
+    $('#feedbackModal' + id).modal('show');
+}
+
+function showComments(id) {
+
+
+    var queryObj = {};
+    queryObj.hotelId = id;
+
+    $.ajax({
+        url: "/hotels/comments",
+        type: "GET",
+        data: queryObj,
+        dataType: 'json',
+
+        success: function (data) {
+
+            var html = '';
+            var length = data.length;
+            var img = '';
+
+            for(var i = 0; i < length; i++){
+                if(data[i].user.sex == "MALE"){
+                    img = "/img/male.jpg"
+                } else {
+                    img = "/img/female.jpg"
+                }
+
+                html += '<div class=row><div class="col-md-2 commentInfo">' +
+                    '<img src="' + img + '" class="img-circle avatar">' +
+                    '<p>' + data[i].user.name +'<small class="commentDateStamp">15/11/2012</small></p>' +
+                        '</div><div class="col-md-10 comment"><p>' + data[i].comment + '</p></div></div>';
+            }
+            $("#comment-list" + id).html(html);
+
+            $('#commentModal' + id).modal('show');
+        },
+
+        error: function () {
+            alert("ERROR");
+        }
+    });;
+
 }
 
 $(".hotel_search").on("submit", function (e) {
@@ -87,8 +129,6 @@ function searchHotels(pageNum) {
         }
 
     });
-
-    return numOfPages;
 }
 
 function search() {
@@ -129,7 +169,7 @@ function leaveFeedback(hotelId){
         $('#myModal' + hotelId).modal('hide');
     }
     $.ajax({
-        url: "/hotels/leaveFeedback",
+        url: "/hotels/feedback",
         type: "POST",
         data: feedbackQuery
     })
@@ -150,9 +190,9 @@ if ($('#hotel_page').length) {
         }, function (country) {
 
             var html = ' ';
-            var len = country.length;
+            var length = country.length;
 
-            for (var i = 0; i < len; i++) {
+            for (var i = 0; i < length; i++) {
                 html += '<option value="' + country[i].name + '">'
                     + country[i].name + '</option>';
             }
