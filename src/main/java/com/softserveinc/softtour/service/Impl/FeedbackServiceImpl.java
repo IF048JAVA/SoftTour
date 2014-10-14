@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.service.Impl;
 
 import com.softserveinc.softtour.entity.Feedback;
+import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.repository.FeedbackRepository;
 import com.softserveinc.softtour.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public void delete(Feedback feedback) {
         feedbackRepository.delete(feedback);
+    }
+
+    @Override
+    public List<Feedback> findByHotelId(Long hotelId) {
+        return feedbackRepository.findByHotelId(hotelId);
     }
 }
