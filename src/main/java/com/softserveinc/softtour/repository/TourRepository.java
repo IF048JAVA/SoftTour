@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
                                        @Param("date") Date date,
                                        @Param("days") int days,
                                        @Param("departureCity") String departureCity,
-                                       @Param("departureTime") Date departureTime,
+                                       @Param("departureTime") Time departureTime,
                                        @Param("price") BigDecimal price,
                                        @Param("hotel") String hotel,
                                        @Param("food") String food);

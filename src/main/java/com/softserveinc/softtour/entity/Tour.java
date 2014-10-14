@@ -1,9 +1,9 @@
 package com.softserveinc.softtour.entity;
 
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Time;
 
 @Entity
 @Table(name = "Tour")
@@ -24,7 +24,7 @@ public class Tour {
     private String departureCity;
 
     @Column(name = "departureTime", nullable = false)
-    private Date departureTime;
+    private Time departureTime;
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;
@@ -41,7 +41,7 @@ public class Tour {
     }
 
     public Tour(Date date, int days, String departureCity,
-                Date departureTime, BigDecimal price, Hotel hotel, Food food) {
+                Time departureTime, BigDecimal price, Hotel hotel, Food food) {
 
         this.date = date;
         this.days = days;
@@ -84,11 +84,11 @@ public class Tour {
         this.departureCity = departureCity;
     }
 
-    public Date getDepartureTime() {
+    public Time getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(Time departureTime) {
         this.departureTime = departureTime;
     }
 

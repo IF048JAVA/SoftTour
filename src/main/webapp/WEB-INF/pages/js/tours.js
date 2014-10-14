@@ -74,4 +74,5 @@ function saveFavorites (id){
         mimeType: 'application/json'
     })
     $("#deleteButtonF"+id).remove();
+    //$("#")
 }

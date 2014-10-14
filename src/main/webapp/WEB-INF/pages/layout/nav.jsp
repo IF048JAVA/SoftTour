@@ -24,7 +24,7 @@
             <ul class="nav navbar-nav navbar-right">
              
                <security:authorize access="hasRole('ROLE_ANONYMOUS')">
-	                <li><a href="/login/form">Увійти</a></li>
+	                <li><a href="/login">Увійти</a></li>
 	                <li><a href="/registration/new">Реєстрація</a></li>
                 </security:authorize>
              
