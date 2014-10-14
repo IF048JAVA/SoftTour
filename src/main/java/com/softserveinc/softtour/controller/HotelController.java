@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/hotels")
 public class HotelController {
-private static final Long TEST_USER_ID = (long) 1;
+    private static final Long TEST_USER_ID = (long) 1;
 
     @Autowired
     private HotelService hotelService;
@@ -63,24 +63,24 @@ private static final Long TEST_USER_ID = (long) 1;
     public @ResponseBody Page<Hotel> findByName(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize){
+            @RequestParam(value = "pageSize", required = false) Integer pageSize) {
 
         return hotelService.findByName(name, new PageRequest(page, pageSize));
     }
 
     @RequestMapping(value = "/allCountry")
-    public @ResponseBody List<Country> findCounties(){
+    public @ResponseBody List<Country> findCounties() {
         return countryService.findAll();
     }
 
-    @RequestMapping(value = "/leaveFeedback", method = RequestMethod.POST)
+    @RequestMapping(value = "/feedback", method = RequestMethod.POST)
     public void saveFeedback(
             @RequestParam(value = "comfort", required = true) Integer comfort,
             @RequestParam(value = "cleanliness", required = true) Integer cleanliness,
             @RequestParam(value = "location", required = true) Integer location,
             @RequestParam(value = "valueForMoney", required = true) Integer valueForMoney,
             @RequestParam(value = "comment", required = false) String comment,
-            @RequestParam(value = "hotelId", required = true) Long hotelId){
+            @RequestParam(value = "hotelId", required = true) Long hotelId) {
 
         Hotel hotel = hotelService.findOne(hotelId);
 
@@ -89,5 +89,11 @@ private static final Long TEST_USER_ID = (long) 1;
         feedbackService.save(feedback);
 
         hotelService.save(hotelUtil.updateHotelRate(hotelId, cleanliness, comfort, location, valueForMoney));
+    }
+
+    @RequestMapping(value = "/comments", method = RequestMethod.GET)
+    public @ResponseBody List<Feedback> findByHotel(
+            @RequestParam(value = "hotelId", required = true) Long hotelId) {
+        return feedbackService.findByHotelId(hotelId);
     }
 }
