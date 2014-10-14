@@ -375,7 +375,6 @@ public class TyrComUaParser extends TyrComUaParserTemplateMethod implements TyrC
         Time sqlTimeDepart = null;
         try {
             departureTime = dateFormat.parse(depTime);
-            sqlDateDepart = new java.sql.Date(departureTime.getTime());
             sqlTimeDepart = new Time(departureTime.getTime());
         } catch (ParseException e) {
             e.printStackTrace();

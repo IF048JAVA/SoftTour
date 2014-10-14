@@ -20,7 +20,7 @@
     margin-left: 65px;
 }
 
-.img-circle {
+.hotel-img {
     height: 170px;
     width: 170px;
 }
@@ -51,4 +51,66 @@
 
 .stars_fb{
     text-align: center;
+}
+
+
+.modal-comment{
+    width: 800px;
+}
+
+.comment-body{
+    background-color: rgba(139, 150, 143, 0.10);
+}
+
+.comment {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 3px 10px;
+    margin-bottom: 15px;
+    margin-left: 0;
+}
+
+.commentInfo, .commentDateStamp {
+    color: #333333;
+    font: normal 12px "Segoe UI", Arial, Sans-serif;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0;
+    line-height: 18px;
+    width: 140px;
+}
+.commentInfo{
+    margin-top: 25px;
+    text-align: center;
+}
+
+
+.comment
+{
+    position: relative;
+    width: 600px;
+    padding: 12px;
+    color: #fff;
+    font: normal 12px "Segoe UI", Arial, Sans-serif;
+    background-color: rgb(53, 58, 56);
+    border-radius: 24px;
+}
+
+.comment:after
+{
+    content: '';
+    position: relative;
+    border-style: solid;
+    border-width: 15px 28px 15px 0;
+    border-color: transparent rgb(53, 58, 56);
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -28px;
+}
+
+.avatar{
+    width: 70px;
+    height: 70px;
 }
