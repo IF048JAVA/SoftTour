@@ -1,7 +1,9 @@
 package com.softserveinc.softtour.parsers.impl;
 
-import com.softserveinc.softtour.entity.*;
-import com.softserveinc.softtour.entity.template.Food;
+import com.softserveinc.softtour.entity.Country;
+import com.softserveinc.softtour.entity.Hotel;
+import com.softserveinc.softtour.entity.Region;
+import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -134,10 +136,10 @@ listRight : 8 $
         String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000);
         ItTourParser parser = new ItTourParser("Греція");
         List<Tour> listTour = parser.parse(url);
-        do {
+        while (parser.hasNextPage()){
             url = parserUtil.nextPage();
             listTour.addAll(parser.parse(url));
-        } while (parser.hasNextPage());
+        }
         for(Tour tour : listTour){
             System.out.println(tour);
         }

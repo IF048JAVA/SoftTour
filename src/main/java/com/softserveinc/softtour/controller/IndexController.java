@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.impl.ItTourParser;
 import com.softserveinc.softtour.service.*;
 import com.softserveinc.softtour.util.ItTourParserUtil;
@@ -45,10 +46,16 @@ public class IndexController {
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
         //return tourService.findAll();
-        String url = new ItTourParserUtil().createUrl("Греція", 3, 1 ,500, 1000);
+        ItTourParserUtil parserUtil = new ItTourParserUtil();
+        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000);
         ItTourParser parser = new ItTourParser("Греція");
-        List<Tour> resultList = parser.parse(url);
-        return resultList;
+        List<Tour> listTour = parser.parse(url);
+        while (parser.hasNextPage()){
+            url = parserUtil.nextPage();
+            listTour = parser.parse(url); //можна кожного разу створювати новий ліст на 100 елементів
+            //.addAll(parser.parse(url)); //або добавляти в уже існуючий
+        }
+        return listTour;
 
     }
 
