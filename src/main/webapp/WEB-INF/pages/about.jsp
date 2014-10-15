@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
         <h3 align="center">ПРО НАС</h3>
-            <p align="center"><img src="img/Grup_foto.jpg" alt="Фотографія групи" width="70%" height="70%"></p>
+            <p align="center"><img src="img/if048java_foto.jpg" alt="Фотографія групи" width="100%" height="100%"></p>
             <p align="justify"> 4 серпня 2014 року група IF048JAVA почала навчання на базі IT Академії компанії SoftServe. На конкурсній
             основі, серед великої кількості претендентів, було відібрано 6 студентів, які за три з половиною місяці
             повинні освоїти всі етапи розробки веб-аплікацій та завершити свій реальний проект. Під керівництвом
