@@ -45,4 +45,9 @@ public class HotelServiceImpl implements HotelService {
                 BigDecimal.valueOf(comfort), BigDecimal.valueOf(cleanliness),
                 BigDecimal.valueOf(location), BigDecimal.valueOf(valueForMoney), pageable);
     }
+
+    @Override
+    public List<Hotel> findAll() {
+        return hotelRepository.findAll();
+    }
 }

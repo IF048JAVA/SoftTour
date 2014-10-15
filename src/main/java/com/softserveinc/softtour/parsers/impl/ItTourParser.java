@@ -4,10 +4,12 @@ import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.service.HotelService;
 import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -22,6 +24,18 @@ public class ItTourParser {
     private List<Tour> tourList = new ArrayList<>();
     private String country;
     private Document document;
+    private List<String> hotelNameList;
+
+    @Autowired
+    private HotelService hotelService;
+
+    {
+        List<Hotel> listHotel = hotelService.findAll();
+        for(int i = 0; i < listHotel.size(); i++){
+            hotelNameList.add(listHotel.get(i).getName());
+        }
+
+    }
 
     public ItTourParser(String country) {
         this.country = country;
@@ -102,7 +116,6 @@ listRight : 8 $
                 departure = format.parse(depTime);
                 sqlDateDepart = new java.sql.Date(departure.getTime());
                 sqlTimeDepart = new Time(departure.getTime());
-
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -121,14 +134,6 @@ listRight : 8 $
 
             tourList.add(tour);
         }
-    }
-
-    public boolean hasNextPage(){
-        List<Element> nextPage = document.getElementsByClass("next");
-        if(nextPage.size() > 0){
-            return true;
-        }
-        return false;
     }
 
     public static void main(String[] args) {
