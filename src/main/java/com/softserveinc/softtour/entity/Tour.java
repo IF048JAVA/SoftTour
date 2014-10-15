@@ -1,7 +1,7 @@
 package com.softserveinc.softtour.entity;
 
 import com.softserveinc.softtour.entity.template.Food;
-import com.softserveinc.softtour.entity.template.Sex;
+import com.softserveinc.softtour.entity.template.RoomType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -32,13 +32,25 @@ public class Tour {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_id", nullable = false)
-    private Hotel hotel;
+    @Column(name = "adultAmount", nullable = false)
+    private int adultAmount;
+
+    @Column(name = "childrenAmount", nullable = false)
+    private int childrenAmount;
+
+    @Column(name = "roomType", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private RoomType roomType;
 
     @Column(name = "food", nullable = false)
     @Enumerated(EnumType.STRING)
     private Food food;
+
+    @ManyToOne
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private Hotel hotel;
+
+
 
     public Tour() {
     }
@@ -103,12 +115,28 @@ public class Tour {
         this.price = price;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public int getAdultAmount() {
+        return adultAmount;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setAdultAmount(int adultAmount) {
+        this.adultAmount = adultAmount;
+    }
+
+    public int getChildrenAmount() {
+        return childrenAmount;
+    }
+
+    public void setChildrenAmount(int childrenAmount) {
+        this.childrenAmount = childrenAmount;
+    }
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
     }
 
     public Food getFood() {
@@ -118,6 +146,16 @@ public class Tour {
     public void setFood(Food food) {
         this.food = food;
     }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+
 
     @Override
     public String toString() {

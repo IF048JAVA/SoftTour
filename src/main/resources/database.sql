@@ -70,8 +70,12 @@ CREATE TABLE tour (
   departureTime time NOT NULL,
   departureCity varchar(45) NOT NULL,
   price decimal(7,2) NOT NULL,
-  hotel_id bigint(20) NOT NULL,
+  adultAmount int(3) NOT NULL,
+  childrenAmount int(3) NOT NULL,
+  roomType enum('STD_SV','STD','SUPERIOR','DELUXE_SUPERIOR','FAMILY') NOT NULL,
   food enum('HB','BB','FB','AI','UAI','RO') NOT NULL,
+  hotel_id bigint(20) NOT NULL,
+
 
   PRIMARY KEY (id),
   FOREIGN KEY (hotel_id) REFERENCES hotel (id)
