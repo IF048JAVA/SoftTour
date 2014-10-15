@@ -30,8 +30,6 @@ public class IndexController {
     private CountryService countryService;
     @Autowired
     private RegionService regionService;
-    @Autowired
-    private FoodService foodService;
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public @ResponseBody List<Tour> findTours(
@@ -70,13 +68,13 @@ public class IndexController {
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
         Country country = countryService.save(currentCountry);
-        Food food = foodService.save(currentFood);
+        //Food food = foodService.save(currentFood);
         currentRegion.setCountry(country);
         Region region = regionService.save(currentRegion);
         currentHotel.setRegion(region);
         Hotel hotel = hotelService.save(currentHotel);
         currentTour.setHotel(hotel);
-        currentTour.setFood(food);
+        //currentTour.setFood(food);
         currentTour.setDepartureCity("Null");//tell Sasha to make changes in parser
         currentTour.setDepartureTime(new Time(12354));//tell Sasha that Date is not in java.util..
         Tour tourToFav=tourService.save(currentTour);
