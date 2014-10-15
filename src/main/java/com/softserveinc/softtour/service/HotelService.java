@@ -14,4 +14,5 @@ public interface HotelService {
     void deleteById(long id);
     Page<Hotel> findByCustomParameters(List<String> country, Integer rating, Integer comfort, Integer cleanliness,
                                        Integer location, Integer valueForMoney, Pageable pageable);
+    List<Hotel> findAll();
 }
