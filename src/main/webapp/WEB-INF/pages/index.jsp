@@ -3,35 +3,28 @@
 <h2 style="text-align: center">Введіть мінімальну та максимальну ціну для пошуку туру та виберіть країну</h2>
 
 <div class="row">
-        <div class="col-md-3 imgfont"  style="margin-left:50px;"><img src="img/egypt_logo.png"id="egypt" onclick="searchTours('Egypt')"><br>Єгипет</div>
+        <div class="col-md-3 imgfont"  style="margin-left:50px;"><img src="img/egypt_logo.png"id="egypt" onclick="parseTour('Єгипет')"><br>Єгипет</div>
         <div class="col-md-1"></div>
-        <div class="col-md-3 imgfont"><img src="img/greece_logo.png" id="greece" onclick="searchTours('Greece')"><br>Греція</div>
+        <div class="col-md-3 imgfont"><img src="img/greece_logo.png" id="greece" onclick="parseTour('Греція')"><br>Греція</div>
         <div class="col-md-1"></div>
-        <div class="col-md-3 imgfont"><img src="img/turkey_logo.png" id = "turkey" onclick="searchTours('Turkey')"><br>Туреччина</div>
+        <div class="col-md-3 imgfont"><img src="img/turkey_logo.png" id = "turkey" onclick="parseTour('Туреччина')"><br>Туреччина</div>
         <div class="col-md-1"></div>
 </div>
-<div class="row" style="margin-bottom: 15px;">
-        <div class="col-md-2"></div>
-        <div class="col-md-3">
-            <strong>Введіть мінімальну ціну туру:</strong>
+<div class="row" style="margin-bottom: 15px;margin-top: 15px;">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"style="text-align: center;">
+            <strong >Введіть ваш бюджет:</strong>
         <div class="input-group">
              <span class="input-group-addon">$</span>
-             <input type="text" id="minPrice" class="form-control" placeholder="0">
-        </div>
-        </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-3">
-            <strong>Введіть максимальну ціну туру:</strong>
-        <div class="input-group">
-            <span class="input-group-addon">$</span>
-            <input type="text" id="maxPrice" class="form-control" placeholder="9999">
-        </div>
-        </div>
-        <div class="col-md-2"></div>
-    <div id="resText" class="col-md-12" style="visibility: hidden;"><h4  style="text-align: center;">Результати пошуку</h4></div>
+             <input type="text" id="Budget" class="form-control" placeholder="500">
+        </div></div>
+        <div class="col-md-4"></div>
 </div>
-<button type="button" class="btn btn-primary" onclick="parseTour()">Primary</button>
-<div id="indexResult" class="parent-group" style="visibility: hidden; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:10px;  margin-bottom:15px;">
+
+
+
+<div id="indexResult" class="parent-group" style="visibility: hidden; text-align:center; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:10px;  margin-bottom:15px;">
+
     <!--Content from tour.js!-->
 </div>
 <script id="indexTemplate" type="text/x-jquery-tmpl">

@@ -1,5 +1,8 @@
 package com.softserveinc.softtour.entity;
 
+import com.softserveinc.softtour.entity.template.Food;
+import com.softserveinc.softtour.entity.template.Sex;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -33,8 +36,8 @@ public class Tour {
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
-    @ManyToOne
-    @JoinColumn(name = "food_id", nullable = false)
+    @Column(name = "food", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Food food;
 
     public Tour() {

@@ -155,14 +155,73 @@
                             </div>
 							
 						</fieldset>
-
                     </form:form>
-
-
-
-
 				</div>
 			</div>
+        </div>
+
+        <div class="panel panel-default" id="panel-favorite1000">
+            <div class="panel-heading" data-toggle="collapse" href="#panel-element-f1000">
+                             <span class="panel-title collapsed" data-parent="#panel-1">
+                                 <span class="tabTitleFont">Країна: </span>
+                                 <span id="tourCountry-f1000" class="tabulatedTitle">\${tour.hotel.region.country.name}</span>
+                                 <span class="tabTitleFont">Тривалість туру: </span>
+                                 <span id="tourDays-f1000" class="tabulatedTitle">\${tour.days} Днів</span>
+                                 <span class="tabTitleFont">Вартість туру: </span>
+                                 <span id="tourPrice-f1000}" class="tabulatedTitle">\${tour.price} $</span>
+                                 <span class="tabTitleFont">Харчування: </span>
+                                 <span id="tourFood-f1000" class="tabulatedTitle">\${tour.food.name}</span>
+                                 <span class="tabTitleFont">Дата вильоту: </span>
+                                 <span id="tourDepartureDate-f1000" class="tabulatedTitle">\${tour.date}</span>
+                                 <span id="deleteButtonF1000" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(1000);deleteFavorite(1000)"></i></span>
+                             </span>
+                </div>
+                    <div id="panel-element-f1000" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <div class="col-sm-4">
+                                <div class="input-group backdown">
+                                    <div>
+                                        <img src='\${tour.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-1">
+                            </div>
+
+                            <div class="col-sm-7">
+                                <strong class="text-info pull-left" id="hotel\${id}">
+                                    \${tour.hotel.name}
+                                </strong>
+                                <span>
+                                    <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xxs"
+                                        data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
+                                </span>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <h5>Кількість людей</h5>
+                                <h5>Дорослі</h5>
+                                <h5>Діти</h5>
+                                <h5>Рейтинг готелю</h5>
+                                <h5>Тип номерів</h5>
+                                <h5>Місто вильоту</h5>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <h5 id="touristsAmount\${id}">\${tour}</h5>
+                                <h5 id="adultsAmount\${id}">\${tour}</h5>
+                                <h5 id="childrenAmount\${id}">\${tour}</h5>
+                                <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
+                                <h5 id="hotelRoomType\${id}">\${tour}</h5>
+                                <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script id="favoriteTemplate" type="text/x-jquery-tmpl">
@@ -176,17 +235,58 @@
                          <span class="tabTitleFont">Вартість туру: </span>
                          <span id="tourPrice-f\${id}" class="tabulatedTitle">\${tour.price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
-                         <span id="tourFood-f\${id}" class="tabulatedTitle">\${tour.food.name}</span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle">\${tour.food}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${tour.date}</span>
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})"></i></span>
+                     </span>
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Info about tour \${id}...
+
+                        <div class="col-sm-4">
+                            <div class="input-group backdown">
+                                <div>
+                                    <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1">
+                        </div>
+
+                        <div class="col-sm-7">
+                            <strong class="text-info pull-left" id="hotel\${id}">
+                                \${tour.hotel.name}
+                            </strong>
+                            <span>
+                                <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xxs"
+                                    data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
+                            </span>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h5>Кількість людей</h5>
+                            <h5>Дорослі</h5>
+                            <h5>Діти</h5>
+                            <h5>Рейтинг готелю</h5>
+                            <h5>Тип номерів</h5>
+                            <h5>Місто вильоту</h5>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <h5 id="touristsAmount\${id}">\${tour}</h5>
+                            <h5 id="adultsAmount\${id}">\${tour}</h5>
+                            <h5 id="childrenAmount\${id}">\${tour}</h5>
+                            <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
+                            <h5 id="hotelRoomType\${id}">\${tour}</h5>
+                            <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
@@ -198,16 +298,59 @@
                          <span class="tabTitleFont">Тривалість туру: </span>
                          <span id="tourDays-h\${id}" class="tabulatedTitle">\${tour.days} Днів</span>
                          <span class="tabTitleFont">Вартість туру: </span>
-                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${tour.price} </span>
+                         <span id="tourPrice-h\${id}" class="tabulatedTitle">\${tour.price} $</span>
                          <span class="tabTitleFont">Харчування: </span>
-                         <span id="tourFood-h\${id}" class="tabulatedTitle">\${tour.food.name}</span>
+                         <span id="tourFood-h\${id}" class="tabulatedTitle">\${tour.food}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
                          <span id="tourDepartureDate-h\${id}" class="tabulatedTitle">\${tour.date}</span>
+                     </span>
                 </div>
                 <div id="panel-element-h\${id}" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Info about tour \${id}...
+
+                        <div class="col-sm-4">
+                            <div class="input-group backdown">
+                                <div>
+                                    <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1">
+                        </div>
+
+                        <div class="col-sm-7">
+                            <strong class="text-info pull-left" id="hotel\${id}">
+                                \${tour.hotel.name}
+                            </strong>
+                            <span>
+                                <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xxs"
+                                    data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
+                            </span>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h5>Кількість людей</h5>
+                            <h5>Дорослі</h5>
+                            <h5>Діти</h5>
+                            <h5>Рейтинг готелю</h5>
+                            <h5>Тип номерів</h5>
+                            <h5>Місто вильоту</h5>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <h5 id="touristsAmount\${id}">\${tour}</h5>
+                            <h5 id="adultsAmount\${id}">\${tour}</h5>
+                            <h5 id="childrenAmount\${id}">\${tour}</h5>
+                            <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
+                            <h5 id="hotelRoomType\${id}">\${tour}</h5>
+                            <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
+                        </div>
+
                     </div>
                 </div>
             </div>
+            <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
         </script>
+
+

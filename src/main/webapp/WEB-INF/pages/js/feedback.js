@@ -43,9 +43,11 @@ function checkArea(field){
 }
 
 function checkForm(form){
-    if(checkName(form["name"])&&checkEmail(form["email"])&&checkArea(["area"])){
+    if(checkName(form["name"])&&checkEmail(form["email"])&&checkArea(form["area"])){
         form.submit();
+        return true;
     }else{
         alert("Некоректно заповнена форма");
+        return false;
     }
 }

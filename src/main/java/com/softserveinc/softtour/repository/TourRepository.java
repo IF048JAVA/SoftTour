@@ -35,7 +35,7 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
             "and t.departureTime = :departureTime " +
             "and t.price = :price " +
             "and t.hotel.name = :hotel " +
-            "and t.food.name = :food")
+            "and t.food = :food")
     List<Tour> findByCustomParameters(@Param("country") String country,
                                        @Param("date") Date date,
                                        @Param("days") int days,

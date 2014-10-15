@@ -7,7 +7,8 @@ INSERT INTO role VALUES
 
 INSERT INTO user VALUES
   (1, 'Ronaldo', 'cristiano@gmail.com', 'c519e76f6719da3d089433d16ec68662b80087361af1253b0f1ca12fa4da9781', '1985-05-02', 'MALE', '+380506007733', 3, true),
-  (2, 'Messi', 'lionel@gmail.com', '7b443e7a5d6f7b0b3b700b540cd46338be7808dfc815acf83a9e80111c4bdd97', '1987-06-24', 'MALE', '+380994455666', 3, true);
+  (2, 'Messi', 'lionel@gmail.com', '7b443e7a5d6f7b0b3b700b540cd46338be7808dfc815acf83a9e80111c4bdd97', '1987-06-24', 'MALE', '+380994455666', 3, true),
+  (3, 'Masha', 'kisa@gmail.com', '7b443e7a5d6f7b0b3b700b540cd46338be7808dfc815acf83a9e80111c4bdd97', '1987-06-24', 'FEMALE', '+380994455666', 3, true);
 
 INSERT INTO country VALUES
   (1, 'Egypt'),
@@ -41,22 +42,13 @@ INSERT INTO hotel VALUES
   (14, 'Harrington Park Resort', 5, 1, 15, 4.8, 4.7, 4.9, 4.6, 5.0,
    'http://ittour.com.ua/images/itt_hotel_image/1/4/3/3/1/3/file_name/pict1_686.jpg');
 
-
-INSERT INTO food VALUES
-  (1, 'HB'),
-  (2, 'BB'),
-  (3, 'FB'),
-  (4, 'AI'),
-  (5, 'UAI'),
-  (6, 'RO');
-
 INSERT INTO tour VALUES
-  (1, '2014-09-14', 6, '11:30:00', 'kyiv', 242.00, 3, 4),
-  (2, '2014-09-19', 10, '16:00:00', 'lviv', 350.00, 2, 3),
-  (3, '2014-09-24', 6, '14:30:00', 'kyiv', 750.00, 2, 3),
-  (4, '2014-09-26', 6, '20:00:00', 'lviv', 450.00, 3, 4),
-  (5, '2014-10-01', 6, '17:30:00', 'kyiv', 600.00, 2, 3),
-  (6, '2014-10-08', 6, '15:00:00', 'lviv', 250.00, 3, 4);
+  (1, '2014-09-14', 6, '11:30:00', 'kyiv', 242.00, 3, 'HB'),
+  (2, '2014-09-19', 10, '16:00:00', 'lviv', 350.00, 2, 'HB'),
+  (3, '2014-09-24', 6, '14:30:00', 'kyiv', 750.00, 2, 'HB'),
+  (4, '2014-09-26', 6, '20:00:00', 'lviv', 450.00, 3, 'HB'),
+  (5, '2014-10-01', 6, '17:30:00', 'kyiv', 600.00, 2, 'HB'),
+  (6, '2014-10-08', 6, '15:00:00', 'lviv', 250.00, 3, 'HB');
 
 INSERT INTO favorite VALUES
   (1, '2014-09-04', 2, 1),
@@ -66,11 +58,16 @@ INSERT INTO favorite VALUES
 
 INSERT INTO feedback VALUES
   (1, 4, 3, 4, 5, 'Not bed', 2, 2),
-  (2, 5, 4, 5, 4, 'NULL', 3, 1);
+  (2, 5, 4, 5, 4, 'NULL', 3, 1),
+  (3, 5, 4, 5, 4, 'bla bla bla bla bla bla bla bla ', 14, 2),
+  (4, 5, 4, 5, 4, 'fgdgjdg ', 14, 3),
+  (5, 5, 4, 5, 4, 'SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM SPAM', 14, 2);
 
 INSERT INTO historyrecords VALUES
-  (1, '2014-09-04', 1, 2),
-  (2, '2014-09-04', 2, 1);
+  (1, '2014-09-01', 1, 2),
+  (2, '2014-09-04', 2, 1),
+  (3, '2014-09-10', 1, 1),
+  (4, '2014-08-05', 2, 2);
 
 INSERT INTO historyrequest VALUES
   (1, '2014-09-08', '2014-09-11', 6, 14, '5', 1, 0, 200.00, 550.00, 'lviv', 1, 1, '2014-09-04'),

@@ -39,13 +39,13 @@
                     <div class="form-group">
                         <div class="col-md-2 col-md-2-offset"> </div>
                         <div class="col-md-8">
-                            <textarea name="area" id="area" class="form-control" rows="4" placeholder="Текст повідомлення:" onblur="checkArea(this)" style="max-width: 100%"></textarea>
+                            <textarea id="area" class="form-control" rows="4" name="area"  placeholder="Текст повідомлення:" onblur="checkArea(this)" style="max-width: 100%"></textarea>
                             <span id="text_help3" class="help" style="color: red"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit" onclick="checkForm(this.form)">
+                        <button class="btn btn-primary" type="submit" onclick="return checkForm(this.form)">
                             Надіслати
                         </button>
                     </div>
