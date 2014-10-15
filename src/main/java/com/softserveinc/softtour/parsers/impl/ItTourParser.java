@@ -133,13 +133,9 @@ listRight : 8 $
 
     public static void main(String[] args) {
         ItTourParserUtil parserUtil = new ItTourParserUtil();
-        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000);
+        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000, 2);
         ItTourParser parser = new ItTourParser("Греція");
         List<Tour> listTour = parser.parse(url);
-        while (parser.hasNextPage()){
-            url = parserUtil.nextPage();
-            listTour.addAll(parser.parse(url));
-        }
         for(Tour tour : listTour){
             System.out.println(tour);
         }

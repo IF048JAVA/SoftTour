@@ -12,7 +12,6 @@ public class ItTourParserUtil {
             "&items_per_page=100&night_from=8&night_till=8&preview=1";
     private Properties countryProperties = new Properties();
     private String Url;
-    private int page = 1;
 
     {
         try {
@@ -24,19 +23,17 @@ public class ItTourParserUtil {
         }
     }
 
-    public String createUrl(String country, int adults, int children, int priceFrom, int priceTo){
+    public String createUrl(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber){
         StringBuilder stringBuilder = new StringBuilder(baseParams);
         stringBuilder.append("&country=").append(countryProperties.getProperty(country));
         stringBuilder.append("&adults=").append(adults);
         stringBuilder.append("&children=").append(children);
         stringBuilder.append("&price_from=").append(priceFrom);
         stringBuilder.append("&price_till=").append(priceTo);
+        stringBuilder.append("&page=").append(pageNumber);
         System.out.println(stringBuilder.toString());
         this.Url = stringBuilder.toString();
         return Url;
     }
 
-    public String nextPage(){
-        return new StringBuilder(Url).append("&page=").append(++page).toString();
-    }
 }

@@ -45,14 +45,9 @@ public class IndexController {
     public @ResponseBody List<Tour> searchTour(){
         //return tourService.findAll();
         ItTourParserUtil parserUtil = new ItTourParserUtil();
-        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000);
+        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000, 2); //last parameter - number of result page
         ItTourParser parser = new ItTourParser("Греція");
         List<Tour> listTour = parser.parse(url);
-        while (parser.hasNextPage()){
-            url = parserUtil.nextPage();
-            listTour = parser.parse(url); //можна кожного разу створювати новий ліст на 100 елементів
-            //.addAll(parser.parse(url)); //або добавляти в уже існуючий
-        }
         return listTour;
 
     }
