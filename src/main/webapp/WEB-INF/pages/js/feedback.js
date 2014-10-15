@@ -47,7 +47,15 @@ function checkForm(form){
         form.submit();
         return true;
     }else{
-        alert("Некоректно заповнена форма");
+        if(!checkName(form["name"])){
+            document.getElementById("text_help").innerHTML = "Заповніть коректно поле";
+        }
+        if(!checkEmail(form["email"])){
+            document.getElementById("text_help2").innerHTML = "Заповніть коректно поле";
+        }
+        if(!checkArea(form["area"])){
+            document.getElementById("text_help3").innerHTML = "Заповніть коректно поле";
+        }
         return false;
     }
 }
