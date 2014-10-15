@@ -11,6 +11,8 @@ public class ItTourParserUtil {
             "&action=package_tour_search&package_tour_type=0&tour_kind=0&default_form_select=1" +
             "&items_per_page=100&night_from=8&night_till=8&preview=1";
     private Properties countryProperties = new Properties();
+    private String Url;
+    private int page = 1;
 
     {
         try {
@@ -30,6 +32,11 @@ public class ItTourParserUtil {
         stringBuilder.append("&price_from=").append(priceFrom);
         stringBuilder.append("&price_till=").append(priceTo);
         System.out.println(stringBuilder.toString());
-        return stringBuilder.toString();
+        this.Url = stringBuilder.toString();
+        return Url;
+    }
+
+    public String nextPage(){
+        return new StringBuilder(Url).append("&page=").append(++page).toString();
     }
 }

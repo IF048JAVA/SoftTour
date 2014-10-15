@@ -18,17 +18,20 @@ import java.util.List;
 public class ItTourParser {
     private List<Tour> tourList = new ArrayList<>();
     private String country;
+    private Document document;
 
     public ItTourParser(String country) {
         this.country = country;
     }
 
     public List<Tour> parse(String url){
-        searchTours(url);
+        String tourPage = searchTours(url).replace("\\","");
+        document = Jsoup.parse(tourPage);
+        addTours(document);
         return tourList;
     }
 
-    private void searchTours(String url){
+    private String searchTours(String url){
         String doc = null;
         try {
             doc = Jsoup.connect(url).
@@ -39,9 +42,7 @@ public class ItTourParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        doc = doc.replace("\\","");
-        Document document = Jsoup.parse(doc);
-        addTours(document);
+        return doc;
     }
 
     private void addTours(Document document){
@@ -117,11 +118,24 @@ listRight : 8 $
         }
     }
 
+    public boolean hasNextPage(){
+        List<Element> nextPage = document.getElementsByClass("next");
+        if(nextPage.size() > 0){
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        String url = new ItTourParserUtil().createUrl("Греція", 3, 1 ,500, 1000);
+        ItTourParserUtil parserUtil = new ItTourParserUtil();
+        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000);
         ItTourParser parser = new ItTourParser("Греція");
-        List<Tour> list = parser.parse(url);
-        for(Tour tour : list){
+        List<Tour> listTour = parser.parse(url);
+        do {
+            url = parserUtil.nextPage();
+            listTour.addAll(parser.parse(url));
+        } while (parser.hasNextPage());
+        for(Tour tour : listTour){
             System.out.println(tour);
         }
     }

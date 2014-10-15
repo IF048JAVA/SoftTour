@@ -45,10 +45,16 @@ public class IndexController {
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
         //return tourService.findAll();
-        String url = new ItTourParserUtil().createUrl("Греція", 3, 1 ,500, 1000);
+        ItTourParserUtil parserUtil = new ItTourParserUtil();
+        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000);
         ItTourParser parser = new ItTourParser("Греція");
-        List<Tour> resultList = parser.parse(url);
-        return resultList;
+        List<Tour> listTour = parser.parse(url);
+        do {
+            url = parserUtil.nextPage();
+            listTour = parser.parse(url); //можна створювати для кожних 100 сторінок новий ліст
+            //.addAll(parser.parse(url));   або добавити в один ліст всі тури
+        } while (parser.hasNextPage());
+        return listTour;
 
     }
 
