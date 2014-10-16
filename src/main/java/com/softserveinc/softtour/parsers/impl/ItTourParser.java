@@ -22,32 +22,31 @@ import java.util.List;
 public class ItTourParser {
     private List<Tour> tourList = new ArrayList<>();
     private String country;
-    private Document document;
-
 
     public ItTourParser(String country) {
         this.country = country;
     }
 
     public List<Tour> parse(String url){
-        String tourPage = searchTours(url).replace("\\","");
-        document = Jsoup.parse(tourPage);
+        Document document = search(url);
         addTours(document);
         return tourList;
     }
 
-    private String searchTours(String url){
+    private Document search(String url){
         String doc = null;
         try {
             doc = Jsoup.connect(url).
-                  timeout(5000).
+                  timeout(10000).
                   ignoreContentType(true).
                   execute().
                   body();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return doc;
+        String tourPage = doc.replace("\\", "");
+        Document document = Jsoup.parse(tourPage);
+        return document;
     }
 
     private void addTours(Document document){
@@ -118,6 +117,21 @@ listRight : 8 $
             Hotel hotel = new Hotel(hotelName, hotelStars, hotelRegion);
             tour.setHotel(hotel);
 
+            //set data from hotel page
+            Element link = listLeft.get(1).select("a").first();
+            String value = link.attr("onclick").replace("return package_tour_order(", "").replace(");", "");
+            String[] id = value.split(",");
+            ItTourParserUtil parserUtil = new ItTourParserUtil();
+            String url = parserUtil.hotelInfoUrl(id);
+            Document docum = search(url);
+            Element img = docum.getElementById("main_img_tour_in_view_open_");
+            String imgUrl = "";
+            try {
+                imgUrl = img.attr("src");
+                hotel.setImgUrl(imgUrl);
+            } catch (NullPointerException e){
+                hotel.setImgUrl("no_img");
+            }
             tourList.add(tour);
         }
     }

@@ -152,4 +152,21 @@ public class Hotel {
     public void setFeedbackNum(int feedbackNum) {
         this.feedbackNum = feedbackNum;
     }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", stars=" + stars +
+                ", feedbackNum=" + feedbackNum +
+                ", rating=" + rating +
+                ", comfort=" + comfort +
+                ", cleanliness=" + cleanliness +
+                ", location=" + location +
+                ", valueForMoney=" + valueForMoney +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", region=" + region +
+                '}';
+    }
 }

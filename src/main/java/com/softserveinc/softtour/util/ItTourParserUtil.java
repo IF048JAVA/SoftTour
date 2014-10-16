@@ -10,6 +10,9 @@ public class ItTourParserUtil {
             "callback=jQuery17109648473216220737_1412803322658&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38" +
             "&action=package_tour_search&package_tour_type=0&tour_kind=0&default_form_select=1" +
             "&items_per_page=100&night_from=8&night_till=8&preview=1";
+    private String hotelBaseParams = "http://www.ittour.com.ua/tour_search.php?" +
+            "callback=jQuery17106546518665272743_1413444817014&module_type=tour_search" +
+            "&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38&action=get_package_tour_order_form";
     private Properties countryProperties = new Properties();
     private String Url;
 
@@ -34,6 +37,13 @@ public class ItTourParserUtil {
         System.out.println(stringBuilder.toString());
         this.Url = stringBuilder.toString();
         return Url;
+    }
+
+    public String hotelInfoUrl(String [] id){
+        StringBuilder stringBuilder = new StringBuilder(hotelBaseParams);
+        stringBuilder.append("&tour_id=").append(id[0]);
+        stringBuilder.append("&sharding_rule_id=").append(id[1]);
+        return stringBuilder.toString();
     }
 
 }
