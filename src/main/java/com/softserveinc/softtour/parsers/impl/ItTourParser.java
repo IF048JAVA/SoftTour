@@ -4,12 +4,11 @@ import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.entity.Tour;
-import com.softserveinc.softtour.service.HotelService;
+import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -24,18 +23,7 @@ public class ItTourParser {
     private List<Tour> tourList = new ArrayList<>();
     private String country;
     private Document document;
-    private List<String> hotelNameList;
 
-    @Autowired
-    private HotelService hotelService;
-
-    {
-        List<Hotel> listHotel = hotelService.findAll();
-        for(int i = 0; i < listHotel.size(); i++){
-            hotelNameList.add(listHotel.get(i).getName());
-        }
-
-    }
 
     public ItTourParser(String country) {
         this.country = country;
@@ -100,11 +88,9 @@ listRight : 8 $
             tour.setPrice(new BigDecimal(price$));
 
             //set food
-
-//            FIX ME! food is Enum now!
-//            String foodSt = listCenter.get(1).text();
-//            Food food = new Food(foodSt);
-//            tour.setFood(food);
+            String foodSt = listCenter.get(1).text();
+            Food food = Food.valueOf(foodSt);
+            tour.setFood(food);
 
             //set departure time & date
             SimpleDateFormat format = new SimpleDateFormat("dd.mm.yy");
