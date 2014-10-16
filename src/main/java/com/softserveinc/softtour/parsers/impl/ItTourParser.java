@@ -35,7 +35,7 @@ public class ItTourParser {
         this.adults = adults;
         this.children = children;
         parserUtil = new ItTourParserUtil();
-        this.url = parserUtil.createUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        this.url = parserUtil.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
         hotelHolder = HotelHolder.getInstance();
     }
 
@@ -50,7 +50,7 @@ public class ItTourParser {
         String doc = null;
         try {
             doc = Jsoup.connect(url).
-                  timeout(10000).
+                  timeout(100000).
                   ignoreContentType(true).
                   execute().
                   body();
@@ -190,7 +190,7 @@ listRight : 8 $
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000, 2);
+        ItTourParser parser = new ItTourParser("Туреччина", 3, 1 ,500, 5000, 2);
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour){
             System.out.println(tour);

@@ -43,7 +43,7 @@ public class IndexController {
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
         //return tourService.findAll();
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000, 2);
+        ItTourParser parser = new ItTourParser("Туреччина", 3, 1 ,500, 5000, 2);
         List<Tour> listTour = parser.parse();
         return listTour;
 
