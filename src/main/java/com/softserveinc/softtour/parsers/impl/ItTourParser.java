@@ -6,6 +6,7 @@ import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.entity.template.RoomType;
+import com.softserveinc.softtour.util.HotelHolder;
 import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,17 +28,20 @@ public class ItTourParser {
     private int children;
     private ItTourParserUtil parserUtil;
     private String url;
+    private HotelHolder hotelHolder;
 
     public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
         this.country = country;
         this.adults = adults;
         this.children = children;
         parserUtil = new ItTourParserUtil();
-        this.url = parserUtil.createUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        this.url = parserUtil.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        hotelHolder = HotelHolder.getInstance();
     }
 
     public List<Tour> parse(){
         Document document = search(url);
+        // Document document = search("http://www.ittour.com.ua/tour_search.php?callback=jQuery17105286387244705111_1413460276773&module_type=tour_search&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38&action=package_tour_search&hotel_rating=3+4+78&food=496+388+498+512+560+1956&hotel=&region=&child_age=&package_tour_type=1&tour_kind=0&country=338&adults=2&children=0&date_from=16.10.14&date_till=26.10.14&night_from=6&night_till=14&price_from=0&price_till=99000&switch_price=USD&departure_city=2014&items_per_page=50&module_location_url=http%3A%2F%2Ftyr.com.ua%2Ftours%2Fsearch.php&preview=1&_=1413460280572");
         addTours(document);
         return tourList;
     }
@@ -46,7 +50,7 @@ public class ItTourParser {
         String doc = null;
         try {
             doc = Jsoup.connect(url).
-                  timeout(10000).
+                  timeout(100000).
                   ignoreContentType(true).
                   execute().
                   body();
@@ -117,12 +121,13 @@ listRight : 8 $
             tour.setDate(sqlDateDepart);
 
             //set departure city
-            String depCity = listLeft.get(3).getElementsByTag("center").first().text();
-            if(depCity.equals("")){
-                tour.setDepartureCity("Без перельоту");
-            } else {
-                tour.setDepartureCity(depCity);
+            String depCity = "";
+            try{
+                depCity = listLeft.get(3).getElementsByTag("div").first().text();
+            }catch (NullPointerException e){
+                depCity = "Без перельоту";
             }
+                tour.setDepartureCity(depCity);
 
             //set adults & children
             tour.setAdultAmount(adults);
@@ -158,21 +163,25 @@ listRight : 8 $
             //set data from hotel page
 
             //set hotel img
-            Element link = listLeft.get(1).select("a").first();
-            String value = link.attr("onclick").replace("return package_tour_order(", "").replace(");", "");
-            String[] id = value.split(",");
-            ItTourParserUtil parserUtil = new ItTourParserUtil();
-            String url = parserUtil.hotelInfoUrl(id);
-            Document docum = search(url);
-            Element img = docum.getElementById("main_img_tour_in_view_open_");
-            String imgUrl = "";
-            try {
-                imgUrl = img.attr("src");
-                hotel.setImgUrl(imgUrl);
-            } catch (NullPointerException e){
-                hotel.setImgUrl("no_img");
+            if(hotelHolder.containsHotel(hotelName)){
+                hotel.setImgUrl(hotelHolder.getHotelPicture(hotelName));
+            } else {
+                Element link = listLeft.get(1).select("a").first();
+                String value = link.attr("onclick").replace("return package_tour_order(", "").replace(");", "");
+                String[] id = value.split(",");
+                ItTourParserUtil parserUtil = new ItTourParserUtil();
+                String url = parserUtil.hotelInfoUrl(id);
+                Document docum = search(url);
+                Element img = docum.getElementById("main_img_tour_in_view_open_");
+                String imgUrl = "";
+                try {
+                    imgUrl = img.attr("src");
+                    hotel.setImgUrl(imgUrl);
+                } catch (NullPointerException e) {
+                    hotel.setImgUrl("no_img");
+                }
+                hotelHolder.putHotel(hotelName, imgUrl);
             }
-
 
             //set
 
@@ -181,7 +190,7 @@ listRight : 8 $
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000, 2);
+        ItTourParser parser = new ItTourParser("Туреччина", 3, 1 ,500, 5000, 2);
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour){
             System.out.println(tour);
