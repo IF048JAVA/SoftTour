@@ -173,7 +173,10 @@
                                  <span id="tourFood-f1000" class="tabulatedTitle">\${tour.food.name}</span>
                                  <span class="tabTitleFont">Дата вильоту: </span>
                                  <span id="tourDepartureDate-f1000" class="tabulatedTitle">\${tour.date}</span>
-                                 <span id="deleteButtonF1000" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(1000);deleteFavorite(1000)"></i></span>
+                                 <span id="deleteButtonF1000" data-role="button" class="pull-right clickable">
+                                     <i class="glyphicon glyphicon-remove" onclick="delFavFunction(1000);deleteFavorite(1000)">
+                                     </i>
+                                 </span>
                              </span>
                 </div>
                     <div id="panel-element-f1000" class="panel-collapse collapse">
@@ -201,7 +204,6 @@
                             </div>
 
                             <div class="col-sm-3">
-                                <h5>Кількість людей</h5>
                                 <h5>Дорослі</h5>
                                 <h5>Діти</h5>
                                 <h5>Рейтинг готелю</h5>
@@ -210,11 +212,10 @@
                             </div>
 
                             <div class="col-sm-4">
-                                <h5 id="touristsAmount\${id}">\${tour}</h5>
-                                <h5 id="adultsAmount\${id}">\${tour}</h5>
-                                <h5 id="childrenAmount\${id}">\${tour}</h5>
+                                <h5 id="adultsAmount\${id}">\${tour.adultAmount}</h5>
+                                <h5 id="childrenAmount\${id}">\${tour.childrenAmount}</h5>
                                 <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
-                                <h5 id="hotelRoomType\${id}">\${tour}</h5>
+                                <h5 id="hotelRoomType\${id}">\${tour.roomType}</h5>
                                 <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
                             </div>
 
@@ -238,7 +239,10 @@
                          <span id="tourFood-f\${id}" class="tabulatedTitle">\${tour.food}</span>
                          <span class="tabTitleFont">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle">\${tour.date}</span>
-                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable"><i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})"></i></span>
+                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable">
+                             <i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})">
+                             </i>
+                         </span>
                      </span>
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
@@ -266,7 +270,6 @@
                         </div>
 
                         <div class="col-sm-3">
-                            <h5>Кількість людей</h5>
                             <h5>Дорослі</h5>
                             <h5>Діти</h5>
                             <h5>Рейтинг готелю</h5>
@@ -275,11 +278,10 @@
                         </div>
 
                         <div class="col-sm-4">
-                            <h5 id="touristsAmount\${id}">\${tour}</h5>
-                            <h5 id="adultsAmount\${id}">\${tour}</h5>
-                            <h5 id="childrenAmount\${id}">\${tour}</h5>
+                            <h5 id="adultsAmount\${id}">\${tour.adultAmount}</h5>
+                            <h5 id="childrenAmount\${id}">\${tour.childrenAmount}</h5>
                             <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
-                            <h5 id="hotelRoomType\${id}">\${tour}</h5>
+                            <h5 id="hotelRoomType\${id}">\${tour.roomType}</h5>
                             <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
                         </div>
 
@@ -330,7 +332,6 @@
                         </div>
 
                         <div class="col-sm-3">
-                            <h5>Кількість людей</h5>
                             <h5>Дорослі</h5>
                             <h5>Діти</h5>
                             <h5>Рейтинг готелю</h5>
@@ -339,11 +340,10 @@
                         </div>
 
                         <div class="col-sm-4">
-                            <h5 id="touristsAmount\${id}">\${tour}</h5>
-                            <h5 id="adultsAmount\${id}">\${tour}</h5>
-                            <h5 id="childrenAmount\${id}">\${tour}</h5>
+                            <h5 id="adultsAmount\${id}">\${tour.adultAmount}</h5>
+                            <h5 id="childrenAmount\${id}">\${tour.childrenAmount}</h5>
                             <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
-                            <h5 id="hotelRoomType\${id}">\${tour}</h5>
+                            <h5 id="hotelRoomType\${id}">\${tour.roomType}</h5>
                             <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
                         </div>
 

@@ -72,7 +72,7 @@ CREATE TABLE tour (
   price decimal(7,2) NOT NULL,
   adultAmount int(3) NOT NULL,
   childrenAmount int(3) NOT NULL,
-  roomType enum('STD_SV','STD','SUPERIOR','DELUXE_SUPERIOR','FAMILY') NOT NULL,
+  roomType enum('STD_SV','STD','SUPERIOR','DELUXE_SUPERIOR','FAMILY','APART','UNKNOWN') NOT NULL,
   food enum('HB','BB','FB','AI','UAI','RO') NOT NULL,
   hotel_id bigint(20) NOT NULL,
 
