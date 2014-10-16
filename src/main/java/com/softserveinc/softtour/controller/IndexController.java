@@ -4,7 +4,6 @@ import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.impl.ItTourParser;
 import com.softserveinc.softtour.service.*;
-import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,10 +43,8 @@ public class IndexController {
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(){
         //return tourService.findAll();
-        ItTourParserUtil parserUtil = new ItTourParserUtil();
-        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000, 2); //last parameter - number of result page
-        ItTourParser parser = new ItTourParser("Греція");
-        List<Tour> listTour = parser.parse(url);
+        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000, 2);
+        List<Tour> listTour = parser.parse();
         return listTour;
 
     }

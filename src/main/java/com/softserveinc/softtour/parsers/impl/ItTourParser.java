@@ -5,6 +5,7 @@ import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.template.Food;
+import com.softserveinc.softtour.entity.template.RoomType;
 import com.softserveinc.softtour.util.ItTourParserUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,12 +23,20 @@ import java.util.List;
 public class ItTourParser {
     private List<Tour> tourList = new ArrayList<>();
     private String country;
+    private int adults;
+    private int children;
+    private ItTourParserUtil parserUtil;
+    private String url;
 
-    public ItTourParser(String country) {
+    public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
         this.country = country;
+        this.adults = adults;
+        this.children = children;
+        parserUtil = new ItTourParserUtil();
+        this.url = parserUtil.createUrl(country, adults, children, priceFrom, priceTo, pageNumber);
     }
 
-    public List<Tour> parse(String url){
+    public List<Tour> parse(){
         Document document = search(url);
         addTours(document);
         return tourList;
@@ -107,6 +116,35 @@ listRight : 8 $
             tour.setDepartureTime(sqlTimeDepart);
             tour.setDate(sqlDateDepart);
 
+            //set departure city
+            String depCity = listLeft.get(3).getElementsByTag("center").first().text();
+            if(depCity.equals("")){
+                tour.setDepartureCity("Без перельоту");
+            } else {
+                tour.setDepartureCity(depCity);
+            }
+
+            //set adults & children
+            tour.setAdultAmount(adults);
+            tour.setChildrenAmount(children);
+
+            //set room type
+            String roomTypeSt = listLeft.get(2).text().toUpperCase();
+            RoomType roomType = null;
+            try {
+                roomType = RoomType.valueOf(roomTypeSt);
+            }catch (IllegalArgumentException e){
+                if(roomTypeSt.equals("APAR...")){
+                    roomType = RoomType.APART;
+                } else if(roomTypeSt.equals("FAMI...")){
+                    roomType = RoomType.FAMILY;
+                } else {
+                    roomType = RoomType.UNKNOWN;
+                }
+            }
+            tour.setRoomType(roomType);
+
+
             //set hotel
             String hotelName = listLeft.get(1).text();
             String starsSt = listCenter.get(0).text();
@@ -118,6 +156,8 @@ listRight : 8 $
             tour.setHotel(hotel);
 
             //set data from hotel page
+
+            //set hotel img
             Element link = listLeft.get(1).select("a").first();
             String value = link.attr("onclick").replace("return package_tour_order(", "").replace(");", "");
             String[] id = value.split(",");
@@ -132,15 +172,17 @@ listRight : 8 $
             } catch (NullPointerException e){
                 hotel.setImgUrl("no_img");
             }
+
+
+            //set
+
             tourList.add(tour);
         }
     }
 
     public static void main(String[] args) {
-        ItTourParserUtil parserUtil = new ItTourParserUtil();
-        String url = parserUtil.createUrl("Греція", 3, 1 ,500, 1000, 2);
-        ItTourParser parser = new ItTourParser("Греція");
-        List<Tour> listTour = parser.parse(url);
+        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,500, 1000, 2);
+        List<Tour> listTour = parser.parse();
         for(Tour tour : listTour){
             System.out.println(tour);
         }
