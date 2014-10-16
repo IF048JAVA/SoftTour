@@ -219,6 +219,60 @@
                                 <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
                             </div>
 
+                            <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All">
+                                <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
+                                Як добратися?
+                                <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
+
+                            </button>
+
+                            <div id="transitInfo-All" class="collapse">
+
+                                <div class="panel panel-success col-sm-6">
+                                    <h3>Trains</h3>
+
+                                    <table data-toggle="table" data-url="data1.json" data-height="299">
+                                        <thead>
+                                        <tr>
+                                            <th data-field="departureCity" data-halign="right" data-align="center" data-valign="middle">departureCity</th>
+                                            <th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">arrivalCity</th>
+                                            <th data-field="departureTime" data-halign="left" data-align="center" data-valign="middle">departureTime</th>
+                                            <th data-field="arrivalTime" data-halign="left" data-align="center" data-valign="middle">arrivalTime</th>
+                                            <th data-field="priceFrom" data-halign="left" data-align="center" data-valign="middle">priceFrom</th>
+                                            <th data-field="priceTo" data-halign="left" data-align="center" data-valign="middle">priceTo</th>
+                                            <th data-halign="left" data-align="center">
+                                                <button type="button" class="btn btn-info">
+                                                    Замовити
+                                                </button>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                                <div class="panel panel-success col-sm-6">
+                                    <h3>Buses</h3>
+
+                                    <table data-toggle="table" data-url="data1.json" data-height="299">
+                                        <thead>
+                                        <tr>
+                                            <th data-field="departureCity" data-halign="right" data-align="center" data-valign="middle">departureCity</th>
+                                            <th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">arrivalCity</th>
+                                            <th data-field="departureTime" data-halign="left" data-align="center" data-valign="middle">departureTime</th>
+                                            <th data-field="arrivalTime" data-halign="left" data-align="center" data-valign="middle">arrivalTime</th>
+                                            <th data-field="priceFrom" data-halign="left" data-align="center" data-valign="middle">priceFrom</th>
+                                            <th data-field="priceTo" data-halign="left" data-align="center" data-valign="middle">priceTo</th>
+                                            <th data-halign="left" data-align="center">
+                                                <button type="button" class="btn btn-info">
+                                                    Замовити
+                                                </button>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -282,7 +336,12 @@
                             <h5 id="childrenAmount\${id}">\${tour.childrenAmount}</h5>
                             <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
                             <h5 id="hotelRoomType\${id}">\${tour.roomType}</h5>
-                            <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
+                            <h5 id="departyreCity\${id}">\${tour.departureCity}
+                                <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-f\${id}">
+                                    Як добратися?
+                                </button>
+                                <div id="transitInfo-f\${id}" class="collapse">...</div>
+                            </h5>
                         </div>
 
                     </div>
@@ -344,7 +403,12 @@
                             <h5 id="childrenAmount\${id}">\${tour.childrenAmount}</h5>
                             <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
                             <h5 id="hotelRoomType\${id}">\${tour.roomType}</h5>
-                            <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
+                            <h5 id="departyreCity\${id}">\${tour.departureCity}
+                                <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-h\${id}">
+                                    Як добратися?
+                                </button>
+                                <div id="transitInfo-h\${id}" class="collapse">...</div>
+                            </h5>
                         </div>
 
                     </div>

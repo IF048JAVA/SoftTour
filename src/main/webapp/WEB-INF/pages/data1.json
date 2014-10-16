@@ -1,0 +1,18 @@
+[
+    {
+        "departureCity": "Івано-Франківськ",
+        "arrivalCity": "Київ",
+        "departureTime": "13-00",
+        "arrivalTime": "16-00",
+        "priceFrom": "300грн",
+        "priceTo": "500грн"
+    },
+    {
+        "departureCity": "Івано-Франківськ",
+        "arrivalCity": "Львів",
+        "departureTime": "17-00",
+        "arrivalTime": "12-00",
+        "priceFrom": "400грн",
+        "priceTo": "800грн"
+    }
+]
