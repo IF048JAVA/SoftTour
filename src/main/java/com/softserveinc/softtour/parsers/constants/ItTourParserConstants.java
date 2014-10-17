@@ -1,16 +1,23 @@
 package com.softserveinc.softtour.parsers.constants;
 
 public interface ItTourParserConstants {
-    String BASE_PARAMETERS = new StringBuilder("http://www.ittour.com.ua/tour_search.php").append("?").
-            append("callback").append("=").append("jQuery17109648473216220737_1412803322658").append("&").
-            append("id").append("=").append("5062D1884G6M7121819576").append("&").
-            append("ver").append("=").append("1").append("&").
-            append("type").append("=").append("2970").append("&").
-            append("theme").append("=").append("38").append("&").
-            append("action").append("=").append("package_tour_search").append("&").
-            append("package_tour_type").append("=").append(0).append("&").
-            append("tour_kind").append("=").append(0).append("&").
-            append("default_form_select").append("=").append(1).append("&").
-            append("items_per_page").append("=").append(100).append("&").
-            append("preview").append("=").append(1).toString();
+    int CONNECTION_TIMEOUT = 20000;
+
+    String TAG_TR = "tr";
+    String TAG_SPAN = "span";
+    String TAG_DIV = "div";
+    String TAG_A = "a";
+    String CLASS_ITT_TEXT_LEFT = "itt_text-left";
+    String CLASS_TEXT_CENTER = "text-center";
+    String CLASS_TEXT_RIGHT = "text-right";
+    String ATTR_ONCLICK = "onclick";
+    String ATTR_SRC = "src";
+    String ID_IMG = "main_img_tour_in_view_open_";
+
+    String DAY_FORMAT = "dd.mm.yy";
+    String WITHOUT_FLY = "Без перельоту";
+    String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
+    String WRONG_FAMILY_ROOM_TYPE = "FAMI...";
+    String REGEXP_REPLACEMENT = "(return package_tour_order\\()|(\\);)";
+    String NO_IMG = "NO IMG";
 }
