@@ -28,7 +28,7 @@ public interface ItTourParserUtilConstants {
     String SWITCH_PRICE_PARAM = "switch_price";
     String SWITCH_PRICE_VALUE = "USD";
     String ITEMS_PER_PAGE_PARAM = "items_per_page";
-    int ITEMS_PER_PAGE_VALUE = 100;
+    int ITEMS_PER_PAGE_VALUE = 25;
     String PREVIEW_PARAM = "preview";
     int PREVIEW_VALUE = 1;
 

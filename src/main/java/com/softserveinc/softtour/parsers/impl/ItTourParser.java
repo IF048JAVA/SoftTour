@@ -122,7 +122,7 @@ public class ItTourParser implements ItTourParserConstants {
             Time departureTime = tourDepartureTime(tourDepartureTimeSt);
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
             Hotel hotel = tourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
-                  hotel.setImgUrl(hotelImgLink(hotel, hotelLink));
+                  //hotel.setImgUrl(hotelImgLink(hotel, hotelLink));
             Food food = Food.valueOf(tourFood);
 
             Tour tour = new Tour(tourDate, tourDays, departureCity, departureTime, tourPrice, hotel, food);
