@@ -13,6 +13,9 @@ import com.softserveinc.softtour.dto.TrainTransit;
 public class TrainParser {
 	private String url = "http://ticket.turistua.com/ua/train/reservation/?dt=2014-10-18&src=22200001&dst=22218000&transport=train";
 	
+	//FIXME correct
+	private String departureDate = "2014-10-18";
+	
 	private TrainTransit trainTransit;
 	private ArrayList<TrainTransit> schedule = new ArrayList<TrainTransit>();
 	
@@ -42,6 +45,7 @@ public class TrainParser {
 
 				Elements td = train.getElementsByTag("td");
 
+				String id = null;
 				String departureCity = null;
 				String arrivalCity = null;
 				String departureTime = null;
@@ -55,7 +59,9 @@ public class TrainParser {
 				String priceSitting = null;
 				
 				for (int i = 0; i < td.size(); i++) {
-					int n = 1;
+					int n = 0;
+					
+					id = td.get(n).text();
 					departureCity = td.get(n).text();
 					arrivalCity = td.get(++n).text();
 					departureTime = td.get(++n).text();
@@ -102,7 +108,8 @@ public class TrainParser {
 						priceTo = priceSitting;
 					} 
 					
-				    trainTransit = new TrainTransit(departureCity, arrivalCity, departureTime, arrivalTime, priceFrom, priceTo);
+					trainTransit = new TrainTransit(id, departureCity, arrivalCity, departureDate, departureTime, arrivalTime, priceFrom, priceTo);							
+							
 				    System.out.println(trainTransit);
 				    schedule.add(trainTransit);
 			}
