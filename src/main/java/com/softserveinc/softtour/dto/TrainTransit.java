@@ -9,8 +9,8 @@ public class TrainTransit {
     private String departureDate;
     private String departureTime;
     private String arrivalTime;
-    private String priceFrom;
-    private String priceTo;
+    private String priceMin;
+    private String priceMax;
     
     public TrainTransit() {
     }
@@ -24,8 +24,8 @@ public class TrainTransit {
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
-		this.priceFrom = priceFrom;
-		this.priceTo = priceTo;
+		this.priceMin = priceFrom;
+		this.priceMax = priceTo;
 	}
 
 	public String getId() {
@@ -77,24 +77,24 @@ public class TrainTransit {
 	}
 
 	public String getPriceFrom() {
-		return priceFrom;
+		return priceMin;
 	}
 
 	public void setPriceFrom(String priceFrom) {
-		this.priceFrom = priceFrom;
+		this.priceMin = priceFrom;
 	}
 
 	public String getPriceTo() {
-		return priceTo;
+		return priceMax;
 	}
 
 	public void setPriceTo(String priceTo) {
-		this.priceTo = priceTo;
+		this.priceMax = priceTo;
 	}
 
 	@Override
 	public String toString() {
 		return id + " " + departureCity + " - " + arrivalCity + " - " + departureDate + " " 
-				+ departureTime + " - " + arrivalTime + " - " + priceFrom + " - " + priceTo;
+				+ departureTime + " - " + arrivalTime + " - " + priceMin + " - " + priceMax;
 	}
 }
