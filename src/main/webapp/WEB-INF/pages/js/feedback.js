@@ -54,7 +54,7 @@ function checkForm(form){
             document.getElementById("text_help2").innerHTML = "Заповніть коректно поле";
         }
         if(!checkArea(form["area"])){
-            document.getElementById("text_help3").innerHTML = "Заповніть коректно поле";
+            document.getElementById("text_help3").innerHTML = "Заповніть коректно поле коментаря";
         }
         return false;
     }
