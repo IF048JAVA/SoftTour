@@ -94,6 +94,12 @@ P {
     font-size: 17px;
 }
 
-.button:hover {
+button.transitionInfo {
+
+    margin-left: 0pt;
+    margin-right: 40pt;
+    margin-top: 15pt;
+    margin-bottom: 15pt;
 
 }
+

@@ -1,63 +1,100 @@
 package com.softserveinc.softtour.dto;
 
-import java.util.Date;
-
 public class TrainTransit {
-
-    private String cityFrom;
-    private String cityTo;
-    private Date departureTime;
-    private Date arrivalTime;
-    private Integer price;
-
-    public String getCityFrom() {
-        return cityFrom;
+	
+	//FIXME It's number of train   comment 
+	private String id;
+    private String departureCity;
+    private String arrivalCity;
+    private String departureDate;
+    private String departureTime;
+    private String arrivalTime;
+    private String priceMin;
+    private String priceMax;
+    
+    public TrainTransit() {
     }
+    
+	public TrainTransit(String id, String departureCity, String arrivalCity,
+			String departureDate, String departureTime, String arrivalTime,
+			String priceFrom, String priceTo) {
+		this.id = id;
+		this.departureCity = departureCity;
+		this.arrivalCity = arrivalCity;
+		this.departureDate = departureDate;
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.priceMin = priceFrom;
+		this.priceMax = priceTo;
+	}
 
-    public void setCityFrom(String cityFrom) {
-        this.cityFrom = cityFrom;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getCityTo() {
-        return cityTo;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setCityTo(String cityTo) {
-        this.cityTo = cityTo;
-    }
+	public String getDepartureCity() {
+		return departureCity;
+	}
 
-    public Date getDepartureTime() {
-        return departureTime;
-    }
+	public void setDepartureCity(String departureCity) {
+		this.departureCity = departureCity;
+	}
 
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
-    }
+	public String getArrivalCity() {
+		return arrivalCity;
+	}
 
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
+	public void setArrivalCity(String arrivalCity) {
+		this.arrivalCity = arrivalCity;
+	}
 
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
+	public String getDepartureDate() {
+		return departureDate;
+	}
 
-    public Integer getPrice() {
-        return price;
-    }
+	public void setDepartureDate(String departureDate) {
+		this.departureDate = departureDate;
+	}
 
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
+	public String getDepartureTime() {
+		return departureTime;
+	}
 
-    @Override
-    public String toString() {
-        return "TrainTransit{" +
-                "cityFrom='" + cityFrom + '\'' +
-                ", cityTo='" + cityTo + '\'' +
-                ", departureTime=" + departureTime +
-                ", arrivalTime=" + arrivalTime +
-                ", price=" + price +
-                '}';
-    }
+	public void setDepartureTime(String departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public String getPriceFrom() {
+		return priceMin;
+	}
+
+	public void setPriceFrom(String priceFrom) {
+		this.priceMin = priceFrom;
+	}
+
+	public String getPriceTo() {
+		return priceMax;
+	}
+
+	public void setPriceTo(String priceTo) {
+		this.priceMax = priceTo;
+	}
+
+	@Override
+	public String toString() {
+		return id + " " + departureCity + " - " + arrivalCity + " - " + departureDate + " " 
+				+ departureTime + " - " + arrivalTime + " - " + priceMin + " - " + priceMax;
+	}
 }

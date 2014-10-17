@@ -14,6 +14,7 @@
     <link href="<c:url value='/css/bootstrap.min.css' />" rel="stylesheet">
     <link href="<c:url value='/css/bootstrap-theme.css' />" rel="stylesheet">
     <link href="<c:url value='/css/bootstrap-theme.min.css' />" rel="stylesheet">
+    <link href="<c:url value='/css/bootstrap-table.min.css' />" rel="stylesheet">
     <link href="<c:url value='/css/profileStyle.css' />" rel="stylesheet">
     <link href="<c:url value='/css/datepicker.css' />" rel="stylesheet">
     <link href="<c:url value='/css/feedback.css' />" rel="stylesheet"/>
@@ -41,6 +42,7 @@
 <script src="<c:url value='/js/bootstrap-datepicker-ua.js' />" ></script>
 <script src="<c:url value='/js/jquery.tmpl.js' />" ></script>
 <script src="<c:url value='/js/calendar.js' />" ></script>
+<script src="<c:url value='/js/bootstrap-table.min.js' />" ></script>
 <script src="<c:url value='/js/selector.js' />" ></script>
 <script src="<c:url value='/js/registrationControl.js' />" ></script>
 <script src="<c:url value='/js/feedback.js' />" ></script>
