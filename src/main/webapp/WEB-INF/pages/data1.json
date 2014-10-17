@@ -1,18 +1,22 @@
 [
     {
+        "id": "01ДМ",
         "departureCity": "Івано-Франківськ",
         "arrivalCity": "Київ",
+        "departureDate": "22-05-2014",
         "departureTime": "13-00",
         "arrivalTime": "16-00",
-        "priceFrom": "300грн",
-        "priceTo": "500грн"
+        "priceMin": "300грн",
+        "priceMax": "500грн"
     },
     {
+        "id": "055Л",
         "departureCity": "Івано-Франківськ",
         "arrivalCity": "Львів",
+        "departureDate": "22-05-2014",
         "departureTime": "17-00",
         "arrivalTime": "12-00",
-        "priceFrom": "400грн",
-        "priceTo": "800грн"
+        "priceMin": "400грн",
+        "priceMax": "800грн"
     }
 ]

@@ -95,8 +95,10 @@ P {
 }
 
 button.transitionInfo {
+
+    margin-left: 0pt;
+    margin-right: 40pt;
     margin-top: 15pt;
-    margin-left: 60pt;
     margin-bottom: 15pt;
 
 }
