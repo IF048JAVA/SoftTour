@@ -6,11 +6,7 @@ var favData = {};
 
         queryObj.country = countryPar;
         queryObj.minPrice = $("#Budget").val()*0.7;
-        queryObj.maxPrice = $("#maxPrice").val()*1.1;
-        if ($('#minPrice').val() == '')
-            queryObj.minPrice = 0;
-        if ($('#maxPrice').val() == '')
-            queryObj.maxPrice = 9999;
+        queryObj.maxPrice = $("#Budget").val()*1.1;
         $.ajax({
             url: "/result",
             type: "POST",
@@ -34,8 +30,8 @@ var favData = {};
         var queryObj = {};
         var Budget = $("#Budget").val();
         queryObj.country = countryPar;
-        queryObj.minPrice = Budget*0.7;
-        queryObj.maxPrice = Budget*1.1;
+        queryObj.minPrice = Budget-300;
+        queryObj.maxPrice = Budget+100;
 
         $.ajax({
             url: "/parseTour",
@@ -81,5 +77,7 @@ function saveFavorites (id){
         mimeType: 'application/json'
     })
     $("#deleteButtonF"+id).remove();
+    $("#results"+id).append('<span id="deleteButtonF'+id+'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star cursor-pointer" onclick="saveFavorites('+id+')"><//i><//span>')
+
     //$("#")
 }

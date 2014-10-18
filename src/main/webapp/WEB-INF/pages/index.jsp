@@ -23,13 +23,13 @@
 
 
 
-<div id="indexResult" class="parent-group" style="visibility: hidden; text-align:center; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:10px;  margin-bottom:15px;">
+<div id="indexResult" class="parent-group" style="visibility: hidden; text-align:center; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:15px;  margin-bottom:15px;">
 
-    <!--Content from tour.js!-->
+    <!--Content from template!-->
 </div>
 <script id="indexTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default" id="panel-favorite\${id}">
-                <div class="panel-heading">
+                <div class="panel-heading" id="results\${id}">
                          <span data-toggle="collapse" href="#panel-element-f\${id}">
                          <span class="tabTitleFont cursor-pointer" >Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
