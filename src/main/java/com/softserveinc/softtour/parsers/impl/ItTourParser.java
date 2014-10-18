@@ -25,8 +25,15 @@ import java.util.List;
 public class ItTourParser implements ItTourParserConstants {
     private List<Tour> tourList = new ArrayList<>();
     private String country;
+    private String region;
+    private int[] hotelStars;
+    private String[] food;
     private int adults;
     private int children;
+    private String dataFrom;
+    private String dataTill;
+    private int nightsFrom;
+    private int nightsTill;
     private ItTourParserUtil parserUtil;
     private String url;
     private HotelHolder hotelHolder;
@@ -37,6 +44,26 @@ public class ItTourParser implements ItTourParserConstants {
         this.children = children;
         parserUtil = new ItTourParserUtil();
         this.url = parserUtil.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        hotelHolder = HotelHolder.getInstance();
+    }
+
+    public ItTourParser(String country, String region, int [] hotelStars, String[] food, int adults, int children,
+                        String dataFrom, String dataTill, int nightsFrom, int nightsTill, int priceFrom, int priceTo,
+                        int pageNumber) {
+        this.country = country;
+        this.region = region;
+        this.hotelStars = hotelStars;
+        this.food = food;
+        this.adults = adults;
+        this.children = children;
+        this.dataFrom = dataFrom;
+        this.dataTill = dataTill;
+        this.nightsFrom = nightsFrom;
+        this.nightsTill = nightsTill;
+        parserUtil = new ItTourParserUtil();
+        this.url = parserUtil.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
+                nightsFrom, nightsTill, priceFrom, priceTo, pageNumber);
+        System.out.println(url);
         hotelHolder = HotelHolder.getInstance();
     }
 
@@ -221,7 +248,32 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Туреччина", 3, 1 ,500, 5000, 2);
+        //ItTourParser parser = new ItTourParser("Туреччина", 3, 1 ,500, 5000, 2);
+        /*
+        for now, full search works only for this regions:
+        #Єгипет
+        Дахаб = 5486
+        Макаді\ Бей = 2
+        Марса\ Алам = 5478
+
+        #Туреччина
+        Аланья = 6192
+        Анталія = 5200
+        Белек = 6818
+
+        #Греция
+        Агія\ Тріада = 9602
+        Астіпалея = 43490
+        Аттика = 15226
+
+          ADVANCE SEARCH CONSTRUCTOR VALUES ORDER:
+          String country, String region, int [] hotelStars, String[] food, int adults, int children, String dataFrom, String dataTill,
+          int nightsFrom, int nightsTill, int priceFrom, int priceTo, int pageNumber
+        */
+        int[] hotelStars = {3, 5};
+        String[] food = {"AI", "UAI"};
+        ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
+                                               5, 15, 500, 5000, 2);
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour){
             System.out.println(tour);
