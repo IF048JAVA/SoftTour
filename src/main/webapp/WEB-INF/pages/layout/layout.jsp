@@ -57,5 +57,6 @@
 <script src="<c:url value='/js/equal_div.js' />" ></script>
 <script src="<c:url value='/js/validator.js' />" ></script>
 <script src="<c:url value='/js/jquery.twbsPagination.min.js' />" ></script>
+<script src="<c:url value='/js/searchResult.js' />" ></script>
 </body>
 </html>

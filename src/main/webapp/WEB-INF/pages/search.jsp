@@ -1,181 +1,167 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-                <div class="col-md-6 formstyle">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                <p>Країна:</p>
-                                <select class="form-control" id="Countryselector">
-                                    <option>Єгипет</option>
-                                    <option>Греція</option>
-                                    <option>Туреччина</option>
-                                </select>
-                                </div>
-                                <div class="col-sm-6">
-                                <p>Регіон:</p>
-                                <select class="form-control" id="Regionselector">
-                                    <option>Дахаб</option>
-                                    <option>Макаді Бей</option>
-                                    <option>Марса Алам</option>
-                                </select>
-                                </div>
-                                <div class="col-sm-6">
-                                <p>Готель:</p>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                            2*&nbsp  
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" value="">
-                                            3*&nbsp
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" value="">
-                                            4*&nbsp
-                                    </label> 
-                                    <label>
-                                        <input type="checkbox" value="">
-                                            5*&nbsp
-                                    </label>
-                                </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <p>Харчування:</p>
+    <div id="left_div" class="form">
+         <form class="form-horizontal" role="form" action="/search/result">
+              <div class="form-group">
+                   <div class="col-sm-6">
+                        <p>Країна:</p>
+                            <select class="form-control" id="Countryselector">
+                                 <option>Єгипет</option>
+                                 <option>Греція</option>
+                                <option>Туреччина</option>
+                            </select>
+                   </div>
+                   <div class="col-sm-6">
+                        <p>Регіон:</p>
+                        <select class="form-control" id="Regionselector">
+                             <option>Дахаб</option>
+                             <option>Макаді Бей</option>
+                             <option>Марса Алам</option>
+                        </select>
+                   </div>
+                   <div class="col-sm-6">
+                        <p>Готель:</p>
+
+                        <input id="rating" value="0" type="number" class="rating" min=0 max=5 step=1
+                              data-size="xs"
+                              data-show-clear="false" data-show-caption="false">
+                   </div>
+                   <div class="col-sm-6">
+                         <p>Харчування:</p>
                                     
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
+                         <div class="checkbox">
+                              <label>
+                                      <input type="checkbox" value="">
                                             HB&nbsp  
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" value="">
+                              </label>
+                              <label>
+                                      <input type="checkbox" value="">
                                             BB&nbsp
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" value="">
+                              </label>
+                              <label>
+                                      <input type="checkbox" value="">
                                             FB&nbsp
-                                    </label>
-                                    <br>
-                                    <label>
-                                        <input type="checkbox" value="">
+                              </label>
+                                      <br>
+                              <label>
+                                      <input type="checkbox" value="">
                                             AI&nbsp
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" value="">
+                              </label>
+                              <label>
+                                      <input type="checkbox" value="">
                                             UAI&nbsp
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" value="">
+                              </label>
+                              <label>
+                                      <input type="checkbox" value="">
                                             RO &nbsp
-                                    </label>
-                                </div>
-                                </div>
-                                <br>
-                                <p>Розміщення в номері:</p>
+                              </label>
+                         </div>
+                   </div>
+                   <br>
+                   <p>Розміщення в номері:</p>
+                   <div class="col-sm-6">
+                        <p>Дорослі:</p>
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            </select>
+                   </div>
+                   <div class="col-sm-6">
+                       <p>Діти:</p>
+                       <select class="form-control">
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                       </select>
+                   </div>
+                   <br>
+                   <p>Дата вильоту:</p>
+                   <div class="col-sm-6">
+                        <p>З:</p>
+                        <input type="text" id="from" class="form-control" >
+                   </div>
+                   <div class="col-sm-6">
+                        <p>По:</p>
+                        <input type="text" id="to" class="form-control" >
+                   </div>
+                        <div class="col-sm-6">
+                            <p>Кількість ночей:</p>
                                 <div class="col-sm-6">
-                                    <p>Дорослі:</p>
-                                    <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6">
-                                    <p>Діти:</p>
-                                    <select class="form-control">
-                                    <option>0</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    </select>
-                                </div>
-                                <br>
-                                <p>Дата вильоту:</p>
-                                <div class="col-sm-6">
-                                    <p>З:</p>
-                                    <input type="text" class="form-control" >
-                                </div>
-                                <div class="col-sm-6">
-                                    <p>По:</p>
-                                    <input type="text" class="form-control" >
-                                </div>
-                                <div class="col-sm-6">
-                                    <p>Кількість ночей:</p>
-                                    <div class="col-sm-6">
                                     <p>Від:</p>
                                     <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
-                                    <option>12</option>
-                                    <option>13</option>
-                                    <option>14</option>
-                                    <option>15</option>
-                                    <option>16</option>
-                                    <option>17</option>
-                                    <option>18</option>
-                                    <option>19</option>
-                                    <option>20</option>
-                                    <option>21</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                        <option>13</option>
+                                        <option>14</option>
+                                        <option>15</option>
+                                        <option>16</option>
+                                        <option>17</option>
+                                        <option>18</option>
+                                        <option>19</option>
+                                        <option>20</option>
+                                        <option>21</option>
                                     </select>
-                                    </div>
+                                </div>
                                 
                                     <div class="col-sm-6">
                                     <p>До:</p>
-                                    <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
-                                    <option>12</option>
-                                    <option>13</option>
-                                    <option>14</option>
-                                    <option>15</option>
-                                    <option>16</option>
-                                    <option>17</option>
-                                    <option>18</option>
-                                    <option>19</option>
-                                    <option>20</option>
-                                    <option>21</option>
+                                        <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                        <option>13</option>
+                                        <option>14</option>
+                                        <option>15</option>
+                                        <option>16</option>
+                                        <option>17</option>
+                                        <option>18</option>
+                                        <option>19</option>
+                                        <option>20</option>
+                                        <option>21</option>
                                     </select>
-                                    </div>
                                 </div>
-                                <p>Ціна(грн):</p>
-                                <div class="col-sm-6" style="margin-bottom: 5px;">
-                                    <div class="col-sm-6">
-                                        <p>З:</p>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p>До:</p>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-lg">Пошук</button>
-                        </form>
-                </div>
-        </div>
+                        </div>
+                        <p>Ціна(грн):</p>
+                        <div class="col-sm-6" style="margin-bottom: 5px;">
+                             <div class="col-sm-6">
+                             <p>З:</p>
+                             <input type="text" class="form-control" >
+                        </div>
+                        <div class="col-sm-6">
+                             <p>До:</p>
+                             <input type="text" class="form-control" >
+                        </div>
+              </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg">Пошук</button>
+         </form>
+    </div>
+
             <div class="col-sm-6">
                     <div id="carousel-example-generic" class="carousel slide mycarousel" data-ride="carousel">
   <!-- Indicators -->
@@ -217,8 +203,34 @@
 </div><!--каруселька-->
 </div><!--правий блок контенту-->
     </div><!--блок "контент"-->
+<div>
+    <input type="button" value="Search" onclick="showResults()">
+    <script id="searchTemplate" type="text/x-jquery-tmpl">
+            <div class="panel panel-default" id="panel-favorite\${id}">
+                <div class="panel-heading">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}">
+                         <span class="tabTitleFont cursor-pointer" >Країна: </span>
+                         <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
+                         <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
+                         <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
+                         <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
+                         <span class="tabTitleFont cursor-pointer">Харчування: </span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food.name}</span>
+                         <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
+                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
+                </div>
+                <div id="panel-element-f\${id}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Info about tour \${id}...
+                    </div>
+                </div>
+            </div>
+</script>
+    <span id="searchResult"></span>
+</div>
 
-    
  
     
 
