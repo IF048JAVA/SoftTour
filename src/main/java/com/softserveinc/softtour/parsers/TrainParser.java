@@ -18,9 +18,12 @@ public class TrainParser {
 	private String url;
 	private TrainRoute trainRoute;
 	private ArrayList<TrainRoute> routesList;
+	private CreatorTrainUrl creatorTrainUrl;
 	
 	public TrainParser(String departureCity, String arrivalCity, String departureDate) {
-		url = CreatorTrainUrl.createUrl(departureCity, arrivalCity, departureDate);
+		creatorTrainUrl = new CreatorTrainUrl();
+		url = creatorTrainUrl.createUrl(departureCity, arrivalCity, departureDate);
+		
 		trainRoute = new TrainRoute();
 		trainRoute.setDepartureDate(departureDate);
 		
@@ -160,7 +163,7 @@ public class TrainParser {
 	 * Only for testing
 	 */
 	public static void main(String[] args) {
-		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-01");
+		TrainParser obj = new TrainParser("Київ", "Дніпропетровськ", "2014-11-01");
 		obj.parse();
 	}
 
