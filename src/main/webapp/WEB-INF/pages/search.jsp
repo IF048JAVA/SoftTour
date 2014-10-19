@@ -202,7 +202,7 @@
         </a>
     </div><!--каруселька-->
 </div><!--правий блок контенту-->
-</div><!--блок "контент"-->
+</div>
 <div>
     <div style="margin-top: 50px"></div>
     <!--input type="button" value="Search" onclick="showResults()"-->
