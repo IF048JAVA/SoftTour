@@ -6,9 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CreatorTrainUrl {
 
-	//FIXME  need static ???
 	/**
 	 * Creates the url with specified parameters
 	 * 
@@ -17,7 +19,7 @@ public class CreatorTrainUrl {
 	 * @param departureDate
 	 * @return
 	 */
-	public static String createUrl(String departureCity, String arrivalCity,
+	public String createUrl(String departureCity, String arrivalCity,
 			String departureDate) {
 		StringBuilder baseUrl = new StringBuilder("http://ticket.turistua.com/ua/train/reservation/?transport=train");
 
@@ -28,14 +30,14 @@ public class CreatorTrainUrl {
 		return url;
 	}
 
-	private static String getCityCode(String city) {
+	private String getCityCode(String city) {
 		Properties properties = new Properties();
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
 		try {
-			// FIXME change url
-			fileReader = new FileReader("src/main/resources/parser_properties/train_parser.properties");
+			// FIXME change url for testing src/main/resources
+			fileReader = new FileReader("/parser_properties/train_parser.properties");
 			bufferedReader = new BufferedReader(fileReader);
 			properties.load(bufferedReader);
 
