@@ -62,4 +62,6 @@ public interface ItTourParserUrlGeneratorConstants {
 
     String TOUR_ID_PARAM = "tour_id";
     String SHARDING_RULE_ID_PARAM = "sharding_rule_id";
+
+    long TEN_DAYS_IN_MILLISECONDS = 864000000;
 }
