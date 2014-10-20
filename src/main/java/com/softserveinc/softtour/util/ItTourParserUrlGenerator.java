@@ -58,8 +58,8 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         append(FOOD_PARAM).append(EQV).append(DEFAULT_FOOD_VALUE).append(AMP).
         append(ADULTS_PARAM).append(EQV).append(adults).append(AMP).
         append(CHILDREN_PARAM).append(EQV).append(children).append(AMP).
-        append(NIGHTS_FROM_PARAM).append(EQV).append(DEFAULT_NIGHTS_VALUE).append(AMP).
-        append(NIGHTS_TILL_PARAM).append(EQV).append(DEFAULT_NIGHTS_VALUE).append(AMP).
+        append(NIGHTS_FROM_PARAM).append(EQV).append(DEFAULT_NIGHTS_FROM_VALUE).append(AMP).
+        append(NIGHTS_TILL_PARAM).append(EQV).append(DEFAULT_NIGHTS_TILL_VALUE).append(AMP).
         append(PRICE_FROM_PARAM).append(EQV).append(priceFrom).append(AMP).
         append(PRICE_TILL_PARAM).append(EQV).append(priceTo).append(AMP).
         append(PAGE_NUMBER_PARAM).append(EQV).append(pageNumber).append(AMP).

@@ -44,9 +44,10 @@ public interface ItTourParserUrlGeneratorConstants {
     String DEFAULT_HOTEL_RATING_VALUE = "7+3+4+78";
     String FOOD_PARAM = "food";
     String DEFAULT_FOOD_VALUE = "496+388+498+512+560+1956";
-    String NIGHTS_FROM_PARAM = "nights_from";
-    String NIGHTS_TILL_PARAM = "nights_till";
-    int DEFAULT_NIGHTS_VALUE = 8;
+    String NIGHTS_FROM_PARAM = "night_from";
+    String NIGHTS_TILL_PARAM = "night_till";
+    int DEFAULT_NIGHTS_FROM_VALUE = 6;
+    int DEFAULT_NIGHTS_TILL_VALUE = 14;
 
     String REGION_PARAM = "region";
     String HOTEL_PARAM = "hotel";
