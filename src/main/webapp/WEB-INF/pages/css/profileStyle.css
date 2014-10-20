@@ -78,17 +78,15 @@ body {
     outline-width:2px;
 }
 
-span.tabulatedTitle{
-    font-weight: bold ;
-    margin-right: 30pt;
+.tabulatedTitle{
+    font-weight: bold;
     color: #285e8e;
 }
 
 .tabTitleFont {
-    font-weight: bold ;
+    font-weight: bold;
     color: #30aaff;
 }
-
 
 P {
     font-size: 17px;
@@ -100,6 +98,9 @@ button.transitionInfo {
     margin-right: 40pt;
     margin-top: 15pt;
     margin-bottom: 15pt;
+}
 
+.tourCollapseTitle {
+    margin-top: 2pt;
 }
 
