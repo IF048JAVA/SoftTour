@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+
 <h2 style="text-align: center">Введіть мінімальну та максимальну ціну для пошуку туру та виберіть країну</h2>
 
 <div class="row">
@@ -32,6 +34,7 @@
 
 <div id="indexResult" class="parent-group" style="visibility: hidden; text-align:center; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:15px;  margin-bottom:15px;">
 
+
     <!--Content from template!-->
 </div>
 <script id="indexTemplate" type="text/x-jquery-tmpl">
@@ -48,7 +51,10 @@
                          <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food}</span>
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
+                          <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
+                         </security:authorize>
+
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
                     <div class="panel-body">

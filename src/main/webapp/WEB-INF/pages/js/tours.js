@@ -10,8 +10,8 @@ var favData = {};
         var indexBudget = $("#indexBudget").val();
         var travelers = $("#Travelers").val();
         queryObj.country = countryPar;
-        queryObj.minPrice = Math.floor(indexBudget*0.7);
-        queryObj.maxPrice = Math.floor(indexBudget*1.1);
+        queryObj.minPrice = Math.floor(indexBudget*0.9);
+        queryObj.maxPrice = Math.floor(indexBudget*1.05);
 
         $.ajax({
             url: "/parseTour",
