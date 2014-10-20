@@ -23,7 +23,7 @@ public class BusParserUrlGenerator implements BusParserUrlGeneratorConstants {
         }
     }
 
-    private static StringBuilder getBaseParameters(){
+    private StringBuilder getBaseParameters(){
         StringBuilder baseParamBuilder = new StringBuilder(HTTP).append(ASK).
         append(DATE_ADD_PARAM).append(EQV).append(DATE_ADD_VALUE).append(AMP).
         append(FN_PARAM).append(EQV).append(FN_VALUE).append(AMP);

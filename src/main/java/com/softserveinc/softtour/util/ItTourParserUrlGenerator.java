@@ -33,7 +33,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         }
     }
 
-    private static StringBuilder getBaseParameters(){
+    private StringBuilder getBaseParameters(){
         StringBuilder baseParamBuilder = new StringBuilder(HTTP).append(ASK).
             append(CALLBACK_PARAM).append(EQV).append(CALLBACK_VALUE).append(AMP).
             append(MODULE_TYPE_PARAM).append(EQV).append(MODULE_TYPE_VALUE).append(AMP).
