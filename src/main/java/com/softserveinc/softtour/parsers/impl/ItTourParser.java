@@ -53,7 +53,7 @@ public class ItTourParser implements ItTourParserConstants {
         hotelHolder = HotelHolder.getInstance();
     }
 
-    public List<Tour> parse(){
+    public List<Tour> parse() {
         Document document = connect(url);
         System.out.println(url);
         addTours(document);
@@ -235,7 +235,7 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,1700, 2100, 1);
+        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,300, 1500, 1);
         /*
         for now, full search works only for this regions:
         #Єгипет
@@ -261,9 +261,9 @@ public class ItTourParser implements ItTourParserConstants {
         String[] food = {"AI", "UAI"};
         //ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
         //                                       5, 15, 500, 5000, 2);
-        List<Tour> listTour = parser.parse();
-        for(Tour tour : listTour){
-            System.out.println(tour);
-        }
+            List<Tour> listTour = parser.parse();
+            for(Tour tour : listTour) {
+                System.out.println(tour);
+            }
     }
 }

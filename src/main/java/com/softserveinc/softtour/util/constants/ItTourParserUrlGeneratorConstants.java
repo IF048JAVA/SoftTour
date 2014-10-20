@@ -29,7 +29,7 @@ public interface ItTourParserUrlGeneratorConstants {
     String SWITCH_PRICE_PARAM = "switch_price";
     String SWITCH_PRICE_VALUE = "USD";
     String ITEMS_PER_PAGE_PARAM = "items_per_page";
-    int ITEMS_PER_PAGE_VALUE = 20;
+    int ITEMS_PER_PAGE_VALUE = 50;
     String PREVIEW_PARAM = "preview";
     int PREVIEW_VALUE = 1;
 
