@@ -11,14 +11,21 @@
         <div class="col-md-1"></div>
 </div>
 <div class="row" style="margin-bottom: 15px;margin-top: 15px;">
-        <div class="col-md-4"></div>
+        <div class="col-md-1"></div>
         <div class="col-md-4"style="text-align: center;">
             <strong >Введіть ваш бюджет:</strong>
         <div class="input-group">
              <span class="input-group-addon">$</span>
-             <input type="text" id="Budget" class="form-control" placeholder="500">
+             <input type="text" id="indexBudget" class="form-control" placeholder="1500">
         </div></div>
-        <div class="col-md-4"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4"style="text-align: center;">
+            <strong >Введіть кількість подорожуючих:</strong>
+        <div class="input-group">
+            <span class="input-group-addon"></span>
+            <input type="text" id="Travelers" class="form-control" placeholder="1">
+        </div></div>
+        <div class="col-md-1"></div>
 </div>
 
 
@@ -38,7 +45,7 @@
                          <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
                          <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
                          <span class="tabTitleFont cursor-pointer">Харчування: </span>
-                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food.name}</span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food}</span>
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
