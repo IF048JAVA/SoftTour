@@ -25,16 +25,9 @@ import java.util.List;
 public class ItTourParser implements ItTourParserConstants {
     private List<Tour> tourList = new ArrayList<>();
     private String country;
-    private String region;
-    private int[] hotelStars;
-    private String[] food;
     private int adults;
     private int children;
-    private String dataFrom;
-    private String dataTill;
-    private int nightsFrom;
-    private int nightsTill;
-    private ItTourParserUrlGenerator parserUtil;
+    private ItTourParserUrlGenerator urlGenerator;
     private String url;
     private HotelHolder hotelHolder;
 
@@ -42,8 +35,8 @@ public class ItTourParser implements ItTourParserConstants {
         this.country = country;
         this.adults = adults;
         this.children = children;
-        parserUtil = new ItTourParserUrlGenerator();
-        this.url = parserUtil.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        urlGenerator = new ItTourParserUrlGenerator();
+        this.url = urlGenerator.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
         hotelHolder = HotelHolder.getInstance();
     }
 
@@ -51,17 +44,10 @@ public class ItTourParser implements ItTourParserConstants {
                         String dataFrom, String dataTill, int nightsFrom, int nightsTill, int priceFrom, int priceTo,
                         int pageNumber) {
         this.country = country;
-        this.region = region;
-        this.hotelStars = hotelStars;
-        this.food = food;
         this.adults = adults;
         this.children = children;
-        this.dataFrom = dataFrom;
-        this.dataTill = dataTill;
-        this.nightsFrom = nightsFrom;
-        this.nightsTill = nightsTill;
-        parserUtil = new ItTourParserUrlGenerator();
-        this.url = parserUtil.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
+        urlGenerator = new ItTourParserUrlGenerator();
+        this.url = urlGenerator.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
                 nightsFrom, nightsTill, priceFrom, priceTo, pageNumber);
         System.out.println(url);
         hotelHolder = HotelHolder.getInstance();
@@ -73,7 +59,7 @@ public class ItTourParser implements ItTourParserConstants {
         return tourList;
     }
 
-    private static Document connect(String url){
+    private Document connect(String url){
         String doc = null;
         try {
             doc = Jsoup.connect(url).
@@ -210,7 +196,7 @@ public class ItTourParser implements ItTourParserConstants {
         } else {
             String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
             String[] tourIdArr = tourId.split(",");
-            String url = parserUtil.createHotelInfoUrl(tourIdArr);
+            String url = urlGenerator.createHotelInfoUrl(tourIdArr);
             Document document = connect(url);
             Element img = document.getElementById(ID_IMG);
             String imgUrl;
@@ -248,7 +234,7 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     public static void main(String[] args) {
-        //ItTourParser parser = new ItTourParser("Туреччина", 3, 1 ,500, 5000, 2);
+        ItTourParser parser = new ItTourParser("Туреччина", 3, 1 ,1200, 1500, 1);
         /*
         for now, full search works only for this regions:
         #Єгипет
@@ -272,8 +258,8 @@ public class ItTourParser implements ItTourParserConstants {
         */
         int[] hotelStars = {3, 5};
         String[] food = {"AI", "UAI"};
-        ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
-                                               5, 15, 500, 5000, 2);
+        //ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
+        //                                       5, 15, 500, 5000, 2);
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour){
             System.out.println(tour);
