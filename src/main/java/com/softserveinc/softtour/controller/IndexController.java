@@ -59,7 +59,6 @@ public class IndexController {
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser =userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
-        Food currentFood = currentTour.getFood();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
         Country country = countryService.save(currentCountry);

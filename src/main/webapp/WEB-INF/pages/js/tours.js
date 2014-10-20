@@ -1,37 +1,14 @@
 $(document).ready(function () {})
 
 var favData = {};
-    function searchTours(countryPar) {
-        showModal();
 
-        queryObj.country = countryPar;
-        queryObj.minPrice = $("#Budget").val()*0.7;
-        queryObj.maxPrice = $("#Budget").val()*1.1;
-        $.ajax({
-            url: "/result",
-            type: "POST",
-            data: queryObj,
-            dataType: 'json',
-
-            success: function (data) {
-                favData=data;
-                $('#indexResult').empty();
-                $('#indexTemplate').tmpl(data).appendTo('#indexResult');
-            },
-
-            error: function () {
-                    alert("Error");
-            }
-
-        });
-    }
     function parseTour (countryPar) {
         showModal();
         var queryObj = {};
-        var Budget = $("#Budget").val();
+        var indexBudget = $("#indexBudget").val();
         queryObj.country = countryPar;
-        queryObj.minPrice = Budget-300;
-        queryObj.maxPrice = Budget+100;
+        queryObj.minPrice = indexBudget;
+        queryObj.maxPrice = indexBudget+500;
 
         $.ajax({
             url: "/parseTour",
