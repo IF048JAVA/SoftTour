@@ -25,6 +25,8 @@
     <link href="<c:url value='/css/style.css' />" rel="stylesheet"/>
     <link href="<c:url value='/css/left_right_style.css' />" rel="stylesheet"/>
     <link href="<c:url value='/css/login.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/jquery-ui.css' />" rel="stylesheet"/>
+    <link href="<c:url value='/css/jquery-ui.min.css' />" rel="stylesheet"/>
 
 </head>
 <body bgcolor="#c0c0c0">
@@ -39,6 +41,8 @@
 <script src="<c:url value='/js/jquery.js' />" ></script>
 <script src="<c:url value='/js/bootstrap.min.js' />" ></script>
 <script src="<c:url value='/js/bootstrap.js' />" ></script>
+<script src="<c:url value='/js/jquery-ui.js' />" ></script>
+<script src="<c:url value='/js/jquery-ui.min.js' />" ></script>
 <script src="<c:url value='/js/bootstrap-datepicker-ua.js' />" ></script>
 <script src="<c:url value='/js/jquery.tmpl.js' />" ></script>
 <script src="<c:url value='/js/calendar.js' />" ></script>
@@ -58,5 +62,6 @@
 <script src="<c:url value='/js/validator.js' />" ></script>
 <script src="<c:url value='/js/jquery.twbsPagination.min.js' />" ></script>
 <script src="<c:url value='/js/searchResult.js' />" ></script>
+<script src="<c:url value='/js/cityFromAutocomplete.js' />" ></script>
 </body>
 </html>
