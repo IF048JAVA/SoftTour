@@ -246,7 +246,7 @@
                         </button>
 
                         <div class="form-group">
-                            <input type="text" class="form-control col-sm-1" id="cityFrom" placeholder="Місто">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-f\${id}" placeholder="Місто">
                         </div>
 
                     </form>
@@ -392,7 +392,7 @@
                             </button>
 
                             <div class="form-group">
-                                <input type="text" class="form-control col-sm-1" id="cityFrom" placeholder="Місто">
+                                <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-f\${id}" placeholder="Місто">
                             </div>
 
                         </form>
@@ -453,6 +453,7 @@
             </div>
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
@@ -536,7 +537,7 @@
                             </button>
 
                             <div class="form-group">
-                                <input type="text" class="form-control col-sm-1" id="cityFrom" placeholder="Місто">
+                                <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-h\${id}" placeholder="Місто">
                             </div>
 
                         </form>
@@ -597,6 +598,7 @@
             </div>
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
         </script>
 
 
