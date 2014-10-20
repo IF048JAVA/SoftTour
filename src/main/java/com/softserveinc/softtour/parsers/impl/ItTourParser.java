@@ -55,6 +55,7 @@ public class ItTourParser implements ItTourParserConstants {
 
     public List<Tour> parse(){
         Document document = connect(url);
+        System.out.println(url);
         addTours(document);
         return tourList;
     }
@@ -234,7 +235,7 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,1300, 15000, 1);
+        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,1700, 2100, 1);
         /*
         for now, full search works only for this regions:
         #Єгипет
