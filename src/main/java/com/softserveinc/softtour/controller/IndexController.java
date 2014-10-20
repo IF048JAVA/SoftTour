@@ -29,6 +29,8 @@ public class IndexController {
     private CountryService countryService;
     @Autowired
     private RegionService regionService;
+    @Autowired
+    private HistoryRecordService historyRecordService;
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
      public @ResponseBody List<Tour> findTours(
@@ -72,5 +74,26 @@ public class IndexController {
         Tour tourToFav=tourService.save(currentTour);
         Favorite favorite=new Favorite(sqlDate,currentUser,tourToFav);
         favoriteService.save(favorite);
+    }
+    @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
+    public @ResponseBody void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
+        java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
+        Date sqlDate = new Date(utilDate.getTime());
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser =userService.findByEmail(loggedUserEmail);
+        Hotel currentHotel = currentTour.getHotel();
+        Region currentRegion = currentHotel.getRegion();
+        Country currentCountry = currentRegion.getCountry();
+        Country country = countryService.save(currentCountry);
+        currentRegion.setCountry(country);
+        Region region = regionService.save(currentRegion);
+        currentHotel.setRegion(region);
+        Hotel hotel = hotelService.save(currentHotel);
+        currentTour.setHotel(hotel);
+        currentTour.setDepartureCity("Null");
+        currentTour.setDepartureTime(new Time(12354));
+        Tour tourToHis=tourService.save(currentTour);
+        HistoryRecord historyRecord= new HistoryRecord(sqlDate,currentUser,tourToHis);
+        historyRecordService.save(historyRecord);
     }
 }

@@ -3,11 +3,11 @@
 <h2 style="text-align: center">Введіть мінімальну та максимальну ціну для пошуку туру та виберіть країну</h2>
 
 <div class="row">
-        <div class="col-md-3 imgfont"  style="margin-left:50px;"><img src="img/egypt_logo.png"id="egypt" onclick="parseTour('Єгипет')"><br>Єгипет</div>
+        <div class="col-md-3 imgfont"  style="margin-left:50px;"><img src="img/egypt_logo.png"id="egypt" onclick="parseTour('Єгипет'),clearArray()"><br>Єгипет</div>
         <div class="col-md-1"></div>
-        <div class="col-md-3 imgfont"><img src="img/greece_logo.png" id="greece" onclick="parseTour('Греція')"><br>Греція</div>
+        <div class="col-md-3 imgfont"><img src="img/greece_logo.png" id="greece" onclick="parseTour('Греція'),clearArray()"><br>Греція</div>
         <div class="col-md-1"></div>
-        <div class="col-md-3 imgfont"><img src="img/turkey_logo.png" id = "turkey" onclick="parseTour('Туреччина')"><br>Туреччина</div>
+        <div class="col-md-3 imgfont"><img src="img/turkey_logo.png" id = "turkey" onclick="parseTour('Туреччина'),clearArray()"><br>Туреччина</div>
         <div class="col-md-1"></div>
 </div>
 <div class="row" style="margin-bottom: 15px;margin-top: 15px;">
@@ -37,7 +37,7 @@
 <script id="indexTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default" id="panel-favorite\${id}">
                 <div class="panel-heading" id="results\${id}">
-                         <span data-toggle="collapse" href="#panel-element-f\${id}">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="saveHistoryRecord(\${id})">
                          <span class="tabTitleFont cursor-pointer" >Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>

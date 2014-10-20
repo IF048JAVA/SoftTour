@@ -1,14 +1,17 @@
 $(document).ready(function () {})
-
+var usedIds = new Array();
 var favData = {};
-
+    function clearArray() {
+        usedIds=[];
+    }
     function parseTour (countryPar) {
         showModal();
         var queryObj = {};
         var indexBudget = $("#indexBudget").val();
+        var travelers = $("#Travelers").val();
         queryObj.country = countryPar;
-        queryObj.minPrice = indexBudget;
-        queryObj.maxPrice = indexBudget+500;
+        queryObj.minPrice = Math.floor(indexBudget*0.7);
+        queryObj.maxPrice = Math.floor(indexBudget*1.1);
 
         $.ajax({
             url: "/parseTour",
@@ -57,4 +60,23 @@ function saveFavorites (id){
     $("#results"+id).append('<span id="deleteButtonF'+id+'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star cursor-pointer" onclick="saveFavorites('+id+')"><//i><//span>')
 
     //$("#")
+}
+function saveHistoryRecord(id) {
+    if(usedIds[id]!="used")
+    {var hisObj = {}
+    $.each(favData,function(key,value){
+        if(value.id == id){
+            hisObj = value;
+        }
+    })
+    console.log(hisObj);
+    $.ajax({
+        url: "/saveHistoryRecord",
+        type: "POST",
+        data: JSON.stringify(hisObj),
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json'
+    })}
+    usedIds[id]="used"
 }
