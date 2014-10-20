@@ -8,7 +8,7 @@ import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.entity.template.RoomType;
 import com.softserveinc.softtour.parsers.constants.ItTourParserConstants;
 import com.softserveinc.softtour.util.HotelHolder;
-import com.softserveinc.softtour.util.ItTourParserUtil;
+import com.softserveinc.softtour.util.ItTourParserUrlGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,7 +34,7 @@ public class ItTourParser implements ItTourParserConstants {
     private String dataTill;
     private int nightsFrom;
     private int nightsTill;
-    private ItTourParserUtil parserUtil;
+    private ItTourParserUrlGenerator parserUtil;
     private String url;
     private HotelHolder hotelHolder;
 
@@ -42,7 +42,7 @@ public class ItTourParser implements ItTourParserConstants {
         this.country = country;
         this.adults = adults;
         this.children = children;
-        parserUtil = new ItTourParserUtil();
+        parserUtil = new ItTourParserUrlGenerator();
         this.url = parserUtil.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
         hotelHolder = HotelHolder.getInstance();
     }
@@ -60,7 +60,7 @@ public class ItTourParser implements ItTourParserConstants {
         this.dataTill = dataTill;
         this.nightsFrom = nightsFrom;
         this.nightsTill = nightsTill;
-        parserUtil = new ItTourParserUtil();
+        parserUtil = new ItTourParserUrlGenerator();
         this.url = parserUtil.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
                 nightsFrom, nightsTill, priceFrom, priceTo, pageNumber);
         System.out.println(url);
