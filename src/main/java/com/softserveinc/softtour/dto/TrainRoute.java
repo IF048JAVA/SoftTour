@@ -1,31 +1,31 @@
 package com.softserveinc.softtour.dto;
 
-public class TrainTransit {
-	
-	//FIXME It's number of train   comment 
+public class TrainRoute {
+
+	// FIXME It's number of train comment
 	private String id;
-    private String departureCity;
-    private String arrivalCity;
-    private String departureDate;
-    private String departureTime;
-    private String arrivalTime;
-    private String priceMin;
-    private String priceMax;
-    
-    public TrainTransit() {
-    }
-    
-	public TrainTransit(String id, String departureCity, String arrivalCity,
+	private String departureCity;
+	private String arrivalCity;
+	private String departureDate;
+	private String departureTime;
+	private String arrivalTime;
+	private String priceMin;
+	private String priceMax;
+
+	public TrainRoute() {
+	}
+
+	public TrainRoute(String id, String departureCity, String arrivalCity,
 			String departureDate, String departureTime, String arrivalTime,
-			String priceFrom, String priceTo) {
+			String priceMin, String priceMax) {
 		this.id = id;
 		this.departureCity = departureCity;
 		this.arrivalCity = arrivalCity;
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
-		this.priceMin = priceFrom;
-		this.priceMax = priceTo;
+		this.priceMin = priceMin;
+		this.priceMax = priceMax;
 	}
 
 	public String getId() {
@@ -76,25 +76,26 @@ public class TrainTransit {
 		this.arrivalTime = arrivalTime;
 	}
 
-	public String getPriceFrom() {
+	public String getPriceMin() {
 		return priceMin;
 	}
 
-	public void setPriceFrom(String priceFrom) {
-		this.priceMin = priceFrom;
+	public void setPriceMin(String priceMin) {
+		this.priceMin = priceMin;
 	}
 
-	public String getPriceTo() {
+	public String getPriceMax() {
 		return priceMax;
 	}
 
-	public void setPriceTo(String priceTo) {
-		this.priceMax = priceTo;
+	public void setPriceMax(String priceMax) {
+		this.priceMax = priceMax;
 	}
 
 	@Override
 	public String toString() {
-		return id + " " + departureCity + " - " + arrivalCity + " - " + departureDate + " " 
-				+ departureTime + " - " + arrivalTime + " - " + priceMin + " - " + priceMax;
+		return id + " " + departureCity + " - " + arrivalCity + " - "
+				+ departureDate + " - " + departureTime + " - " + arrivalTime
+				+ " - " + priceMin + " - " + priceMax;
 	}
 }
