@@ -1,13 +1,13 @@
 package com.softserveinc.softtour.util;
 
-import com.softserveinc.softtour.util.constants.ItTourParserUtilConstants;
+import com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-public class ItTourParserUtil implements ItTourParserUtilConstants {
+public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstants {
     private Properties countryProperties = new Properties();
     private Properties regionProperties = new Properties();
 

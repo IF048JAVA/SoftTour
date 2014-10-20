@@ -1,6 +1,6 @@
 package com.softserveinc.softtour.util.constants;
 
-public interface ItTourParserUtilConstants {
+public interface ItTourParserUrlGeneratorConstants {
     String UTF_8 = "UTF-8";
     String COUNTRY_PROPERTIES_FILE_PASS = "/parser_properties/it_tour_country_parameters";
     String REGION_PROPERTIES_FILE_PASS = "/parser_properties/it_tour_region_parameters";

@@ -1,7 +1,7 @@
 package com.softserveinc.softtour.parsers.constants;
 
 public interface BusParserConstants {
-    static final String RESOURCE_PATH_PARAMS = "/parser_properties/bus_parser_params";
+    static final String RESOURCE_PATH_PARAMS = "/parser_properties/bus_parser_parameters";
     static final String DEFAULT_CHARSET = "UTF-8";
     static final String BUS_SELECT = "tr[class~=aslist(?)]";
     static final String QUESTION_MARK = "?";
