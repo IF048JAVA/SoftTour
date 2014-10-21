@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.dto;
+package com.softserveinc.softtour.bean;
 
 public class BusRoute {
 

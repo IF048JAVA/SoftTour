@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.dto;
+package com.softserveinc.softtour.bean;
 
 public class TrainRoute {
 
@@ -8,6 +8,7 @@ public class TrainRoute {
 	private String arrivalCity;
 	private String departureDate;
 	private String departureTime;
+	private String onWayTime;
 	private String arrivalTime;
 	private String priceMin;
 	private String priceMax;
@@ -16,13 +17,14 @@ public class TrainRoute {
 	}
 
 	public TrainRoute(String id, String departureCity, String arrivalCity,
-			String departureDate, String departureTime, String arrivalTime,
-			String priceMin, String priceMax) {
+			String departureDate, String departureTime, String onWayTime,
+			String arrivalTime, String priceMin, String priceMax) {
 		this.id = id;
 		this.departureCity = departureCity;
 		this.arrivalCity = arrivalCity;
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
+		this.onWayTime = onWayTime;
 		this.arrivalTime = arrivalTime;
 		this.priceMin = priceMin;
 		this.priceMax = priceMax;
@@ -68,6 +70,14 @@ public class TrainRoute {
 		this.departureTime = departureTime;
 	}
 
+	public String getOnWayTime() {
+		return onWayTime;
+	}
+
+	public void setOnWayTime(String onWayTime) {
+		this.onWayTime = onWayTime;
+	}
+
 	public String getArrivalTime() {
 		return arrivalTime;
 	}
@@ -95,7 +105,7 @@ public class TrainRoute {
 	@Override
 	public String toString() {
 		return id + " " + departureCity + " - " + arrivalCity + " - "
-				+ departureDate + " - " + departureTime + " - " + arrivalTime
+				+ departureDate + " - " + departureTime + " - " + onWayTime + " - " + arrivalTime
 				+ " - " + priceMin + " - " + priceMax;
 	}
 }
