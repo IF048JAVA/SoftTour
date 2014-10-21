@@ -1,8 +1,8 @@
 $(function() {
     var availableTags = [
         "Івано-Франківськ",
-        "Львів"
-
+        "Львів",
+        "Тернопіль"
     ];
     $(".cityFromAutocomplete").autocomplete({
         source: availableTags

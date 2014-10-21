@@ -269,11 +269,7 @@
                                         <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Час прибуття</th>
                                         <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Ціна від</th>
                                         <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Ціна до</th>
-                                        <th data-halign="center" data-align="center" data-valign="middle">
-                                            <button type="button" class="btn btn-info btn-xs">
-                                                Замовити
-                                            </button>
-                                        </th>
+                                        <th data-halign="center" data-align="center" data-valign="middle"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -292,11 +288,7 @@
                                         <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Час прибуття</th>
                                         <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Ціна від</th>
                                         <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Ціна до</th>
-                                        <th data-halign="center" data-align="center" data-valign="middle">
-                                            <button type="button" class="btn btn-info btn-xs">
-                                                Замовити
-                                            </button>
-                                        </th>
+                                        <th data-halign="center" data-align="center" data-valign="middle"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -415,11 +407,7 @@
                                             <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
                                             <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
                                             <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
-                                            <th data-halign="center" data-align="center" data-valign="middle">
-                                                <button type="button" class="btn btn-info btn-xs">
-                                                    Замовити
-                                                </button>
-                                            </th>
+                                            <th data-halign="center" data-align="center" data-valign="middle"></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -438,11 +426,7 @@
                                         <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
                                         <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
                                         <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
-                                        <th data-halign="center" data-align="center" data-valign="middle">
-                                            <button type="button" class="btn btn-info btn-xs">
-                                                Замовити
-                                            </button>
-                                        </th>
+                                        <th data-halign="center" data-align="center" data-valign="middle"></th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -454,6 +438,7 @@
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/orderButton.js"/>'/>
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
@@ -560,11 +545,7 @@
                                             <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
                                             <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
                                             <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
-                                            <th data-halign="center" data-align="center" data-valign="middle">
-                                                <button type="button" class="btn btn-info btn-xs">
-                                                    Замовити
-                                                </button>
-                                            </th>
+                                            <th data-halign="center" data-align="center" data-valign="middle"></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -583,11 +564,7 @@
                                         <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
                                         <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
                                         <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
-                                        <th data-halign="center" data-align="center" data-valign="middle">
-                                            <button type="button" class="btn btn-info btn-xs">
-                                                Замовити
-                                            </button>
-                                        </th>
+                                        <th data-halign="center" data-align="center" data-valign="middle"></th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -599,6 +576,7 @@
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/orderButton.js"/>'/>
         </script>
 
 
