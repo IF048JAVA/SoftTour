@@ -44,6 +44,18 @@ public interface ItTourParserUrlGeneratorConstants {
     String DEFAULT_HOTEL_RATING_VALUE = "7+3+4+78";
     String FOOD_PARAM = "food";
     String DEFAULT_FOOD_VALUE = "496+388+498+512+560+1956";
+    String FOOD_HB = "HB";
+    String FOOD_BB = "BB";
+    String FOOD_FB = "FB";
+    String FOOD_AI = "AI";
+    String FOOD_UAI = "UAI";
+    String FOOD_RO = "RO";
+    int FOOD_HB_CODE = 496;
+    int FOOD_BB_CODE = 388;
+    int FOOD_FB_CODE = 498;
+    int FOOD_AI_CODE = 512;
+    int FOOD_UAI_CODE = 560;
+    int FOOD_RO_CODE = 1956;
     String NIGHTS_FROM_PARAM = "night_from";
     String NIGHTS_TILL_PARAM = "night_till";
     int DEFAULT_NIGHTS_FROM_VALUE = 6;
@@ -64,4 +76,5 @@ public interface ItTourParserUrlGeneratorConstants {
     String SHARDING_RULE_ID_PARAM = "sharding_rule_id";
 
     long TEN_DAYS_IN_MILLISECONDS = 864000000;
+
 }

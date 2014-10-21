@@ -18,12 +18,10 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ItTourParser implements ParsersConstants {
-    private List<Tour> tourList = new ArrayList<>();
+    private List<Tour> tourList;
     private String country;
     private int adults;
     private int children;
@@ -32,6 +30,7 @@ public class ItTourParser implements ParsersConstants {
     private HotelHolder hotelHolder;
 
     public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
+        this.tourList = new ArrayList<>();
         this.country = country;
         this.adults = adults;
         this.children = children;
@@ -40,9 +39,10 @@ public class ItTourParser implements ParsersConstants {
         hotelHolder = HotelHolder.getInstance();
     }
 
-    public ItTourParser(String country, String region, int [] hotelStars, String[] food, int adults, int children,
+    public ItTourParser(String country, String region, Set<Integer> hotelStars, Set<String> food, int adults, int children,
                         String dataFrom, String dataTill, int nightsFrom, int nightsTill, int priceFrom, int priceTo,
                         int pageNumber) {
+        this.tourList = new ArrayList<>();
         this.country = country;
         this.adults = adults;
         this.children = children;
@@ -55,7 +55,6 @@ public class ItTourParser implements ParsersConstants {
 
     public List<Tour> parse() {
         Document document = connect(url);
-        System.out.println(url);
         addTours(document);
         return tourList;
     }
@@ -235,7 +234,7 @@ public class ItTourParser implements ParsersConstants {
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Греція", 3, 1 ,300, 1500, 1);
+        //ItTourParser parser = new ItTourParser("Греція", 3, 1 ,300, 1500, 1);
         /*
         for now, full search works only for this regions:
         #Єгипет
@@ -257,10 +256,15 @@ public class ItTourParser implements ParsersConstants {
           String country, String region, int [] hotelStars, String[] food, int adults, int children, String dataFrom, String dataTill,
           int nightsFrom, int nightsTill, int priceFrom, int priceTo, int pageNumber
         */
-        int[] hotelStars = {3, 5};
-        String[] food = {"AI", "UAI"};
-        //ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
-        //                                       5, 15, 500, 5000, 2);
+        Set<Integer> hotelStars = new HashSet<>();
+        hotelStars.add(3);
+        hotelStars.add(5);
+
+        Set<String> food = new HashSet<>();
+        food.add("AI");
+        food.add("UAI");
+        ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
+                                               5, 15, 500, 5000, 2);
             List<Tour> listTour = parser.parse();
             for(Tour tour : listTour) {
                 System.out.println(tour);
