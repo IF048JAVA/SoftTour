@@ -14,6 +14,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.ParseException;
@@ -28,6 +30,7 @@ public class ItTourParser implements ParsersConstants {
     private ItTourParserUrlGenerator urlGenerator;
     private String url;
     private HotelHolder hotelHolder;
+    private Properties departureCityVocabulary = new Properties();
 
     public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
         this.tourList = new ArrayList<>();
@@ -49,12 +52,12 @@ public class ItTourParser implements ParsersConstants {
         urlGenerator = new ItTourParserUrlGenerator();
         this.url = urlGenerator.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
                 nightsFrom, nightsTill, priceFrom, priceTo, pageNumber);
-        System.out.println(url);
         hotelHolder = HotelHolder.getInstance();
     }
 
     public List<Tour> parse() {
         Document document = connect(url);
+        loadDepartureCityProperties();
         addTours(document);
         return tourList;
     }
@@ -73,6 +76,17 @@ public class ItTourParser implements ParsersConstants {
         String tourPage = doc.replace("\\", "");
         Document document = Jsoup.parse(tourPage);
         return document;
+    }
+
+    private void loadDepartureCityProperties(){
+        try {
+            InputStream inputCountryProperties = this.getClass().
+                    getResourceAsStream(DEPARTURE_CITY_PROPERTIES_PATH);
+            departureCityVocabulary.load(new InputStreamReader(inputCountryProperties, UTF_8));
+        }catch (IOException e){
+            //TODO improve handled exception
+            System.out.println(e.getMessage());
+        }
     }
 
     private void addTours(Document document) {
@@ -163,7 +177,8 @@ public class ItTourParser implements ParsersConstants {
 
     private String tourDepartureCity(String departureCity){
         try {
-            return departureCity;
+            String departureCityUa = departureCityVocabulary.getProperty(departureCity);
+            return departureCityUa;
         } catch (NullPointerException e) {
             return WITHOUT_FLY;
         }
