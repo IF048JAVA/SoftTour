@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
