@@ -8,8 +8,10 @@ import java.util.Date;
 import com.softserveinc.softtour.bean.TrainRoute;
 
 public class DateValidator {
+	private static final int HOURS_BEFOERE_FLIGHT = 3;
 	
 	private Date depatureDateTimePlane;
+	private TrainRoute trainRoute;
 	
 	private SimpleDateFormat dateTimeFormat;
 	private SimpleDateFormat dateFormat;
@@ -20,24 +22,28 @@ public class DateValidator {
 	public DateValidator() {
 		dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
 		calendar = Calendar.getInstance();
 	}
 	
 	public boolean validate(TrainRoute trainRoute, String departureTime) {
+		this.trainRoute = trainRoute;
 		String depatureDateTimeTrain = trainRoute.getDepartureDate() + " "	+ trainRoute.getDepartureTime();
 		String onWayTime = trainRoute.getOnWayTime();
 
-		setDepatureDateTimePlane(trainRoute,  departureTime); 
-		
 		try {
 			calendar.setTime(dateTimeFormat.parse(depatureDateTimeTrain));
 			// Настроюю час приїзду поїзда
 			calendar.add(Calendar.HOUR_OF_DAY, Integer.parseInt(onWayTime.substring(1, 3)));
 			calendar.add(Calendar.MINUTE, Integer.parseInt(onWayTime.substring(4, 6)));
-			int differenceHours = (int) (depatureDateTimePlane.getTime() - calendar.getTime().getTime()) / 3600000;
+			
+			if (!isSet) {
+					depatureDateTimePlane = dateTimeFormat.parse(trainRoute.getDepartureDate() + " " + departureTime);
+				isSet = true;
+			}
+			
+			int difference = (int) (depatureDateTimePlane.getTime() - calendar.getTime().getTime()) / 3600000;
 
-			if (differenceHours >= 3) {
+			if (difference >= HOURS_BEFOERE_FLIGHT) {
 				return true;
 			} 
 		} catch (ParseException e) {
@@ -46,10 +52,8 @@ public class DateValidator {
 		return false;
 	}
 
-	public String setPreviousDate(TrainRoute trainRoute,  String departureTime) {
+	public String setPreviousDate() {
 		Date departureDate = null;
-		setDepatureDateTimePlane(trainRoute,  departureTime); 
-		
 		try {
 			departureDate = dateFormat.parse(trainRoute.getDepartureDate());
 		} catch (ParseException e) {
@@ -60,17 +64,6 @@ public class DateValidator {
 		String previousDate = dateFormat.format(calendar.getTime());
 
 		return previousDate;
-	}
-
-	private void setDepatureDateTimePlane(TrainRoute trainRoute,  String departureTime) {
-		if (!isSet) {
-			try {
-				depatureDateTimePlane = dateTimeFormat.parse(trainRoute.getDepartureDate() + " " + departureTime);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			isSet = true;
-		}
 	}
 
 }
