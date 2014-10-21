@@ -212,30 +212,32 @@
                     </div>
 
                     <div class="col-sm-7">
-                        <strong class="text-info pull-left" id="hotel\${id}">
-                            \${tour.hotel.name}
+                        <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
+                            \${tour.hotel.name}&nbsp;
                         </strong>
                         <span>
-                            <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xxs"
+                            <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xs"
                                 data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
                         </span>
                     </div>
 
                     <div class="col-sm-3">
-                        <h5>Дорослі</h5>
-                        <h5>Діти</h5>
-                        <h5>Рейтинг готелю</h5>
-                        <h5>Тип номерів</h5>
-                        <h5>Місто вильоту</h5>
+                        <h4>Дорослі</h4>
+                        <h4>Діти</h4>
+                        <h4>Рейтинг готелю</h4>
+                        <h4>Тип номерів</h4>
+                        <h4>Місто вильоту</h4>
                     </div>
 
                     <div class="col-sm-4">
-                        <h5 id="adultsAmount\${id}">\${tour.adultAmount}</h5>
-                        <h5 id="childrenAmount\${id}">\${tour.childrenAmount}</h5>
-                        <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
-                        <h5 id="hotelRoomType\${id}">\${tour.roomType}</h5>
-                        <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
+                        <h4 id="adultsAmount\${id}">\${tour.adultAmount}</h4>
+                        <h4 id="childrenAmount\${id}">\${tour.childrenAmount}</h4>
+                        <h4 id="hotelRaiting\${id}">\${tour.hotel.rating}</h4>
+                        <h4 id="hotelRoomType\${id}">\${tour.roomType}</h4>
+                        <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
                     </div>
+
+                    <div class="col-sm-4"></div>
 
                     <form role="form" class="form-inline">
 
@@ -269,11 +271,7 @@
                                         <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Час прибуття</th>
                                         <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Ціна від</th>
                                         <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Ціна до</th>
-                                        <th data-halign="center" data-align="center" data-valign="middle">
-                                            <button type="button" class="btn btn-info btn-xs">
-                                                Замовити
-                                            </button>
-                                        </th>
+                                        <th data-halign="center" data-align="center" data-valign="middle"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -292,11 +290,7 @@
                                         <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Час прибуття</th>
                                         <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Ціна від</th>
                                         <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle" data-sortable="true">Ціна до</th>
-                                        <th data-halign="center" data-align="center" data-valign="middle">
-                                            <button type="button" class="btn btn-info btn-xs">
-                                                Замовити
-                                            </button>
-                                        </th>
+                                        <th data-halign="center" data-align="center" data-valign="middle"></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -334,7 +328,7 @@
                                     <span class="tabTitleFont">\${tour.date}</span>
                                 </td>
                                 <td width="100">
-                                    <span id="deleteButtonF1000" data-role="button" class="pull-right clickable">
+                                    <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable">
                                         <i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})">
                                         </i>
                                     </span>
@@ -358,79 +352,58 @@
                     </div>
 
                     <div class="col-sm-7">
-                        <strong class="text-info pull-left" id="hotel\${id}">
-                            \${tour.hotel.name}
+                        <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
+                            \${tour.hotel.name}&nbsp;
                         </strong>
                         <span>
-                            <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xxs"
+                            <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xs"
                                 data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
                         </span>
                     </div>
 
                     <div class="col-sm-3">
-                            <h5>Дорослі</h5>
-                            <h5>Діти</h5>
-                            <h5>Рейтинг готелю</h5>
-                            <h5>Тип номерів</h5>
-                            <h5>Місто вильоту</h5>
+                        <h4>Дорослі</h4>
+                        <h4>Діти</h4>
+                        <h4>Рейтинг готелю</h4>
+                        <h4>Тип номерів</h4>
+                        <h4>Місто вильоту</h4>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <h4 id="adultsAmount\${id}">\${tour.adultAmount}</h4>
+                        <h4 id="childrenAmount\${id}">\${tour.childrenAmount}</h4>
+                        <h4 id="hotelRaiting\${id}">\${tour.hotel.rating}</h4>
+                        <h4 id="hotelRoomType\${id}">\${tour.roomType}</h4>
+                        <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
+                    </div>
+
+                    <div class="col-sm-4"></div>
+
+                    <form role="form" class="form-inline">
+
+                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${id}">
+                            <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
+                            Як добратися з ... ?
+                            <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
+                        </button>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-f\${id}" placeholder="Місто">
                         </div>
 
-                        <div class="col-sm-4">
-                            <h5 id="adultsAmount\${id}">\${tour.adultAmount}</h5>
-                            <h5 id="childrenAmount\${id}">\${tour.childrenAmount}</h5>
-                            <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
-                            <h5 id="hotelRoomType\${id}">\${tour.roomType}</h5>
-                            <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
-                        </div>
+                    </form>
 
-                        <form role="form" class="form-inline">
+                    <div id="transitInfo-All-F\${id}" class="collapse">
 
-                            <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${id}">
-                                <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
-                                Як добратися з ... ?
+                        <div class="panel panel-success col-sm-12">
+
+                            <h3>
+                                Поїздом
                                 <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
-                            </button>
+                            </h3>
 
-                            <div class="form-group">
-                                <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-f\${id}" placeholder="Місто">
-                            </div>
-
-                        </form>
-
-                        <div id="transitInfo-All-F\${id}" class="collapse">
-
-                            <div class="panel panel-success col-sm-12">
-
-                                <h3>
-                                    Поїздом
-                                    <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
-                                </h3>
-
-                                <table data-toggle="table" data-url="data1.json">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
-                                            <th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">Місто прибуття</th>
-                                            <th data-field="departureTime" data-halign="center" data-align="center" data-valign="middle">Час відправлення</th>
-                                            <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
-                                            <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
-                                            <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
-                                            <th data-halign="center" data-align="center" data-valign="middle">
-                                                <button type="button" class="btn btn-info btn-xs">
-                                                    Замовити
-                                                </button>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-
-                                <h3>
-                                    Автобусом
-                                    <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
-                                </h3>
-
-                                <table data-toggle="table" data-url="data1.json">
-                                    <thead>
+                            <table data-toggle="table" data-url="data1.json">
+                                <thead>
                                     <tr>
                                         <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
                                         <th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">Місто прибуття</th>
@@ -438,22 +411,38 @@
                                         <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
                                         <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
                                         <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
-                                        <th data-halign="center" data-align="center" data-valign="middle">
-                                            <button type="button" class="btn btn-info btn-xs">
-                                                Замовити
-                                            </button>
-                                        </th>
+                                        <th data-halign="center" data-align="center" data-valign="middle"></th>
                                     </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                                </thead>
+                            </table>
+
+                            <h3>
+                                Автобусом
+                                <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
+                            </h3>
+
+                            <table data-toggle="table" data-url="data1.json">
+                                <thead>
+                                <tr>
+                                    <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
+                                    <th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">Місто прибуття</th>
+                                    <th data-field="departureTime" data-halign="center" data-align="center" data-valign="middle">Час відправлення</th>
+                                    <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
+                                    <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
+                                    <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
+                                    <th data-halign="center" data-align="center" data-valign="middle"></th>
+                                </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/orderButton.js"/>'/>
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
@@ -503,79 +492,58 @@
                     </div>
 
                     <div class="col-sm-7">
-                        <strong class="text-info pull-left" id="hotel\${id}">
-                            \${tour.hotel.name}
+                        <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
+                            \${tour.hotel.name}&nbsp;
                         </strong>
                         <span>
-                            <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xxs"
+                            <input id="stars" value=\${tour.hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xs"
                                 data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
                         </span>
                     </div>
 
                     <div class="col-sm-3">
-                            <h5>Дорослі</h5>
-                            <h5>Діти</h5>
-                            <h5>Рейтинг готелю</h5>
-                            <h5>Тип номерів</h5>
-                            <h5>Місто вильоту</h5>
+                        <h4>Дорослі</h4>
+                        <h4>Діти</h4>
+                        <h4>Рейтинг готелю</h4>
+                        <h4>Тип номерів</h4>
+                        <h4>Місто вильоту</h4>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <h4 id="adultsAmount\${id}">\${tour.adultAmount}</h4>
+                        <h4 id="childrenAmount\${id}">\${tour.childrenAmount}</h4>
+                        <h4 id="hotelRaiting\${id}">\${tour.hotel.rating}</h4>
+                        <h4 id="hotelRoomType\${id}">\${tour.roomType}</h4>
+                        <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
+                    </div>
+
+                    <div class="col-sm-4"></div>
+
+                    <form role="form" class="form-inline">
+
+                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${id}">
+                            <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
+                            Як добратися з ... ?
+                            <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
+                        </button>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-h\${id}" placeholder="Місто">
                         </div>
 
-                        <div class="col-sm-4">
-                            <h5 id="adultsAmount\${id}">\${tour.adultAmount}</h5>
-                            <h5 id="childrenAmount\${id}">\${tour.childrenAmount}</h5>
-                            <h5 id="hotelRaiting\${id}">\${tour.hotel.rating}</h5>
-                            <h5 id="hotelRoomType\${id}">\${tour.roomType}</h5>
-                            <h5 id="departyreCity\${id}">\${tour.departureCity}</h5>
-                        </div>
+                    </form>
 
-                        <form role="form" class="form-inline">
+                    <div id="transitInfo-All-H\${id}" class="collapse">
 
-                            <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${id}">
-                                <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
-                                Як добратися з ... ?
+                        <div class="panel panel-success col-sm-12">
+
+                            <h3>
+                                Поїздом
                                 <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
-                            </button>
+                            </h3>
 
-                            <div class="form-group">
-                                <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-h\${id}" placeholder="Місто">
-                            </div>
-
-                        </form>
-
-                        <div id="transitInfo-All-H\${id}" class="collapse">
-
-                            <div class="panel panel-success col-sm-12">
-
-                                <h3>
-                                    Поїздом
-                                    <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
-                                </h3>
-
-                                <table data-toggle="table" data-url="data1.json">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
-                                            <th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">Місто прибуття</th>
-                                            <th data-field="departureTime" data-halign="center" data-align="center" data-valign="middle">Час відправлення</th>
-                                            <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
-                                            <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
-                                            <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
-                                            <th data-halign="center" data-align="center" data-valign="middle">
-                                                <button type="button" class="btn btn-info btn-xs">
-                                                    Замовити
-                                                </button>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-
-                                <h3>
-                                    Автобусом
-                                    <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
-                                </h3>
-
-                                <table data-toggle="table" data-url="data1.json">
-                                    <thead>
+                            <table data-toggle="table" data-url="data1.json">
+                                <thead>
                                     <tr>
                                         <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
                                         <th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">Місто прибуття</th>
@@ -583,22 +551,38 @@
                                         <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
                                         <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
                                         <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
-                                        <th data-halign="center" data-align="center" data-valign="middle">
-                                            <button type="button" class="btn btn-info btn-xs">
-                                                Замовити
-                                            </button>
-                                        </th>
+                                        <th data-halign="center" data-align="center" data-valign="middle"></th>
                                     </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                                </thead>
+                            </table>
+
+                            <h3>
+                                Автобусом
+                                <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
+                            </h3>
+
+                            <table data-toggle="table" data-url="data1.json">
+                                <thead>
+                                <tr>
+                                    <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
+                                    <th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">Місто прибуття</th>
+                                    <th data-field="departureTime" data-halign="center" data-align="center" data-valign="middle">Час відправлення</th>
+                                    <th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>
+                                    <th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>
+                                    <th data-field="priceMax" data-halign="center" data-align="center" data-valign="middle">Ціна до</th>
+                                    <th data-halign="center" data-align="center" data-valign="middle"></th>
+                                </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/orderButton.js"/>'/>
         </script>
 
 

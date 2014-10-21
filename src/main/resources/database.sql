@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS softtour;
 CREATE DATABASE softtour default charset=utf8 COLLATE=utf8_general_ci;
 
 USE softtour;
+SET NAMES 'utf8';
 
 CREATE TABLE role (
   id bigint(20) NOT NULL AUTO_INCREMENT,

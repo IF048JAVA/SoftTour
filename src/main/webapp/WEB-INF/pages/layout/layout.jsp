@@ -46,7 +46,6 @@
 <script src="<c:url value='/js/bootstrap-datepicker-ua.js' />" ></script>
 <script src="<c:url value='/js/jquery.tmpl.js' />" ></script>
 <script src="<c:url value='/js/calendar.js' />" ></script>
-<script src="<c:url value='/js/bootstrap-table.min.js' />" ></script>
 <script src="<c:url value='/js/selector.js' />" ></script>
 <script src="<c:url value='/js/registrationControl.js' />" ></script>
 <script src="<c:url value='/js/feedback.js' />" ></script>
@@ -62,6 +61,9 @@
 <script src="<c:url value='/js/validator.js' />" ></script>
 <script src="<c:url value='/js/jquery.twbsPagination.min.js' />" ></script>
 <script src="<c:url value='/js/searchResult.js' />" ></script>
+<script src="<c:url value='/js/star-rating.min.js' />" ></script>
+<script src="<c:url value='/js/bootstrap-table.min.js' />" ></script>
 <script src="<c:url value='/js/cityFromAutocomplete.js' />" ></script>
+
 </body>
 </html>

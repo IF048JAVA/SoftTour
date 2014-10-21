@@ -8,8 +8,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.softserveinc.softtour.dto.TrainRoute;
+import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.util.CreatorTrainUrl;
+import com.softserveinc.softtour.util.DateValidator;
 
 public class TrainParser {
 	private static final int MAX_NUMER_OF_RETRYING = 15;
@@ -19,15 +20,33 @@ public class TrainParser {
 	private TrainRoute trainRoute;
 	private ArrayList<TrainRoute> routesList;
 	private CreatorTrainUrl creatorTrainUrl;
+	private DateValidator dateValidator;
 	
-	public TrainParser(String departureCity, String arrivalCity, String departureDate) {
+	private String departureDate;
+	private String departureTime;
+	private String previousDate;
+	
+	private boolean isSetDate = true;
+	boolean isSetPreviousDate = true;
+	
+	public TrainParser(String departureCity, String arrivalCity, String departureDate, String departureTime) {
 		creatorTrainUrl = new CreatorTrainUrl();
 		url = creatorTrainUrl.createUrl(departureCity, arrivalCity, departureDate);
 		
-		trainRoute = new TrainRoute();
-		trainRoute.setDepartureDate(departureDate);
+		this.departureDate = departureDate;
+		this.departureTime = departureTime;
 		
 		routesList = new ArrayList<TrainRoute>();
+		dateValidator = new DateValidator();
+	}
+	
+	public ArrayList<TrainRoute>  getRoutes() {
+		parse();
+		
+		isSetDate = false;
+		parse();
+		
+		return routesList;
 	}
 	
 	/**
@@ -35,7 +54,7 @@ public class TrainParser {
 	 * 
 	 * @return the list of the routes
 	 */
-	public ArrayList<TrainRoute> parse() {
+	public void parse() {
 		Document document = null;
 		
 		int i = 0;
@@ -52,13 +71,7 @@ public class TrainParser {
 			break;
 		}
 
-		if (document == null) {
-			// TODO LOG
-			return null;
-		}
-
 		parseRoutes(document);
-		return routesList;
 	}
 		
 	/**
@@ -66,7 +79,10 @@ public class TrainParser {
 	 * @param document - it's document, which will be parsed
 	 */
 	private void parseRoutes(Document document){
-		Element routesTable = document.getElementsByTag("body").get(0)
+		Element routesTable = null;
+		
+		try{
+			routesTable = document.getElementsByTag("body").get(0)
 				.getElementById("turistua_site")
 				.getElementById("content")
 				.getElementsByClass("reservationCol").get(0)
@@ -75,6 +91,12 @@ public class TrainParser {
 				.getElementById("t2t_tables")
 				.getElementsByTag("tbody").get(0);
 			
+		}catch(NullPointerException e){
+			// FIXME
+//			e.printStackTrace();
+		System.out.println("There are no routes for the specified date");
+			//routesList = null;
+		}
 		Elements routes = routesTable.select("tr[class]");
 		parseRoute(routes);
 	}
@@ -85,11 +107,29 @@ public class TrainParser {
 	 */
 	private void parseRoute(Elements routes) {
 		for (Element route : routes) {
-			Elements unitsRoute = route.getElementsByTag("td");
+			createTrainRouteObject();
 			
+			Elements unitsRoute = route.getElementsByTag("td");
 			parseUnitRoute(unitsRoute);
 			
-			addRoute();
+			boolean passingValidation = dateValidator.validate(trainRoute, departureTime);
+			if (passingValidation) {
+				addRoute();
+			}
+		}
+	}
+
+	private void createTrainRouteObject() {
+		trainRoute = new TrainRoute();
+		
+		if (isSetDate) {
+			trainRoute.setDepartureDate(departureDate);
+		}else {
+			if (isSetPreviousDate) {
+				previousDate = dateValidator.setPreviousDate();
+				isSetPreviousDate = false;
+			}
+			trainRoute.setDepartureDate(previousDate);
 		}
 	}
 
@@ -98,14 +138,15 @@ public class TrainParser {
 	 * @param unitsRoute - it's units of the one route, which will be parsed
 	 */
 	private void parseUnitRoute(Elements unitsRoute) {
-			int unitNumber = 0;
-			trainRoute.setId(unitsRoute.get(unitNumber).text());
-			trainRoute.setDepartureCity(unitsRoute.get(++unitNumber).text());
-			trainRoute.setArrivalCity(unitsRoute.get(++unitNumber).text());
-			trainRoute.setDepartureTime(unitsRoute.get(++unitNumber).text());
-			trainRoute.setArrivalTime(unitsRoute.get(unitNumber = unitNumber + 2).text());
-			
-			parsePrices(unitsRoute, unitNumber);
+		int unitNumber = 0;
+		trainRoute.setId(unitsRoute.get(unitNumber).text());
+		trainRoute.setDepartureCity(unitsRoute.get(++unitNumber).text());
+		trainRoute.setArrivalCity(unitsRoute.get(++unitNumber).text());
+		trainRoute.setDepartureTime(unitsRoute.get(++unitNumber).text());
+		trainRoute.setOnWayTime(unitsRoute.get(++unitNumber).text());
+		trainRoute.setArrivalTime(unitsRoute.get(++unitNumber).text());
+		
+		parsePrices(unitsRoute, unitNumber);
 	}
 
 	/**
@@ -117,9 +158,7 @@ public class TrainParser {
 		int unitsSize = unitsRoute.size();
 		String[] pricesRoute = new String[unitsSize-(unitNumber+1)];
 		
-		// Sets prices pricesRoute from max to min price
 		for (int j = 0; j < pricesRoute.length; j++) {
-
 			Element unitRoutePrise = unitsRoute.get(++unitNumber);
 			pricesRoute[j] = parsePrice(unitRoutePrise);
 		}
@@ -156,15 +195,17 @@ public class TrainParser {
 	 */
 	private void addRoute() {
 		routesList.add(trainRoute);
-		System.out.println(trainRoute);
 	}
 
 	/**
 	 * Only for testing
 	 */
 	public static void main(String[] args) {
-		TrainParser obj = new TrainParser("Київ", "Дніпропетровськ", "2014-11-01");
-		obj.parse();
+		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-01", "23:00");
+		ArrayList<TrainRoute> routesList = obj.getRoutes();
+		
+		for (TrainRoute route : routesList) {
+			System.out.println(route);
+		}
 	}
-
 }
