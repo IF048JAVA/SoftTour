@@ -33,6 +33,10 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public Hotel findByName(String name) {
+        return hotelRepository.findByName(name);}
+
+    @Override
     public void deleteById(long id) {
         hotelRepository.delete(id);
     }

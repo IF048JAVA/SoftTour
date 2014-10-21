@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
@@ -68,6 +69,7 @@ public class IndexController {
         currentRegion.setCountry(country);
         Region region = regionService.save(currentRegion);
         currentHotel.setRegion(region);
+        //if(hotelService.findByName(currentHotel.getName())!= null)
         Hotel hotel = hotelService.save(currentHotel);
         currentTour.setHotel(hotel);
         currentTour.setDepartureCity("Null");
