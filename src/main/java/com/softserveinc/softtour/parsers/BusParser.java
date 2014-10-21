@@ -1,7 +1,7 @@
-package com.softserveinc.softtour.parsers.impl;
+package com.softserveinc.softtour.parsers;
 
 import com.softserveinc.softtour.bean.BusRoute;
-import com.softserveinc.softtour.parsers.constants.BusParserConstants;
+import com.softserveinc.softtour.parsers.constants.ParsersConstants;
 import com.softserveinc.softtour.util.BusParserUrlGenerator;
 
 import org.jsoup.Jsoup;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusParser implements BusParserConstants {
+public class BusParser implements ParsersConstants {
     private List<BusRoute> busList = new ArrayList<>();
     private String cityFrom;
     private String cityTo;

@@ -1,4 +1,4 @@
-package com.softserveinc.softtour.parsers.impl;
+package com.softserveinc.softtour.parsers;
 
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Hotel;
@@ -6,7 +6,7 @@ import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.entity.template.RoomType;
-import com.softserveinc.softtour.parsers.constants.ItTourParserConstants;
+import com.softserveinc.softtour.parsers.constants.ParsersConstants;
 import com.softserveinc.softtour.util.HotelHolder;
 import com.softserveinc.softtour.util.ItTourParserUrlGenerator;
 import org.jsoup.Jsoup;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ItTourParser implements ItTourParserConstants {
+public class ItTourParser implements ParsersConstants {
     private List<Tour> tourList = new ArrayList<>();
     private String country;
     private int adults;
