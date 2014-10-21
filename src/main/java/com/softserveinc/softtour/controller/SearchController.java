@@ -1,7 +1,7 @@
 package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.Tour;
-import com.softserveinc.softtour.parsers.impl.ItTourParser;
+import com.softserveinc.softtour.parsers.ItTourParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
