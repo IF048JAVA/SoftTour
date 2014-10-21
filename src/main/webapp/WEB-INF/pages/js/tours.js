@@ -1,17 +1,22 @@
 $(document).ready(function () {})
 var usedIds = new Array();
 var favData = {};
+var queryObj = {};
+queryObj.numberOfPage = 0;
+var stopper = 0;
     function clearArray() {
         usedIds=[];
     }
     function parseTour (countryPar) {
+        $('#indexResult').empty();
         showModal();
-        var queryObj = {};
+        $('#indexResult').append('<div class="col-md-12" id="loading"><img class = "loadingImage" src="img/load.gif"></div><br>');
         var indexBudget = $("#indexBudget").val();
         var travelers = $("#Travelers").val();
+        queryObj.numberOfPage = 1;
         queryObj.country = countryPar;
-        queryObj.minPrice = Math.floor(indexBudget*0.9);
-        queryObj.maxPrice = Math.floor(indexBudget*1.05);
+        queryObj.minPrice = Math.floor(indexBudget*0.75);
+        queryObj.maxPrice = Math.floor(indexBudget*1.1);
 
         $.ajax({
             url: "/parseTour",
@@ -29,7 +34,7 @@ var favData = {};
                 favData=data;
                 console.log (data);
                 $('#indexResult').empty();
-                $('#indexResult').append('<strong>Результати пошуку:</strong>');
+                $('#indexResult').append('<div class="col-md-12"><strong>Результати пошуку:</strong></div><br>');
                 $('#indexTemplate').tmpl(data).appendTo('#indexResult');
 
             },
@@ -79,4 +84,47 @@ function saveHistoryRecord(id) {
         mimeType: 'application/json'
     })}
     usedIds[id]="used"
+}
+$(window).scroll(function () {
+    if(($(window).scrollTop() + $(window).height() == $(document).height())&&(stopper==0)) {
+
+        expandParse();
+
+    }
+});
+function expandParse (){
+    //setTimeout(checkPagin(),1000);
+    stopper = 1;
+    if (queryObj.numberOfPage!=0){
+        queryObj.numberOfPage++;
+        $('#indexResult').append('<div class="col-md-12" id="loading"><img class = "loadingImage"src="img/load.gif"></div><br>');
+        $.ajax({
+            url: "/parseTour",
+            type: "POST",
+            data: queryObj,
+            dataType: 'json',
+
+            success: function (data) {
+                showModal();
+                var new_id=50*queryObj.numberOfPage;
+                $.each(data,function(key,value){
+                    value.id=new_id;
+                    new_id++;
+                })
+                favData=data;
+                console.log (data);
+                //$('#indexResult').empty();
+                //$('#indexResult').append('<div class="col-md-12"><strong>Результати пошуку:</strong></div><br>');
+                $('#indexTemplate').tmpl(data).appendTo('#indexResult');
+                $('#loading').remove();
+                stopper = 0;
+            },
+
+            error: function () {
+                alert("Error");
+            }
+
+        });
+    }
+
 }

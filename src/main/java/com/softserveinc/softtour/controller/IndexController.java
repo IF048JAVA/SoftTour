@@ -46,9 +46,10 @@ public class IndexController {
     public @ResponseBody List<Tour> searchTour(
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "minPrice", required = false) Integer minPrice,
-            @RequestParam(value = "maxPrice", required = false) Integer maxPrice){
+            @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
+            @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage){
         //return tourService.findAll();
-        ItTourParser parser = new ItTourParser(country, 3, 1 ,minPrice, maxPrice, 2);
+        ItTourParser parser = new ItTourParser(country, 3, 1 ,minPrice, maxPrice, numberOfPage);
         List<Tour> listTour = parser.parse();
         return listTour;
 
