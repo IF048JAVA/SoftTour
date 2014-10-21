@@ -2,6 +2,8 @@ package com.softserveinc.softtour.parsers.constants;
 
 public interface ParsersConstants {
     int CONNECTION_TIMEOUT = 20000;
+    String UTF_8 = "UTF-8";
+    String DEPARTURE_CITY_PROPERTIES_PATH = "/parser_properties/departure_city_ru-ua_vocabulary";
 
     String TAG_TR = "tr";
     String TAG_SPAN = "span";

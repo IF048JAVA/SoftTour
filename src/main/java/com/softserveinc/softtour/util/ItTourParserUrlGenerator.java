@@ -5,10 +5,7 @@ import com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstant
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Properties;
+import java.util.*;
 
 public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstants {
     private Properties countryProperties = new Properties();
@@ -74,8 +71,8 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         return quickSearchBuilder.toString();
     }
 
-    public String createAdvanceSearchUrl(String country, String region, int[] hotelStars, String[] food, int adults,
-            int children, String dataFrom, String dataTill, int nightsFrom, int nightsTill, int priceFrom,
+    public String createAdvanceSearchUrl(String country, String region, Set<Integer> hotelStars, Set<String> food,
+            int adults, int children, String dataFrom, String dataTill, int nightsFrom, int nightsTill, int priceFrom,
             int priceTo, int pageNumber){
         loadCountryProperties();
         loadRegionProperties();
@@ -98,13 +95,13 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         return fullSearchBuilder.toString();
     }
 
-    private String hotelRating(int[] hotelStars){
-        if(hotelStars == null || hotelStars.length == 0 || hotelStars.length == 4){
+    private String hotelRating(Set<Integer> hotelStars){
+        if(hotelStars == null || hotelStars.size() == 0 || hotelStars.size() == 4){
             return DEFAULT_HOTEL_RATING_VALUE;
         } else {
             StringBuilder hotelRatingBuilder = new StringBuilder();
-            for(int i = 0; i < hotelStars.length; i++){
-                switch (hotelStars[i]){
+            for(int stars : hotelStars){
+                switch (stars){
                     case 2: {
                         hotelRatingBuilder.append(7).append(PLUS);
                         break;
@@ -128,30 +125,30 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         }
     }
 
-    private String foodValue(String[] food){
-        if (food == null || food.length == 0 || food.length == 6){
+    private String foodValue(Set<String> food){
+        if (food == null || food.size() == 0 || food.size() == 6){
             return DEFAULT_FOOD_VALUE;
         } else {
             StringBuilder foodBuilder = new StringBuilder();
-            for(int i = 0; i < food.length; i++){
-                switch (food[i]){
-                    case "HB": {
-                        foodBuilder.append(496).append(PLUS);
+            for(String foodSt : food){
+                switch (foodSt){
+                    case FOOD_HB: {
+                        foodBuilder.append(FOOD_HB_CODE).append(PLUS);
                         break;
-                    } case "BB": {
-                        foodBuilder.append(388).append(PLUS);
+                    } case FOOD_BB: {
+                        foodBuilder.append(FOOD_BB_CODE).append(PLUS);
                         break;
-                    } case "FB": {
-                        foodBuilder.append(498).append(PLUS);
+                    } case FOOD_FB: {
+                        foodBuilder.append(FOOD_FB_CODE).append(PLUS);
                         break;
-                    } case "AI": {
-                        foodBuilder.append(512).append(PLUS);
+                    } case FOOD_AI: {
+                        foodBuilder.append(FOOD_AI_CODE).append(PLUS);
                         break;
-                    } case "UAI": {
-                        foodBuilder.append(560).append(PLUS);
+                    } case FOOD_UAI: {
+                        foodBuilder.append(FOOD_UAI_CODE).append(PLUS);
                         break;
-                    } case "RO": {
-                        foodBuilder.append(1956).append(PLUS);
+                    } case FOOD_RO: {
+                        foodBuilder.append(FOOD_RO_CODE).append(PLUS);
                         break;
                     } default: {
                         return DEFAULT_FOOD_VALUE;

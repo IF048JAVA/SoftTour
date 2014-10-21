@@ -3,7 +3,6 @@ package com.softserveinc.softtour.parsers;
 import com.softserveinc.softtour.bean.BusRoute;
 import com.softserveinc.softtour.parsers.constants.ParsersConstants;
 import com.softserveinc.softtour.util.BusParserUrlGenerator;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BusParser implements ParsersConstants {
-    private List<BusRoute> busList = new ArrayList<>();
+    private List<BusRoute> busList;
     private String cityFrom;
     private String cityTo;
     private String tourDate;
@@ -21,6 +20,7 @@ public class BusParser implements ParsersConstants {
     private String url;
 
     public BusParser(String cityFrom, String cityTo, String tourDate) {
+        this.busList = new ArrayList<>();
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
         this.tourDate = tourDate;
