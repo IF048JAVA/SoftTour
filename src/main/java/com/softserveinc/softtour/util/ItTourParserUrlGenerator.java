@@ -5,11 +5,15 @@ import com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstant
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 
 public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstants {
     private Properties countryProperties = new Properties();
     private Properties regionProperties = new Properties();
+    private Date dateFrom;
 
     private void loadCountryProperties(){
         try {
@@ -33,7 +37,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         }
     }
 
-    private static StringBuilder getBaseParameters(){
+    private StringBuilder getBaseParameters(){
         StringBuilder baseParamBuilder = new StringBuilder(HTTP).append(ASK).
             append(CALLBACK_PARAM).append(EQV).append(CALLBACK_VALUE).append(AMP).
             append(MODULE_TYPE_PARAM).append(EQV).append(MODULE_TYPE_VALUE).append(AMP).
@@ -45,7 +49,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
             append(TOUR_KIND_PARAM).append(EQV).append(TOUR_KIND_VALUE).append(AMP).
             append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
             append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
-            append(ITEMS_PER_PAGE_PARAM).append(EQV).append(ITEMS_PER_PAGE_VALUE).append(AMP);
+            append(ITEMS_PER_PAGE_PARAM).append(EQV).append(ITEMS_PER_PAGE_VALUE);
         return baseParamBuilder;
     }
 
@@ -58,8 +62,10 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         append(FOOD_PARAM).append(EQV).append(DEFAULT_FOOD_VALUE).append(AMP).
         append(ADULTS_PARAM).append(EQV).append(adults).append(AMP).
         append(CHILDREN_PARAM).append(EQV).append(children).append(AMP).
-        append(NIGHTS_FROM_PARAM).append(EQV).append(DEFAULT_NIGHTS_VALUE).append(AMP).
-        append(NIGHTS_TILL_PARAM).append(EQV).append(DEFAULT_NIGHTS_VALUE).append(AMP).
+        append(DATE_FROM_PARAM).append(EQV).append(generateDateFrom()).append(AMP).
+        append(DATE_TILL_PARAM).append(EQV).append(generateDateTill()).append(AMP).
+        append(NIGHTS_FROM_PARAM).append(EQV).append(DEFAULT_NIGHTS_FROM_VALUE).append(AMP).
+        append(NIGHTS_TILL_PARAM).append(EQV).append(DEFAULT_NIGHTS_TILL_VALUE).append(AMP).
         append(PRICE_FROM_PARAM).append(EQV).append(priceFrom).append(AMP).
         append(PRICE_TILL_PARAM).append(EQV).append(priceTo).append(AMP).
         append(PAGE_NUMBER_PARAM).append(EQV).append(pageNumber).append(AMP).
@@ -155,6 +161,52 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
             foodBuilder.delete(foodBuilder.length() - 1, foodBuilder.length()); // delete last mark "+"
             return foodBuilder.toString();
         }
+    }
+
+    private String generateDateFrom(){
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(new Date());
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR) - 2000;
+        dateFrom = calendar.getTime();
+        StringBuilder dateBuilder = new StringBuilder();
+        if(day < 10){
+            dateBuilder.append(0).append(day);
+        } else {
+            dateBuilder.append(day);
+        }
+        dateBuilder.append(".");
+        if(month < 10){
+            dateBuilder.append(0).append(month);
+        } else {
+            dateBuilder.append(month);
+        }
+        dateBuilder.append(".").append(year);
+        return dateBuilder.toString();
+    }
+
+    private String generateDateTill(){
+        Date dateTill = new Date(dateFrom.getTime() + TEN_DAYS_IN_MILLISECONDS);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(dateTill);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR) - 2000;
+        StringBuilder dateBuilder = new StringBuilder();
+        if(day < 10){
+            dateBuilder.append(0).append(day);
+        } else {
+            dateBuilder.append(day);
+        }
+        dateBuilder.append(".");
+        if(month < 10){
+            dateBuilder.append(0).append(month);
+        } else {
+            dateBuilder.append(month);
+        }
+        dateBuilder.append(".").append(year);
+        return dateBuilder.toString();
     }
 
     public String createHotelInfoUrl(String[] id){

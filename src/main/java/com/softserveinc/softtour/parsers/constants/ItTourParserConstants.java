@@ -14,7 +14,7 @@ public interface ItTourParserConstants {
     String ATTR_SRC = "src";
     String ID_IMG = "main_img_tour_in_view_open_";
 
-    String DAY_FORMAT = "dd.mm.yy";
+    String DAY_FORMAT = "dd.MM.yy";
     String WITHOUT_FLY = "Без перельоту";
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
     String WRONG_FAMILY_ROOM_TYPE = "FAMI...";

@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<div>
 <div id="left_div" class="form">
     <form class="form-horizontal" role="form" action="/search/result">
         <div class="form-group">
@@ -202,25 +204,40 @@
         </a>
     </div><!--каруселька-->
 </div><!--правий блок контенту-->
+
 </div>
-<div>
+
     <div style="margin-top: 50px"></div>
+<div class="col-md-12">
+
+    <div id="searchResult">
+
+    </div>
+
+
+</div>
     <!--input type="button" value="Search" onclick="showResults()"-->
     <script id="searchTemplate" type="text/x-jquery-tmpl">
+        <!--<span><h2>Результати пошуку:</h2></span>-->
+        <div style="max-width: 100%; max-height: 100%; margin: auto">
             <div class="panel panel-default" id="panel-favorite\${id}" style="margin: auto">
                 <div class="panel-heading">
                          <span data-toggle="collapse" href="#panel-element-f\${id}">
                          <span class="tabTitleFont cursor-pointer" >Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
+                         <span class="tabTitleFont cursor-pointer" >Готель: </span>
+                         <span id="tourHotelName-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
                          <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
                          <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
                          <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
                          <span class="tabTitleFont cursor-pointer">Харчування: </span>
-                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food.name}</span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food}</span>
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
-                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
+                         <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
+                         </security:authorize>
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
                     <div class="panel-body">
@@ -228,6 +245,6 @@
                     </div>
                 </div>
             </div>
+        </div>
 </script>
-    <span id="searchResult"></span>
-</div>
+
