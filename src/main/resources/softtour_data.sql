@@ -1,5 +1,7 @@
 USE softtour;
 
+SET NAMES utf8;
+
 INSERT INTO role VALUES
   (1, 'ROLE_ADMIN'),
   (2, 'ROLE_ANONYMOUS'),
