@@ -1,8 +1,9 @@
 package com.softserveinc.softtour.parsers.impl;
 
-import com.softserveinc.softtour.dto.BusRoute;
+import com.softserveinc.softtour.bean.BusRoute;
 import com.softserveinc.softtour.parsers.constants.BusParserConstants;
 import com.softserveinc.softtour.util.BusParserUrlGenerator;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
