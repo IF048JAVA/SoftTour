@@ -97,11 +97,11 @@
             <p>Дата вильоту:</p>
             <div class="col-sm-6">
                 <p>З:</p>
-                <input type="text" class="form-control" id="dateFrom" name="dateFrom">
+                <input type="text" class="form-control" id="dateFrom" name="dateFrom" placeholder="11.11.14">
             </div>
             <div class="col-sm-6">
                 <p>По:</p>
-                <input type="text" class="form-control" id="dateTo" name="dateTo">
+                <input type="text" class="form-control" id="dateTo" name="dateTo" placeholder="31.12.14">
             </div>
             <div class="col-sm-6">
                 <p>Кількість ночей:</p>
@@ -239,13 +239,15 @@
                          <span class="tabTitleFont cursor-pointer" >Готель: </span>
                          <span id="tourHotelName-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
-                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Дні(Днів)</span>
                          <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
                          <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
                          <span class="tabTitleFont cursor-pointer">Харчування: </span>
                          <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food}</span>
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
+                         <span class="tabTitleFont cursor-pointer">Місто вильоту: </span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${departureCity}</span></span>
                          <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
                          </security:authorize>
