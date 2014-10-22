@@ -37,7 +37,6 @@
                     <input type="checkbox" value="5" id="fiveStar" name="fiveStar">
 
 
-
             </div>
             <div class="col-sm-6">
                 <p>Харчування:</p>
