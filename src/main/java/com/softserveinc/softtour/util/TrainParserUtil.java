@@ -60,7 +60,7 @@ public class TrainParserUtil {
 		InputStream inputProperties = this.getClass().
                   getResourceAsStream(path);
 		try {
-			   properties.load(new InputStreamReader(inputProperties));
+			   properties.load(new InputStreamReader(inputProperties, "UTF-8"));
 			 
 				if (properties.getProperty(city) == null) {
 					return city ;
