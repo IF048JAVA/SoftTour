@@ -21,21 +21,21 @@ public class SearchController {
         return "searchResult";
     }
 
-    @RequestMapping(value = "/getTour", method = RequestMethod.GET)
+    @RequestMapping(value = "/getTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(
-//            @RequestParam(value = "country", required = true) String country
-//            @RequestParam(value = "region", required = true) String region
+            @RequestParam(value = "country", required = true) String country,
+            @RequestParam(value = "region", required = true) String region,
             @RequestParam(value = "oneStar", required = false) Integer oneStar,
             @RequestParam(value = "twoStar", required = false) Integer twoStar,
             @RequestParam(value = "threeStar", required = false) Integer threeStar,
             @RequestParam(value = "fourStar", required = false) Integer fourStar,
             @RequestParam(value = "fiveStar", required = false) Integer fiveStar,
-            @RequestParam(value = "foodOne", required = true) String foodOne,
-            @RequestParam(value = "foodTwo", required = true) String foodTwo,
-            @RequestParam(value = "foodThree", required = true) String foodThree,
-            @RequestParam(value = "foodFour", required = true) String foodFour,
-            @RequestParam(value = "foodFive", required = true) String foodFive,
-            @RequestParam(value = "foodSix", required = true) String foodSix,
+            @RequestParam(value = "foodOne", required = false) String foodOne,
+            @RequestParam(value = "foodTwo", required = false) String foodTwo,
+            @RequestParam(value = "foodThree", required = false) String foodThree,
+            @RequestParam(value = "foodFour", required = false) String foodFour,
+            @RequestParam(value = "foodFive", required = false) String foodFive,
+            @RequestParam(value = "foodSix", required = false) String foodSix,
             @RequestParam(value = "adults", required = true) Integer adults,
             @RequestParam(value = "children", required = true) Integer children,
             @RequestParam(value = "dateFrom", required = true) String dateFrom,
@@ -79,7 +79,7 @@ public class SearchController {
 
 //        Set<String> foodSet = new HashSet<>();
 //        foodSet.add("AI");
-        ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, foodSet, adults, children, dateFrom/*"01.11.14"*/, dateTo/*"31.12.14"*/,
+        ItTourParser parser = new ItTourParser(/*"Туреччина"*/ country, /*"Аланья"*/ region, hotelStars, foodSet, adults, children, dateFrom/*"01.11.14"*/, dateTo/*"31.12.14"*/,
                 nightFrom, nightTo, priceFrom, priceTo, 2);
         List<Tour> tourList = parser.parse();
         System.out.println(dateFrom);
