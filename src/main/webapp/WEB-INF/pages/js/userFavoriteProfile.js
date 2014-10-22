@@ -1,33 +1,26 @@
 if( $('#panel-1').length){
-    var tourArr = [];
+
     $('#panel-1').ready (function () {
 
 
         $.getJSON("/userProfile/userFavorite", function (favorites) {
 
             $.each(favorites, function (key, value) {
-                tourArr.push(value.tour)
-
+                value.tour.departureTime = value.tour.departureTime.slice(0,-3)
             })
+
             $('#favoriteTemplate').tmpl(favorites).appendTo('#panel-1');
         })
-
     })
 
     function delFavFunction(id) {
-
             $('#panel-favorite' + id).remove();
-
     }
 
     function deleteFavorite(id) {
 
         var favoriteToDelete = {};
-
         favoriteToDelete.id = id;
-
-
-        console.log(favoriteToDelete);
 
         $.ajax({
             url: "/userProfile/favoriteToDelete",
@@ -44,7 +37,6 @@ if( $('#panel-1').length){
                 alert("error:")
             }
         });
-
     }
 }
 

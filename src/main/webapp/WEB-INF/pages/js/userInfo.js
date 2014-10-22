@@ -12,36 +12,3 @@ if( $('#myProfile').length){
         })
 }
 
-//$("#userProfileForm").on("submit", function (e) {
-//    e.preventDefault();
-//});
-
-//function userUpdate() {
-//
-//    var userToUpdate = {};
-//
-//    userToUpdate.name = $('#name').val();
-//    userToUpdate.email = $('#email').val();
-//    userToUpdate.password = $('#password').val();
-//    userToUpdate.birthday = $('#birthday').val();
-//    userToUpdate.sex = $('#sex').val().toUpperCase();
-//    userToUpdate.phone = $('#phone').val();
-//
-//    console.log(userToUpdate);
-//
-//    $.ajax({
-//        url: "/userProfile/userToUpdate",
-//        type: 'POST',
-//        dataType: 'json',
-//        data: JSON.stringify(userToUpdate),
-//        contentType: 'application/json',
-//        mimeType: 'application/json',
-//
-//        success: function(data) {
-//            alert(data.id + " " + data.name);
-//        },
-//        error:function(data,status,er) {
-//            alert("error:")
-//        }
-//    });
-//}

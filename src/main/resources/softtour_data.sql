@@ -1,6 +1,9 @@
 USE softtour;
 
+SET NAMES 'utf8';
 SET NAMES utf8;
+SET NAMES utf8 COLLATE utf8_general_ci;
+SET CHARACTER SET utf8;
 
 INSERT INTO role VALUES
   (1, 'ROLE_ADMIN'),

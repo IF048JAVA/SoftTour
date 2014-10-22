@@ -203,7 +203,7 @@
                     <div class="col-sm-4">
                         <div class="input-group backdown">
                             <div>
-                                <img src='\${tour.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                <img src='\${tour.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
                             </div>
                         </div>
                     </div>
@@ -237,18 +237,18 @@
                         <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
                     </div>
 
-                    <div class="col-sm-4"></div>
+
 
                     <form role="form" class="form-inline">
 
-                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All">
+                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All" onclick="getAllTransit(999)">
                             <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
                             Як добратися з ... ?
                             <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
                         </button>
 
                         <div class="form-group">
-                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-f\${id}" placeholder="Місто">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom\${tour.id}" placeholder="Місто">
                         </div>
 
                     </form>
@@ -323,11 +323,11 @@
                                     <span class="tabulatedTitle">Харчування: </span>
                                     <span class="tabTitleFont">\${tour.food}</span>
                                 </td>
-                                <td width="230">
+                                <td width="300">
                                     <span class="tabulatedTitle">Дата вильоту: </span>
-                                    <span class="tabTitleFont">\${tour.date}</span>
+                                    <span class="tabTitleFont">\${tour.date}&nbsp;&nbsp;&nbsp;&nbsp;\${tour.departureTime}</span>
                                 </td>
-                                <td width="100">
+                                <td width="30">
                                     <span id="deleteButtonF\${id}" data-role="button" class="pull-right clickable">
                                         <i class="glyphicon glyphicon-remove" onclick="delFavFunction(\${id});deleteFavorite(\${id})">
                                         </i>
@@ -343,7 +343,7 @@
                     <div class="col-sm-4">
                         <div class="input-group backdown">
                             <div>
-                                <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                <img src='\${tour.hotel.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
                             </div>
                         </div>
                     </div>
@@ -377,18 +377,16 @@
                         <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
                     </div>
 
-                    <div class="col-sm-4"></div>
-
                     <form role="form" class="form-inline">
 
-                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${id}">
+                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${id}" onclick="getAllTransit(\${tour.id})">
                             <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
                             Як добратися з ... ?
                             <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
                         </button>
 
                         <div class="form-group">
-                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-f\${id}" placeholder="Місто">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom\${tour.id}" placeholder="Місто">
                         </div>
 
                     </form>
@@ -467,11 +465,11 @@
                                     <span class="tabulatedTitle">Харчування: </span>
                                     <span class="tabTitleFont">\${tour.food}</span>
                                 </td>
-                                <td width="230">
+                               <td width="300">
                                     <span class="tabulatedTitle">Дата вильоту: </span>
-                                    <span class="tabTitleFont">\${tour.date}</span>
+                                    <span class="tabTitleFont">\${tour.date}&nbsp;&nbsp;&nbsp;&nbsp;\${tour.departureTime}</span>
                                 </td>
-                                <td width="100">
+                                <td width="30">
                                 </td>
                             </tr>
                        </table>
@@ -483,7 +481,7 @@
                     <div class="col-sm-4">
                         <div class="input-group backdown">
                             <div>
-                                <img src='\${tour.hotel.imgUrl}' class="hotel-img img-circle" id="hotelImg\${id}">
+                                <img src='\${tour.hotel.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
                             </div>
                         </div>
                     </div>
@@ -517,18 +515,16 @@
                         <h4 id="departyreCity\${id}">\${tour.departureCity}</h4>
                     </div>
 
-                    <div class="col-sm-4"></div>
-
                     <form role="form" class="form-inline">
 
-                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${id}">
+                        <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${id}" onclick="getAllTransit(\${tour.id})">
                             <img src="../img/Transport-Bus-icon.png" width="32" height="32"/>
                             Як добратися з ... ?
                             <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
                         </button>
 
                         <div class="form-group">
-                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom-h\${id}" placeholder="Місто">
+                            <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom\${tour.id}" placeholder="Місто">
                         </div>
 
                     </form>

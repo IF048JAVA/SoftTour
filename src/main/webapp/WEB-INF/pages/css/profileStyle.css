@@ -111,3 +111,8 @@ button.transitionInfo {
 .hotelTitle{
     font-size: 25pt;
 }
+
+.hotel-img-inTour {
+    height: 250px;
+    width: 250px;
+}

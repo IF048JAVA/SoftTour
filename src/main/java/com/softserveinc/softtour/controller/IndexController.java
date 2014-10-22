@@ -3,6 +3,7 @@ package com.softserveinc.softtour.controller;
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.ItTourParser;
+import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -99,4 +100,34 @@ public class IndexController {
         HistoryRecord historyRecord= new HistoryRecord(sqlDate,currentUser,tourToHis);
         historyRecordService.save(historyRecord);
     }
+
+
+
+
+
+//    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
+//    public @ResponseBody void getTrainTransits(@RequestBody final Tour tour){
+//        System.out.println(tour);
+//        System.out.println(tour);
+//        System.out.println(tour);
+//        System.out.println(tour);
+//    }
+
+
+
+    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
+    public @ResponseBody void getTrainTransits(
+                        @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+                        @RequestParam(value = "cityFrom", required = true) String cityFrom){
+
+        Tour currentTour = tourService.findOne(currentTourId);
+
+        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-10-27", "23:00");
+        System.out.println(currentTrainParser.getRoutes());
+        System.out.println(currentTrainParser.getRoutes());
+        System.out.println(currentTrainParser.getRoutes());
+        System.out.println(currentTrainParser.getRoutes());
+
+    }
+
 }
