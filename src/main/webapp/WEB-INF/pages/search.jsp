@@ -3,11 +3,11 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <div>
 <div id="left_div" class="form">
-    <form class="form-horizontal" role="form" action="/search/result">
+    <form class="form-horizontal" role="form" name="form" id="form" action="/search/result">
         <div class="form-group">
             <div class="col-sm-6">
                 <p>Країна:</p>
-                <select class="form-control" id="Countryselector">
+                <select class="form-control" id="country" name="country">
                     <option>Єгипет</option>
                     <option>Греція</option>
                     <option>Туреччина</option>
@@ -15,47 +15,58 @@
             </div>
             <div class="col-sm-6">
                 <p>Регіон:</p>
-                <select class="form-control" id="Regionselector">
+                <select class="form-control" id="region" name="region">
                     <option>Дахаб</option>
                     <option>Макаді Бей</option>
                     <option>Марса Алам</option>
+                    <option>Аланья</option>
                 </select>
             </div>
             <div class="col-sm-6">
                 <p>Готель:</p>
 
-                <input id="rating" value="0" type="number" class="rating" min=0 max=5 step=1
-                       data-size="xs"
-                       data-show-clear="false" data-show-caption="false">
+                    <label>1*</label>
+                    <input type="checkbox" value="1" id="oneStar" name="oneStar">
+                    <label>2*</label>
+                    <input type="checkbox" value="2" id="twoStar" name="twoStar">
+                    <label>3*</label>
+                    <input type="checkbox" value="3" id="threeStar" name="threeStar">
+                    <label>4*</label>
+                    <input type="checkbox" value="4" id="fourStar" name="fourStar">
+                    <label>5*</label>
+                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar">
+
+
+
             </div>
             <div class="col-sm-6">
                 <p>Харчування:</p>
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="">
-                        HB&nbsp
+                        <input type="checkbox" value="HB" id="foodOne" name="foodOne">
+                        HB
                     </label>
                     <label>
-                        <input type="checkbox" value="">
-                        BB&nbsp
+                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo">
+                        BB
                     </label>
                     <label>
-                        <input type="checkbox" value="">
-                        FB&nbsp
+                        <input type="checkbox" value="FB" id="foodThree" name="foodThree">
+                        FB
                     </label>
                     <br>
                     <label>
-                        <input type="checkbox" value="">
-                        AI&nbsp
+                        <input type="checkbox" value="AI" id="foodFour" name="foodFour">
+                        AI
                     </label>
                     <label>
-                        <input type="checkbox" value="">
-                        UAI&nbsp
+                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive">
+                        UAI
                     </label>
                     <label>
-                        <input type="checkbox" value="">
-                        RO &nbsp
+                        <input type="checkbox" value="RO" id="foodSix" name="foodSix">
+                        RO
                     </label>
                 </div>
             </div>
@@ -63,7 +74,7 @@
             <p>Розміщення в номері:</p>
             <div class="col-sm-6">
                 <p>Дорослі:</p>
-                <select class="form-control">
+                <select class="form-control" id="adults" name="adults">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -73,7 +84,7 @@
             </div>
             <div class="col-sm-6">
                 <p>Діти:</p>
-                <select class="form-control">
+                <select class="form-control" id="children" name="children">
                     <option>0</option>
                     <option>1</option>
                     <option>2</option>
@@ -86,17 +97,17 @@
             <p>Дата вильоту:</p>
             <div class="col-sm-6">
                 <p>З:</p>
-                <input type="text" id="from" class="form-control" >
+                <input type="text" class="form-control" id="dateFrom" name="dateFrom">
             </div>
             <div class="col-sm-6">
                 <p>По:</p>
-                <input type="text" id="to" class="form-control" >
+                <input type="text" class="form-control" id="dateTo" name="dateTo">
             </div>
             <div class="col-sm-6">
                 <p>Кількість ночей:</p>
                 <div class="col-sm-6">
                     <p>Від:</p>
-                    <select class="form-control">
+                    <select class="form-control" id="nightFrom" name="nightFrom">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -123,7 +134,7 @@
 
                 <div class="col-sm-6">
                     <p>До:</p>
-                    <select class="form-control">
+                    <select class="form-control" id="nightTo" name="nightTo">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -152,11 +163,11 @@
             <div class="col-sm-6" style="margin-bottom: 5px;">
                 <div class="col-sm-6">
                     <p>З:</p>
-                    <input type="text" class="form-control" >
+                    <input type="text" class="form-control" id="priceFrom" name="priceFrom">
                 </div>
                 <div class="col-sm-6">
                     <p>До:</p>
-                    <input type="text" class="form-control" >
+                    <input type="text" class="form-control" id="priceTo" name="priceTo">
                 </div>
             </div>
         </div>

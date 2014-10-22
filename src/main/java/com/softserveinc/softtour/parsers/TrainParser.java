@@ -227,7 +227,7 @@ public class TrainParser {
 	 */
 	public static void main(String[] args) {
 		//TODO DELETE !
-		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
+		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-09", "23:00");
 		ArrayList<TrainRoute> routesList = obj.getRoutes();
 		
 		for (TrainRoute route : routesList) {

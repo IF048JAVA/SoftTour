@@ -1,18 +1,22 @@
 package com.softserveinc.softtour.controller;
 
+import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Null;
+
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -133,13 +137,17 @@ public class IndexController {
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
                         @RequestParam(value = "cityFrom", required = true) String cityFrom){
 
-        Tour currentTour = tourService.findOne(currentTourId);
+        //Tour currentTour = tourService.findOne(currentTourId);
 
-        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-10-27", "23:00");
-        System.out.println(currentTrainParser.getRoutes());
-        System.out.println(currentTrainParser.getRoutes());
-        System.out.println(currentTrainParser.getRoutes());
-        System.out.println(currentTrainParser.getRoutes());
+        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
+       
+        ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
+
+        System.out.println(routesList);
+
+        for (TrainRoute route : routesList) {
+			System.out.println(route);
+		}
 
     }
 

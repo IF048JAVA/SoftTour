@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
@@ -52,11 +54,36 @@ public class TrainParserUtil {
 	 */
 	private String getCityInfo(String city, String path) {
 		Properties properties = new Properties();
+		
+		InputStream inputCountryProperties = this.getClass().
+                  getResourceAsStream(path);
+		
+//		FileReader fileReader = new 
+		
+		  try {
+
+			   properties.load(new InputStreamReader(inputCountryProperties));
+			 
+				if (properties.getProperty(city) == null) {
+					return city;
+				}
+				
+				return properties.getProperty(city);
+			   
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	/*	
+		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
 		try {
 			fileReader = new FileReader(path);
+			
+			
 			bufferedReader = new BufferedReader(fileReader);
 			properties.load(bufferedReader);
 
@@ -83,13 +110,15 @@ public class TrainParserUtil {
 				// TODO Add logging here: WARN/ERROR 
 				e.printStackTrace();
 			}
-		}
+		}*/
 		return null;
 	}
 	
 	//TODO Only for testing !!!
 	public static void main(String[] args) {
 		TrainParserUtil trainParserUtil = new TrainParserUtil();
+	
+		System.out.println(trainParserUtil.getCityInfo("Дніпропетровськ", CITY_CODE_VOCABULARY));
 		System.out.println(trainParserUtil.translateCity("Днепропетровск главный"));
 	}
 	
