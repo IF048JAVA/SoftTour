@@ -16,4 +16,5 @@ public interface HotelService {
                                        Integer location, Integer valueForMoney, Pageable pageable);
     List<Hotel> findAll();
     Hotel findByName(String name);
+    void setZero(Hotel hotel);
 }

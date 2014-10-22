@@ -89,7 +89,8 @@ public class IndexController {
         if(maybeHotel!=null)
             currentTour.setHotel(maybeHotel);
         else
-            currentTour.setHotel(hotelService.save(currentHotel));
+            {hotelService.setZero(currentHotel);
+             currentTour.setHotel(hotelService.save(currentHotel));}
         currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);
