@@ -18,4 +18,6 @@ public interface RegionService {
     void deleteById(long id);
 
     List<Region> findByCustomParameters();
+
+    Region findByName (String name);
 }

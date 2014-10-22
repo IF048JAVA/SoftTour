@@ -42,6 +42,11 @@ public class RegionServiceImpl implements RegionService {
     public List<Region> findByCustomParameters() {
         return null;
     }
+
+    @Override
+    public Region findByName (String name) {
+        return regionRepository.findByName(name);
+    }
 }
 
 
