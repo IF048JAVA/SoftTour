@@ -121,7 +121,7 @@ public class IndexController {
 
 
 
-    @RequestMapping(value="/transitDates", method = RequestMethod.GET)
+    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
     public @ResponseBody void getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
                         @RequestParam(value = "cityFrom", required = true) String cityFrom){
