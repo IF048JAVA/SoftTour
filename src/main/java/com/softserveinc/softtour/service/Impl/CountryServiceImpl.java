@@ -37,8 +37,8 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-    public List<Country> findByName(String name) {
-        return this.countryRepository.findByName(name);
+    public Country findByName(String name) {
+        return countryRepository.findByName(name);
     }
 
     @Override
@@ -46,4 +46,8 @@ public class CountryServiceImpl implements CountryService {
     public List<Country> findAll() {
         return this.countryRepository.findAll();
     }
+
+
+
 }
+

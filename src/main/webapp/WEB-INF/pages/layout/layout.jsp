@@ -64,6 +64,6 @@
 <script src="<c:url value='/js/star-rating.min.js' />" ></script>
 <script src="<c:url value='/js/bootstrap-table.min.js' />" ></script>
 <script src="<c:url value='/js/cityFromAutocomplete.js' />" ></script>
-
+<script src="<c:url value='/js/transitButton.js' />" ></script>
 </body>
 </html>

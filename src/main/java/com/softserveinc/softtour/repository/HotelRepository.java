@@ -33,5 +33,6 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "order by h.name asc ")
     Page <Hotel> findByName(@Param("name")String name,
                             Pageable pageable);
+    Hotel findByName (String name);
 }
 

@@ -34,27 +34,27 @@
                     </select>
 
                     <label for="rating">Рейтинг</label>
-                    <input id="rating" value="0" type="number" class="rating" min=0 max=5 step=1
+                    <input id="rating" value="0" type="number" class="rating" min=0 max=5 step=0.5
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
                     <label for="comfort">Комфорт</label>
-                    <input id="comfort" value="0" type="number" class="rating" min=0 max=5 step=1
+                    <input id="comfort" value="0" type="number" class="rating" min=0 max=5 step=0.5
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
                     <label for="cleanliness">Чистота</label>
-                    <input id="cleanliness" value="0" type="number" class="rating" min=0 max=5 step=1
+                    <input id="cleanliness" value="0" type="number" class="rating" min=0 max=5 step=0.5
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
                     <label for="location">Розташування</label>
-                    <input id="location" value="0" type="number" class="rating" min=0 max=5 step=1
+                    <input id="location" value="0" type="number" class="rating" min=0 max=5 step=0.5
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
                     <label for="value_for_money">Ціна/Якість</label>
-                    <input id="value_for_money" value="0" type="number" class="rating" min=0 max=5 step=1
+                    <input id="value_for_money" value="0" type="number" class="rating" min=0 max=5 step=0.5
                            data-size="xs"
                            data-show-clear="false" data-show-caption="false">
 
@@ -84,6 +84,26 @@
         </div>
         <div class="pagin"></div>
 
+    </div>
+</div>
+
+<!-- Tours Modal -->
+<div class="modal fade" id="toursModal" tabindex="-1" role="dialog"
+     aria-labelledby="toursModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-tours">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title"> Тури </h4>
+            </div>
+            <div class="modal-body tours-body">
+                <div class="container tour-list" id="tour-list">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

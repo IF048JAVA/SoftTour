@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Feedback")
@@ -12,16 +13,16 @@ public class Feedback {
     private long id;
 
     @Column(name = "cleanliness", nullable = false, length = 1)
-    private int cleanliness;
+    private BigDecimal cleanliness;
 
     @Column(name = "comfort", nullable = false, length = 1)
-    private int comfort;
+    private BigDecimal comfort;
 
     @Column(name = "location", nullable = false, length = 1)
-    private int location;
+    private BigDecimal location;
 
     @Column(name = "valueForMoney", nullable = false, length = 1)
-    private int valueForMoney;
+    private BigDecimal valueForMoney;
 
     @Column(name = "comment")
     private String comment;
@@ -37,8 +38,8 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(int cleanliness, int comfort,
-                    int location, int valueForMoney,
+    public Feedback(BigDecimal cleanliness, BigDecimal comfort,
+                    BigDecimal location, BigDecimal valueForMoney,
                     String comment, Hotel hotel, User user) {
 
         this.cleanliness = cleanliness;
@@ -58,35 +59,35 @@ public class Feedback {
         this.id = id;
     }
 
-    public int getCleanliness() {
+    public BigDecimal getCleanliness() {
         return cleanliness;
     }
 
-    public void setCleanliness(int cleanliness) {
+    public void setCleanliness(BigDecimal cleanliness) {
         this.cleanliness = cleanliness;
     }
 
-    public int getComfort() {
+    public BigDecimal getComfort() {
         return comfort;
     }
 
-    public void setComfort(int comfort) {
+    public void setComfort(BigDecimal comfort) {
         this.comfort = comfort;
     }
 
-    public int getLocation() {
+    public BigDecimal getLocation() {
         return location;
     }
 
-    public void setLocation(int location) {
+    public void setLocation(BigDecimal location) {
         this.location = location;
     }
 
-    public int getValueForMoney() {
+    public BigDecimal getValueForMoney() {
         return valueForMoney;
     }
 
-    public void setValueForMoney(int valueForMoney) {
+    public void setValueForMoney(BigDecimal valueForMoney) {
         this.valueForMoney = valueForMoney;
     }
 

@@ -2,6 +2,9 @@ DROP DATABASE IF EXISTS softtour;
 CREATE DATABASE softtour default charset=utf8 COLLATE=utf8_general_ci;
 
 USE softtour;
+SET NAMES 'utf8';
+SET NAMES utf8;
+SET NAMES utf8 COLLATE utf8_general_ci ;
 
 CREATE TABLE role (
   id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -96,10 +99,10 @@ CREATE TABLE favorite (
 
 CREATE TABLE feedback (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  cleanliness int(1) NOT NULL,
-  comfort int(1) NOT NULL,
-  location int(1) NOT NULL,
-  valueForMoney int(1) NOT NULL,
+  cleanliness decimal(2,1) NOT NULL,
+  comfort decimal(2,1) NOT NULL,
+  location decimal(2,1) NOT NULL,
+  valueForMoney decimal(2,1) NOT NULL,
   comment text,
   hotel_id bigint(20) NOT NULL,
   user_id bigint(20) NOT NULL,

@@ -1,16 +1,22 @@
 package com.softserveinc.softtour.controller;
 
+import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.ItTourParser;
+import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
+
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -46,9 +52,10 @@ public class IndexController {
     public @ResponseBody List<Tour> searchTour(
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "minPrice", required = false) Integer minPrice,
-            @RequestParam(value = "maxPrice", required = false) Integer maxPrice){
+            @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
+            @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage){
         //return tourService.findAll();
-        ItTourParser parser = new ItTourParser(country, 3, 1 ,minPrice, maxPrice, 2);
+        ItTourParser parser = new ItTourParser(country, 3, 1 ,minPrice, maxPrice, numberOfPage);
         List<Tour> listTour = parser.parse();
         return listTour;
 
@@ -63,12 +70,22 @@ public class IndexController {
         Hotel currentHotel = currentTour.getHotel();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
-        Country country = countryService.save(currentCountry);
-        currentRegion.setCountry(country);
-        Region region = regionService.save(currentRegion);
-        currentHotel.setRegion(region);
-        Hotel hotel = hotelService.save(currentHotel);
-        currentTour.setHotel(hotel);
+        Country maybeCountry = countryService.findByName(currentCountry.getName());
+        if(maybeCountry!=null)
+            currentRegion.setCountry(maybeCountry);
+        else
+            currentRegion.setCountry(countryService.save(currentCountry));
+        Region maybeRegion = regionService.findByName(currentRegion.getName());
+        if(maybeRegion!=null)
+            currentHotel.setRegion(maybeRegion);
+        else
+            currentHotel.setRegion(regionService.save(currentRegion));
+        Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
+        if(maybeHotel!=null)
+            currentTour.setHotel(maybeHotel);
+        else
+            {hotelService.setZero(currentHotel);
+             currentTour.setHotel(hotelService.save(currentHotel));}
         currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);
@@ -84,16 +101,60 @@ public class IndexController {
         Hotel currentHotel = currentTour.getHotel();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
-        Country country = countryService.save(currentCountry);
-        currentRegion.setCountry(country);
-        Region region = regionService.save(currentRegion);
-        currentHotel.setRegion(region);
-        Hotel hotel = hotelService.save(currentHotel);
-        currentTour.setHotel(hotel);
+        Country maybeCountry = countryService.findByName(currentCountry.getName());
+        if(maybeCountry!=null)
+            currentRegion.setCountry(maybeCountry);
+        else
+            currentRegion.setCountry(countryService.save(currentCountry));
+        Region maybeRegion = regionService.findByName(currentRegion.getName());
+        if(maybeRegion!=null)
+            currentHotel.setRegion(maybeRegion);
+        else
+            currentHotel.setRegion(regionService.save(currentRegion));
+        Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
+        if(maybeHotel!=null)
+            currentTour.setHotel(maybeHotel);
+        else
+        {hotelService.setZero(currentHotel);
+            currentTour.setHotel(hotelService.save(currentHotel));}
         currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToHis=tourService.save(currentTour);
         HistoryRecord historyRecord= new HistoryRecord(sqlDate,currentUser,tourToHis);
         historyRecordService.save(historyRecord);
     }
+
+
+
+
+
+//    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
+//    public @ResponseBody void getTrainTransits(@RequestBody final Tour tour){
+//        System.out.println(tour);
+//        System.out.println(tour);
+//        System.out.println(tour);
+//        System.out.println(tour);
+//    }
+
+
+
+    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
+    public @ResponseBody void getTrainTransits(
+                        @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+                        @RequestParam(value = "cityFrom", required = true) String cityFrom){
+
+        //Tour currentTour = tourService.findOne(currentTourId);
+
+        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
+       
+        ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
+
+        System.out.println(routesList);
+
+        for (TrainRoute route : routesList) {
+			System.out.println(route);
+		}
+
+    }
+
 }

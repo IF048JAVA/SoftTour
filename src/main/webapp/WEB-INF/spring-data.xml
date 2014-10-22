@@ -23,14 +23,14 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${db.driver}" />
-        <property name="jdbcUrl" value="${db.url}?characterEncoding=UTF-8" />
+        <property name="jdbcUrl" value="${db.url}?useUnicode=true&amp;characterEncoding=utf8" />
         <property name="user" value="${db.username}" />
         <property name="password" value="${db.password}" />
     </bean>
 
     <jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
-    <jdbc:script location="classpath:database.sql"/>
-    <jdbc:script location="classpath:softtour_data.sql"/>
+    <jdbc:script location="classpath:database.sql" encoding="UTF-8"/>
+    <jdbc:script location="classpath:softtour_data.sql" encoding="UTF-8"/>
     </jdbc:initialize-database>
 
     <bean

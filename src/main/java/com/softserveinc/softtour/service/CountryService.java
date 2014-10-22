@@ -9,6 +9,6 @@ public interface CountryService {
     public Country save(Country country);
     public void delete(long id);
     public Country findById(long id);
-    public List<Country> findByName(String name);
+    public Country findByName(String name);
     public List<Country> findAll();
 }

@@ -28,26 +28,35 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public Page <Hotel> findByName(String name, Pageable pageable) {
+    public Page<Hotel> findByName(String name, Pageable pageable) {
         return hotelRepository.findByName(name, pageable);
     }
 
     @Override
-    public void deleteById(long id) {
-        hotelRepository.delete(id);
+    public Hotel findByName(String name) {
+        return hotelRepository.findByName(name);
     }
 
-    @Override
-    public Page<Hotel> findByCustomParameters(List<String> country, Integer rating, Integer comfort,Integer cleanliness,
-                                              Integer location, Integer valueForMoney, Pageable pageable) {
 
-        return hotelRepository.findByCustomParameters(country, BigDecimal.valueOf(rating),
-                BigDecimal.valueOf(comfort), BigDecimal.valueOf(cleanliness),
-                BigDecimal.valueOf(location), BigDecimal.valueOf(valueForMoney), pageable);
+    @Override
+    public Page<Hotel> findByCustomParameters(List<String> country, BigDecimal rating, BigDecimal comfort, BigDecimal cleanliness,
+                                              BigDecimal location, BigDecimal valueForMoney, Pageable pageable) {
+
+        return hotelRepository.findByCustomParameters(country, rating, comfort, cleanliness,
+                location, valueForMoney, pageable);
     }
 
     @Override
     public List<Hotel> findAll() {
         return hotelRepository.findAll();
+    }
+
+    @Override
+    public void setZero (Hotel hotel) {
+        hotel.setCleanliness(BigDecimal.valueOf(0));
+        hotel.setComfort(BigDecimal.valueOf(0));
+        hotel.setRating(BigDecimal.valueOf(0));
+        hotel.setLocation(BigDecimal.valueOf(0));
+        hotel.setValueForMoney(BigDecimal.valueOf(0));
     }
 }

@@ -244,6 +244,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin-version}</version>
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <source>${java-version}</source>
                     <target>${java-version}</target>
                 </configuration>
@@ -268,10 +269,13 @@
 
             <configuration>
                 <driver>com.mysql.jdbc.Driver</driver>
-                <url>jdbc:mysql://localhost:3306/</url>
+                <url>jdbc:mysql://localhost:3306/?useUnicode=true&amp;characterEncoding=utf8</url>
                 <username>root</username>
                 <password>root</password>
                 <settingsKey>sensibleKey</settingsKey>
+                <driverProperties>characterEncoding=utf8,
+                    connectionCollation=utf8_general_ci,
+                    sql_mode=STRICT_TRANS_TABLES</driverProperties>
             </configuration>
 
             <executions>
