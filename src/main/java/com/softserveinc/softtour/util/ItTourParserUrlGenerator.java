@@ -1,5 +1,6 @@
 package com.softserveinc.softtour.util;
 
+import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants;
 
 import java.io.IOException;
@@ -32,6 +33,54 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
             //TODO improve handled exception
             System.out.println(e.getMessage());
         }
+    }
+
+    private void loadRegionsAndHotelsCodes(){
+        /*
+        String doc = null;
+        try {
+            doc = Jsoup.connect("http://www.ittour.com.ua/tour_search.php?" +
+                    "callback=jQuery17105734387715347111_1413973887044&" +
+                    "module_type=tour_search&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38&" +
+                    "action=get_package_search_filtered_field&event_owner_level=1&country_id=318&" +
+                    "hotel_rating_id=3+4+78+&tour_kind=0&tour_type=0&date_till=01.11.14&" +
+                    "departure_city=2014&_=1413976377571").
+                    timeout(10000).
+                    ignoreContentType(true).
+                    execute().
+                    body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String tourPage = doc.replace("\\", "");
+        Document document = Jsoup.parse(tourPage);
+        List<Element> hotelList = document.getElementsByTag("option");
+        String allRegions = "Все регионы";
+        String allHotels = "Все отели";
+        String allCities = "Все города";
+        boolean regionSave = false;
+        boolean hotelSave = false;
+        for(int i = 0; i < hotelList.size(); i++){
+            String text = hotelList.get(i).text();
+            if(text.equals(allRegions)){
+                regionSave = true;
+                continue;
+            } else if(text.equals(allHotels)){
+                regionSave = false;
+                hotelSave = true;
+                continue;
+            } else if(text.equals(allCities)){
+                hotelSave = false;
+                break;
+            }
+            String code = hotelList.get(i).attr("value");
+            if(regionSave){
+                regionCodeHolder.putRegionCode(text, code);
+            } else if(hotelSave){
+                hotelCodeHolder.putHotelCode(text, code);
+            }
+        }
+        */
     }
 
     private StringBuilder getBaseParameters(){
@@ -93,6 +142,20 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         append(DEPARTURE_CITY_PARAM).append(EQV).append(DEFAULT_DEPARTURE_CITY_VALUE).append(AMP).
         append(PACKAGE_TOUR_TYPE_PARAM).append(EQV).append(PACKAGE_TOUR_TYPE_VALUE);
         return fullSearchBuilder.toString();
+    }
+
+    public String createSearchUrlByHotel(Hotel hotel){
+        /*
+        loadCountryProperties();
+        loadRegionProperties();
+        loadHotelMap();
+        StringBuilder hotelSearchBuilder = new StringBuilder(getBaseParameters()).
+        append(COUNTRY_PARAM).append(EQV).append(countryProperties.getProperty(hotel.getName())).append(AMP).
+        append(REGION_PARAM).append(EQV).append(regionProperties.getProperty(hotel.getRegion().getName())).append(AMP).
+        append(HOTEL_PARAM).append(EQV).append(hotelProperties.getProperty(hotel.getName())).append(AMP).
+        append()
+        */
+        return null;
     }
 
     private String hotelRating(Set<Integer> hotelStars){

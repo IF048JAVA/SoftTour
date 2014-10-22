@@ -7,7 +7,6 @@ import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.entity.template.RoomType;
 import com.softserveinc.softtour.parsers.constants.ParsersConstants;
-import com.softserveinc.softtour.util.HotelHolder;
 import com.softserveinc.softtour.util.ItTourParserUrlGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -29,7 +28,6 @@ public class ItTourParser implements ParsersConstants {
     private int children;
     private ItTourParserUrlGenerator urlGenerator;
     private String url;
-    private HotelHolder hotelHolder;
     private Properties departureCityVocabulary = new Properties();
 
     public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
@@ -39,7 +37,6 @@ public class ItTourParser implements ParsersConstants {
         this.children = children;
         urlGenerator = new ItTourParserUrlGenerator();
         this.url = urlGenerator.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
-        hotelHolder = HotelHolder.getInstance();
     }
 
     public ItTourParser(String country, String region, Set<Integer> hotelStars, Set<String> food, int adults, int children,
@@ -52,7 +49,6 @@ public class ItTourParser implements ParsersConstants {
         urlGenerator = new ItTourParserUrlGenerator();
         this.url = urlGenerator.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
                 nightsFrom, nightsTill, priceFrom, priceTo, pageNumber);
-        hotelHolder = HotelHolder.getInstance();
     }
 
     public List<Tour> parse() {
@@ -204,7 +200,7 @@ public class ItTourParser implements ParsersConstants {
         Hotel hotel = new Hotel(hotelName, hotelStars, hotelReg);
         return hotel;
     }
-
+/*
     private String hotelImgLink(Hotel hotel, Element hotelLink){
         if (hotelHolder.containsHotel(hotel.getName())) {
             return hotelHolder.getHotelPicture(hotel.getName());
@@ -224,7 +220,7 @@ public class ItTourParser implements ParsersConstants {
             return imgUrl;
         }
     }
-
+*/
     private RoomType tourRoomType(String roomTypeSt){
         RoomType roomType;
         try {
@@ -278,11 +274,14 @@ public class ItTourParser implements ParsersConstants {
         Set<String> food = new HashSet<>();
         food.add("AI");
         food.add("UAI");
+        long dateStart = new Date().getTime();
         ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
                                                5, 15, 500, 5000, 2);
-            List<Tour> listTour = parser.parse();
-            for(Tour tour : listTour) {
-                System.out.println(tour);
-            }
+        List<Tour> listTour = parser.parse();
+        for(Tour tour : listTour) {
+            System.out.println(tour);
+        }
+        long dateTo = new Date().getTime();
+        System.out.println((dateTo - dateStart) + " milisec.");
     }
 }
