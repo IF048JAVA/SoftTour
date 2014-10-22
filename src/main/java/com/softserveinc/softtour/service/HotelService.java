@@ -16,4 +16,5 @@ public interface HotelService {
                                        BigDecimal location, BigDecimal valueForMoney, Pageable pageable);
     List<Hotel> findAll();
     Hotel findByName(String name);
+    void setZero(Hotel hotel);
 }

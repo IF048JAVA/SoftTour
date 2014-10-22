@@ -50,4 +50,13 @@ public class HotelServiceImpl implements HotelService {
     public List<Hotel> findAll() {
         return hotelRepository.findAll();
     }
+
+    @Override
+    public void setZero (Hotel hotel) {
+        hotel.setCleanliness(BigDecimal.valueOf(0));
+        hotel.setComfort(BigDecimal.valueOf(0));
+        hotel.setRating(BigDecimal.valueOf(0));
+        hotel.setLocation(BigDecimal.valueOf(0));
+        hotel.setValueForMoney(BigDecimal.valueOf(0));
+    }
 }
