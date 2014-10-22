@@ -70,9 +70,11 @@ public class IndexController {
         currentRegion.setCountry(country);
         Region region = regionService.save(currentRegion);
         currentHotel.setRegion(region);
-        //if(hotelService.findByName(currentHotel.getName())!= null)
-        Hotel hotel = hotelService.save(currentHotel);
-        currentTour.setHotel(hotel);
+        Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
+        if(maybeHotel!=null)
+            currentTour.setHotel(maybeHotel);
+        else
+            currentTour.setHotel(hotelService.save(currentHotel));
         currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);
