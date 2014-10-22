@@ -1,9 +1,7 @@
 package com.softserveinc.softtour.controller;
 
-import com.softserveinc.softtour.entity.Country;
-import com.softserveinc.softtour.entity.Feedback;
-import com.softserveinc.softtour.entity.Hotel;
-import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.FeedbackService;
 import com.softserveinc.softtour.service.HotelService;
@@ -20,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/hotels")
 public class HotelController {
-    private static final Long TEST_USER_ID = (long) 1;
 
     @Autowired
     private HotelService hotelService;
@@ -46,11 +44,11 @@ public class HotelController {
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public @ResponseBody Page<Hotel> findHotels(
             @RequestParam(value = "country", required = true) List<String> country,
-            @RequestParam(value = "rating", required = false) Integer rating,
-            @RequestParam(value = "comfort", required = false) Integer comfort,
-            @RequestParam(value = "cleanliness", required = false) Integer cleanliness,
-            @RequestParam(value = "location", required = false) Integer location,
-            @RequestParam(value = "valueForMoney", required = false) Integer valueForMoney,
+            @RequestParam(value = "rating", required = false) BigDecimal rating,
+            @RequestParam(value = "comfort", required = false) BigDecimal comfort,
+            @RequestParam(value = "cleanliness", required = false) BigDecimal cleanliness,
+            @RequestParam(value = "location", required = false) BigDecimal location,
+            @RequestParam(value = "valueForMoney", required = false) BigDecimal valueForMoney,
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "property", required = false) String property) {
@@ -75,14 +73,14 @@ public class HotelController {
 
     @RequestMapping(value = "/feedback", method = RequestMethod.POST)
     public void saveFeedback(
-            @RequestParam(value = "comfort", required = true) Integer comfort,
-            @RequestParam(value = "cleanliness", required = true) Integer cleanliness,
-            @RequestParam(value = "location", required = true) Integer location,
-            @RequestParam(value = "valueForMoney", required = true) Integer valueForMoney,
+            @RequestParam(value = "comfort", required = true) BigDecimal comfort,
+            @RequestParam(value = "cleanliness", required = true) BigDecimal cleanliness,
+            @RequestParam(value = "location", required = true) BigDecimal location,
+            @RequestParam(value = "valueForMoney", required = true) BigDecimal valueForMoney,
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam(value = "hotelId", required = true) Long hotelId) {
 
-        Hotel hotel = hotelService.findOne(hotelId);
+        Hotel hotel = hotelUtil.updateHotelRate(hotelId, cleanliness, comfort, location, valueForMoney);
 
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser = userService.findByEmail(loggedUserEmail);
@@ -90,13 +88,19 @@ public class HotelController {
         Feedback feedback = new Feedback(cleanliness, comfort, location, valueForMoney, comment,
                 hotel, currentUser);
         feedbackService.save(feedback);
-
-        hotelService.save(hotelUtil.updateHotelRate(hotelId, cleanliness, comfort, location, valueForMoney));
     }
 
     @RequestMapping(value = "/comments", method = RequestMethod.GET)
     public @ResponseBody List<Feedback> findByHotel(
             @RequestParam(value = "hotelId", required = true) Long hotelId) {
         return feedbackService.findByHotelId(hotelId);
+    }
+
+    @RequestMapping(value = "/tours", method = RequestMethod.GET)
+    public  @ResponseBody List<Tour> findTours(
+            @RequestParam(value = "name") String name){
+        ItTourParser parser = new ItTourParser("Египет", 3, 1, 100, 2000, 1);
+        List<Tour> listTour = parser.parse();
+        return listTour;
     }
 }

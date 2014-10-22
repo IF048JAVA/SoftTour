@@ -57,13 +57,13 @@
              <!-- Button trigger modal -->
             <div class="row clearfix">
                 <div class="col-md-4">
-                <button class="btn btn-block hotel-btn" onclick="g60()">
+                <button class="btn btn-block hotel-btn" onclick="showTours()">
                 <i class="glyphicon glyphicon-globe"></i> Шукати тур
                 </button>
                 </div>
                 <div class="col-md-4">
                         <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-                        <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="openFeedbackWindow(\${id})">
+                        <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="leaveFeedback(\${id})">
     <i class="glyphicon glyphicon-bullhorn"></i> Залишити відгук
                         </button>
                         </security:authorize>
@@ -94,24 +94,24 @@
                     <div class="col-md-12 stars_fb">
                         <div class="col-md-6">
                         <label for="comfort-fb\${id}" class="muted">Комфорт</label>
-                            <input id="comfort-fb\${id}" value="1" type="number" class="rating" min=0 max=5 step=1
+                            <input id="comfort-fb\${id}" value="1" type="number" class="rating" min=0 max=5 step=0.5
                                    data-size="xs"
                                    data-show-clear="false" data-show-caption="false">
 
                             <label for="cleanliness-fb\${id}" class="muted">Чистота</label>
                             <input id="cleanliness-fb\${id}" value="1" type="number" class="rating" min=0 max=5
-                                   step=1
+                                   step=0.5
                                    data-size="xs"
                                    data-show-clear="false" data-show-caption="false"></div>
                         <div class="col-md-6">
                             <label for="location-fb\${id}" class="muted">Розташування</label>
-                            <input id="location-fb\${id}" value="1" type="number" class="rating" min=0 max=5 step=1
+                            <input id="location-fb\${id}" value="1" type="number" class="rating" min=0 max=5 step=0.5
                                    data-size="xs"
                                    data-show-clear="false" data-show-caption="false">
 
                             <label for="value_for_money-fb\${id}" class="muted">Ціна/Якість</label>
                             <input id="value_for_money-fb\${id}" value="1" type="number" class="rating" min=0 max=5
-                                   step=1
+                                   step=0.5
                                    data-size="xs"
                                    data-show-clear="false" data-show-caption="false">
                         </div>
@@ -155,5 +155,32 @@
     </div>
 </div>
 
+
+
+
 <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'>
+</script>
+
+<script id="indexTemplate" type="text/x-jquery-tmpl">
+            <div class="panel panel-default" id="panel-favorite\${id}">
+                <div class="panel-heading">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}">
+                         <span class="tabTitleFont cursor-pointer" >Країна: </span>
+                         <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
+                         <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
+                         <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
+                         <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
+                         <span class="tabTitleFont cursor-pointer">Харчування: </span>
+                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food.name}</span>
+                         <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
+                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
+                </div>
+                <div id="panel-element-f\${id}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Info about tour \${id}...
+                    </div>
+                </div>
+            </div>
 </script>

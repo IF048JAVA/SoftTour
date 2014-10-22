@@ -1,8 +1,44 @@
 var ALL_COUNTRIES = "allCountries";
 var PAGE_SIZE = 10;
+var contentType ="application/x-www-form-urlencoded; charset=UTF-8";
 
-function openFeedbackWindow(id) {
-    $('#feedbackModal' + id).modal('show');
+function showTours(){
+
+    $('#toursModal').modal('show');
+
+
+    var queryObj = {};
+    queryObj.name = "test";
+
+
+
+    $.ajax({
+        url: "/hotels/tours",
+        type: "GET",
+        data: queryObj,
+        dataType: 'json',
+
+        success: function (data) {
+
+            $('#tour-list').empty;
+
+           var new_id=0;
+
+            $.each(data,function(key,value){
+                value.id=new_id;
+                new_id++;
+
+                $('#indexTemplate').tmpl(value).appendTo('#tour-list');
+            })
+
+        },
+
+        error: function () {
+            alert("Error");
+        }
+
+    });
+
 }
 
 function showComments(id) {
@@ -23,23 +59,23 @@ function showComments(id) {
             var length = data.length;
             var img = '';
 
-            for(var i = 0; i < length; i++){
+            for (var i = 0; i < length; i++) {
 
-                if(data[i].user.sex == "MALE"){
+                if (data[i].user.sex == "MALE") {
                     img = "/img/male.jpg"
                 } else {
                     img = "/img/female.jpg"
                 }
 
-                if(data[i].comment != '') {
+                if (data[i].comment != '') {
                     html += '<div class=row><div class="col-md-2 commentInfo">' +
                         '<img src="' + img + '" class="img-circle avatar">' +
                         '<p>' + data[i].user.name + '</p></div><div class="col-md-10 comment"><p>' +
                         data[i].comment + '</p></div></div>';
                 }
             }
-                $("#comment-list" + id).html(html);
-                $('#commentModal' + id).modal('show');
+            $("#comment-list" + id).html(html);
+            $('#commentModal' + id).modal('show');
 
         },
 
@@ -76,7 +112,7 @@ function searchByName(pageNum) {
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
 
-                if(key == 0){
+                if (key == 0) {
                     $("#collapseHotel" + value.id).attr("class", "panel-collapse collapse in");
                 }
             })
@@ -127,7 +163,7 @@ function searchHotels(pageNum) {
             $.each(data.content, function (key, value) {
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
-                if(key == 0){
+                if (key == 0) {
                     $("#collapseHotel" + value.id).attr("class", "panel-collapse collapse in");
                 }
             })
@@ -166,18 +202,24 @@ function showPagination(callback, numOfPages, pageNum) {
     })
 }
 
-function leaveFeedback(hotelId){
+function leaveFeedback(hotelId) {
+
+    $('#feedbackModal' + hotelId).modal('show');
+
+
     var feedbackQuery = {};
     feedbackQuery.cleanliness = $("#cleanliness-fb" + hotelId).val();
     feedbackQuery.comfort = $("#comfort-fb" + hotelId).val();
     feedbackQuery.location = $("#location-fb" + hotelId).val();
     feedbackQuery.valueForMoney = $("#value_for_money-fb" + hotelId).val();
     feedbackQuery.comment = $("#comment" + hotelId).val();
-    feedbackQuery.hotelId =  + hotelId;
+    feedbackQuery.hotelId = hotelId;
 
     function closeModalWindow(hotelId) {
         $('#myModal' + hotelId).modal('hide');
+
     }
+
     $.ajax({
         url: "/hotels/feedback",
         type: "POST",

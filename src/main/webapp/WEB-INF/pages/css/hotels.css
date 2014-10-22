@@ -69,6 +69,10 @@
     width: 800px;
 }
 
+.modal-tours{
+    width: 65%;
+}
+
 .comment-body{
     background-color: rgba(139, 150, 143, 0.10);
 }

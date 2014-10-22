@@ -99,10 +99,10 @@ CREATE TABLE favorite (
 
 CREATE TABLE feedback (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  cleanliness int(1) NOT NULL,
-  comfort int(1) NOT NULL,
-  location int(1) NOT NULL,
-  valueForMoney int(1) NOT NULL,
+  cleanliness decimal(2,1) NOT NULL,
+  comfort decimal(2,1) NOT NULL,
+  location decimal(2,1) NOT NULL,
+  valueForMoney decimal(2,1) NOT NULL,
   comment text,
   hotel_id bigint(20) NOT NULL,
   user_id bigint(20) NOT NULL,
