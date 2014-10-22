@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/")
+//@RequestMapping
 public class IndexController {
 
     @Autowired
@@ -145,8 +145,10 @@ public class IndexController {
 
         //Tour currentTour = tourService.findOne(currentTourId);
 
-        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
-       
+        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-10", "23:00");
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@in index");
+
         ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
 
         System.out.println(routesList);

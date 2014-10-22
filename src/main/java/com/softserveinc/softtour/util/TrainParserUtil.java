@@ -14,6 +14,7 @@ import java.util.Properties;
  */
 public class TrainParserUtil {
 	private static final String BASE_URL = "http://ticket.turistua.com/ua/train/reservation/?transport=train";
+	
 	// FIXME change url for testing src/main/resources
 	private static final String CITY_CODE_VOCABULARY = "/parser_properties/city_code_vocabulary.properties";
 	private static final String CITY_RU_UA_VOCABULARY = "/parser_properties/city_ru-ua_vocabulary.properties";
@@ -55,17 +56,13 @@ public class TrainParserUtil {
 	private String getCityInfo(String city, String path) {
 		Properties properties = new Properties();
 		
-		InputStream inputCountryProperties = this.getClass().
+		InputStream inputProperties = this.getClass().
                   getResourceAsStream(path);
-		
-//		FileReader fileReader = new 
-		
-		  try {
-
-			   properties.load(new InputStreamReader(inputCountryProperties));
+		try {
+			   properties.load(new InputStreamReader(inputProperties));
 			 
 				if (properties.getProperty(city) == null) {
-					return city;
+					return city ;
 				}
 				
 				return properties.getProperty(city);
@@ -74,43 +71,6 @@ public class TrainParserUtil {
 			e.printStackTrace();
 		}
 		
-		
-	/*	
-		
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-
-		try {
-			fileReader = new FileReader(path);
-			
-			
-			bufferedReader = new BufferedReader(fileReader);
-			properties.load(bufferedReader);
-
-			if (properties.getProperty(city) == null) {
-				return city;
-			}
-			
-			return properties.getProperty(city);
-		} catch (FileNotFoundException e) {
-			// TODO Add logging here: WARN/ERROR 
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Add logging here: WARN/ERROR 
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fileReader != null) {
-					fileReader.close();
-				}
-				if (bufferedReader != null) {
-					bufferedReader.close();
-				}
-			} catch (IOException e) {
-				// TODO Add logging here: WARN/ERROR 
-				e.printStackTrace();
-			}
-		}*/
 		return null;
 	}
 	
