@@ -16,8 +16,9 @@ public class TrainParserUtil {
 	private static final String BASE_URL = "http://ticket.turistua.com/ua/train/reservation/?transport=train";
 	
 	// FIXME change url for testing src/main/resources
-	private static final String CITY_CODE_VOCABULARY = "/parser_properties/city_code_vocabulary.properties";
-	private static final String CITY_RU_UA_VOCABULARY = "/parser_properties/city_ru-ua_vocabulary.properties";
+//	.properties
+	private static final String CITY_CODE_VOCABULARY = "/parser_properties/city_code_vocabulary";
+	private static final String CITY_RU_UA_VOCABULARY = "/parser_properties/city_ru-ua_vocabulary";
 	
 	/**
 	 * Creates the url with the specified parameters
@@ -78,7 +79,7 @@ public class TrainParserUtil {
 	public static void main(String[] args) {
 		TrainParserUtil trainParserUtil = new TrainParserUtil();
 	
-		System.out.println(trainParserUtil.getCityInfo("Дніпропетровськ", CITY_CODE_VOCABULARY));
+		System.out.println(trainParserUtil.getCityInfo("Львів", CITY_CODE_VOCABULARY));
 		System.out.println(trainParserUtil.translateCity("Днепропетровск главный"));
 	}
 	
