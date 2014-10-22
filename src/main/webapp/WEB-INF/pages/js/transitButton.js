@@ -9,7 +9,7 @@ function getAllTransit(tourId) {
 
     $.ajax({
         url: "/transitDates",
-        type: 'POST',
+        type: 'GET',
         dataType: 'json',
         data: transitDates,
         contentType: 'application/x-www-form-urlencoded'

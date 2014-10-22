@@ -121,7 +121,7 @@ public class IndexController {
 
 
 
-    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
+    @RequestMapping(value="/transitDates", method = RequestMethod.GET)
     public @ResponseBody void getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
                         @RequestParam(value = "cityFrom", required = true) String cityFrom){
@@ -131,8 +131,10 @@ public class IndexController {
         TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
        
         ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
-		
-		for (TrainRoute route : routesList) {
+
+        System.out.println(routesList);
+
+        for (TrainRoute route : routesList) {
 			System.out.println(route);
 		}
 
