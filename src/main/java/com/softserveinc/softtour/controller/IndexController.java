@@ -80,11 +80,6 @@ public class IndexController {
             currentHotel.setRegion(maybeRegion);
         else
             currentHotel.setRegion(regionService.save(currentRegion));
-        /*Country country = countryService.save(currentCountry);
-        currentRegion.setCountry(country);
-        Region region = regionService.save(currentRegion);
-        currentHotel.setRegion(region);*/
-
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
         if(maybeHotel!=null)
             currentTour.setHotel(maybeHotel);
@@ -106,12 +101,22 @@ public class IndexController {
         Hotel currentHotel = currentTour.getHotel();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
-        Country country = countryService.save(currentCountry);
-        currentRegion.setCountry(country);
-        Region region = regionService.save(currentRegion);
-        currentHotel.setRegion(region);
-        Hotel hotel = hotelService.save(currentHotel);
-        currentTour.setHotel(hotel);
+        Country maybeCountry = countryService.findByName(currentCountry.getName());
+        if(maybeCountry!=null)
+            currentRegion.setCountry(maybeCountry);
+        else
+            currentRegion.setCountry(countryService.save(currentCountry));
+        Region maybeRegion = regionService.findByName(currentRegion.getName());
+        if(maybeRegion!=null)
+            currentHotel.setRegion(maybeRegion);
+        else
+            currentHotel.setRegion(regionService.save(currentRegion));
+        Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
+        if(maybeHotel!=null)
+            currentTour.setHotel(maybeHotel);
+        else
+        {hotelService.setZero(currentHotel);
+            currentTour.setHotel(hotelService.save(currentHotel));}
         currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToHis=tourService.save(currentTour);
