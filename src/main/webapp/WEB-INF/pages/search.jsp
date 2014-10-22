@@ -7,7 +7,7 @@
         <div class="form-group">
             <div class="col-sm-6">
                 <p>Країна:</p>
-                <select class="form-control" id="country" name="country">
+                <select class="form-control" id="country" name="country" onchange="makeSelect(this.selectedIndex)">
                     <option>Єгипет</option>
                     <option>Греція</option>
                     <option>Туреччина</option>
@@ -16,10 +16,11 @@
             <div class="col-sm-6">
                 <p>Регіон:</p>
                 <select class="form-control" id="region" name="region">
-                    <option>Дахаб</option>
-                    <option>Макаді Бей</option>
-                    <option>Марса Алам</option>
-                    <option>Аланья</option>
+                    <option value="N/A">N/A</option>
+                    <%--<option>Дахаб</option>--%>
+                    <%--<option>Макаді Бей</option>--%>
+                    <%--<option>Марса Алам</option>--%>
+                    <%--<option>Аланья</option>--%>
                 </select>
             </div>
             <div class="col-sm-6">
@@ -258,5 +259,34 @@
                 </div>
             </div>
         </div>
+</script>
+<script type="text/javascript">
+
+    var regions = new Array(
+            "Дахаб,Макаді Бей,Марса Алам",
+            "Аланья"
+    );
+    function getRegions(index){
+        var aRegions = regions[index];
+        return aRegions.split(",");
+    }
+    function makeSelect(index){
+        var currentRegion = getRegions(index);
+        var currentRegionCnt = currentRegion.length;
+        var regionList = document.getElementById("region");
+        var regionListCnt = regionList.options.length;
+        regionList.length=0;
+        for(i = 0; i < currentRegionCnt; i++){
+            if (document.createElement){
+                var newRegionList = document.createElement("OPTION");
+                newRegionList.text = currentRegion[i];
+                newRegionList.value = currentRegion[i];
+                (regionList.options.add) ? regionList.options.add(newRegionList) : regionList.add(newRegionList, null);
+            } else {
+                regionList.options[i] = new Option(currentRegion[i], currentRegion[i], false, false);
+            }
+        }
+    }
+    makeSelect(document.getElementById("country").selectedIndex);
 </script>
 
