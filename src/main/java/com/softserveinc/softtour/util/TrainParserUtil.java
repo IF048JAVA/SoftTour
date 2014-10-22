@@ -118,7 +118,7 @@ public class TrainParserUtil {
 	public static void main(String[] args) {
 		TrainParserUtil trainParserUtil = new TrainParserUtil();
 	
-		System.out.println(trainParserUtil.getCityInfo("Тест", CITY_CODE_VOCABULARY));
+		System.out.println(trainParserUtil.getCityInfo("Дніпропетровськ", CITY_CODE_VOCABULARY));
 		System.out.println(trainParserUtil.translateCity("Днепропетровск главный"));
 	}
 	
