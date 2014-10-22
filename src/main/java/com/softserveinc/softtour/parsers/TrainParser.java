@@ -9,76 +9,95 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.softserveinc.softtour.bean.TrainRoute;
-import com.softserveinc.softtour.util.CreatorTrainUrl;
+import com.softserveinc.softtour.util.NoRoutesException;
+import com.softserveinc.softtour.util.TrainParserUtil;
 import com.softserveinc.softtour.util.DateValidator;
 
+/**
+ * @author Andrii
+ * Parses the site http://ticket.turistua.com/
+ */
 public class TrainParser {
-	private static final int MAX_NUMER_OF_RETRYING = 15;
-	private static final int MILLISECONDS = 5000; 
+	private static final int MAX_NUMER_OF_ATTEMPTS = 15;
+	private static final int CONNECTION_TIMEOUT = 5000; 
 	
 	private String url;
-	private TrainRoute trainRoute;
-	private ArrayList<TrainRoute> routesList;
-	private CreatorTrainUrl creatorTrainUrl;
-	private DateValidator dateValidator;
-	
 	private String departureDate;
 	private String departureTime;
 	private String previousDate;
 	
-	private boolean isSetDate = true;
-	boolean isSetPreviousDate = true;
+	private TrainRoute trainRoute;
+	private ArrayList<TrainRoute> routesList;
+	private TrainParserUtil trainParserUtil;
+	private DateValidator dateValidator;
 	
+	private boolean isSetDepatureDate = true;
+	private boolean isSetPreviousDate = true;
+	
+	/**
+	 * Sets departureDate and departureTime.
+	 * Creates objects for classes TrainParserUtil and DateValidator
+	 * Creates URL with the specified parameters for parsing site http://ticket.turistua.com/
+	 * 
+	 * @param departureCity - it's a city of departure of the train
+	 * @param arrivalCity - it's a city of arrival of the train
+	 * @param departureDate - it's a date of departure of the plane
+	 * @param departureTime - it's a time of departure of the plane
+	 */
 	public TrainParser(String departureCity, String arrivalCity, String departureDate, String departureTime) {
-		creatorTrainUrl = new CreatorTrainUrl();
-		url = creatorTrainUrl.createUrl(departureCity, arrivalCity, departureDate);
-		
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
 		
-		routesList = new ArrayList<TrainRoute>();
+		trainParserUtil = new TrainParserUtil();
 		dateValidator = new DateValidator();
+		routesList = new ArrayList<TrainRoute>();
+		
+		url = trainParserUtil.createUrl(departureCity, arrivalCity, departureDate);
 	}
 	
-	public ArrayList<TrainRoute>  getRoutes() {
-		parse();
-		
-		isSetDate = false;
-		parse();
-		
+	/**
+	 * @return the list of the routes with the specified parameters 
+	 * or empty list if the routes no found
+	 */
+	public ArrayList<TrainRoute> getRoutes() {
+		try {
+			parse();
+			
+			isSetDepatureDate = false;
+			parse();
+		} catch (NoRoutesException e) {
+			// TODO Add logging here: WARN/ERROR 
+		}
 		return routesList;
 	}
 	
 	/**
-	 * Parses the http://ticket.turistua.com/ site
-	 * 
-	 * @return the list of the routes
+	 * Parses the site http://ticket.turistua.com/ 
+	 * @throws NoRoutesException if the routes no found
 	 */
-	public void parse() {
+	public void parse() throws NoRoutesException {
 		Document document = null;
 		
 		int i = 0;
-		while (i < MAX_NUMER_OF_RETRYING) {
+		while (i < MAX_NUMER_OF_ATTEMPTS) {
 			++i;
 			try {
-				document = Jsoup.connect(url).timeout(MILLISECONDS).get();
-
+				document = Jsoup.connect(url).timeout(CONNECTION_TIMEOUT).get();
 			} catch (IOException e) {
-				// TODO LOG
-				System.out.println("Ivalid attempt to connect. Trying one more ...");
+				// TODO Add logging here: WARN - Invalid attempt to connect. Trying one more ...
 				continue;
 			}
 			break;
 		}
-
 		parseRoutes(document);
 	}
 		
 	/**
 	 * Parses the routes with the given document
 	 * @param document - it's document, which will be parsed
+	 * @throws NoRoutesException if the routes no found
 	 */
-	private void parseRoutes(Document document){
+	private void parseRoutes(Document document) throws NoRoutesException {
 		Element routesTable = null;
 		
 		try{
@@ -91,14 +110,11 @@ public class TrainParser {
 				.getElementById("t2t_tables")
 				.getElementsByTag("tbody").get(0);
 			
+			Elements routes = routesTable.select("tr[class]");
+			parseRoute(routes);
 		}catch(NullPointerException e){
-			// FIXME
-//			e.printStackTrace();
-		System.out.println("There are no routes for the specified date");
-			//routesList = null;
+			throw new NoRoutesException();
 		}
-		Elements routes = routesTable.select("tr[class]");
-		parseRoute(routes);
 	}
 	
 	/**
@@ -119,10 +135,14 @@ public class TrainParser {
 		}
 	}
 
+	/**
+	 * Creates new object of the class TrainRoute
+	 * in which we will be write the data
+	 */
 	private void createTrainRouteObject() {
 		trainRoute = new TrainRoute();
 		
-		if (isSetDate) {
+		if (isSetDepatureDate) {
 			trainRoute.setDepartureDate(departureDate);
 		}else {
 			if (isSetPreviousDate) {
@@ -134,7 +154,7 @@ public class TrainParser {
 	}
 
 	/**
-	 * Parses the unit of the route with the given units 
+	 * Parses the unit of the route with the given units of the one route
 	 * @param unitsRoute - it's units of the one route, which will be parsed
 	 */
 	private void parseUnitRoute(Elements unitsRoute) {
@@ -150,9 +170,9 @@ public class TrainParser {
 	}
 
 	/**
-	 * Parses the prices of the route with the given unitsRoute 
+	 * Parses the prices of the route with the given units of the one route 
 	 * @param unitsRoute - it's units of the one route, which will be parsed
-	 * @param unitNumber - it's a number of the unit route
+	 * @param unitNumber - it's a number of the one unit of the route
 	 */
 	private void parsePrices(Elements  unitsRoute, int unitNumber) {
 		int unitsSize = unitsRoute.size();
@@ -194,6 +214,11 @@ public class TrainParser {
 	 * Adds route to the list of the routes
 	 */
 	private void addRoute() {
+		String departureCityUa = trainParserUtil.translateCity(trainRoute.getDepartureCity());
+		trainRoute.setDepartureCity(departureCityUa);
+		String arrivalCityUa = trainParserUtil.translateCity(trainRoute.getArrivalCity());
+		trainRoute.setArrivalCity(arrivalCityUa);
+		
 		routesList.add(trainRoute);
 	}
 
@@ -201,7 +226,8 @@ public class TrainParser {
 	 * Only for testing
 	 */
 	public static void main(String[] args) {
-		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-01", "23:00");
+		//TODO DELETE !
+		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
 		ArrayList<TrainRoute> routesList = obj.getRoutes();
 		
 		for (TrainRoute route : routesList) {
