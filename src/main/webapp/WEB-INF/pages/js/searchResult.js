@@ -3,8 +3,8 @@ function showResults(){
 
 
 
-//    queryObj.country = $("#country").val();
-//    queryObj.region = $("#region").val();
+    queryObj.country = $("#country").val();
+    queryObj.region = $("#region").val();
     queryObj.oneStar = $("#oneStar").val();
     queryObj.twoStar = $("#twoStar").val();
     queryObj.threeStar = $("#threeStar").val();
@@ -28,11 +28,11 @@ function showResults(){
 
     $.ajax({
         url: "/search/getTour",
-        type: "GET",
+        type: "POST",
         data: queryObj,
         dataType: 'json',
-        contentType: 'application/json',
-           mimeType: 'application/json',
+//        contentType: 'application/json',
+//           mimeType: 'application/json',
         /*data: ({
             text: queryObj
         }),*/
