@@ -15,7 +15,6 @@ import java.util.Properties;
 public class TrainParserUtil {
 	private static final String BASE_URL = "http://ticket.turistua.com/ua/train/reservation/?transport=train";
 	// FIXME change url for testing src/main/resources
-//														city_code_vocabulary.properties
 	private static final String CITY_CODE_VOCABULARY = "/parser_properties/city_code_vocabulary.properties";
 	private static final String CITY_RU_UA_VOCABULARY = "/parser_properties/city_ru-ua_vocabulary.properties";
 	
@@ -56,8 +55,10 @@ public class TrainParserUtil {
 	private String getCityInfo(String city, String path) {
 		Properties properties = new Properties();
 		
-		  InputStream inputCountryProperties = this.getClass().
+		InputStream inputCountryProperties = this.getClass().
                   getResourceAsStream(path);
+		
+//		FileReader fileReader = new 
 		
 		  try {
 
