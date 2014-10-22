@@ -28,26 +28,22 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public Page <Hotel> findByName(String name, Pageable pageable) {
+    public Page<Hotel> findByName(String name, Pageable pageable) {
         return hotelRepository.findByName(name, pageable);
     }
 
     @Override
     public Hotel findByName(String name) {
-        return hotelRepository.findByName(name);}
-
-    @Override
-    public void deleteById(long id) {
-        hotelRepository.delete(id);
+        return hotelRepository.findByName(name);
     }
 
-    @Override
-    public Page<Hotel> findByCustomParameters(List<String> country, Integer rating, Integer comfort,Integer cleanliness,
-                                              Integer location, Integer valueForMoney, Pageable pageable) {
 
-        return hotelRepository.findByCustomParameters(country, BigDecimal.valueOf(rating),
-                BigDecimal.valueOf(comfort), BigDecimal.valueOf(cleanliness),
-                BigDecimal.valueOf(location), BigDecimal.valueOf(valueForMoney), pageable);
+    @Override
+    public Page<Hotel> findByCustomParameters(List<String> country, BigDecimal rating, BigDecimal comfort, BigDecimal cleanliness,
+                                              BigDecimal location, BigDecimal valueForMoney, Pageable pageable) {
+
+        return hotelRepository.findByCustomParameters(country, rating, comfort, cleanliness,
+                location, valueForMoney, pageable);
     }
 
     @Override
