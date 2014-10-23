@@ -300,15 +300,17 @@
                         <goal>execute</goal>
                     </goals>
                     <configuration>
-                        <orderFile>ascending</orderFile>
-                        <fileset>
-                            <basedir>${basedir}</basedir>
-                            <includes>
-                                <include>src/main/resources/softtour_data.sql</include>
-                            </includes>
-                        </fileset>
+                        <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/resources/country.sql</srcFile>
+                                <srcFile>src/main/resources/region.sql</srcFile>
+                                <srcFile>src/main/resources/hotel.sql</srcFile>
+                                <srcFile>src/main/resources/softtour_data.sql</srcFile>
+                            </srcFiles>
                     </configuration>
                 </execution>
+
+
 
             </executions>
         </plugin>
