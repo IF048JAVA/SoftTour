@@ -12,6 +12,7 @@ import java.util.Properties;
  */
 public class TrainParserUtil {
 	private static final String BASE_URL = "http://ticket.turistua.com/ua/train/reservation/?transport=train";
+	private static final String UTF_8 = "UTF-8";
 	
 	private static final String CITY_CODE_VOCABULARY = "/parser_properties/city_code_vocabulary.properties";
 	private static final String CITY_RU_UA_VOCABULARY = "/parser_properties/city_ru-ua_vocabulary.properties";
@@ -58,7 +59,7 @@ public class TrainParserUtil {
 		try {
 			inputStream = 	this.getClass().getResourceAsStream(path);
 			bufferedInputStream = new BufferedInputStream(inputStream);
-			properties.load(new InputStreamReader(bufferedInputStream, "UTF-8"));
+			properties.load(new InputStreamReader(bufferedInputStream, UTF_8));
 
 			if (properties.getProperty(city) == null) {
 				return city ;
