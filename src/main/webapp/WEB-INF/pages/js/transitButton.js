@@ -35,7 +35,7 @@ function getAllTransit(tourId) {
                             '<img src="../img/Transport-Train-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                        '<table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0">'+
+                        '<table data-toggle="table" data-url="/transitDates?currentTourId='+tourId+'&cityFrom=0">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
@@ -54,7 +54,7 @@ function getAllTransit(tourId) {
                             '<img src="../img/Transport-Bus-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                        '<table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0">'+
+                        '<table data-toggle="table" data-url="/transitDates?currentTourId='+tourId+'&cityFrom=0">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
