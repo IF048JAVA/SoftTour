@@ -13,11 +13,14 @@ queryObj.numberOfPage = 0;
         showModal();
         $('#indexResult').append('<div class="col-md-12" id="loading"><img src="img/loading.gif"></div><br>');
         var indexBudget = $("#indexBudget").val();
-        var travelers = $("#Travelers").val();
+        var travelers = $("#TravelersAdult").val();
+        var travelersChildren =
         queryObj.numberOfPage = numberOfPage;
         queryObj.country = countryPar;
         queryObj.minPrice = Math.floor(indexBudget*0.9);
         queryObj.maxPrice = Math.floor(indexBudget*1.1);
+        queryObj.travelersAdult = $("#TravelersAdult").val();
+        queryObj.travelersChildren = $("#TravelersChildren").val();
 
         $.ajax({
             url: "/parseTour",
