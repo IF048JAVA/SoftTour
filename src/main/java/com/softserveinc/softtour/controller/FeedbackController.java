@@ -25,13 +25,8 @@ public class FeedbackController {
     ){
         String to = "softtourtravel@gmail.com";
 
-        System.out.println("Name: " + name);
-        System.out.println("From: " + from);
-        System.out.println("Subject: " + subject);
-        System.out.println("Message: " + message);
+        mailService.sendMail(to, from, subject, message, name);
 
-        mailService.sendMail(to, from, subject, message);
-
-        return "about";
+        return "feedback";
     }
 }

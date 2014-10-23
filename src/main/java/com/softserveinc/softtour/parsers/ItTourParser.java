@@ -213,7 +213,8 @@ public class ItTourParser implements ParsersConstants {
         return hotel;
     }
 
-    public void setHotelImgLinkAndDepartureTime(Tour tour, Element hotelLink){
+    public void setHotelImgLinkAndDepartureTime(Tour tour){
+        Element hotelLink = getHotelElement(tour.getHotel().getName());
         String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
         String[] tourIdArr = tourId.split(",");
         String url = urlGenerator.createHotelInfoUrl(tourIdArr);
@@ -316,8 +317,8 @@ public class ItTourParser implements ParsersConstants {
 
         //set img url
         Tour tour = listTour.get(0);
-        Element hotelLink = parser.getHotelElement(tour.getHotel().getName());
-        parser.setHotelImgLinkAndDepartureTime(tour, hotelLink);
+
+        parser.setHotelImgLinkAndDepartureTime(tour);
         System.out.println(tour.getHotel().getImgUrl());
         System.out.println(tour.getDepartureTime());
         */
