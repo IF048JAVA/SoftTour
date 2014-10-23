@@ -1,8 +1,14 @@
 package com.softserveinc.softtour.bean;
 
+/**
+ * @author Andrii
+ * Contains information about a route of train
+ */
 public class TrainRoute {
 
-	// FIXME It's number of train comment
+	/**
+	 * It's a number of the train
+	 */
 	private String id;
 	private String departureCity;
 	private String arrivalCity;

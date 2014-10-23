@@ -238,17 +238,4 @@ public class TrainParser {
 		
 		routesList.add(trainRoute);
 	}
-
-	/**
-	 * Only for testing
-	 */
-	public static void main(String[] args) {
-		//TODO DELETE !
-		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-10", "23:00");
-		ArrayList<TrainRoute> routesList = obj.getRoutes();
-		
-		for (TrainRoute route : routesList) {
-			System.out.println(route);
-		}
-	}
 }
