@@ -1,9 +1,3 @@
-
-INSERT INTO softtour.country (id, name, itTourId) VALUES (1, 'Єгипет', 338);
-INSERT INTO softtour.country (id, name, itTourId) VALUES (2, 'Болгарія', 39);
-INSERT INTO softtour.country (id, name, itTourId) VALUES (3, 'Греція', 372);
-INSERT INTO softtour.country (id, name, itTourId) VALUES (4, 'Турція', 318);
-INSERT INTO softtour.country (id, name, itTourId) VALUES (5, 'Кіпр', 376);
 INSERT INTO softtour.country (id, name, itTourId) VALUES (6, 'Египет', 338);
 INSERT INTO softtour.country (id, name, itTourId) VALUES (7, 'Турция', 318);
 INSERT INTO softtour.country (id, name, itTourId) VALUES (8, 'ОАЭ', 16);

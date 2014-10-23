@@ -306,7 +306,7 @@ public class ItTourParser implements ParsersConstants {
         food.add("AI");
         food.add("UAI");
         long dateStart = new Date().getTime();
-        ItTourParser parser = new ItTourParser("Греція", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
+        ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
                                                5, 15, 500, 5000, 2);
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour) {
