@@ -11,14 +11,22 @@ public class Country {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = true, length = 45)
     private String name;
+
+    @Column(name = "itTourId", nullable = true, length = 20)
+    private Long itTourId;
 
     public Country() {
     }
 
     public Country(String name) {
         this.name = name;
+    }
+
+    public Country(String name, Long itTourId) {
+        this.name = name;
+        this.itTourId = itTourId;
     }
 
     public long getId() {
@@ -35,6 +43,14 @@ public class Country {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getItTourId() {
+        return itTourId;
+    }
+
+    public void setItTourId(Long itTourId) {
+        this.itTourId = itTourId;
     }
 
     @Override

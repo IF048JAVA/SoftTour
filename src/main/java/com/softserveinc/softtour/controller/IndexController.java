@@ -22,7 +22,7 @@ import java.util.List;
 @Controller
 //@RequestMapping
 public class IndexController {
-
+    ItTourParser parser;
     @Autowired
     private TourService tourService;
     @Autowired
@@ -55,14 +55,14 @@ public class IndexController {
             @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
             @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage){
         //return tourService.findAll();
-        ItTourParser parser = new ItTourParser(country, 3, 1 ,minPrice, maxPrice, numberOfPage);
+        parser = new ItTourParser(country, 3, 1 ,minPrice, maxPrice, numberOfPage);
         List<Tour> listTour = parser.parse();
         return listTour;
 
     }
 
     @RequestMapping(value="/saveFavorites", method = RequestMethod.POST)
-    public @ResponseBody void saveFavorites(@RequestBody(required = true) final Tour currentTour){
+    public void saveFavorites(@RequestBody(required = true) final Tour currentTour){
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -93,7 +93,8 @@ public class IndexController {
         favoriteService.save(favorite);
     }
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
-    public @ResponseBody void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
+    public void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
+        parser.setHotelImgLinkAndDepartureTime(currentTour);
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -112,8 +113,11 @@ public class IndexController {
         else
             currentHotel.setRegion(regionService.save(currentRegion));
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-        if(maybeHotel!=null)
+        if(maybeHotel!=null){
+            maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
+            maybeHotel.setStars(currentTour.getHotel().getStars());
             currentTour.setHotel(maybeHotel);
+             }
         else
         {hotelService.setZero(currentHotel);
             currentTour.setHotel(hotelService.save(currentHotel));}
@@ -124,6 +128,8 @@ public class IndexController {
         historyRecordService.save(historyRecord);
     }
 
+    /*@RequestMapping(value="/openCollapse", method = RequestMethod.POST)
+    public @ResponseBody*/
 
 
 

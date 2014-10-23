@@ -1,13 +1,15 @@
 package com.softserveinc.softtour.controller;
 
-import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.parsers.ItTourParser;
+import com.softserveinc.softtour.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,16 +18,10 @@ import java.util.Set;
 @RequestMapping(value = "/search")
 public class SearchController {
 
-    @RequestMapping(value = "/result")
-    public String getSearch(){
-        return "searchResult";
-    }
-
     @RequestMapping(value = "/getTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "region", required = true) String region,
-            @RequestParam(value = "oneStar", required = false) Integer oneStar,
             @RequestParam(value = "twoStar", required = false) Integer twoStar,
             @RequestParam(value = "threeStar", required = false) Integer threeStar,
             @RequestParam(value = "fourStar", required = false) Integer fourStar,
@@ -46,9 +42,6 @@ public class SearchController {
             @RequestParam(value = "priceTo", required = true) Integer priceTo
     ){
         Set<Integer> hotelStars = new HashSet<>();
-        if (oneStar != null){
-            hotelStars.add(oneStar);
-        }
         if (twoStar != null){
             hotelStars.add(twoStar);
         }
@@ -81,34 +74,10 @@ public class SearchController {
         if (foodSix != null){
             foodSet.add(foodSix);
         }
-//
-//        System.out.println(country);
-//        System.out.println(region);
-//        System.out.println(hotelStars);
-//        System.out.println(foodSet);
-//        System.out.println(adults);
-//        System.out.println(children);
-//        System.out.println(dateFrom);
-//        System.out.println(dateTo);
-//        System.out.println(nightFrom);
-//        System.out.println(nightTo);
-//        System.out.println(priceFrom);
-//        System.out.println(priceTo);
 
-
-//        Set<Integer> hotelStars = new HashSet<>();
-//        hotelStars.add(5);
-
-//        Set<String> foodSet = new HashSet<>();
-//        foodSet.add("AI");
-        ItTourParser parser = new ItTourParser(/*"Туреччина"*/ country, /*"Аланья"*/ region, hotelStars, foodSet, adults, children, dateFrom/*"01.11.14"*/, dateTo/*"31.12.14"*/,
+        ItTourParser parser = new ItTourParser(country, region, hotelStars, foodSet, adults, children, dateFrom, dateTo,
                 nightFrom, nightTo, priceFrom, priceTo, 2);
         List<Tour> tourList = parser.parse();
-        System.out.println(dateFrom);
-        System.out.println(dateTo);
-        System.out.println(tourList);
-        System.out.println(hotelStars);
-        System.out.println(foodSet);
         return tourList;
     }
 }

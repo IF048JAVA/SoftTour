@@ -33,6 +33,7 @@ CREATE TABLE user (
 CREATE TABLE country (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
+  itTourId bigint (20) NOT NULL,
 
   PRIMARY KEY (id)
 
@@ -41,6 +42,7 @@ CREATE TABLE country (
 CREATE TABLE region (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
+  itTourId bigint (20) not null,
   country_id bigint(20) NOT NULL,
 
   PRIMARY KEY (id),
@@ -50,7 +52,7 @@ CREATE TABLE region (
 
 CREATE TABLE hotel (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  name varchar(45) NOT NULL,
+  name varchar(100) NOT NULL,
   stars int(1) NOT NULL,
   region_id bigint(20) NOT NULL,
   feedbacksNum int(13) NOT NULL,
@@ -60,6 +62,7 @@ CREATE TABLE hotel (
   location decimal(2,1),
   valueForMoney decimal(2,1),
   imgUrl TEXT (500),
+  itTourId bigint (20) NOT NULL,
 
   PRIMARY KEY (id),
   FOREIGN KEY (region_id) REFERENCES region (id)

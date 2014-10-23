@@ -1,3 +1,4 @@
 function showModal() {
-    $("#indexResult").css("visibility", "visible")
+    $("#indexResult").css("visibility", "visible");
+
 }
