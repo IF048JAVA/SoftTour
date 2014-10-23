@@ -48,7 +48,6 @@
 <script src="<c:url value='/js/jquery.tmpl.js' />" ></script>
 <script src="<c:url value='/js/calendar.js' />" ></script>
 <script src="<c:url value='/js/selector.js' />" ></script>
-<script src="<c:url value='/js/registrationControl.js' />" ></script>
 <script src="<c:url value='/js/feedback.js' />" ></script>
 <script src="<c:url value='/js/modal2.js' />" ></script>
 <script src="<c:url value='/js/select2.min.js' />" ></script>
