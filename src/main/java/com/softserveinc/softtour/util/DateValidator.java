@@ -52,13 +52,13 @@ public class DateValidator {
 		String onWayTime = trainRoute.getOnWayTime();
 
 		try {
-			// Sets date and time of arrival for train  
+			// Sets date and time of arrival of the train  
 			calendar.setTime(dateTimeFormat.parse(depatureDateTimeTrain));
 			calendar.add(Calendar.HOUR_OF_DAY, Integer.parseInt(onWayTime.substring(1, 3)));
 			calendar.add(Calendar.MINUTE, Integer.parseInt(onWayTime.substring(4, 6)));
 			
 			if (!isDepatureDateTimeSet) {
-				// Sets date and time of depature for plane
+				// Sets date and time of departure of the plane
 				depatureDateTimePlane = dateTimeFormat.parse(trainRoute.getDepartureDate() + " " + departureTime);
 				isDepatureDateTimeSet = true;
 			}

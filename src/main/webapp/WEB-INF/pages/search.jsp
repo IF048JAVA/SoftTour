@@ -9,8 +9,8 @@
                 <p>Країна:</p>
                 <select class="form-control" id="country" name="country" onchange="makeSelect(this.selectedIndex)">
                     <option>Єгипет</option>
-                    <option>Греція</option>
                     <option>Туреччина</option>
+                    <option>Греція</option>
                 </select>
             </div>
             <div class="col-sm-6">

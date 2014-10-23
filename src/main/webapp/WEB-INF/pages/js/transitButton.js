@@ -16,9 +16,17 @@ function getAllTransit(tourId) {
 
         success: function(date) {
 
+
+
+
+
             $("#panel-element-f"+tourId+" panel-body", function(){
 
-                    $("#panel-element-f"+tourId+" .panel-body").append('<div id="transitInfo-All-F'+66+'"'+'class="collapse in">'+
+                $("#panel-element-f"+tourId+" .panel-body #transitInfo-All-F"+tourId).empty();
+
+
+
+                    $("#panel-element-f"+tourId+" .panel-body").append('<div id="transitInfo-All-F'+tourId+'"'+'class="collapse in">'+
 
                     '<div class="panel panel-success col-sm-12">'+
 
@@ -27,7 +35,7 @@ function getAllTransit(tourId) {
                             '<img src="../img/Transport-Train-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                        '<table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0">'+
+                        '<table data-toggle="table" data-url="/transitDates?currentTourId='+tourId+'&cityFrom=0">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
@@ -46,7 +54,7 @@ function getAllTransit(tourId) {
                             '<img src="../img/Transport-Bus-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                        '<table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0">'+
+                        '<table data-toggle="table" data-url="/transitDates?currentTourId='+tourId+'&cityFrom=0">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+

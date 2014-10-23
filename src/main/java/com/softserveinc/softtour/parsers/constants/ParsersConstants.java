@@ -11,18 +11,23 @@ public interface ParsersConstants {
     String TAG_A = "a";
     String TAG_TD = "td";
     String TAG_B = "b";
+    String TAG_OPTION = "option";
     String CLASS_ITT_TEXT_LEFT = "itt_text-left";
     String CLASS_TEXT_CENTER = "text-center";
     String CLASS_TEXT_RIGHT = "text-right";
     String ATTR_ONCLICK = "onclick";
     String ATTR_SRC = "src";
+    String ATTR_VALUE = "value";
     String ID_IMG = "main_img_tour_in_view_open_";
+    String ID_COUNTRY = "itt_country";
 
     String DAY_FORMAT = "dd.MM.yy";
+    String TIME_FORMAT = "dd.MM.yy.HH:mm";
     String WITHOUT_FLY = "Без перельоту";
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
     String WRONG_FAMILY_ROOM_TYPE = "FAMI...";
     String REGEXP_REPLACEMENT = "(return package_tour_order\\()|(\\);)";
     String NO_IMG = "NO IMG";
-
+    String ALL_HOTELS = "Все отели";
+    String ALL_CITIES = "Все города";
 }

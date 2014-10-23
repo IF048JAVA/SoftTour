@@ -29,6 +29,7 @@ public class ItTourParser implements ParsersConstants {
     private ItTourParserUrlGenerator urlGenerator;
     private String url;
     private Properties departureCityVocabulary = new Properties();
+    private Map<String, Element> hotelElementMap;
 
     public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
         this.tourList = new ArrayList<>();
@@ -37,6 +38,7 @@ public class ItTourParser implements ParsersConstants {
         this.children = children;
         urlGenerator = new ItTourParserUrlGenerator();
         this.url = urlGenerator.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        hotelElementMap = new HashMap<>();
     }
 
     public ItTourParser(String country, String region, Set<Integer> hotelStars, Set<String> food, int adults, int children,
@@ -49,6 +51,17 @@ public class ItTourParser implements ParsersConstants {
         urlGenerator = new ItTourParserUrlGenerator();
         this.url = urlGenerator.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
                 nightsFrom, nightsTill, priceFrom, priceTo, pageNumber);
+        hotelElementMap = new HashMap<>();
+    }
+
+    public ItTourParser(Hotel hotel, int pageNumber) {
+        this.tourList = new ArrayList<>();
+        this.country = hotel.getRegion().getCountry().getName();
+        this.adults = 2;
+        this.children = 0;
+        urlGenerator = new ItTourParserUrlGenerator();
+        this.url = urlGenerator.createSearchUrlByHotel(hotel, pageNumber);
+        hotelElementMap = new HashMap<>();
     }
 
     public List<Tour> parse() {
@@ -75,10 +88,9 @@ public class ItTourParser implements ParsersConstants {
     }
 
     private void loadDepartureCityProperties(){
-        try {
-            InputStream inputCountryProperties = this.getClass().
-                    getResourceAsStream(DEPARTURE_CITY_PROPERTIES_PATH);
-            departureCityVocabulary.load(new InputStreamReader(inputCountryProperties, UTF_8));
+        try(InputStream inputDepCity = this.getClass().getResourceAsStream(DEPARTURE_CITY_PROPERTIES_PATH);
+            InputStreamReader reader = new InputStreamReader(inputDepCity, UTF_8)) {
+            departureCityVocabulary.load(reader);
         }catch (IOException e){
             //TODO improve handled exception
             System.out.println(e.getMessage());
@@ -137,6 +149,7 @@ public class ItTourParser implements ParsersConstants {
             String tourFood = listCenter.get(1).text();
             String roomTypeSt = listLeft.get(2).text().toUpperCase();
 
+            hotelElementMap.put(hotelName, hotelLink);
 
             java.sql.Date tourDate = tourDate(tourDateSt);
             int tourDays = Integer.parseInt(tourDaysSt);
@@ -145,7 +158,6 @@ public class ItTourParser implements ParsersConstants {
             Time departureTime = tourDepartureTime(tourDepartureTimeSt);
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
             Hotel hotel = tourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
-                  //hotel.setImgUrl(hotelImgLink(hotel, hotelLink));
             Food food = Food.valueOf(tourFood);
 
             Tour tour = new Tour(tourDate, tourDays, departureCity, departureTime, tourPrice, hotel, food);
@@ -200,27 +212,45 @@ public class ItTourParser implements ParsersConstants {
         Hotel hotel = new Hotel(hotelName, hotelStars, hotelReg);
         return hotel;
     }
-/*
-    private String hotelImgLink(Hotel hotel, Element hotelLink){
-        if (hotelHolder.containsHotel(hotel.getName())) {
-            return hotelHolder.getHotelPicture(hotel.getName());
-        } else {
-            String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
-            String[] tourIdArr = tourId.split(",");
-            String url = urlGenerator.createHotelInfoUrl(tourIdArr);
-            Document document = connect(url);
-            Element img = document.getElementById(ID_IMG);
-            String imgUrl;
-            try {
-                imgUrl = img.attr(ATTR_SRC);
-            } catch (NullPointerException e) {
-                imgUrl = NO_IMG;
-            }
-            hotelHolder.putHotel(hotel.getName(), imgUrl);
-            return imgUrl;
+
+    public void setHotelImgLinkAndDepartureTime(Tour tour){
+        Element hotelLink = getHotelElement(tour.getHotel().getName());
+        String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
+        String[] tourIdArr = tourId.split(",");
+        String url = urlGenerator.createHotelInfoUrl(tourIdArr);
+        Document document = connect(url);
+        Element img = document.getElementById(ID_IMG);
+        String imgUrl;
+        try {
+            imgUrl = img.attr(ATTR_SRC);
+        } catch (NullPointerException e) {
+            imgUrl = NO_IMG;
         }
+        tour.getHotel().setImgUrl(imgUrl);
+
+        SimpleDateFormat format = new SimpleDateFormat(TIME_FORMAT);
+        Date javaUtilDate;
+        Time timeDeparture = null;
+        List<Element> elementList = document.getElementsByClass("tr_flight_to").get(0).getElementsByTag("td");
+        String departureDate = elementList.get(3).text();
+        departureDate = departureDate.substring(0, departureDate.length() - 3);
+        String departureTime = elementList.get(4).text();
+        String dateTime = new StringBuilder(departureDate).append(".").append(departureTime).toString();
+        System.out.println(dateTime);
+        try {
+            javaUtilDate = format.parse(dateTime);
+            timeDeparture = new Time(javaUtilDate.getTime());
+        } catch (ParseException e) {
+            //TODO improve this block
+            e.printStackTrace();
+        }
+        tour.setDepartureTime(timeDeparture);
     }
-*/
+
+    public Element getHotelElement(String hotelName) {
+        return hotelElementMap.get(hotelName);
+    }
+
     private RoomType tourRoomType(String roomTypeSt){
         RoomType roomType;
         try {
@@ -267,6 +297,7 @@ public class ItTourParser implements ParsersConstants {
           String country, String region, int [] hotelStars, String[] food, int adults, int children, String dataFrom, String dataTill,
           int nightsFrom, int nightsTill, int priceFrom, int priceTo, int pageNumber
         */
+        /*
         Set<Integer> hotelStars = new HashSet<>();
         hotelStars.add(3);
         hotelStars.add(5);
@@ -275,7 +306,7 @@ public class ItTourParser implements ParsersConstants {
         food.add("AI");
         food.add("UAI");
         long dateStart = new Date().getTime();
-        ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
+        ItTourParser parser = new ItTourParser("Греція", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
                                                5, 15, 500, 5000, 2);
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour) {
@@ -283,5 +314,23 @@ public class ItTourParser implements ParsersConstants {
         }
         long dateTo = new Date().getTime();
         System.out.println((dateTo - dateStart) + " milisec.");
+
+        //set img url
+        Tour tour = listTour.get(0);
+
+        parser.setHotelImgLinkAndDepartureTime(tour);
+        System.out.println(tour.getHotel().getImgUrl());
+        System.out.println(tour.getDepartureTime());
+        */
+
+        Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
+        hotel.setId(59466);
+        hotel.getRegion().setId(5498);
+        hotel.getRegion().getCountry().setId(318);
+        ItTourParser parser = new ItTourParser(hotel, 2);
+        List<Tour> tours = parser.parse();
+        for(Tour tour : tours){
+            System.out.println(tour);
+        }
     }
 }

@@ -81,6 +81,9 @@ public class BusParser implements ParsersConstants {
     private String arrivalTime;
     private String price;
             * */
+            if (dataList.size() < 7){
+                return;
+            }
             String id = dataList.get(7).text();
             String departureCity = cityFrom;
             String arrivalCity = cityTo;
@@ -96,7 +99,7 @@ public class BusParser implements ParsersConstants {
     }
 
     public static void main(String[] args) {
-        BusParser busParser = new BusParser("Київ", "Львів", "22.10.14");
+        BusParser busParser = new BusParser("Київ", "Івано-Франківськ", "27.10.14");
         List<BusRoute> list = busParser.parse();
         for(BusRoute route : list){
             System.out.println(route);
