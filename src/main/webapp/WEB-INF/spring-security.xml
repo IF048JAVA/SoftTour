@@ -8,8 +8,10 @@
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
+		
 		<intercept-url pattern="/userProfile/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		
 		<form-login 
 		    login-page="/login" 
@@ -19,8 +21,6 @@
 			password-parameter="password" />
 		
 		<logout logout-success-url="/"  />
-
-		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
 	</http>
 
 	<authentication-manager alias="authenticationManager">

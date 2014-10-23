@@ -25,6 +25,7 @@ import com.softserveinc.softtour.util.RegistrationValidator;
 @Controller
 @RequestMapping(value="/registration")
 public class RegistrationController {
+	private static final String ROLE_USER = "ROLE_USER";
 	
 	/**
 	 *  Creates the object of the UserServiceImpl class 
@@ -80,7 +81,7 @@ public class RegistrationController {
 			
 			String password = user.getPassword();
 			user.setPassword(PasswordEncoder.encode(password));
-			user.setRole(roleService.findByName("ROLE_USER"));
+			user.setRole(roleService.findByName(ROLE_USER));
 			userService.save(user);
         	
 			user.setPassword(password);
@@ -107,7 +108,7 @@ public class RegistrationController {
 	        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	      }
 	    } catch (Exception e) {
-	    	//FIXME  Logs
+	    	// TODO Add logging here
 	    	e.printStackTrace();
 	    }
 	}
