@@ -87,5 +87,10 @@ public class StaticDataParser implements ParsersConstants {
         Map<Integer, String> hotelMap = dataHolder.getHotelMap();
         Map<Integer, Integer> regionCountryRelatedMap = dataHolder.getRegionCountryRelatedMap();
         Map<Integer, Integer> hotelRegionRelatedMap = dataHolder.getHotelRegionRelatedMap();
+        countryMap.clear();
+        regionMap.clear();
+        hotelMap.clear();
+        regionCountryRelatedMap.clear();
+        hotelRegionRelatedMap.clear();
     }
 }

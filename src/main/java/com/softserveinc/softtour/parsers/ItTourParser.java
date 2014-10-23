@@ -75,10 +75,9 @@ public class ItTourParser implements ParsersConstants {
     }
 
     private void loadDepartureCityProperties(){
-        try {
-            InputStream inputCountryProperties = this.getClass().
-                    getResourceAsStream(DEPARTURE_CITY_PROPERTIES_PATH);
-            departureCityVocabulary.load(new InputStreamReader(inputCountryProperties, UTF_8));
+        try(InputStream inputDepCity = this.getClass().getResourceAsStream(DEPARTURE_CITY_PROPERTIES_PATH);
+            InputStreamReader reader = new InputStreamReader(inputDepCity, UTF_8)) {
+            departureCityVocabulary.load(reader);
         }catch (IOException e){
             //TODO improve handled exception
             System.out.println(e.getMessage());

@@ -14,10 +14,9 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
     private Date dateFrom;
 
     private void loadCountryProperties(){
-        try {
-            InputStream inputCountryProperties = this.getClass().
-                    getResourceAsStream(COUNTRY_PROPERTIES_FILE_PASS);
-            countryProperties.load(new InputStreamReader(inputCountryProperties, UTF_8));
+        try (InputStream inputCountry = this.getClass().getResourceAsStream(COUNTRY_PROPERTIES_FILE_PASS);
+             InputStreamReader reader = new InputStreamReader(inputCountry, UTF_8)) {
+            countryProperties.load(reader);
         }catch (IOException e){
             //TODO improve handled exception
             System.out.println(e.getMessage());
@@ -25,10 +24,9 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
     }
 
     private void loadRegionProperties(){
-        try {
-            InputStream inputRegionProperties = this.getClass().
-                    getResourceAsStream(REGION_PROPERTIES_FILE_PASS);
-            regionProperties.load(new InputStreamReader(inputRegionProperties, UTF_8));
+        try (InputStream inputRegion = this.getClass().getResourceAsStream(REGION_PROPERTIES_FILE_PASS);
+             InputStreamReader reader = new InputStreamReader(inputRegion, UTF_8)) {
+            regionProperties.load(reader);
         }catch (IOException e){
             //TODO improve handled exception
             System.out.println(e.getMessage());
