@@ -1,7 +1,4 @@
-INSERT INTO softtour.region (id, name, itTourId, country_id) VALUES (1, 'Анталія', 5200, 4);
-INSERT INTO softtour.region (id, name, itTourId, country_id) VALUES (2, 'Шарм аль Шейх', 5996, 1);
-INSERT INTO softtour.region (id, name, itTourId, country_id) VALUES (3, 'Афіни', 7659, 3);
-INSERT INTO softtour.region (id, name, itTourId, country_id) VALUES (4, 'Айа напа', 6700, 5);
+
 INSERT INTO softtour.region (id, name, itTourId, country_id) VALUES (5, 'Дахаб', 5486, 6);
 INSERT INTO softtour.region (id, name, itTourId, country_id) VALUES (6, 'Макади Бей', 2, 6);
 INSERT INTO softtour.region (id, name, itTourId, country_id) VALUES (7, 'Марса Алам', 5478, 6);
