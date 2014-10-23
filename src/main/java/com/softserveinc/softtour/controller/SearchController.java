@@ -46,19 +46,41 @@ public class SearchController {
             @RequestParam(value = "priceTo", required = true) Integer priceTo
     ){
         Set<Integer> hotelStars = new HashSet<>();
-        hotelStars.add(oneStar);
-        hotelStars.add(twoStar);
-        hotelStars.add(threeStar);
-        hotelStars.add(fourStar);
-        hotelStars.add(fiveStar);
-//
+        if (oneStar != null){
+            hotelStars.add(oneStar);
+        }
+        if (twoStar != null){
+            hotelStars.add(twoStar);
+        }
+        if (threeStar != null){
+            hotelStars.add(threeStar);
+        }
+        if (fourStar != null){
+            hotelStars.add(fourStar);
+        }
+        if (fiveStar != null){
+            hotelStars.add(fiveStar);
+        }
+
         Set<String> foodSet = new HashSet<>();
-        foodSet.add(foodOne);
-        foodSet.add(foodTwo);
-        foodSet.add(foodThree);
-        foodSet.add(foodFour);
-        foodSet.add(foodFive);
-        foodSet.add(foodSix);
+        if (foodOne != null){
+            foodSet.add(foodOne);
+        }
+        if (foodTwo != null){
+            foodSet.add(foodTwo);
+        }
+        if (foodThree != null){
+            foodSet.add(foodThree);
+        }
+        if (foodFour != null){
+            foodSet.add(foodFour);
+        }
+        if (foodFive != null){
+            foodSet.add(foodFive);
+        }
+        if (foodSix != null){
+            foodSet.add(foodSix);
+        }
 //
 //        System.out.println(country);
 //        System.out.println(region);
@@ -85,6 +107,8 @@ public class SearchController {
         System.out.println(dateFrom);
         System.out.println(dateTo);
         System.out.println(tourList);
+        System.out.println(hotelStars);
+        System.out.println(foodSet);
         return tourList;
     }
 }
