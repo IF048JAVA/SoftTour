@@ -8,29 +8,60 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BusParser implements ParsersConstants {
     private List<BusRoute> busList;
     private String cityFrom;
     private String cityTo;
-    private String tourDate;
-    private BusParserUrlGenerator urlGenerator;
-    private String url;
+    private String departureDate;
+    private String departureTime;
+    private Date departureDateTime;
+    private SimpleDateFormat simpleDateFormat;
 
-    public BusParser(String cityFrom, String cityTo, String tourDate) {
+    public BusParser(String cityFrom, String cityTo, String departureDate, String departureTime) {
         this.busList = new ArrayList<>();
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
-        this.tourDate = tourDate;
-        this.urlGenerator = new BusParserUrlGenerator();
-        this.url = urlGenerator.createSearchUrl(cityFrom, cityTo, tourDate);
+        this.departureDate = departureDate;
+        this.departureTime = departureTime;
+        String dateAndTime = new StringBuilder(departureDate).append(".").append(departureTime).toString();
+        try {
+            this.departureDateTime = new SimpleDateFormat(BUS_DAY_FORMAT).parse(dateAndTime);
+        }catch (ParseException e){
+            System.out.println(e.getMessage());
+        }
+        simpleDateFormat = new SimpleDateFormat(DAY_FORMAT);
+    }
+
+    private String generateTodayUrl(){
+        Date todayDate = new Date(departureDateTime.getTime() - THREE_HOURS_IN_MILLISECONDS);
+        String resultDateString = simpleDateFormat.format(todayDate);
+        BusParserUrlGenerator generator = new BusParserUrlGenerator();
+        String url = generator.createSearchUrl(cityFrom, cityTo, resultDateString);
+        return url;
+    }
+
+    private String generateYesterdayUrl(){
+        Date yesterdayDate = new Date(departureDateTime.getTime() - TWENTY_SEVEN_HOURS_IN_MILLISECONDS);
+        String resultDateString = simpleDateFormat.format(yesterdayDate);
+        BusParserUrlGenerator generator = new BusParserUrlGenerator();
+        String url = generator.createSearchUrl(cityFrom, cityTo, resultDateString);
+        return url;
     }
 
     public List<BusRoute> parse() {
-        Document document = connect(url);
+        String todayUrl = generateTodayUrl();
+        String yesterdayUrl = generateYesterdayUrl();
+        Document document = connect(todayUrl);
         addBuses(document);
+        document = connect(yesterdayUrl);
+        addBuses(document);
+        removeWasteRouts();
         return busList;
     }
 
@@ -72,15 +103,6 @@ public class BusParser implements ParsersConstants {
 10 <td> </td>
              */
             List<Element> dataList = elementListSmall.get(i).getElementsByTag(TAG_TD);
-            /*
-    private String id;
-    private String departureCity;
-    private String arrivalCity;
-    private String departureDate;
-    private String departureTime;
-    private String arrivalTime;
-    private String price;
-            * */
             if (dataList.size() < 7){
                 return;
             }
@@ -98,8 +120,28 @@ public class BusParser implements ParsersConstants {
          }
     }
 
+    private void removeWasteRouts(){
+        Date marginalDate = new Date(departureDateTime.getTime() - THREE_HOURS_IN_MILLISECONDS);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+        for(int i = 0; i < busList.size(); i++){
+            String dateAndTime = new StringBuilder(busList.get(i).getDepartureDate()).append(".").
+                                 append(busList.get(i).getDepartureTime()).toString();
+            Date routeDate = null;
+            try {
+                routeDate = dateFormat.parse(dateAndTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int compare = marginalDate.compareTo(routeDate);
+            if(compare < 0){
+                busList.remove(busList.get(i));
+                i--;
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        BusParser busParser = new BusParser("Київ", "Івано-Франківськ", "27.10.14");
+        BusParser busParser = new BusParser("Київ", "Львів", "2014-11-01", "23:00");
         List<BusRoute> list = busParser.parse();
         for(BusRoute route : list){
             System.out.println(route);
