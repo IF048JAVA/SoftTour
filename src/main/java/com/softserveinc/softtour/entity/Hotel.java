@@ -12,7 +12,7 @@ public class Hotel {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     @Column(name = "stars", nullable = false, length = 1)
@@ -39,6 +39,9 @@ public class Hotel {
     @Column(name = "imgUrl")
     private String imgUrl;
 
+    @Column(name = "itTourId", nullable = true, length = 20)
+    private Long itTourId;
+
     @ManyToOne
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
@@ -53,15 +56,18 @@ public class Hotel {
         this.region = region;
     }
 
-    public Hotel(String name, int stars, BigDecimal rating, BigDecimal comfort, BigDecimal cleanliness, BigDecimal location, BigDecimal valueForMoney, String imgUrl, Region region) {
+    public Hotel(String name, int stars, int feedbackNum, BigDecimal rating, BigDecimal comfort, BigDecimal cleanliness,
+                 BigDecimal location, BigDecimal valueForMoney, String imgUrl, Long itTourId, Region region) {
         this.name = name;
         this.stars = stars;
+        this.feedbackNum = feedbackNum;
         this.rating = rating;
         this.comfort = comfort;
         this.cleanliness = cleanliness;
         this.location = location;
         this.valueForMoney = valueForMoney;
         this.imgUrl = imgUrl;
+        this.itTourId = itTourId;
         this.region = region;
     }
 
@@ -151,6 +157,14 @@ public class Hotel {
 
     public void setFeedbackNum(int feedbackNum) {
         this.feedbackNum = feedbackNum;
+    }
+
+    public Long getItTourId() {
+        return itTourId;
+    }
+
+    public void setItTourId(Long itTourId) {
+        this.itTourId = itTourId;
     }
 
     @Override
