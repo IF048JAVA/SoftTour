@@ -211,6 +211,21 @@ public class TrainParser {
 	}
 	
 	/**
+	 * Checks minimum price. 
+	 * If it begins with "От" trims this beginning for minimum price 
+	 * and sets maximum price "-"
+	 */
+	private void checkPrice() {
+		String priceMin = trainRoute.getPriceMin();
+		String beginningPriceMin = priceMin.substring(0, 2);
+		
+		if (beginningPriceMin.equals("От")) {
+			trainRoute.setPriceMin(priceMin.substring(2));
+			trainRoute.setPriceMax(" - ");
+		}
+	}
+	
+	/**
 	 * Adds route to the list of the routes
 	 */
 	private void addRoute() {
@@ -218,6 +233,8 @@ public class TrainParser {
 		trainRoute.setDepartureCity(departureCityUa);
 		String arrivalCityUa = trainParserUtil.translateCity(trainRoute.getArrivalCity());
 		trainRoute.setArrivalCity(arrivalCityUa);
+		
+		checkPrice();
 		
 		routesList.add(trainRoute);
 	}
@@ -227,7 +244,7 @@ public class TrainParser {
 	 */
 	public static void main(String[] args) {
 		//TODO DELETE !
-		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-09", "23:00");
+		TrainParser obj = new TrainParser("Київ", "Львів", "2014-11-10", "23:00");
 		ArrayList<TrainRoute> routesList = obj.getRoutes();
 		
 		for (TrainRoute route : routesList) {

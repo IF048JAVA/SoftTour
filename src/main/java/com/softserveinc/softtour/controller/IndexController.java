@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/")
+//@RequestMapping
 public class IndexController {
 
     @Autowired
@@ -138,23 +138,38 @@ public class IndexController {
 
 
 
-    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
-    public @ResponseBody void getTrainTransits(
+    @RequestMapping(value="/transitDates", method = {RequestMethod.POST, RequestMethod.GET})
+    public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
                         @RequestParam(value = "cityFrom", required = true) String cityFrom){
 
-        //Tour currentTour = tourService.findOne(currentTourId);
+        System.out.println(currentTourId);
+        System.out.println(currentTourId);
+        System.out.println(currentTourId);
+        System.out.println(currentTourId);
+
+        Tour currentTour = tourService.findOne(currentTourId);
 
         TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
-       
+//        TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), currentTour.getDepartureTime());
+
+//        System.out.println(cityFrom + currentTour.getDepartureCity() + currentTour.getDate().toString() + currentTour.getDepartureTime().toString());
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@in index");
+        System.out.println(currentTour);
+
         ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
+
+//        //TEST list
+//        ArrayList<TrainRoute> testList =  new ArrayList<TrainRoute>();
+//        testList.add(new TrainRoute("111О","Харків","Львів","2014-11-10","04:08","09:14","13:22","199.40","673.20"));
+//        System.out.println(testList);
 
         System.out.println(routesList);
 
         for (TrainRoute route : routesList) {
 			System.out.println(route);
 		}
-
+        return routesList;
     }
 
 }

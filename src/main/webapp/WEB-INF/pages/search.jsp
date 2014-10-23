@@ -7,7 +7,7 @@
         <div class="form-group">
             <div class="col-sm-6">
                 <p>Країна:</p>
-                <select class="form-control" id="country" name="country">
+                <select class="form-control" id="country" name="country" onchange="makeSelect(this.selectedIndex)">
                     <option>Єгипет</option>
                     <option>Греція</option>
                     <option>Туреччина</option>
@@ -16,10 +16,11 @@
             <div class="col-sm-6">
                 <p>Регіон:</p>
                 <select class="form-control" id="region" name="region">
-                    <option>Дахаб</option>
-                    <option>Макаді Бей</option>
-                    <option>Марса Алам</option>
-                    <option>Аланья</option>
+                    <option value="N/A">N/A</option>
+                    <%--<option>Дахаб</option>--%>
+                    <%--<option>Макаді Бей</option>--%>
+                    <%--<option>Марса Алам</option>--%>
+                    <%--<option>Аланья</option>--%>
                 </select>
             </div>
             <div class="col-sm-6">
@@ -35,7 +36,6 @@
                     <input type="checkbox" value="4" id="fourStar" name="fourStar">
                     <label>5*</label>
                     <input type="checkbox" value="5" id="fiveStar" name="fiveStar">
-
 
 
             </div>
@@ -97,11 +97,11 @@
             <p>Дата вильоту:</p>
             <div class="col-sm-6">
                 <p>З:</p>
-                <input type="text" class="form-control" id="dateFrom" name="dateFrom">
+                <input type="text" class="form-control" id="dateFrom" name="dateFrom" placeholder="11.11.14">
             </div>
             <div class="col-sm-6">
                 <p>По:</p>
-                <input type="text" class="form-control" id="dateTo" name="dateTo">
+                <input type="text" class="form-control" id="dateTo" name="dateTo" placeholder="31.12.14">
             </div>
             <div class="col-sm-6">
                 <p>Кількість ночей:</p>
@@ -239,13 +239,15 @@
                          <span class="tabTitleFont cursor-pointer" >Готель: </span>
                          <span id="tourHotelName-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
-                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Дні(Днів)</span>
                          <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
                          <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
                          <span class="tabTitleFont cursor-pointer">Харчування: </span>
                          <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food}</span>
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
+                         <span class="tabTitleFont cursor-pointer">Місто вильоту: </span>
+                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${departureCity}</span></span>
                          <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
                          </security:authorize>
@@ -257,5 +259,34 @@
                 </div>
             </div>
         </div>
+</script>
+<script type="text/javascript">
+
+    var regions = new Array(
+            "Дахаб,Макаді Бей,Марса Алам",
+            "Аланья"
+    );
+    function getRegions(index){
+        var aRegions = regions[index];
+        return aRegions.split(",");
+    }
+    function makeSelect(index){
+        var currentRegion = getRegions(index);
+        var currentRegionCnt = currentRegion.length;
+        var regionList = document.getElementById("region");
+        var regionListCnt = regionList.options.length;
+        regionList.length=0;
+        for(i = 0; i < currentRegionCnt; i++){
+            if (document.createElement){
+                var newRegionList = document.createElement("OPTION");
+                newRegionList.text = currentRegion[i];
+                newRegionList.value = currentRegion[i];
+                (regionList.options.add) ? regionList.options.add(newRegionList) : regionList.add(newRegionList, null);
+            } else {
+                regionList.options[i] = new Option(currentRegion[i], currentRegion[i], false, false);
+            }
+        }
+    }
+    makeSelect(document.getElementById("country").selectedIndex);
 </script>
 
