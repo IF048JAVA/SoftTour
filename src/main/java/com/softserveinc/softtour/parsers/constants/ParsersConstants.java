@@ -22,6 +22,7 @@ public interface ParsersConstants {
     String ID_COUNTRY = "itt_country";
 
     String DAY_FORMAT = "dd.MM.yy";
+    String TIME_FORMAT = "dd.MM.yy.HH:mm";
     String WITHOUT_FLY = "Без перельоту";
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
     String WRONG_FAMILY_ROOM_TYPE = "FAMI...";

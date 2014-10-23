@@ -99,6 +99,14 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         return fullSearchBuilder.toString();
     }
 
+    public String createHotelInfoUrl(String[] id){
+        StringBuilder stringBuilder = new StringBuilder(getBaseParameters()).
+                append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_FORM).append(AMP).
+                append(TOUR_ID_PARAM).append(EQV).append(id[0]).append(AMP).
+                append(SHARDING_RULE_ID_PARAM).append(EQV).append(id[1]);
+        return stringBuilder.toString();
+    }
+
     public String createSearchUrlByHotel(Hotel hotel){
         /*
         loadCountryProperties();
@@ -222,13 +230,5 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         }
         dateBuilder.append(".").append(year);
         return dateBuilder.toString();
-    }
-
-    public String createHotelInfoUrl(String[] id){
-        StringBuilder stringBuilder = new StringBuilder(getBaseParameters()).
-        append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_FORM).append(AMP).
-        append(TOUR_ID_PARAM).append(EQV).append(id[0]).append(AMP).
-        append(SHARDING_RULE_ID_PARAM).append(EQV).append(id[1]);
-        return stringBuilder.toString();
     }
 }

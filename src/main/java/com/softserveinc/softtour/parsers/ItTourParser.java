@@ -203,7 +203,8 @@ public class ItTourParser implements ParsersConstants {
         return hotel;
     }
 
-    public void setHotelImgLink(Hotel hotel, Element hotelLink){
+    public void setHotelImgLinkAndDepartureTime(Tour tour){
+        Element hotelLink = getHotelElement(tour.getHotel().getName());
         String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
         String[] tourIdArr = tourId.split(",");
         String url = urlGenerator.createHotelInfoUrl(tourIdArr);
@@ -215,7 +216,25 @@ public class ItTourParser implements ParsersConstants {
         } catch (NullPointerException e) {
             imgUrl = NO_IMG;
         }
-        hotel.setImgUrl(imgUrl);
+        tour.getHotel().setImgUrl(imgUrl);
+
+        SimpleDateFormat format = new SimpleDateFormat(TIME_FORMAT);
+        Date javaUtilDate;
+        Time timeDeparture = null;
+        List<Element> elementList = document.getElementsByClass("tr_flight_to").get(0).getElementsByTag("td");
+        String departureDate = elementList.get(3).text();
+        departureDate = departureDate.substring(0, departureDate.length() - 3);
+        String departureTime = elementList.get(4).text();
+        String dateTime = new StringBuilder(departureDate).append(".").append(departureTime).toString();
+        System.out.println(dateTime);
+        try {
+            javaUtilDate = format.parse(dateTime);
+            timeDeparture = new Time(javaUtilDate.getTime());
+        } catch (ParseException e) {
+            //TODO improve this block
+            e.printStackTrace();
+        }
+        tour.setDepartureTime(timeDeparture);
     }
 
     public Element getHotelElement(String hotelName) {
@@ -286,9 +305,10 @@ public class ItTourParser implements ParsersConstants {
         System.out.println((dateTo - dateStart) + " milisec.");
 
         //set img url
-        Hotel hotel = listTour.get(0).getHotel();
-        Element hotelLink = parser.getHotelElement(hotel.getName());
-        parser.setHotelImgLink(hotel, hotelLink);
-        System.out.println(hotel.getImgUrl());
+        Tour tour = listTour.get(0);
+
+        parser.setHotelImgLinkAndDepartureTime(tour);
+        System.out.println(tour.getHotel().getImgUrl());
+        System.out.println(tour.getDepartureTime());
     }
 }

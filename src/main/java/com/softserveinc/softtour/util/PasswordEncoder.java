@@ -9,7 +9,6 @@ import org.apache.commons.codec.binary.Hex;
  * Encodes a password 
  */
 public class PasswordEncoder {
-
 	private static final String ENCODING_ALGORITHM = "SHA-256";
 
 	/**
@@ -27,6 +26,7 @@ public class PasswordEncoder {
 			
 			return hashedPassword;
 		} catch (NoSuchAlgorithmException e) {
+			// TODO Add logging here
 			e.printStackTrace();
 		}
 		return null;
