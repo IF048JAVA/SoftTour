@@ -16,9 +16,17 @@ function getAllTransit(tourId) {
 
         success: function(date) {
 
+
+
+
+
             $("#panel-element-f"+tourId+" panel-body", function(){
 
-                    $("#panel-element-f"+tourId+" .panel-body").append('<div id="transitInfo-All-F'+66+'"'+'class="collapse in">'+
+                $("#panel-element-f"+tourId+" .panel-body #transitInfo-All-F"+tourId).empty();
+
+
+
+                    $("#panel-element-f"+tourId+" .panel-body").append('<div id="transitInfo-All-F'+tourId+'"'+'class="collapse in">'+
 
                     '<div class="panel panel-success col-sm-12">'+
 

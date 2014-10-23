@@ -143,10 +143,12 @@ public class IndexController {
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
                         @RequestParam(value = "cityFrom", required = true) String cityFrom){
 
-        //Tour currentTour = tourService.findOne(currentTourId);
+        Tour currentTour = tourService.findOne(currentTourId);
 
         TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
+//        TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), currentTour.getDepartureTime().get);
 
+//        System.out.println(cityFrom + currentTour.getDepartureCity() + currentTour.getDate().toString() + currentTour.getDepartureTime());
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@in index");
 
         ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
