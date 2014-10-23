@@ -14,6 +14,9 @@ public class Region {
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 
+    @Column(name = "itTourId", nullable = true, length = 20)
+    private Long itTourId;
+
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
@@ -22,7 +25,13 @@ public class Region {
     }
 
     public Region(String name, Country country) {
+        this.country = country;
         this.name = name;
+    }
+
+    public Region(String name, Long itTourId, Country country) {
+        this.name = name;
+        this.itTourId = itTourId;
         this.country = country;
     }
 
@@ -48,6 +57,14 @@ public class Region {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Long getItTourId() {
+        return itTourId;
+    }
+
+    public void setItTourId(Long itTourId) {
+        this.itTourId = itTourId;
     }
 
     @Override

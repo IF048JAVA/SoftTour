@@ -13,13 +13,14 @@ public class MailServiceImpl implements MailService {
     private MailSender mailSender;
 
     @Override
-    public void sendMail(String to, String from, String subject, String body) {
+    public void sendMail(String to, String from, String subject, String body, String nameFrom) {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setFrom(from);
         message.setSubject(subject);
-        message.setText(body);
+        message.setText("Надіслано від:"+nameFrom+"\n"+body);
+        message.setReplyTo(from);
 
         mailSender.send(message);
     }

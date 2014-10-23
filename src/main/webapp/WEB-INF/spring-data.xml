@@ -28,11 +28,6 @@
         <property name="password" value="${db.password}" />
     </bean>
 
-    <jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
-    <jdbc:script location="classpath:database.sql" encoding="UTF-8"/>
-    <jdbc:script location="classpath:softtour_data.sql" encoding="UTF-8"/>
-    </jdbc:initialize-database>
-
     <bean
             class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
             id="emf">

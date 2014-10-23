@@ -56,15 +56,4 @@ public class BusParserUrlGenerator implements BusParserUrlGeneratorConstants {
         Document document = Jsoup.parse(doc);
         System.out.println(document);
     }
-    //http://ticket.bus.com.ua/order/forming_bn
-    // ?
-    // point_from=UA8000000000
-    // &
-    // point_to=UA4610100000
-    // &
-    // date=20.10.14
-    // &
-    // date_add=0
-    // &
-    // fn=round_search
 }

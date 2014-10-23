@@ -2,21 +2,25 @@ $(document).ready(function () {})
 var usedIds = new Array();
 var favData = {};
 var queryObj = {};
+var countryParam = '';
 queryObj.numberOfPage = 0;
-var stopper = 0;
     function clearArray() {
         usedIds=[];
     }
-    function parseTour (countryPar) {
+    function parseTour (countryPar,numberOfPage) {
+        countryParam=countryPar;
         $('#indexResult').empty();
         showModal();
-        $('#indexResult').append('<div class="col-md-12" id="loading"><img class = "loadingImage" src="img/load.gif"></div><br>');
+        $('#indexResult').append('<div class="col-md-12" id="loading"><img src="img/loading.gif"></div><br>');
         var indexBudget = $("#indexBudget").val();
-        var travelers = $("#Travelers").val();
-        queryObj.numberOfPage = 1;
+        var travelers = $("#TravelersAdult").val();
+        var travelersChildren =
+        queryObj.numberOfPage = numberOfPage;
         queryObj.country = countryPar;
-        queryObj.minPrice = Math.floor(indexBudget*0.75);
+        queryObj.minPrice = Math.floor(indexBudget*0.9);
         queryObj.maxPrice = Math.floor(indexBudget*1.1);
+        queryObj.travelersAdult = $("#TravelersAdult").val();
+        queryObj.travelersChildren = $("#TravelersChildren").val();
 
         $.ajax({
             url: "/parseTour",
@@ -36,6 +40,8 @@ var stopper = 0;
                 $('#indexResult').empty();
                 $('#indexResult').append('<div class="col-md-12"><strong>Результати пошуку:</strong></div><br>');
                 $('#indexTemplate').tmpl(data).appendTo('#indexResult');
+                $('#indexResult').append('<button type="button" class="btn btn-default pull-left" onclick="expandParse(-1)">Попередні</button>' +
+                    '<button type="button" class="btn btn-default pull-right" onclick="expandParse(1)">Наступні</button>');
 
             },
 
@@ -85,46 +91,27 @@ function saveHistoryRecord(id) {
     })}
     usedIds[id]="used"
 }
-$(window).scroll(function () {
-    if(($(window).scrollTop() + $(window).height() == $(document).height())&&(stopper==0)) {
 
-        expandParse();
-
-    }
-});
-function expandParse (){
-    //setTimeout(checkPagin(),1000);
-    stopper = 1;
-    if (queryObj.numberOfPage!=0){
-        queryObj.numberOfPage++;
-        $('#indexResult').append('<div class="col-md-12" id="loading"><img class = "loadingImage"src="img/load.gif"></div><br>');
-        $.ajax({
-            url: "/parseTour",
-            type: "POST",
-            data: queryObj,
-            dataType: 'json',
-
-            success: function (data) {
-                showModal();
-                var new_id=50*queryObj.numberOfPage;
-                $.each(data,function(key,value){
-                    value.id=new_id;
-                    new_id++;
-                })
-                favData=data;
-                console.log (data);
-                //$('#indexResult').empty();
-                //$('#indexResult').append('<div class="col-md-12"><strong>Результати пошуку:</strong></div><br>');
-                $('#indexTemplate').tmpl(data).appendTo('#indexResult');
-                $('#loading').remove();
-                stopper = 0;
-            },
-
-            error: function () {
-                alert("Error");
-            }
-
-        });
+function expandParse (incDec){
+    if (queryObj.numberOfPage!=1||incDec!=-1){
+        var numb = queryObj.numberOfPage+incDec;
+        parseTour(countryParam,numb);
     }
 
+}
+function loadAddInfo (id) {
+    var infObj = {}
+    $.each(favData,function(key,value){
+        if(value.id == id){
+            infObj = value;
+        }
+    })
+    $.ajax({
+        url: "/openCollapse",
+        type: "POST",
+        data: JSON.stringify(infObj),
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json'
+    })
 }

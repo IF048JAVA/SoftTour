@@ -7,22 +7,24 @@ public class BusRoute {
     private String arrivalCity;
     private String departureDate;
     private String departureTime;
+    private String onWayTime;
     private String arrivalTime;
-    private String price;
+    private String priceMin;
+    private String priceMax;
 
-    public BusRoute() {
-    }
+    public BusRoute() {}
 
-    public BusRoute(String id, String departureCity, String arrivalCity,
-                      String departureDate, String departureTime, String arrivalTime,
-                      String price) {
+    public BusRoute(String id, String departureCity, String arrivalCity, String departureDate, String departureTime,
+                    String onWayTime, String arrivalTime, String priceMin, String priceMax) {
         this.id = id;
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
         this.departureDate = departureDate;
         this.departureTime = departureTime;
+        this.onWayTime = onWayTime;
         this.arrivalTime = arrivalTime;
-        this.price = price;
+        this.priceMin = priceMin;
+        this.priceMax = priceMax;
     }
 
     public String getId() {
@@ -65,6 +67,14 @@ public class BusRoute {
         this.departureTime = departureTime;
     }
 
+    public String getOnWayTime() {
+        return onWayTime;
+    }
+
+    public void setOnWayTime(String onWayTime) {
+        this.onWayTime = onWayTime;
+    }
+
     public String getArrivalTime() {
         return arrivalTime;
     }
@@ -73,12 +83,20 @@ public class BusRoute {
         this.arrivalTime = arrivalTime;
     }
 
-    public String getPrice() {
-        return price;
+    public String getPriceMin() {
+        return priceMin;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setPriceMin(String priceMin) {
+        this.priceMin = priceMin;
+    }
+
+    public String getPriceMax() {
+        return priceMax;
+    }
+
+    public void setPriceMax(String priceMax) {
+        this.priceMax = priceMax;
     }
 
     @Override
@@ -89,8 +107,10 @@ public class BusRoute {
                 ", arrivalCity='" + arrivalCity + '\'' +
                 ", departureDate='" + departureDate + '\'' +
                 ", departureTime='" + departureTime + '\'' +
+                ", onWayTime='" + onWayTime + '\'' +
                 ", arrivalTime='" + arrivalTime + '\'' +
-                ", price='" + price + '\'' +
+                ", priceMin='" + priceMin + '\'' +
+                ", priceMax='" + priceMax + '\'' +
                 '}';
     }
 }
