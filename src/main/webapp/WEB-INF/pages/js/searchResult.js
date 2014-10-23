@@ -1,11 +1,11 @@
+$(document).ready(function () {})
+
 var queryObj = {};
+
 function showResults(){
-
-
 
     queryObj.country = $("#country").val();
     queryObj.region = $("#region").val();
-    if($("#oneStar").prop('checked'))queryObj.oneStar = $("#oneStar").val();
     if($("#twoStar").prop('checked'))queryObj.twoStar = $("#twoStar").val();
     if($("#threeStar").prop('checked'))queryObj.threeStar = $("#threeStar").val();
     if($("#fourStar").prop('checked'))queryObj.fourStar = $("#fourStar").val();
@@ -25,22 +25,25 @@ function showResults(){
     queryObj.priceFrom = $("#priceFrom").val();
     queryObj.priceTo = $("#priceTo").val();
 
-
     $.ajax({
         url: "/search/getTour",
         type: "POST",
         data: queryObj,
         dataType: 'json',
-//        contentType: 'application/json',
-//           mimeType: 'application/json',
-        /*data: ({
-            text: queryObj
-        }),*/
+
         success: function(data){
-            var result = data.Tour;
+            showModal();
+            var new_id=0;
+            $.each(data,function(key,value){
+                value.id=new_id;
+                new_id++;
+            })
+            favData=data;
+            console.log (data);
             $('#searchResult').empty();
             $('#searchResult').append('<p align="center"><h3>Результати пошуку:</h3></p>');
             $('#searchTemplate').tmpl(data).appendTo('#searchResult');
         }
     });
 }
+
