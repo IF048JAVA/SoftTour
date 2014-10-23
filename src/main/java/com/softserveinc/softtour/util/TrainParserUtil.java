@@ -1,8 +1,6 @@
 package com.softserveinc.softtour.util;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,10 +13,8 @@ import java.util.Properties;
 public class TrainParserUtil {
 	private static final String BASE_URL = "http://ticket.turistua.com/ua/train/reservation/?transport=train";
 	
-	// FIXME change url for testing src/main/resources
-//	.properties
-	private static final String CITY_CODE_VOCABULARY = "/parser_properties/city_code_vocabulary";
-	private static final String CITY_RU_UA_VOCABULARY = "/parser_properties/city_ru-ua_vocabulary";
+	private static final String CITY_CODE_VOCABULARY = "/parser_properties/city_code_vocabulary.properties";
+	private static final String CITY_RU_UA_VOCABULARY = "/parser_properties/city_ru-ua_vocabulary.properties";
 	
 	/**
 	 * Creates the url with the specified parameters
@@ -56,31 +52,35 @@ public class TrainParserUtil {
 	 */
 	private String getCityInfo(String city, String path) {
 		Properties properties = new Properties();
+		InputStream inputStream = null;
+		BufferedInputStream bufferedInputStream = null;
 		
-		InputStream inputProperties = this.getClass().
-                  getResourceAsStream(path);
 		try {
-			   properties.load(new InputStreamReader(inputProperties, "UTF-8"));
-			 
-				if (properties.getProperty(city) == null) {
-					return city ;
-				}
-				
-				return properties.getProperty(city);
-			   
+			inputStream = 	this.getClass().getResourceAsStream(path);
+			bufferedInputStream = new BufferedInputStream(inputStream);
+			properties.load(new InputStreamReader(bufferedInputStream, "UTF-8"));
+
+			if (properties.getProperty(city) == null) {
+				return city ;
+			}
+			
+			return properties.getProperty(city);
 		} catch (IOException e) {
+			// TODO Add logging here: WARN/ERROR 
 			e.printStackTrace();
+		} finally {
+			try {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+				if (bufferedInputStream != null) {
+					bufferedInputStream.close();
+				}
+			} catch (IOException e) {
+				// TODO Add logging here: WARN/ERROR 
+				e.printStackTrace();
+			}
 		}
-		
 		return null;
 	}
-	
-	//TODO Only for testing !!!
-	public static void main(String[] args) {
-		TrainParserUtil trainParserUtil = new TrainParserUtil();
-	
-		System.out.println(trainParserUtil.getCityInfo("Львів", CITY_CODE_VOCABULARY));
-		System.out.println(trainParserUtil.translateCity("Днепропетровск главный"));
-	}
-	
 }
