@@ -154,7 +154,6 @@ public class ItTourParser implements ParsersConstants {
             java.sql.Date tourDate = tourDate(tourDateSt);
             int tourDays = Integer.parseInt(tourDaysSt);
             String departureCity = tourDepartureCity(tourDepartureCitySt);
-            //TODO there are no departure time on site
             Time departureTime = tourDepartureTime(tourDepartureTimeSt);
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
             Hotel hotel = tourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
@@ -231,7 +230,7 @@ public class ItTourParser implements ParsersConstants {
         SimpleDateFormat format = new SimpleDateFormat(TIME_FORMAT);
         Date javaUtilDate;
         Time timeDeparture = null;
-        List<Element> elementList = document.getElementsByClass("tr_flight_to").get(0).getElementsByTag("td");
+        List<Element> elementList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).get(0).getElementsByTag(TAG_TD);
         String departureDate = elementList.get(3).text();
         departureDate = departureDate.substring(0, departureDate.length() - 3);
         String departureTime = elementList.get(4).text();

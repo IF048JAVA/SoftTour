@@ -15,6 +15,7 @@ public interface ParsersConstants {
     String CLASS_ITT_TEXT_LEFT = "itt_text-left";
     String CLASS_TEXT_CENTER = "text-center";
     String CLASS_TEXT_RIGHT = "text-right";
+    String CLASS_TR_FLIGHT_TO = "tr_flight_to";
     String ATTR_ONCLICK = "onclick";
     String ATTR_SRC = "src";
     String ATTR_VALUE = "value";

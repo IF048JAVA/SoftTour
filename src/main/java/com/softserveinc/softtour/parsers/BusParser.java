@@ -81,27 +81,22 @@ public class BusParser implements ParsersConstants {
     }
 
     private void addBuses(Document document){
+        /*
+        [index]:[value]
+           0   : Tags tg, div & 4 span, not used
+           1   : Bus date departure
+           2   : Bus station contacts & tag b with departure time
+           3   : Arrival time & city from in tag small
+           4   : Price
+           5   : ???
+           6   : Percent of route stability
+           7   : Route code & name
+           8   : Mark of bus
+           9   : Img
+           10  : Empty tag td
+        */
         List<Element> elementListSmall = document.getElementsByTag(TAG_TR);
         for(int i = 7; i < elementListSmall.size() - 5; i++){
-            /*
-0 <td>
- <div style="display: none;">
-  <span class="date_dep">22.10.14</span>
-  <span class="bs_code">306100</span>
-  <span class="local_point_from">306100</span>
-  <span class="local_point_to">460100</span>
- </div> <input type="radio" name="round_num" value="1385" /> </td>
-1 <td align="center" nowrap="yes">22.10.14</td>
-2 <td align="center" style="padding-left: 8px; padding-right: 8px;" nowrap="yes"> <small style="border-bottom: 1px dashed" title="ЖД (север) - вул.С.Петлюри (Комінтерну), 32; Телефон: 044-2293604,063-339-5353, 097-953-5353,099-444-5353"> КИЇВ АС-ЗЛВ <span class="ui-icon ui-icon-info" style="display: inline-block"> </span> </small> <b>11:10</b> </td>
-3 <td nowrap="nowrap"> 20:50 <small>ЛЬВІВ</small> </td>
-4 <td align="center">243.55</td>
-5 <td align="center">562</td>
-6 <td align="center">100%</td>
-7 <td> <small style="font-size: 75%;"> 1385 КИЇВ АС-ЗЛВ - ЛЬВІВ </small> </td>
-8 <td><small>МЕРСЕДЕС-303</small></td>
-9 <td align="center"> <img border="0" title="Качество связи: 100%" src="http://ticket.bus.com.ua/static/images/m-blue.png" /> </td>
-10 <td> </td>
-             */
             List<Element> dataList = elementListSmall.get(i).getElementsByTag(TAG_TD);
             if (dataList.size() < 7){
                 return;
