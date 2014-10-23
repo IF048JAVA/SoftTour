@@ -14,18 +14,24 @@
 </div>
 <div class="row" style="margin-bottom: 15px;margin-top: 15px;">
         <div class="col-md-1"></div>
-        <div class="col-md-4"style="text-align: center;">
+        <div class="col-md-3"style="text-align: center;">
             <strong >Введіть ваш бюджет:</strong>
         <div class="input-group">
              <span class="input-group-addon">$</span>
              <input type="text" id="indexBudget" class="form-control" placeholder="1500">
         </div></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-4"style="text-align: center;">
-            <strong >Введіть кількість подорожуючих:</strong>
+        <div class="col-md-1"></div>
+        <div class="col-md-3"style="text-align: center;">
+            <strong >Введіть кількість дорослих:</strong>
         <div class="input-group">
-            <span class="input-group-addon"></span>
-            <input type="text" id="Travelers" class="form-control" placeholder="1">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user cursor-pointer"></i></span>
+            <input type="text" id="TravelersAdult" class="form-control" placeholder="1">
+        </div></div>
+        <div class="col-md-3"style="text-align: center;">
+        <strong >Введіть кількість дітей:</strong>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user cursor-pointer"></i></span>
+            <input type="text" id="TravelersChildren" class="form-control" placeholder="1">
         </div></div>
         <div class="col-md-1"></div>
 </div>
