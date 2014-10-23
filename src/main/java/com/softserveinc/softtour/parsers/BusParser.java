@@ -18,8 +18,6 @@ public class BusParser implements ParsersConstants {
     private List<BusRoute> busList;
     private String cityFrom;
     private String cityTo;
-    private String departureDate;
-    private String departureTime;
     private Date departureDateTime;
     private SimpleDateFormat simpleDateFormat;
 
@@ -27,8 +25,6 @@ public class BusParser implements ParsersConstants {
         this.busList = new ArrayList<>();
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
-        this.departureDate = departureDate;
-        this.departureTime = departureTime;
         String dateAndTime = new StringBuilder(departureDate).append(".").append(departureTime).toString();
         try {
             this.departureDateTime = new SimpleDateFormat(BUS_DAY_FORMAT).parse(dateAndTime);
@@ -108,11 +104,40 @@ public class BusParser implements ParsersConstants {
             String departureTime = dataList.get(2).getElementsByTag(TAG_B).first().text();
             String arrivalTime = dataList.get(3).ownText();
             String price = dataList.get(4).text();
+            String onWayTime = calculateOnWayTime(departureTime, arrivalTime);
 
-            BusRoute route = new BusRoute(id, departureCity, arrivalCity, departureDate, departureTime, arrivalTime,
-                                          price);
+            BusRoute route = new BusRoute(id, departureCity, arrivalCity, departureDate, departureTime, onWayTime,
+                             arrivalTime, price, price);
             busList.add(route);
          }
+    }
+
+    private String calculateOnWayTime(String departureTime, String arrivalTime){
+        int depHours = Integer.parseInt(departureTime.substring(0, 2));
+        int depMinutes = Integer.parseInt(departureTime.substring(3, 5));
+        int arrHours = Integer.parseInt(arrivalTime.substring(0, 2));
+        int arrMinutes = Integer.parseInt(arrivalTime.substring(3, 5));
+        int depAllMin = depHours*60 + depMinutes;
+        int arrAllMin = arrHours*60 + arrMinutes;
+        int result = arrAllMin - depAllMin;
+        if(result < 0){
+            result += 1440;
+        }
+        int resHours = result/60;
+        int resMinutes = result%60;
+        StringBuilder onWayTime = new StringBuilder();
+        if(resHours < 10){
+            onWayTime.append(0).append(resHours);
+        } else {
+            onWayTime.append(resHours);
+        }
+        onWayTime.append(":");
+        if(resMinutes < 10){
+            onWayTime.append(0).append(resMinutes);
+        } else {
+            onWayTime.append(resMinutes);
+        }
+        return onWayTime.toString();
     }
 
     private void removeWasteRouts(){
