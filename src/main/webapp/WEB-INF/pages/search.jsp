@@ -17,17 +17,11 @@
                 <p>Регіон:</p>
                 <select class="form-control" id="region" name="region">
                     <option value="N/A">N/A</option>
-                    <%--<option>Дахаб</option>--%>
-                    <%--<option>Макаді Бей</option>--%>
-                    <%--<option>Марса Алам</option>--%>
-                    <%--<option>Аланья</option>--%>
                 </select>
             </div>
             <div class="col-sm-6">
                 <p>Готель:</p>
 
-                    <label>1*</label>
-                    <input type="checkbox" value="1" id="oneStar" name="oneStar">
                     <label>2*</label>
                     <input type="checkbox" value="2" id="twoStar" name="twoStar">
                     <label>3*</label>
@@ -36,7 +30,6 @@
                     <input type="checkbox" value="4" id="fourStar" name="fourStar">
                     <label>5*</label>
                     <input type="checkbox" value="5" id="fiveStar" name="fiveStar">
-
 
             </div>
             <div class="col-sm-6">
@@ -229,28 +222,23 @@
 </div>
     <!--input type="button" value="Search" onclick="showResults()"-->
     <script id="searchTemplate" type="text/x-jquery-tmpl">
-        <!--<span><h2>Результати пошуку:</h2></span>-->
-        <div style="max-width: 100%; max-height: 100%; margin: auto">
-            <div class="panel panel-default" id="panel-favorite\${id}" style="margin: auto">
-                <div class="panel-heading">
-                         <span data-toggle="collapse" href="#panel-element-f\${id}">
+        <div class="panel panel-default" id="panel-favorite\${id}">
+                <div class="panel-heading" id="results\${id}">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="saveHistoryRecord(\${id})">
                          <span class="tabTitleFont cursor-pointer" >Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
-                         <span class="tabTitleFont cursor-pointer" >Готель: </span>
-                         <span id="tourHotelName-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
-                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Дні(Днів)</span>
+                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
                          <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
                          <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
                          <span class="tabTitleFont cursor-pointer">Харчування: </span>
                          <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food}</span>
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
-                         <span class="tabTitleFont cursor-pointer">Місто вильоту: </span>
-                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${departureCity}</span></span>
-                         <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
-                         </security:authorize>
+                          <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+        <span id="deleteButtonF\${id}" data-role="button" class="pull-right" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
+    </security:authorize>
+
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
                     <div class="panel-body">
@@ -258,13 +246,13 @@
                     </div>
                 </div>
             </div>
-        </div>
 </script>
 <script type="text/javascript">
 
     var regions = new Array(
             "Дахаб,Макаді Бей,Марса Алам",
-            "Аланья"
+            "Анталія",
+            "Аттика"
     );
     function getRegions(index){
         var aRegions = regions[index];
