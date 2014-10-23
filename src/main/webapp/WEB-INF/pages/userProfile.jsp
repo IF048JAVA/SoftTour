@@ -262,7 +262,7 @@
                                 <img src="../img/Transport-Train-icon.png" width="32" height="32"/>
                             </h3>
 
-                            <table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0" data-sort-name="priceFrom" data-sort-order="desc" onload="addOrderButton()">
+                            <table data-toggle="table" data-url="/transitDates?currentTourId=10&cityFrom=0" data-sort-name="priceFrom" data-sort-order="desc">
                                 <thead>
                                     <tr>
                                         <th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>
@@ -440,7 +440,7 @@
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
-
+            <script type='text/javascript' src='<c:url value="js/orderButton.js"/>'/>
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
@@ -578,7 +578,7 @@
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
-
+            <script type='text/javascript' src='<c:url value="js/orderButton.js"/>'/>
         </script>
 
 

@@ -69,8 +69,6 @@ function getAllTransit(tourId) {
                 console.log("#panel-element-f"+tourId+" panel-body");
             });
 
-
-
         },
         error:function(date,status,er) {
             alert("error:")
