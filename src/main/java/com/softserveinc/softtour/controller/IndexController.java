@@ -1,8 +1,10 @@
 package com.softserveinc.softtour.controller;
 
+import com.softserveinc.softtour.bean.BusRoute;
 import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.entity.template.Food;
+import com.softserveinc.softtour.parsers.BusParser;
 import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.*;
@@ -130,20 +132,6 @@ public class IndexController {
         historyRecordService.save(historyRecord);
     }
 
-
-
-
-
-//    @RequestMapping(value="/transitDates", method = RequestMethod.POST)
-//    public @ResponseBody void getTrainTransits(@RequestBody final Tour tour){
-//        System.out.println(tour);
-//        System.out.println(tour);
-//        System.out.println(tour);
-//        System.out.println(tour);
-//    }
-
-
-
     @RequestMapping(value="/trainTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
@@ -160,7 +148,7 @@ public class IndexController {
     }
 
     @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
-    public @ResponseBody ArrayList<TrainRoute> getBusTransits(
+    public @ResponseBody List<BusRoute> getBusTransits(
             @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
             @RequestParam(value = "cityFrom", required = true) String cityFrom){
 
@@ -168,8 +156,8 @@ public class IndexController {
 
         String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
 
-        TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
-        ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
+        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
+        List<BusRoute> routesList =  currentBusParser.parse();
 
         return routesList;
     }

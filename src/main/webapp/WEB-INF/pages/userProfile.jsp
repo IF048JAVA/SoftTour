@@ -208,9 +208,6 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-1">
-                    </div>
-
                     <div class="col-sm-7">
                         <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
                             \${tour.hotel.name}&nbsp;
@@ -403,9 +400,6 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-1">
-                    </div>
-
                     <div class="col-sm-7">
                         <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
                             \${tour.hotel.name}&nbsp;
@@ -595,9 +589,6 @@
                                 <img src='\${tour.hotel.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-sm-1">
                     </div>
 
                     <div class="col-sm-7">
