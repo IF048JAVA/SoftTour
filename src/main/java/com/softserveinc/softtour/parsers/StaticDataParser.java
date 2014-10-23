@@ -1,6 +1,8 @@
 package com.softserveinc.softtour.parsers;
 
+import com.softserveinc.softtour.parsers.constants.ParsersConstants;
 import com.softserveinc.softtour.util.StaticDataHolder;
+import com.softserveinc.softtour.util.StaticDataParserUrlGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,50 +11,50 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class StaticDataParser {
+public class StaticDataParser implements ParsersConstants {
+    private StaticDataParserUrlGenerator generator = new StaticDataParserUrlGenerator();
     private StaticDataHolder holder = new StaticDataHolder();
     private float loadPercent;
 
     public StaticDataHolder parse(){
         StaticDataParser parser = new StaticDataParser();
-        String countryUrl = "http://module.ittour.com.ua/tour_search.jsx?id=5062D1884G6M7121819576&ver=1&type=2970";
+        String countryUrl = generator.createCountryUrl();
         Document countryDoc = parser.connect(countryUrl);
-        Element countryElement = countryDoc.getElementById("itt_country");
-        List<Element> countryList = countryElement.getElementsByTag("option");
+        Element countryElement = countryDoc.getElementById(ID_COUNTRY);
+        List<Element> countryList = countryElement.getElementsByTag(TAG_OPTION);
         float percentCountry = (float)100.0/countryList.size();
         for(Element country : countryList){
             String countryName = country.text();
-            int countryCode = Integer.parseInt(country.attr("value"));
+            int countryCode = Integer.parseInt(country.attr(ATTR_VALUE));
             System.out.println("country - " + countryName + " : " + countryCode);
             holder.saveCountry(countryCode, countryName);
 
-            String regionUrl = "http://www.ittour.com.ua/tour_search.php?callback=jQuery17105734387715347111_1413973887053&" +
-                    "module_type=tour_search&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38&" +
-                    "action=get_package_search_filtered_field&event_owner_level=1&country_id=" + countryCode;
+            String regionUrl = generator.createRegionUrl(countryCode);
+
             Document regionDoc = parser.connect(regionUrl);
-            List<Element> regionList = regionDoc.getElementsByTag("option");
+            List<Element> regionList = regionDoc.getElementsByTag(TAG_OPTION);
             float percentRegion = (float) percentCountry/regionList.size();
             for(int i = 1; i < regionList.size(); i++){
-                if(regionList.get(i).text().equals("Все отели")){
+                if(regionList.get(i).text().equals(ALL_HOTELS)){
                     break;
                 }
                 String regionName = regionList.get(i).text();
-                int regionCode = Integer.parseInt(regionList.get(i).attr("value"));
+                int regionCode = Integer.parseInt(regionList.get(i).attr(ATTR_VALUE));
                 System.out.println("  region - " + regionName + " : " + regionCode);
                 holder.saveRegion(countryCode, regionCode, regionName);
 
-                String hotelUrl = regionUrl + "&hotel_rating_id=7+3+4+78+&event_owner_level=2&region_id="+ regionCode + "+";
+                String hotelUrl = generator.createHotelUrl(countryCode, regionCode);
                 Document hotelDoc = parser.connect(hotelUrl);
-                List<Element> hotelList = hotelDoc.getElementsByTag("option");
+                List<Element> hotelList = hotelDoc.getElementsByTag(TAG_OPTION);
                 float percentHotel = (float) percentRegion/hotelList.size();
                 loadPercent += percentHotel;
                 System.out.println(loadPercent);
                 for(int j = 1; j < hotelList.size(); j++) {
-                    if(hotelList.get(j).text().equals("Все города")){
+                    if(hotelList.get(j).text().equals(ALL_CITIES)){
                         break;
                     }
                     String hotelName = hotelList.get(j).text();
-                    int hotelCode = Integer.parseInt(hotelList.get(j).attr("value"));
+                    int hotelCode = Integer.parseInt(hotelList.get(j).attr(ATTR_VALUE));
                     System.out.println("    hotel - " + hotelName + " : " + hotelCode);
                     holder.saveHotel(regionCode, hotelCode, hotelName);
                 }
@@ -65,7 +67,7 @@ public class StaticDataParser {
         String doc = null;
         try {
             doc = Jsoup.connect(url).
-                    timeout(20000).
+                    timeout(CONNECTION_TIMEOUT).
                     ignoreContentType(true).
                     execute().
                     body();
