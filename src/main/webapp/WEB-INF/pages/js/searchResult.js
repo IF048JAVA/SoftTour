@@ -5,17 +5,17 @@ function showResults(){
 
     queryObj.country = $("#country").val();
     queryObj.region = $("#region").val();
-    queryObj.oneStar = $("#oneStar").val();
-    queryObj.twoStar = $("#twoStar").val();
-    queryObj.threeStar = $("#threeStar").val();
-    queryObj.fourStar = $("#fourStar").val();
-    queryObj.fiveStar = $("#fiveStar").val();
-    queryObj.foodOne = $("#foodOne").val();
-    queryObj.foodTwo = $("#foodTwo").val();
-    queryObj.foodThree = $("#foodThree").val();
-    queryObj.foodFour = $("#foodFour").val();
-    queryObj.foodFive = $("#foodFive").val();
-    queryObj.foodSix = $("#foodSix").val();
+    if($("#oneStar").prop('checked'))queryObj.oneStar = $("#oneStar").val();
+    if($("#twoStar").prop('checked'))queryObj.twoStar = $("#twoStar").val();
+    if($("#threeStar").prop('checked'))queryObj.threeStar = $("#threeStar").val();
+    if($("#fourStar").prop('checked'))queryObj.fourStar = $("#fourStar").val();
+    if($("#fiveStar").prop('checked'))queryObj.fiveStar = $("#fiveStar").val();
+    if($("#foodOne").prop('checked'))queryObj.foodOne = $("#foodOne").val();
+    if($("#foodTwo").prop('checked'))queryObj.foodTwo = $("#foodTwo").val();
+    if($("#foodThree").prop('checked'))queryObj.foodThree = $("#foodThree").val();
+    if($("#foodFour").prop('checked'))queryObj.foodFour = $("#foodFour").val();
+    if($("#foodFive").prop('checked'))queryObj.foodFive = $("#foodFive").val();
+    if($("#foodSix").prop('checked'))queryObj.foodSix = $("#foodSix").val();
     queryObj.adults = $("#adults").val();
     queryObj.children = $("#children").val();
     queryObj.dateFrom = $("#dateFrom").val();
@@ -38,6 +38,8 @@ function showResults(){
         }),*/
         success: function(data){
             var result = data.Tour;
+            $('#searchResult').empty();
+            $('#searchResult').append('<p align="center"><h3>Результати пошуку:</h3></p>');
             $('#searchTemplate').tmpl(data).appendTo('#searchResult');
         }
     });
