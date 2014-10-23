@@ -138,38 +138,33 @@ public class IndexController {
 
 
 
-    @RequestMapping(value="/transitDates", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value="/trainTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
                         @RequestParam(value = "cityFrom", required = true) String cityFrom){
 
-        System.out.println(currentTourId);
-        System.out.println(currentTourId);
-        System.out.println(currentTourId);
-        System.out.println(currentTourId);
-
         Tour currentTour = tourService.findOne(currentTourId);
 
-        TrainParser currentTrainParser = new TrainParser("Київ", "Львів", "2014-11-08", "23:00");
-//        TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), currentTour.getDepartureTime());
+        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
 
-//        System.out.println(cityFrom + currentTour.getDepartureCity() + currentTour.getDate().toString() + currentTour.getDepartureTime().toString());
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@in index");
-        System.out.println(currentTour);
-
+        TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
         ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
 
-//        //TEST list
-//        ArrayList<TrainRoute> testList =  new ArrayList<TrainRoute>();
-//        testList.add(new TrainRoute("111О","Харків","Львів","2014-11-10","04:08","09:14","13:22","199.40","673.20"));
-//        System.out.println(testList);
-
-        System.out.println(routesList);
-
-        for (TrainRoute route : routesList) {
-			System.out.println(route);
-		}
         return routesList;
     }
 
+    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
+    public @ResponseBody ArrayList<TrainRoute> getBusTransits(
+            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+            @RequestParam(value = "cityFrom", required = true) String cityFrom){
+
+        Tour currentTour = tourService.findOne(currentTourId);
+
+        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
+
+        TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
+        ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
+
+        return routesList;
+    }
 }

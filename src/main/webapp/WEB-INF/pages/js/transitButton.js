@@ -3,12 +3,13 @@ function getAllTransit(tourId) {
     var transitDates = {};
 
     transitDates.currentTourId = tourId;
-    transitDates.cityFrom = $('#cityFrom'+transitDates.currentTourId).val();
+    transitDates.cityFrom = $('#cityFrom'+tourId).val();
 
     console.log(transitDates);
 
     $.ajax({
-        url: "/transitDates",
+        url: "/trainTransitDates",
+        url: "/busTransitDates",
         type: 'POST',
         dataType: 'json',
         data: transitDates,
@@ -35,11 +36,12 @@ function getAllTransit(tourId) {
                             '<img src="../img/Transport-Train-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                        '<table data-toggle="table" data-url="/transitDates?currentTourId='+tourId+'&cityFrom=0">'+
+                        '<table data-method="post" data-toggle="table" data-url="/trainTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
                                     '<th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">Місто прибуття</th>'+
+                                    '<th data-field="departureDate" data-halign="center" data-align="center" data-valign="middle">Дата відправлення</th>'+
                                     '<th data-field="departureTime" data-halign="center" data-align="center" data-valign="middle">Час відправлення</th>'+
                                     '<th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>'+
                                     '<th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>'+
@@ -54,11 +56,12 @@ function getAllTransit(tourId) {
                             '<img src="../img/Transport-Bus-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                        '<table data-toggle="table" data-url="/transitDates?currentTourId='+tourId+'&cityFrom=0">'+
+                            '<table data-method="post" data-toggle="table" data-url="/busTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
                                     '<th data-field="arrivalCity" data-halign="center" data-align="center" data-valign="middle">Місто прибуття</th>'+
+                                    '<th data-field="departureDate" data-halign="center" data-align="center" data-valign="middle">Дата відправлення</th>'+
                                     '<th data-field="departureTime" data-halign="center" data-align="center" data-valign="middle">Час відправлення</th>'+
                                     '<th data-field="arrivalTime" data-halign="center" data-align="center" data-valign="middle">Час прибуття</th>'+
                                     '<th data-field="priceMin" data-halign="center" data-align="center" data-valign="middle">Ціна від</th>'+
@@ -79,7 +82,6 @@ function getAllTransit(tourId) {
 
         },
         error:function(date,status,er) {
-            alert("error:")
         }
     });
 }
