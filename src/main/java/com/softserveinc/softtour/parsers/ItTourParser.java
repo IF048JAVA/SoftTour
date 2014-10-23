@@ -29,6 +29,7 @@ public class ItTourParser implements ParsersConstants {
     private ItTourParserUrlGenerator urlGenerator;
     private String url;
     private Properties departureCityVocabulary = new Properties();
+    private Map<String, Element> hotelElementMap;
 
     public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
         this.tourList = new ArrayList<>();
@@ -37,6 +38,7 @@ public class ItTourParser implements ParsersConstants {
         this.children = children;
         urlGenerator = new ItTourParserUrlGenerator();
         this.url = urlGenerator.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        hotelElementMap = new HashMap<>();
     }
 
     public ItTourParser(String country, String region, Set<Integer> hotelStars, Set<String> food, int adults, int children,
@@ -49,6 +51,7 @@ public class ItTourParser implements ParsersConstants {
         urlGenerator = new ItTourParserUrlGenerator();
         this.url = urlGenerator.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
                 nightsFrom, nightsTill, priceFrom, priceTo, pageNumber);
+        hotelElementMap = new HashMap<>();
     }
 
     public List<Tour> parse() {
@@ -136,6 +139,7 @@ public class ItTourParser implements ParsersConstants {
             String tourFood = listCenter.get(1).text();
             String roomTypeSt = listLeft.get(2).text().toUpperCase();
 
+            hotelElementMap.put(hotelName, hotelLink);
 
             java.sql.Date tourDate = tourDate(tourDateSt);
             int tourDays = Integer.parseInt(tourDaysSt);
@@ -144,7 +148,6 @@ public class ItTourParser implements ParsersConstants {
             Time departureTime = tourDepartureTime(tourDepartureTimeSt);
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
             Hotel hotel = tourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
-                  //hotel.setImgUrl(hotelImgLink(hotel, hotelLink));
             Food food = Food.valueOf(tourFood);
 
             Tour tour = new Tour(tourDate, tourDays, departureCity, departureTime, tourPrice, hotel, food);
@@ -199,27 +202,26 @@ public class ItTourParser implements ParsersConstants {
         Hotel hotel = new Hotel(hotelName, hotelStars, hotelReg);
         return hotel;
     }
-/*
-    private String hotelImgLink(Hotel hotel, Element hotelLink){
-        if (hotelHolder.containsHotel(hotel.getName())) {
-            return hotelHolder.getHotelPicture(hotel.getName());
-        } else {
-            String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
-            String[] tourIdArr = tourId.split(",");
-            String url = urlGenerator.createHotelInfoUrl(tourIdArr);
-            Document document = connect(url);
-            Element img = document.getElementById(ID_IMG);
-            String imgUrl;
-            try {
-                imgUrl = img.attr(ATTR_SRC);
-            } catch (NullPointerException e) {
-                imgUrl = NO_IMG;
-            }
-            hotelHolder.putHotel(hotel.getName(), imgUrl);
-            return imgUrl;
+
+    public void setHotelImgLink(Hotel hotel, Element hotelLink){
+        String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
+        String[] tourIdArr = tourId.split(",");
+        String url = urlGenerator.createHotelInfoUrl(tourIdArr);
+        Document document = connect(url);
+        Element img = document.getElementById(ID_IMG);
+        String imgUrl;
+        try {
+            imgUrl = img.attr(ATTR_SRC);
+        } catch (NullPointerException e) {
+            imgUrl = NO_IMG;
         }
+        hotel.setImgUrl(imgUrl);
     }
-*/
+
+    public Element getHotelElement(String hotelName) {
+        return hotelElementMap.get(hotelName);
+    }
+
     private RoomType tourRoomType(String roomTypeSt){
         RoomType roomType;
         try {
@@ -282,5 +284,11 @@ public class ItTourParser implements ParsersConstants {
         }
         long dateTo = new Date().getTime();
         System.out.println((dateTo - dateStart) + " milisec.");
+
+        //set img url
+        Hotel hotel = listTour.get(0).getHotel();
+        Element hotelLink = parser.getHotelElement(hotel.getName());
+        parser.setHotelImgLink(hotel, hotelLink);
+        System.out.println(hotel.getImgUrl());
     }
 }

@@ -23,7 +23,8 @@ public interface ItTourParserUrlGeneratorConstants {
     String THEME_PARAM = "theme";
     int THEME_VALUE = 38;
     String ACTION_PARAM = "action";
-    String ACTION_VALUE = "package_tour_search";
+    String ACTION_VALUE_PACKAGE = "package_tour_search";
+    String ACTION_VALUE_FORM = "get_package_tour_order_form";
     String TOUR_KIND_PARAM = "tour_kind";
     int TOUR_KIND_VALUE = 0;
     String SWITCH_PRICE_PARAM = "switch_price";
