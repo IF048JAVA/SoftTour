@@ -1,6 +1,8 @@
 package com.softserveinc.softtour.util;
 
+import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Hotel;
+import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants;
 
 import java.io.IOException;
@@ -99,26 +101,37 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         return fullSearchBuilder.toString();
     }
 
+    public String createSearchUrlByHotel(Hotel hotel, int pageNumber){
+        StringBuilder hotelSearchBuilder = new StringBuilder(getBaseParameters()).
+        append(TOUR_KIND_PARAM).append(EQV).append(TOUR_KIND_VALUE).append(AMP).
+        append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
+        append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
+        append(ITEMS_PER_PAGE_PARAM).append(EQV).append(ITEMS_PER_PAGE_VALUE).append(AMP).
+        append(COUNTRY_PARAM).append(EQV).append(hotel.getRegion().getCountry().getId()).append(AMP).
+        append(REGION_PARAM).append(EQV).append(hotel.getRegion().getId()).append(AMP).
+        append(FOOD_PARAM).append(EQV).append(DEFAULT_FOOD_VALUE).append(AMP).
+        append(ADULTS_PARAM).append(EQV).append(2).append(AMP).
+        append(CHILDREN_PARAM).append(EQV).append(0).append(AMP).
+        append(DATE_FROM_PARAM).append(EQV).append(generateDateFrom()).append(AMP).
+        append(DATE_TILL_PARAM).append(EQV).append(generateDateTill()).append(AMP).
+        append(NIGHTS_FROM_PARAM).append(EQV).append(DEFAULT_NIGHTS_FROM_VALUE).append(AMP).
+        append(NIGHTS_TILL_PARAM).append(EQV).append(DEFAULT_NIGHTS_TILL_VALUE).append(AMP).
+        append(PRICE_FROM_PARAM).append(EQV).append(0).append(AMP).
+        append(PRICE_TILL_PARAM).append(EQV).append(99000).append(AMP).
+        append(PAGE_NUMBER_PARAM).append(EQV).append(pageNumber).append(AMP).
+        append(DEPARTURE_CITY_PARAM).append(EQV).append(DEFAULT_DEPARTURE_CITY_VALUE).append(AMP).
+        append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_PACKAGE).append(AMP).
+        append(PACKAGE_TOUR_TYPE_PARAM).append(EQV).append(PACKAGE_TOUR_TYPE_VALUE).append(AMP).
+        append(HOTEL_PARAM).append(EQV).append(hotel.getId());
+        return hotelSearchBuilder.toString();
+    }
+
     public String createHotelInfoUrl(String[] id){
         StringBuilder stringBuilder = new StringBuilder(getBaseParameters()).
                 append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_FORM).append(AMP).
                 append(TOUR_ID_PARAM).append(EQV).append(id[0]).append(AMP).
                 append(SHARDING_RULE_ID_PARAM).append(EQV).append(id[1]);
         return stringBuilder.toString();
-    }
-
-    public String createSearchUrlByHotel(Hotel hotel){
-        /*
-        loadCountryProperties();
-        loadRegionProperties();
-        loadHotelMap();
-        StringBuilder hotelSearchBuilder = new StringBuilder(getBaseParameters()).
-        append(COUNTRY_PARAM).append(EQV).append(countryProperties.getProperty(hotel.getName())).append(AMP).
-        append(REGION_PARAM).append(EQV).append(regionProperties.getProperty(hotel.getRegion().getName())).append(AMP).
-        append(HOTEL_PARAM).append(EQV).append(hotelProperties.getProperty(hotel.getName())).append(AMP).
-        append()
-        */
-        return null;
     }
 
     private String hotelRating(Set<Integer> hotelStars){
@@ -230,5 +243,13 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         }
         dateBuilder.append(".").append(year);
         return dateBuilder.toString();
+    }
+
+    public static void main(String[] args) {
+        Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
+        hotel.setId(59466);
+        hotel.getRegion().setId(5498);
+        hotel.getRegion().getCountry().setId(318);
+        System.out.println(new ItTourParserUrlGenerator().createSearchUrlByHotel(hotel, 1));
     }
 }

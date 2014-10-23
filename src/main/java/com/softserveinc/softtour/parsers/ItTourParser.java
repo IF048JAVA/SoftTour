@@ -54,6 +54,16 @@ public class ItTourParser implements ParsersConstants {
         hotelElementMap = new HashMap<>();
     }
 
+    public ItTourParser(Hotel hotel, int pageNumber) {
+        this.tourList = new ArrayList<>();
+        this.country = hotel.getRegion().getCountry().getName();
+        this.adults = 2;
+        this.children = 0;
+        urlGenerator = new ItTourParserUrlGenerator();
+        this.url = urlGenerator.createSearchUrlByHotel(hotel, pageNumber);
+        hotelElementMap = new HashMap<>();
+    }
+
     public List<Tour> parse() {
         Document document = connect(url);
         loadDepartureCityProperties();
@@ -286,6 +296,7 @@ public class ItTourParser implements ParsersConstants {
           String country, String region, int [] hotelStars, String[] food, int adults, int children, String dataFrom, String dataTill,
           int nightsFrom, int nightsTill, int priceFrom, int priceTo, int pageNumber
         */
+        /*
         Set<Integer> hotelStars = new HashSet<>();
         hotelStars.add(3);
         hotelStars.add(5);
@@ -294,7 +305,7 @@ public class ItTourParser implements ParsersConstants {
         food.add("AI");
         food.add("UAI");
         long dateStart = new Date().getTime();
-        ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
+        ItTourParser parser = new ItTourParser("Греція", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
                                                5, 15, 500, 5000, 2);
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour) {
@@ -309,5 +320,16 @@ public class ItTourParser implements ParsersConstants {
         parser.setHotelImgLinkAndDepartureTime(tour, hotelLink);
         System.out.println(tour.getHotel().getImgUrl());
         System.out.println(tour.getDepartureTime());
+        */
+
+        Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
+        hotel.setId(59466);
+        hotel.getRegion().setId(5498);
+        hotel.getRegion().getCountry().setId(318);
+        ItTourParser parser = new ItTourParser(hotel, 2);
+        List<Tour> tours = parser.parse();
+        for(Tour tour : tours){
+            System.out.println(tour);
+        }
     }
 }
