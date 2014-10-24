@@ -11,16 +11,19 @@ queryObj.numberOfPage = 0;
         countryParam=countryPar;
         $('#indexResult').empty();
         showModal();
-        $('#indexResult').append('<div class="col-md-12" id="loading"><img src="img/loading.gif"></div><br>');
+        $('#indexResult').append('<div class="col-md-12" id="loading"><img src="img/preloa.gif"></div><br>');
         var indexBudget = $("#indexBudget").val();
-        var travelers = $("#TravelersAdult").val();
-        var travelersChildren =
+        if (indexBudget > 0) {} else indexBudget = 1500;
+        var travelersAdult = $("#TravelersAdult").val();
+        if (travelersAdult > 0){} else travelersAdult = 1;
+        var travelersChildren = $("#TravelersChildren").val();
+        if (travelersChildren > 0){} else travelersChildren = 1;
         queryObj.numberOfPage = numberOfPage;
         queryObj.country = countryPar;
-        queryObj.minPrice = Math.floor(indexBudget*0.9);
-        queryObj.maxPrice = Math.floor(indexBudget*1.1);
-        queryObj.travelersAdult = $("#TravelersAdult").val();
-        queryObj.travelersChildren = $("#TravelersChildren").val();
+            queryObj.minPrice = Math.floor(indexBudget * 0.9);
+            queryObj.maxPrice = Math.floor(indexBudget * 1.1);
+        queryObj.travelersAdult = travelersAdult;
+        queryObj.travelersChildren = travelersChildren;
 
         $.ajax({
             url: "/parseTour",
