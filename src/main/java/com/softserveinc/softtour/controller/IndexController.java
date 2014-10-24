@@ -85,8 +85,12 @@ public class IndexController {
         else
             currentHotel.setRegion(regionService.save(currentRegion));
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-        if(maybeHotel!=null)
+        if(maybeHotel!=null) {
+            maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
+            maybeHotel.setStars(currentTour.getHotel().getStars());
             currentTour.setHotel(maybeHotel);
+            hotelService.save(maybeHotel);
+        }
         else
             {hotelService.setZero(currentHotel);
              currentTour.setHotel(hotelService.save(currentHotel));}
@@ -121,6 +125,7 @@ public class IndexController {
             maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
             maybeHotel.setStars(currentTour.getHotel().getStars());
             currentTour.setHotel(maybeHotel);
+            hotelService.save(maybeHotel);
              }
         else
         {hotelService.setZero(currentHotel);

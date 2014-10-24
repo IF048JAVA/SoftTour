@@ -354,7 +354,7 @@
         </div>
 
         <script id="favoriteTemplate" type="text/x-jquery-tmpl">
-            <div class="panel panel-default tourCollapseTitle" id="panel-favorite\${id}">
+            <div class="panel panel-default tourCollapseTitle" id="panel-favorite\${tour.id}}">
                 <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${tour.id}">
                     <div class="panel-title collapsed" data-parent="#panel-1">
                         <table border="0">
