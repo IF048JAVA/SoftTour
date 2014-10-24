@@ -2,15 +2,17 @@ var ALL_COUNTRIES = "allCountries";
 var PAGE_SIZE = 10;
 var contentType ="application/x-www-form-urlencoded; charset=UTF-8";
 
-function showTours(){
+function showTours(hotelId){
 
     $('#toursModal').modal('show');
 
+    var html = '<img src="img/preloader.gif" class="preloader">';
 
     var queryObj = {};
-    queryObj.name = "test";
+    queryObj.hotelId = hotelId;
+    queryObj.page = 1;
 
-
+    $('#tour-list').append(html);
 
     $.ajax({
         url: "/hotels/tours",
@@ -20,7 +22,7 @@ function showTours(){
 
         success: function (data) {
 
-            $('#tour-list').empty;
+            $('#tour-list').empty();
 
            var new_id=0;
 
@@ -56,15 +58,22 @@ function showComments(id) {
         success: function (data) {
 
             var html = '';
-            var length = data.length;
             var img = '';
+
+            var length = data.length;
+            if (length == 0){
+                html += '<div class=row><div class="col-md-2 commentInfo">' +
+                    '<img src="img/male.jpg" class="img-circle avatar">' +
+                    '<p>Admin</p></div><div class="col-md-10 comment">' +
+                    '<p>Про даний готель не залишили жодного коментаря</p></div></div>';
+            }
 
             for (var i = 0; i < length; i++) {
 
                 if (data[i].user.sex == "MALE") {
-                    img = "/img/male.jpg"
+                    img = "img/male.jpg"
                 } else {
-                    img = "/img/female.jpg"
+                    img = "img/female.jpg"
                 }
 
                 if (data[i].comment != '') {
@@ -145,13 +154,17 @@ function searchHotels(pageNum) {
     query.cleanliness = $("#cleanliness").val();
     query.location = $("#location").val();
     query.valueForMoney = $("#value_for_money").val();
+
     query.page = --pageNum;
     query.pageSize = PAGE_SIZE;
     query.property = $("#sort").val();
 
+
     $.ajax({
         url: "/hotels/result",
         type: "GET",
+        encoding:"UTF-8",
+        contentType: "application/json; charset=utf-8",
         data: query,
         dataType: 'json',
 
@@ -161,6 +174,10 @@ function searchHotels(pageNum) {
             $('#hotelResult').empty();
 
             $.each(data.content, function (key, value) {
+
+                if(value.imgUrl == ''){
+                    value.imgUrl = 'http://fillmurray.com/171/171';
+                }
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
                 if (key == 0) {
@@ -193,7 +210,7 @@ function showPagination(callback, numOfPages, pageNum) {
 
     $('.pagination-md').twbsPagination({
         totalPages: numOfPages,
-        visiblePages: 15,
+        visiblePages: 10,
         startPage: 1,
         onPageClick: function (event, page) {
             callback(page);
@@ -202,10 +219,11 @@ function showPagination(callback, numOfPages, pageNum) {
     })
 }
 
-function leaveFeedback(hotelId) {
-
+function openFeedbackModal(hotelId){
     $('#feedbackModal' + hotelId).modal('show');
+}
 
+function leaveFeedback(hotelId) {
 
     var feedbackQuery = {};
     feedbackQuery.cleanliness = $("#cleanliness-fb" + hotelId).val();
@@ -215,10 +233,8 @@ function leaveFeedback(hotelId) {
     feedbackQuery.comment = $("#comment" + hotelId).val();
     feedbackQuery.hotelId = hotelId;
 
-    function closeModalWindow(hotelId) {
-        $('#myModal' + hotelId).modal('hide');
 
-    }
+        $('#myModal' + hotelId).modal('hide');
 
     $.ajax({
         url: "/hotels/feedback",

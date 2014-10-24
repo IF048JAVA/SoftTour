@@ -3,7 +3,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div class="row" id="hotel_page">
-
     <div class="col-md-2">
         <!-- Search field -->
         <form class="navbar-form hotel_search" role="search" onsubmit="search()">

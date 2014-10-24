@@ -57,13 +57,13 @@
              <!-- Button trigger modal -->
             <div class="row clearfix">
                 <div class="col-md-4">
-                <button class="btn btn-block hotel-btn" onclick="showTours()">
+                <button class="btn btn-block hotel-btn" onclick="showTours(\${id})">
                 <i class="glyphicon glyphicon-globe"></i> Шукати тур
                 </button>
                 </div>
                 <div class="col-md-4">
                         <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-                        <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="leaveFeedback(\${id})">
+                        <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="openFeedbackModal(\${id})">
     <i class="glyphicon glyphicon-bullhorn"></i> Залишити відгук
                         </button>
                         </security:authorize>
@@ -179,7 +179,7 @@
                 </div>
                 <div id="panel-element-f\${id}" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Info about tour \${id}...
+                        Hotel Name \${hotel.name}...
                     </div>
                 </div>
             </div>
