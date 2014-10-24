@@ -46,6 +46,7 @@ queryObj.numberOfPage = 0;
                 $('#indexResult').append('<button type="button" class="btn btn-default pull-left" onclick="expandParse(-1)">Попередні</button>' +
                     '<button type="button" class="btn btn-default pull-right" onclick="expandParse(1)">Наступні</button>');
 
+
             },
 
             error: function () {
@@ -136,6 +137,11 @@ function loadAddInfo (id) {
         data: JSON.stringify(infObj),
         dataType: 'json',
         contentType: 'application/json',
-        mimeType: 'application/json'
+        mimeType: 'application/json',
+        success: function(data) {console.log(data.hotel.imgUrl);
+    $("#imgHold"+id).empty();
+    $("#imgHold"+id).append('<img src="'+data.hotel.imgUrl+'" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
+            //dfds
+        }
     })
 }
