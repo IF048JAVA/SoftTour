@@ -138,9 +138,17 @@ public class IndexController {
         historyRecordService.save(historyRecord);
     }
 
+
     @RequestMapping(value="/deleteFavorites", method = RequestMethod.POST)
-    public void deleteFavorites(@RequestBody(required = true) final Tour currentTour){
+    public void deleteFavorites(){
         favoriteService.delete(favorite.getId());
+    }
+    @RequestMapping(value="/openCollapse", method = RequestMethod.POST)
+    public @ResponseBody Tour openCollapse(@RequestBody(required = true) final Tour currentTour){
+
+        Hotel hotel = hotelService.findByName(currentTour.getHotel().getName());
+        currentTour.setHotel(hotel);
+        return currentTour;
     }
 
     @RequestMapping(value="/trainTransitDates", method = {RequestMethod.GET, RequestMethod.POST})

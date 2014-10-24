@@ -46,7 +46,7 @@
 <script id="indexTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default" id="panel-favorite\${id}">
                 <div class="panel-heading" id="results\${id}">
-                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="saveHistoryRecord(\${id})">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="saveHistoryRecord(\${id}),loadAddInfo(\${id})">
                          <span class="tabTitleFont cursor-pointer" >Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
@@ -65,9 +65,7 @@
                     <div class="panel-body">
                        <div class="col-sm-4">
                         <div class="input-group backdown">
-                            <div>
-                                <img src='\${hotel.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
-                            </div>
+                            <div id="imgHold\${id}"></div>
                         </div>
                     </div>
 
