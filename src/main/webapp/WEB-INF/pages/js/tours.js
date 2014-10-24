@@ -11,7 +11,7 @@ queryObj.numberOfPage = 0;
         countryParam=countryPar;
         $('#indexResult').empty();
         showModal();
-        $('#indexResult').append('<div class="col-md-12" id="loading"><img src="img/preloa.gif"></div><br>');
+        $('#indexResult').append('<div class="col-md-12" id="loading"><img src="img/preloader.gif"></div><br>');
         var indexBudget = $("#indexBudget").val();
         if (indexBudget > 0) {} else indexBudget = 1500;
         var travelersAdult = $("#TravelersAdult").val();
