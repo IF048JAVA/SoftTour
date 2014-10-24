@@ -16,10 +16,8 @@ private static final BigDecimal NUMBER_OF_RATING_CATEGORIES = BigDecimal.valueOf
     @Autowired
     private HotelService hotelService;
 
-    public Hotel updateHotelRate(Long hotelId, BigDecimal cleanliness, BigDecimal comfort,
+    public Hotel updateHotelRate(Hotel hotel, BigDecimal cleanliness, BigDecimal comfort,
                                  BigDecimal location, BigDecimal valueForMoney) {
-
-        Hotel hotel = hotelService.findOne(hotelId);
 
         Integer numOfFeedbacks = hotel.getFeedbackNum();
 
