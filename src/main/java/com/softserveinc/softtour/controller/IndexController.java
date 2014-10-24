@@ -39,7 +39,7 @@ public class IndexController {
     private RegionService regionService;
     @Autowired
     private HistoryRecordService historyRecordService;
-
+    Favorite favorite;
     @RequestMapping(value = "/result", method = RequestMethod.POST)
      public @ResponseBody List<Tour> findTours(
             @RequestParam(value = "country", required = true) String country,
@@ -97,7 +97,8 @@ public class IndexController {
         currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToFav=tourService.save(currentTour);
-        Favorite favorite=new Favorite(sqlDate,currentUser,tourToFav);
+        favorite=new Favorite(sqlDate,currentUser,tourToFav);
+
         favoriteService.save(favorite);
     }
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
@@ -137,6 +138,10 @@ public class IndexController {
         historyRecordService.save(historyRecord);
     }
 
+    @RequestMapping(value="/deleteFavorites", method = RequestMethod.POST)
+    public void deleteFavorites(@RequestBody(required = true) final Tour currentTour){
+        favoriteService.delete(favorite.getId());
+    }
     @RequestMapping(value="/trainTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,

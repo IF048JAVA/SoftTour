@@ -71,7 +71,28 @@ function saveFavorites (id){
         mimeType: 'application/json'
     })
     $("#deleteButtonF"+id).remove();
-    $("#results"+id).append('<span id="deleteButtonF'+id+'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star cursor-pointer" onclick="saveFavorites('+id+')"><//i><//span>')
+    $("#results"+id).append('<span id="deleteButtonF'+id+'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star cursor-pointer" onclick="deleteFavorites('+id+')"><//i><//span>')
+
+    //$("#")
+}
+function deleteFavorites (id){
+    var favObj = {}
+    $.each(favData,function(key,value){
+        if(value.id == id){
+            favObj = value;
+        }
+    })
+    console.log(favObj);
+    $.ajax({
+        url: "/deleteFavorites",
+        type: "POST",
+        data: JSON.stringify(favObj),
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json'
+    })
+    $("#deleteButtonF"+id).remove();
+    $("#results"+id).append('<span id="deleteButtonF'+id+'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites('+id+')"><//i><//span>')
 
     //$("#")
 }
