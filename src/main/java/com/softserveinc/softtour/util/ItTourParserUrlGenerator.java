@@ -107,8 +107,8 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
         append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
         append(ITEMS_PER_PAGE_PARAM).append(EQV).append(ITEMS_PER_PAGE_VALUE).append(AMP).
-        append(COUNTRY_PARAM).append(EQV).append(hotel.getRegion().getCountry().getId()).append(AMP).
-        append(REGION_PARAM).append(EQV).append(hotel.getRegion().getId()).append(AMP).
+        append(COUNTRY_PARAM).append(EQV).append(hotel.getRegion().getCountry().getItTourId()).append(AMP).
+        append(REGION_PARAM).append(EQV).append(hotel.getRegion().getItTourId()).append(AMP).
         append(FOOD_PARAM).append(EQV).append(DEFAULT_FOOD_VALUE).append(AMP).
         append(ADULTS_PARAM).append(EQV).append(2).append(AMP).
         append(CHILDREN_PARAM).append(EQV).append(0).append(AMP).
@@ -122,7 +122,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         append(DEPARTURE_CITY_PARAM).append(EQV).append(DEFAULT_DEPARTURE_CITY_VALUE).append(AMP).
         append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_PACKAGE).append(AMP).
         append(PACKAGE_TOUR_TYPE_PARAM).append(EQV).append(PACKAGE_TOUR_TYPE_VALUE).append(AMP).
-        append(HOTEL_PARAM).append(EQV).append(hotel.getId());
+        append(HOTEL_PARAM).append(EQV).append(hotel.getItTourId());
         return hotelSearchBuilder.toString();
     }
 
