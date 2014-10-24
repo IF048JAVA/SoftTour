@@ -142,6 +142,7 @@ public class IndexController {
     public void deleteFavorites(@RequestBody(required = true) final Tour currentTour){
         favoriteService.delete(favorite.getId());
     }
+
     @RequestMapping(value="/trainTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,

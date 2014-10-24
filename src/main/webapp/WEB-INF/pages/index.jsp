@@ -61,12 +61,49 @@
                          <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
                          </security:authorize>
                 </div>
-                <div id="panel-element-f\${id}" class="panel-collapse collapse">
+                    <div id="panel-element-f\${id}" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Info about tour \${id}...
+                       <div class="col-sm-4">
+                        <div class="input-group backdown">
+                            <div>
+                                <img src='\${hotel.imgUrl}' class="hotel-img-inTour img-circle" id="hotelImg\${id}">
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="col-sm-7">
+                        <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
+                            \${hotel.name}&nbsp;
+                        </strong>
+                        <span>
+                            <input id="stars" value=\${hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xs"
+                                data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <h4>Дорослі</h4>
+                        <h4>Діти</h4>
+                        <h4>Рейтинг готелю</h4>
+                        <h4>Тип номерів</h4>
+                        <h4>Місто вильоту</h4>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <h4 id="adultsAmount\${id}">\${adultAmount}</h4>
+                        <h4 id="childrenAmount\${id}">\${childrenAmount}</h4>
+                        <h4 id="hotelRaiting\${id}">-</h4>
+                        <h4 id="hotelRoomType\${id}">\${roomType}</h4>
+                        <h4 id="departyreCity\${id}">\${departureCity}</h4>
+                    </div>
+
+
+
+                      </div>
+
                 </div>
             </div>
+            <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
 </script>
 <!--<div class = "col-md-5"></div>
 <div class = "col-md-1"><button type="button" class="btn btn-primary" onclick="expandParse()">Expand</button></div>
