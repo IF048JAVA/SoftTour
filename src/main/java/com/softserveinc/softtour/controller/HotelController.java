@@ -2,6 +2,7 @@ package com.softserveinc.softtour.controller;
 
 import com.softserveinc.softtour.entity.*;
 import com.softserveinc.softtour.parsers.ItTourParser;
+import com.softserveinc.softtour.parsers.StaticDataParser;
 import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.FeedbackService;
 import com.softserveinc.softtour.service.HotelService;
@@ -40,6 +41,8 @@ public class HotelController {
     @Autowired
     private HotelUtil hotelUtil;
 
+    @Autowired
+    StaticDataParser staticDataParser;
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public @ResponseBody Page<Hotel> findHotels(
@@ -80,14 +83,15 @@ public class HotelController {
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam(value = "hotelId", required = true) Long hotelId) {
 
-        Hotel hotel = hotelUtil.updateHotelRate(hotelId, cleanliness, comfort, location, valueForMoney);
-
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser = userService.findByEmail(loggedUserEmail);
+        Hotel hotel = hotelService.findOne(hotelId);
 
         Feedback feedback = new Feedback(cleanliness, comfort, location, valueForMoney, comment,
                 hotel, currentUser);
         feedbackService.save(feedback);
+
+        hotelUtil.updateHotelRate(hotel, cleanliness, comfort, location, valueForMoney);
     }
 
     @RequestMapping(value = "/comments", method = RequestMethod.GET)
@@ -98,9 +102,16 @@ public class HotelController {
 
     @RequestMapping(value = "/tours", method = RequestMethod.GET)
     public  @ResponseBody List<Tour> findTours(
-            @RequestParam(value = "name") String name){
-        ItTourParser parser = new ItTourParser("Египет", 3, 1, 100, 2000, 1);
+            @RequestParam(value = "hotelId") Long hotelId,
+            @RequestParam(value = "page") Integer page){
+        Hotel hotel = hotelService.findOne(hotelId);
+        ItTourParser parser = new ItTourParser(hotel, page);
         List<Tour> listTour = parser.parse();
         return listTour;
+    }
+
+    @RequestMapping(value = "/update")
+    public void updateDatabase(){
+        staticDataParser.parse();
     }
 }
