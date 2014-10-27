@@ -31,11 +31,11 @@
         <strong >Введіть кількість дітей:</strong>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user cursor-pointer"></i></span>
-            <input type="text" id="TravelersChildren" class="form-control" placeholder="1">
+            <input type="text" id="TravelersChildren" class="form-control" placeholder="0">
         </div></div>
         <div class="col-md-1"></div>
 </div>
-
+<img src="/img/flags/Ukraine.png" class="imgC">
 
 
 <div id="indexResult" class="parent-group" style="visibility: hidden; text-align:center; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:15px;  margin-bottom:15px;padding-bottom: 120px;">
@@ -46,7 +46,7 @@
 <script id="indexTemplate" type="text/x-jquery-tmpl">
             <div class="panel panel-default" id="panel-favorite\${id}">
                 <div class="panel-heading" id="results\${id}">
-                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="saveHistoryRecord(\${id}),loadAddInfo(\${id})">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="loadAddInfo(\${id})">
                          <span class="tabTitleFont cursor-pointer" >Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
