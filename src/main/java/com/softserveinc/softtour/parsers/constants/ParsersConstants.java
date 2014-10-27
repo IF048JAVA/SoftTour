@@ -31,7 +31,7 @@ public interface ParsersConstants {
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
     String WRONG_FAMILY_ROOM_TYPE = "FAMI...";
     String REGEXP_REPLACEMENT = "(return package_tour_order\\()|(\\);)";
-    String NO_IMG = "NO IMG";
+    String NO_IMG = null;
     String ALL_HOTELS = "Все отели";
     String ALL_CITIES = "Все города";
 }
