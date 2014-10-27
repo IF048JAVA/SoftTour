@@ -103,24 +103,29 @@ public class IndexController {
     }
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
     public void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
-        parser.setHotelImgLinkAndDepartureTime(currentTour);
+
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
+
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
         User currentUser =userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
+
         Country maybeCountry = countryService.findByName(currentCountry.getName());
         if(maybeCountry!=null)
             currentRegion.setCountry(maybeCountry);
         else
             currentRegion.setCountry(countryService.save(currentCountry));
+
         Region maybeRegion = regionService.findByName(currentRegion.getName());
         if(maybeRegion!=null)
             currentHotel.setRegion(maybeRegion);
         else
             currentHotel.setRegion(regionService.save(currentRegion));
+
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
         if(maybeHotel!=null){
             maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
@@ -143,9 +148,14 @@ public class IndexController {
     public void deleteFavorites(){
         favoriteService.delete(favorite.getId());
     }
+
+    @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
+    public @ResponseBody Tour parseHotelImage(@RequestBody(required = true) final Tour currentTour){
+        parser.setHotelImgLinkAndDepartureTime(currentTour);
+        return currentTour;
+    }
     @RequestMapping(value="/openCollapse", method = RequestMethod.POST)
     public @ResponseBody Tour openCollapse(@RequestBody(required = true) final Tour currentTour){
-
         Hotel hotel = hotelService.findByName(currentTour.getHotel().getName());
         currentTour.setHotel(hotel);
         return currentTour;

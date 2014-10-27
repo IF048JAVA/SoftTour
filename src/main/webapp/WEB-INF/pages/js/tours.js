@@ -17,7 +17,7 @@ queryObj.numberOfPage = 0;
         var travelersAdult = $("#TravelersAdult").val();
         if (travelersAdult > 0){} else travelersAdult = 1;
         var travelersChildren = $("#TravelersChildren").val();
-        if (travelersChildren > 0){} else travelersChildren = 1;
+        if (travelersChildren > 0){} else travelersChildren = 0;
         queryObj.numberOfPage = numberOfPage;
         queryObj.country = countryPar;
             queryObj.minPrice = Math.floor(indexBudget * 0.9);
@@ -131,17 +131,29 @@ function loadAddInfo (id) {
             infObj = value;
         }
     })
+
     $.ajax({
-        url: "/openCollapse",
+        url: "/parseHotel",
         type: "POST",
         data: JSON.stringify(infObj),
         dataType: 'json',
         contentType: 'application/json',
         mimeType: 'application/json',
-        success: function(data) {console.log(data.hotel.imgUrl);
-    $("#imgHold"+id).empty();
-    $("#imgHold"+id).append('<img src="'+data.hotel.imgUrl+'" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
-            //dfds
+        success: function(data) {
+            saveHistoryRecord(id);
+            $.ajax({
+                url: "/openCollapse",
+                type: "POST",
+                data: JSON.stringify(infObj),
+                dataType: 'json',
+                contentType: 'application/json',
+                mimeType: 'application/json',
+                success: function() {
+                    console.log(data.hotel.imgUrl);
+                    $("#imgHold" + id).empty();
+                    $("#imgHold" + id).append('<img src="' + data.hotel.imgUrl + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
+                }
+        })
         }
     })
 }
