@@ -1,11 +1,7 @@
 package com.softserveinc.softtour.controller;
 
-//import org.apache.log4j.Logger;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.RoleService;
 import com.softserveinc.softtour.service.UserService;
 import com.softserveinc.softtour.util.PasswordEncoder;
@@ -32,8 +29,7 @@ import com.softserveinc.softtour.util.RegistrationValidator;
 @RequestMapping(value="/registration")
 public class RegistrationController {
 	private static final String ROLE_USER = "ROLE_USER";
-	private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
-	
+	private static final Logger LOG = LoggerFactory.getLogger(TrainParser.class);
 	
 	/**
 	 *  Creates the object of the UserServiceImpl class 
@@ -72,9 +68,6 @@ public class RegistrationController {
 	@RequestMapping(value="/new")
 	public String registrationUser(Model model){
 		model.addAttribute(new User());
-		
-		LOG.warn("into new !!! ");
-		
 		return "registration";
 	}
 	
@@ -89,8 +82,6 @@ public class RegistrationController {
 		registrationValidator.validate(user, bindingResult);
 		
 		if (!bindingResult.hasErrors()) {
-			
-			LOG.warn("into new !!! ");
 			
 			String password = user.getPassword();
 			user.setPassword(PasswordEncoder.encode(password));
@@ -121,8 +112,7 @@ public class RegistrationController {
 	        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	      }
 	    } catch (Exception e) {
-	    	// TODO Add logging here
-	    	e.printStackTrace();
+	    	LOG.error("Error of auto login user.");
 	    }
 	}
 }
