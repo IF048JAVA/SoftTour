@@ -237,13 +237,13 @@
 
                         <!-- Button trigger modal -->
 
-                        <button type="button" class="btn btn-info btn-TourOrder" onclick="showTourOrderForm(\${tour.id})">
+                        <button type="button" class="btn btn-info btn-TourOrder" onclick="showTourOrderFormF(\${tour.id})">
                             <span class="glyphicon glyphicon-briefcase"></span>
                             <h4>Замовити тур!</h4>
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="orderModal\${tour.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel\${tour.id}" aria-hidden="true">
+                        <div class="modal fade" id="orderModal-f\${tour.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel\${tour.id}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -352,7 +352,7 @@
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
-            <script type='text/javascript' src='<c:url value="js/orderButton.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/transitOrderButton.js"/>'/>
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
@@ -428,13 +428,13 @@
 
                         <!-- Button trigger modal -->
 
-                        <button type="button" class="btn btn-info btn-TourOrder" onclick="showTourOrderForm(\${tour.id})">
+                        <button type="button" class="btn btn-info btn-TourOrder" onclick="showTourOrderFormH(\${tour.id})">
                             <span class="glyphicon glyphicon-briefcase"></span>
                             <h4>Замовити тур!</h4>
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="orderModal\${tour.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel\${tour.id}" aria-hidden="true">
+                        <div class="modal fade" id="orderModal-h\${tour.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel\${tour.id}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -543,7 +543,7 @@
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
-            <script type='text/javascript' src='<c:url value="js/orderButton.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/transitOrderButton.js"/>'/>
         </script>
 
 

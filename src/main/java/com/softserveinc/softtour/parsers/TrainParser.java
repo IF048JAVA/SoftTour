@@ -2,6 +2,7 @@ package com.softserveinc.softtour.parsers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -241,4 +242,12 @@ public class TrainParser {
 		
 		routesList.add(trainRoute);
 	}
+
+    public static void main(String[] args) {
+        TrainParser trainParser = new TrainParser("Львів", "Київ", "2014-11-12", "11:30");
+        List<TrainRoute> list = trainParser.getRoutes();
+        for(TrainRoute route : list){
+            System.out.println(route);
+        }
+    }
 }
