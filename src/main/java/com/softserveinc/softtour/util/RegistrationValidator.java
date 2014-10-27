@@ -41,8 +41,9 @@ public class RegistrationValidator implements Validator {
 		for (User registeredUser : users) {
 			if (currentUser.getName().equalsIgnoreCase(registeredUser.getName())) {
 				errors.rejectValue("name", "error_name", "ПОМИЛКА ! Дане ім'я уже використовується");
-				
-			}else if (currentUser.getEmail().equalsIgnoreCase(registeredUser.getEmail().toLowerCase())) {
+			}	
+
+			if (currentUser.getEmail().equalsIgnoreCase(registeredUser.getEmail().toLowerCase())) {
 				errors.rejectValue("email", "error_email", "ПОМИЛКА ! Даний email уже використовується");
 			}
 		}
