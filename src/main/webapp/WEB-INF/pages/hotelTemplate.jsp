@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <!-- Hotel template -->
 <script id="hotelTemplate" type="text/x-jquery-tmpl">
@@ -63,10 +63,10 @@
                 </div>
                 <div class="col-md-4">
                         <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-                        <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="openFeedbackModal(\${id})">
+    <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="openFeedbackModal(\${id})">
     <i class="glyphicon glyphicon-bullhorn"></i> Залишити відгук
-                        </button>
-                        </security:authorize>
+    </button>
+</security:authorize>
                 </div>
                 <div class="col-md-4">
                 <button class="btn btn-block hotel-btn" data-toggle="modal" onclick="showComments(\${id})">
@@ -148,39 +148,110 @@
                 <h4 class="modal-title"> Відгуки про готель \${name}</h4>
             </div>
             <div class="modal-body comment-body">
-                <div class="container" id="comment-list\${id}">
+                <div id="comment-list\${id}">
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
 <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'>
 </script>
 
-<script id="indexTemplate" type="text/x-jquery-tmpl">
-            <div class="panel panel-default" id="panel-favorite\${id}">
-                <div class="panel-heading">
-                         <span data-toggle="collapse" href="#panel-element-f\${id}">
-                         <span class="tabTitleFont cursor-pointer" >Країна: </span>
-                         <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
-                         <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
-                         <span id="tourDays-f\${id}" class="tabulatedTitle cursor-pointer">\${days} Днів</span>
-                         <span class="tabTitleFont cursor-pointer">Вартість туру: </span>
-                         <span id="tourPrice-f\${id}" class="tabulatedTitle cursor-pointer">\${price} $</span>
-                         <span class="tabTitleFont cursor-pointer">Харчування: </span>
-                         <span id="tourFood-f\${id}" class="tabulatedTitle cursor-pointer">\${food.name}</span>
-                         <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
-                         <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
-                         <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
-                </div>
-                <div id="panel-element-f\${id}" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        Hotel Name \${hotel.name}...
-                    </div>
-                </div>
+<script id="toursTemplate" type="text/x-jquery-tmpl">
+<!-- Modal -->
+<div class="modal fade" id="orderModal\${id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel\${id}"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="closeOrderModal(\${id})"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel\${id}">Введіть дані</h4>
             </div>
+            <div class="modal-body">
+
+                <form:form id="orderTourForm\${id}" class="form-horizontal" action="" method="POST"
+                           data-toggle="validator" role="form">
+
+                    <fieldset>
+
+                        <!-- Name input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">Ім'я</label>
+
+                            <div class="col-md-5">
+                                <input type="text" name="name" id="name" class="form-control input-md"
+                                       pattern="\b[A-Za-z0-9]{2,30}\b"
+                                       placeholder="Bід 2 до 30 символів"
+                                       data-error="Ви ввели некоректне ім'я !"
+                                       required="required"
+                                        />
+                            </div>
+                        </div>
+
+                        <!-- Email input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="email">Email</label>
+
+                            <div class="col-md-5">
+                                <input type="email" name="email" id="email" class="form-control input-md"
+                                       pattern="\b(?!.{31})([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})\b"
+                                       placeholder="Bведіть email"
+                                       data-error="Ви ввели некоректний email !"
+                                       required="required"
+                                        />
+
+                                <div class="help-block with-errors"></div>
+                                <errors path="email" cssClass="error"/>
+
+                            </div>
+                        </div>
+
+                        <!-- City input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="city">Місто</label>
+
+                            <div class="col-md-5">
+                                <input type="text" name="city" id="city" class="form-control input-md"
+                                       pattern="\b[A-Za-z]{2,30}\b"
+                                       placeholder="Місто"
+                                       data-error="Введіть місто!"
+                                       required="required"
+                                        />
+                            </div>
+                        </div>
+
+                        <!-- Phone input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="phone">Номер телефону</label>
+
+                            <div class="col-md-5">
+                                <input type="text" name="phone" id="phone" class="form-control input-md"
+                                       pattern="[\+]?[0-9]{4,19}\b"
+                                       placeholder="Введіть номер телефону"
+                                       data-error="Ви ввели некоректний номер телефону !">
+
+                                <div class="help-block with-errors"></div>
+                                <errors path="email" cssClass="error"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-3">
+                                <button type="submit" name="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    Замовити
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form:form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 </script>

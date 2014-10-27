@@ -1,8 +1,18 @@
 var ALL_COUNTRIES = "allCountries";
 var PAGE_SIZE = 10;
-var contentType ="application/x-www-form-urlencoded; charset=UTF-8";
+var contentType = "application/x-www-form-urlencoded; charset=UTF-8";
 
-function showTours(hotelId){
+function oderTour(id){
+    $('#orderModal' + id).modal('show');
+
+}
+
+function closeOrderModal(id){
+    $('#orderModal' + id).modal('hide');
+}
+
+function showTours(hotelId) {
+    $('#tour-list').empty();
 
     $('#toursModal').modal('show');
 
@@ -22,17 +32,44 @@ function showTours(hotelId){
 
         success: function (data) {
 
-            $('#tour-list').empty();
+            var new_id = 0;
 
-           var new_id=0;
+            var html = '';
 
-            $.each(data,function(key,value){
-                value.id=new_id;
+            html += '<table id="toursByHotel" class="table table-hover" cellspacing="0" width="100%"><thead><tr>' +
+                '<th>Країна</th>' +
+                '<th>Регіон</th>' +
+                '<th>Готель</th>' +
+                '<th>Кількість ночей</th>' +
+                '<th>Харчування</th>' +
+                '<th>Дата вильоту</th>' +
+                '<th>Місто вильоту</th>' +
+                '<th>Вартість туру</th>' +
+                '<th>Замовити тур</th></tr></thead><tbody>';
+
+            $.each(data, function (key, value) {
+                value.id = new_id;
                 new_id++;
 
-                $('#indexTemplate').tmpl(value).appendTo('#tour-list');
+                html += '<tr><td>' + value.hotel.region.country.name + '</td>' +
+                    '<td>' + value.hotel.region.name + '</td>' +
+                    '<td>' + value.hotel.name + '</td>' +
+                    '<td>' + value.days + '</td>' +
+                    '<td>' + value.food + '</td>' +
+                    '<td>' + value.date + '</td>' +
+                    '<td>' + value.departureCity + '</td>' +
+                    '<td>' + value.price + ' $ </td>' +
+                    '<td><a class="btn btn-default" onclick="oderTour(' + value.id + ')">Замовити</a></td></tr>';
+
+                $('#toursTemplate').tmpl(value).appendTo('#order-list');
             })
 
+            html += '</tbody></table>';
+
+            $("#tour-list").html(html);
+            $("#toursByHotel").dataTable({
+                "scrollX": true
+            });
         },
 
         error: function () {
@@ -44,7 +81,6 @@ function showTours(hotelId){
 }
 
 function showComments(id) {
-
 
     var queryObj = {};
     queryObj.hotelId = id;
@@ -61,7 +97,7 @@ function showComments(id) {
             var img = '';
 
             var length = data.length;
-            if (length == 0){
+            if (length == 0) {
                 html += '<div class=row><div class="col-md-2 commentInfo">' +
                     '<img src="img/male.jpg" class="img-circle avatar">' +
                     '<p>Admin</p></div><div class="col-md-10 comment">' +
@@ -163,7 +199,7 @@ function searchHotels(pageNum) {
     $.ajax({
         url: "/hotels/result",
         type: "GET",
-        encoding:"UTF-8",
+        encoding: "UTF-8",
         contentType: "application/json; charset=utf-8",
         data: query,
         dataType: 'json',
@@ -175,8 +211,8 @@ function searchHotels(pageNum) {
 
             $.each(data.content, function (key, value) {
 
-                if(value.imgUrl == ''){
-                    value.imgUrl = 'http://fillmurray.com/171/171';
+                if (value.imgUrl == 'NO IMG') {
+                    value.imgUrl = 'http://placehold.it/170&text=Not+found!';
                 }
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
@@ -219,7 +255,7 @@ function showPagination(callback, numOfPages, pageNum) {
     })
 }
 
-function openFeedbackModal(hotelId){
+function openFeedbackModal(hotelId) {
     $('#feedbackModal' + hotelId).modal('show');
 }
 
@@ -234,7 +270,7 @@ function leaveFeedback(hotelId) {
     feedbackQuery.hotelId = hotelId;
 
 
-        $('#myModal' + hotelId).modal('hide');
+    $('#myModal' + hotelId).modal('hide');
 
     $.ajax({
         url: "/hotels/feedback",

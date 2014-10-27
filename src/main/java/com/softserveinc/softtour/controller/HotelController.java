@@ -66,7 +66,7 @@ public class HotelController {
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "pageSize", required = false) Integer pageSize) {
 
-        return hotelService.findByName(name, new PageRequest(page, pageSize));
+        return hotelService.searchHotel(name, new PageRequest(page, pageSize));
     }
 
     @RequestMapping(value = "/allCountry")
@@ -107,6 +107,11 @@ public class HotelController {
         Hotel hotel = hotelService.findOne(hotelId);
         ItTourParser parser = new ItTourParser(hotel, page);
         List<Tour> listTour = parser.parse();
+
+        for(Tour tour : listTour){
+            tour.setHotel(hotel);
+        }
+
         return listTour;
     }
 

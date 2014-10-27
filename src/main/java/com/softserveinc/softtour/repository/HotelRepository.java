@@ -19,7 +19,8 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "and h.comfort >= :comfort " +
             "and h.cleanliness >= :cleanliness " +
             "and h.location >= :location " +
-            "and h.valueForMoney >= :valueForMoney")
+            "and h.valueForMoney >= :valueForMoney " +
+            "and h.stars > 0")
     Page<Hotel> findByCustomParameters(@Param("country") List<String> country,
                                        @Param("rating") BigDecimal rating,
                                        @Param("comfort") BigDecimal comfort,
@@ -29,10 +30,12 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
                                        Pageable pageable);
 
     @Query("select h from Hotel h " +
-            "where h.name like concat('%',:name,'%') " +
+            "where h.name like concat('%',:name,'%')" +
+            "and h.stars > 0 " +
             "order by h.name asc ")
-    Page <Hotel> findByName(@Param("name")String name,
+    Page <Hotel> searchHotel(@Param("name")String name,
                             Pageable pageable);
+
     Hotel findByName (String name);
 }
 

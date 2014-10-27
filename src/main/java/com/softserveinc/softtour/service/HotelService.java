@@ -11,7 +11,7 @@ public interface HotelService {
 
     Hotel save(Hotel hotel);
     Hotel findOne(long id);
-    Page <Hotel> findByName(String name, Pageable pageable);
+    Page <Hotel> searchHotel(String name, Pageable pageable);
     Page<Hotel> findByCustomParameters(List<String> country, BigDecimal rating, BigDecimal comfort, BigDecimal cleanliness,
                                        BigDecimal location, BigDecimal valueForMoney, Pageable pageable);
     List<Hotel> findAll();
