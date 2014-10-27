@@ -1,5 +1,11 @@
 package com.softserveinc.softtour.controller;
 
+//import org.apache.log4j.Logger;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +32,8 @@ import com.softserveinc.softtour.util.RegistrationValidator;
 @RequestMapping(value="/registration")
 public class RegistrationController {
 	private static final String ROLE_USER = "ROLE_USER";
+	private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
+	
 	
 	/**
 	 *  Creates the object of the UserServiceImpl class 
@@ -64,6 +72,9 @@ public class RegistrationController {
 	@RequestMapping(value="/new")
 	public String registrationUser(Model model){
 		model.addAttribute(new User());
+		
+		LOG.warn("into new !!! ");
+		
 		return "registration";
 	}
 	
@@ -78,6 +89,8 @@ public class RegistrationController {
 		registrationValidator.validate(user, bindingResult);
 		
 		if (!bindingResult.hasErrors()) {
+			
+			LOG.warn("into new !!! ");
 			
 			String password = user.getPassword();
 			user.setPassword(PasswordEncoder.encode(password));

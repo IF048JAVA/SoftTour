@@ -149,3 +149,16 @@ CREATE TABLE historyrequest (
   FOREIGN KEY (country_id) REFERENCES country (id)
 
 );
+
+
+CREATE TABLE LOGS (
+	id bigint(20) NOT NULL AUTO_INCREMENT,
+	date datetime NOT NULL,
+	level varchar(10) NOT NULL,
+	logger varchar(150) NOT NULL,
+	method varchar(50) NOT NULL,
+	line int(3) NOT NULL,
+	message text NOT NULL,
+	
+	PRIMARY KEY (id)
+);
