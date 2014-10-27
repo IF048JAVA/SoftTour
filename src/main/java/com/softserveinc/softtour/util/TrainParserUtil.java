@@ -4,7 +4,13 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.softserveinc.softtour.parsers.TrainParser;
 
 /**
  * @author Andrii
@@ -16,6 +22,8 @@ public class TrainParserUtil {
 	
 	private static final String CITY_CODE_VOCABULARY = "/parser_properties/city_code_vocabulary.properties";
 	private static final String CITY_RU_UA_VOCABULARY = "/parser_properties/city_ru-ua_vocabulary.properties";
+
+	private static final Logger LOG = LoggerFactory.getLogger(TrainParser.class);
 	
 	/**
 	 * Creates the url with the specified parameters
@@ -60,15 +68,16 @@ public class TrainParserUtil {
 			inputStream = 	this.getClass().getResourceAsStream(path);
 			bufferedInputStream = new BufferedInputStream(inputStream);
 			properties.load(new InputStreamReader(bufferedInputStream, UTF_8));
-
+			
 			if (properties.getProperty(city) == null) {
 				return city ;
 			}
-			
 			return properties.getProperty(city);
+		
+		} catch (UnsupportedEncodingException e) {
+			LOG.error("The character encoding utf-8 is not supported.");
 		} catch (IOException e) {
-			// TODO Add logging here: WARN/ERROR 
-			e.printStackTrace();
+			LOG.error("Error of reading the file" + path  + ",  or file with the specified path not found");
 		} finally {
 			try {
 				if (inputStream != null) {
@@ -78,8 +87,7 @@ public class TrainParserUtil {
 					bufferedInputStream.close();
 				}
 			} catch (IOException e) {
-				// TODO Add logging here: WARN/ERROR 
-				e.printStackTrace();
+				LOG.error("Error of closing the stream ");
 			}
 		}
 		return null;

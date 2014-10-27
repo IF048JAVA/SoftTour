@@ -9,6 +9,6 @@ package com.softserveinc.softtour.util;
 public class NoRoutesException extends RuntimeException {
 
 	public NoRoutesException() {
-		super("No routes found!");
+		super("No route found for this parameters. Need to specify other parameters.");
 	}
 }
