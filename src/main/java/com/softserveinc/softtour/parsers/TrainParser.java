@@ -243,6 +243,7 @@ public class TrainParser {
 		routesList.add(trainRoute);
 	}
 
+	//TODO DEL !!!
     public static void main(String[] args) {
         TrainParser trainParser = new TrainParser("Львів", "Київ", "2014-11-12", "11:30");
         List<TrainRoute> list = trainParser.getRoutes();
