@@ -7,6 +7,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.util.NoRoutesException;
@@ -20,6 +22,7 @@ import com.softserveinc.softtour.util.DateValidator;
 public class TrainParser {
 	private static final int MAX_NUMER_OF_ATTEMPTS = 15;
 	private static final int CONNECTION_TIMEOUT = 5000; 
+	private static final Logger LOG = LoggerFactory.getLogger(TrainParser.class);
 	
 	private String url;
 	private String departureDate;
@@ -66,7 +69,7 @@ public class TrainParser {
 			isSetDepatureDate = false;
 			parse();
 		} catch (NoRoutesException e) {
-			// TODO Add logging here: WARN/ERROR 
+			LOG.warn(e.getMessage());
 		}
 		return routesList;
 	}
@@ -82,9 +85,9 @@ public class TrainParser {
 		while (i < MAX_NUMER_OF_ATTEMPTS) {
 			++i;
 			try {
-				document = Jsoup.connect(url).timeout(CONNECTION_TIMEOUT).get();
+				document = Jsoup.connect("h"+ url).timeout(CONNECTION_TIMEOUT).get();
 			} catch (IOException e) {
-				// TODO Add logging here: WARN - Invalid attempt to connect. Trying one more ...
+				LOG.error(e.getMessage() + "Connection error. Cannot connect to the site http://ticket.turistua.com/");
 				continue;
 			}
 			break;
