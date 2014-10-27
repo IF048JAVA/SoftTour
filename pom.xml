@@ -18,7 +18,7 @@
         <spring-security-version>3.2.5.RELEASE</spring-security-version>
         <jdbc-driver-version>5.1.6</jdbc-driver-version>
         <hibernate-version>4.2.1.Final</hibernate-version>
-        <slf4j-version>1.7.5</slf4j-version>
+        <slf4j-version>1.7.7</slf4j-version>
         <ch.qos.logback-version>1.0.7</ch.qos.logback-version>
         <h2-version>1.3.171</h2-version>
         <servlet-version>3.0.1</servlet-version>
@@ -233,6 +233,14 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
+        
+            <!-- TODO write versions in properties -->
+        <!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+		</dependency>
 
     </dependencies>
 
