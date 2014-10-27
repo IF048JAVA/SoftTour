@@ -10,6 +10,8 @@
 
     $('.table-hover').bootstrapTable({onLoadSuccess: function () {
 
+        console.log("LOAD!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
         $('[id|=transitInfo-All] table tbody tr td:last-child').each(function () {
 
             if ($(this).text() == "-") {
@@ -18,6 +20,8 @@
             }
         });
 
-        console.log("LOAD")}})
+        console.log("LOAD")
+
+}})
 
 

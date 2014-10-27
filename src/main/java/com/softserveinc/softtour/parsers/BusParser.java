@@ -161,7 +161,7 @@ public class BusParser implements ParsersConstants {
     }
 
     public static void main(String[] args) {
-        BusParser busParser = new BusParser("Київ", "Львів", "2014-11-01", "23:00");
+        BusParser busParser = new BusParser("Львів", "Київ", "2014-11-12", "11:30");
         List<BusRoute> list = busParser.parse();
         for(BusRoute route : list){
             System.out.println(route);

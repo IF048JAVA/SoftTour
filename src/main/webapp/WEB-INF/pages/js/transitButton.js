@@ -1,31 +1,14 @@
 function getAllTransit(tourId) {
 
     var transitDates = {};
-
     transitDates.currentTourId = tourId;
     transitDates.cityFrom = $('#cityFrom'+tourId).val();
-
     console.log(transitDates);
-
-    $.ajax({
-        url: "/trainTransitDates",
-        url: "/busTransitDates",
-        type: 'POST',
-        dataType: 'json',
-        data: transitDates,
-        contentType: 'application/x-www-form-urlencoded',
-
-        success: function(date) {
-
-
-
 
 
             $("#panel-element-f"+tourId+" panel-body", function(){
 
                 $("#panel-element-f"+tourId+" .panel-body #transitInfo-All-F"+tourId).empty();
-
-
 
                     $("#panel-element-f"+tourId+" .panel-body").append('<div id="transitInfo-All-F'+tourId+'"'+'class="collapse in">'+
 
@@ -36,7 +19,7 @@ function getAllTransit(tourId) {
                             '<img src="../img/Transport-Train-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                        '<table data-method="post" data-toggle="table" data-url="/trainTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
+                        '<table data-toggle="table" data-url="/trainTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
@@ -56,7 +39,7 @@ function getAllTransit(tourId) {
                             '<img src="../img/Transport-Bus-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                            '<table data-method="post" data-toggle="table" data-url="/busTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
+                            '<table data-toggle="table" data-url="/busTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
@@ -73,15 +56,10 @@ function getAllTransit(tourId) {
                     '</div>'+
                 '</div>'+
                         '<script type="text/javascript" src="js/bootstrap-table.min.js"></script>'+
-                        '<script type="text/javascript" src="js/orderButton.js">'
+                        '<script type="text/javascript" src="js/transitOrderButton.js">'
                     )
 
 
                 console.log("#panel-element-f"+tourId+" panel-body");
             });
-
-        },
-        error:function(date,status,er) {
-        }
-    });
 }
