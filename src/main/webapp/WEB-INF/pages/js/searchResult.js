@@ -3,6 +3,9 @@ $(document).ready(function () {})
 var queryObj = {};
 
 function showResults(){
+    $('#searchResult').empty();
+    showModal();
+    $('#searchResult').append('<div class="col-md-12" id="loading"><img src="img/preloader.gif"></div><br>');
 
     queryObj.country = $("#country").val();
     queryObj.region = $("#region").val();
