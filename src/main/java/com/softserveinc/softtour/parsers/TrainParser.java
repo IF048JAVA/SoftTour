@@ -85,7 +85,7 @@ public class TrainParser {
 		while (i < MAX_NUMER_OF_ATTEMPTS) {
 			++i;
 			try {
-				document = Jsoup.connect("h"+ url).timeout(CONNECTION_TIMEOUT).get();
+				document = Jsoup.connect(url).timeout(CONNECTION_TIMEOUT).get();
 			} catch (IOException e) {
 				LOG.error(e.getMessage() + "Connection error. Cannot connect to the site http://ticket.turistua.com/");
 				continue;
