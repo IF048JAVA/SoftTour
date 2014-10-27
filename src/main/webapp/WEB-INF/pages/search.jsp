@@ -224,7 +224,7 @@
     <script id="searchTemplate" type="text/x-jquery-tmpl">
         <div class="panel panel-default" id="panel-favorite\${id}">
                 <div class="panel-heading" id="results\${id}">
-                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="saveHistoryRecord(\${id})">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="saveHistoryRecord(\${id}),loadAddInfo(\${id})">
                          <span class="tabTitleFont cursor-pointer" >Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${hotel.region.country.name}</span>
                          <span class="tabTitleFont cursor-pointer" >Тривалість туру: </span>
@@ -236,16 +236,50 @@
                          <span class="tabTitleFont cursor-pointer">Дата вильоту: </span>
                          <span id="tourDepartureDate-f\${id}" class="tabulatedTitle cursor-pointer">\${date}</span></span>
                           <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-        <span id="deleteButtonF\${id}" data-role="button" class="pull-right" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})"></i></span>
+        <span id="deleteButtonF\${id}" data-role="button" class="pull-right" ><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(\${id})" data-toogle="tooltip" data-placemant="top" title="Додати до улюблених"></i></span>
     </security:authorize>
+                </div>
+                    <div id="panel-element-f\${id}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                       <div class="col-sm-4">
+                        <div class="input-group backdown">
+                            <div id="imgHold\${id}"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-7">
+                        <strong class="text-info pull-left hotelTitle" id="hotel\${id}">
+                            \${hotel.name}&nbsp;
+                        </strong>
+                        <span>
+                            <input id="stars" value=\${hotel.stars} type="number" class="rating" min=0 max=5 step=1 data-size="xs"
+                                data-show-clear="false" data-show-caption="false" readonly="true" width="100px">
+                        </span>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <h4>Дорослі</h4>
+                        <h4>Діти</h4>
+                        <h4>Рейтинг готелю</h4>
+                        <h4>Тип номерів</h4>
+                        <h4>Місто вильоту</h4>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <h4 id="adultsAmount\${id}">\${adultAmount}</h4>
+                        <h4 id="childrenAmount\${id}">\${childrenAmount}</h4>
+                        <h4 id="hotelRaiting\${id}">-</h4>
+                        <h4 id="hotelRoomType\${id}">\${roomType}</h4>
+                        <h4 id="departyreCity\${id}">\${departureCity}</h4>
+                    </div>
+
+
+
+                      </div>
 
                 </div>
-                <div id="panel-element-f\${id}" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        Info about tour \${id}...
-                    </div>
-                </div>
             </div>
+            <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
 </script>
 <script type="text/javascript">
 
