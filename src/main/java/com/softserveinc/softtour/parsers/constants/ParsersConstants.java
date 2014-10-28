@@ -37,6 +37,18 @@ public interface ParsersConstants {
     String NO_IMG = null;
     String ALL_HOTELS = "Все отели";
     String ALL_CITIES = "Все города";
+    int MINUTES_IN_HOUR = 60;
+
+    char COLON = ':';
+    String STAR = "*";
 
     int DATA_START_NUMBER = 7;
+    int NOT_NEED_DATA_ELEMENT_NUMBER = 0;
+    int TABLE_CELL_DEPARTURE_DATE = 1;
+    int TABLE_CELL_DEPARTURE_TIME = 2;
+    int TABLE_CELL_ROUTE = 7;
+    int TABLE_CELL_ARRIVAL_TIME = 3;
+    int TABLE_CELL_PRICE = 4;
+    int TEN = 10;
+    int LEADING_ZERO = 0;
 }
