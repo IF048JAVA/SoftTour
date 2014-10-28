@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ItTourParser implements ParsersConstants {
@@ -225,17 +224,16 @@ public class ItTourParser implements ParsersConstants {
         }
         tour.getHotel().setImgUrl(imgUrl);
 
-        SimpleDateFormat format = new SimpleDateFormat(TIME_FORMAT);
         Date javaUtilDate;
         Time timeDeparture = null;
         List<Element> elementList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).get(0).getElementsByTag(TAG_TD);
         String departureDate = elementList.get(3).text();
         departureDate = departureDate.substring(0, departureDate.length() - 3);
         String departureTime = elementList.get(4).text();
-        String dateTime = new StringBuilder(departureDate).append(".").append(departureTime).toString();
+        String dateTime = new StringBuilder(departureDate).append(departureTime).toString();
         System.out.println(dateTime);
         try {
-            javaUtilDate = format.parse(dateTime);
+            javaUtilDate = SIMPLE_DATE_TIME_FORMAT.parse(dateTime);
             timeDeparture = new Time(javaUtilDate.getTime());
         } catch (ParseException e) {
             //TODO improve this block
