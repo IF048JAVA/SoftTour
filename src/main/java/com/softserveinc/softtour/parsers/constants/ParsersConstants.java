@@ -1,5 +1,7 @@
 package com.softserveinc.softtour.parsers.constants;
 
+import java.text.SimpleDateFormat;
+
 public interface ParsersConstants {
     int CONNECTION_TIMEOUT = 20000;
     String UTF_8 = "UTF-8";
@@ -22,8 +24,8 @@ public interface ParsersConstants {
     String ID_IMG = "main_img_tour_in_view_open_";
     String ID_COUNTRY = "itt_country";
 
-    String DAY_FORMAT = "dd.MM.yy";
-    String BUS_DAY_FORMAT = "yyyy-MM-dd.HH:mm";
+    SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd.MM.yy");
+    SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-ddHH:mm");
     int THREE_HOURS_IN_MILLISECONDS = 10800000;
     int TWENTY_SEVEN_HOURS_IN_MILLISECONDS = 97200000;
     String TIME_FORMAT = "dd.MM.yy.HH:mm";

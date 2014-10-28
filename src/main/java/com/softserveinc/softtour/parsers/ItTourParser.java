@@ -169,11 +169,10 @@ public class ItTourParser implements ParsersConstants {
     }
 
     private java.sql.Date tourDate(String date){
-        SimpleDateFormat format = new SimpleDateFormat(DAY_FORMAT);
         Date javaUtilDate;
         java.sql.Date sqlDate = null;
         try {
-            javaUtilDate = format.parse(date);
+            javaUtilDate = SIMPLE_DATE_FORMAT.parse(date);
             sqlDate = new java.sql.Date(javaUtilDate.getTime());
         } catch (ParseException e) {
              //TODO improve this block
@@ -192,11 +191,10 @@ public class ItTourParser implements ParsersConstants {
     }
 
     private Time tourDepartureTime(String departureTime){
-        SimpleDateFormat format = new SimpleDateFormat(DAY_FORMAT);
         Date javaUtilDate;
         Time timeDeparture = null;
         try {
-            javaUtilDate = format.parse(departureTime);
+            javaUtilDate = SIMPLE_DATE_FORMAT.parse(departureTime);
             timeDeparture = new Time(javaUtilDate.getTime());
         } catch (ParseException e) {
             //TODO improve this block
@@ -296,7 +294,7 @@ public class ItTourParser implements ParsersConstants {
           String country, String region, int [] hotelStars, String[] food, int adults, int children, String dataFrom, String dataTill,
           int nightsFrom, int nightsTill, int priceFrom, int priceTo, int pageNumber
         */
-        /*
+
         Set<Integer> hotelStars = new HashSet<>();
         hotelStars.add(3);
         hotelStars.add(5);
@@ -320,8 +318,8 @@ public class ItTourParser implements ParsersConstants {
         parser.setHotelImgLinkAndDepartureTime(tour);
         System.out.println(tour.getHotel().getImgUrl());
         System.out.println(tour.getDepartureTime());
-        */
 
+        /*
         Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
         hotel.setId(59466);
         hotel.getRegion().setId(5498);
@@ -331,5 +329,6 @@ public class ItTourParser implements ParsersConstants {
         for(Tour tour : tours){
             System.out.println(tour);
         }
+        */
     }
 }

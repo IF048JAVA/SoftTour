@@ -14,40 +14,46 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+* This class find routes from user's chosen city to tour departure city.
+* The routes data source is site: http://ticket.bus.com.ua
+* This class use:
+*   com.softserveinc.softtour.parsers.constants.ParsersConstants - contains used in this class constants
+*   com.softserveinc.softtour.bean.BusRoute - represent bus route
+*   com.softserveinc.softtour.util.BusParserUrlGenerator - generate web-page's url, that contains bus routes.
+*/
 public class BusParser implements ParsersConstants {
-    private List<BusRoute> busList;
+    /**
+     * Parse results would be save in this list
+     */
+    private List<BusRoute> busRouteList;
     private String cityFrom;
     private String cityTo;
+    /**
+    * This variable represents date & time, when user go to tour from departure city
+    */
     private Date departureDateTime;
-    private SimpleDateFormat simpleDateFormat;
 
+    /**
+    * Creates new BusParser with params:
+    * @param cityFrom - user's chosen city
+    * @param cityTo - tour departure city
+    * @param departureDate - represent date, when user go to tour from departure city, String in format yyyy-MM-dd
+    * @param departureTime - represent time, when user go to tour from departure city, String in format HH:mm
+    * */
     public BusParser(String cityFrom, String cityTo, String departureDate, String departureTime) {
-        this.busList = new ArrayList<>();
+        this.busRouteList = new ArrayList<>();
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
-        String dateAndTime = new StringBuilder(departureDate).append(".").append(departureTime).toString();
         try {
-            this.departureDateTime = new SimpleDateFormat(BUS_DAY_FORMAT).parse(dateAndTime);
+            /**
+             * This variable contains departure date & time, converted from String to java.util.Date
+             */
+            this.departureDateTime = SIMPLE_DATE_TIME_FORMAT.parse(departureDate + departureTime);
         }catch (ParseException e){
-            System.out.println(e.getMessage());
+            System.err.print("Unparsable data. Departure date - " + departureDate + " must be in format yyyy-MM-dd " +
+                    "Departure time " + departureTime + " must be in format - HH:mm ");
         }
-        simpleDateFormat = new SimpleDateFormat(DAY_FORMAT);
-    }
-
-    private String generateTodayUrl(){
-        Date todayDate = new Date(departureDateTime.getTime() - THREE_HOURS_IN_MILLISECONDS);
-        String resultDateString = simpleDateFormat.format(todayDate);
-        BusParserUrlGenerator generator = new BusParserUrlGenerator();
-        String url = generator.createSearchUrl(cityFrom, cityTo, resultDateString);
-        return url;
-    }
-
-    private String generateYesterdayUrl(){
-        Date yesterdayDate = new Date(departureDateTime.getTime() - TWENTY_SEVEN_HOURS_IN_MILLISECONDS);
-        String resultDateString = simpleDateFormat.format(yesterdayDate);
-        BusParserUrlGenerator generator = new BusParserUrlGenerator();
-        String url = generator.createSearchUrl(cityFrom, cityTo, resultDateString);
-        return url;
     }
 
     public List<BusRoute> parse() {
@@ -58,7 +64,23 @@ public class BusParser implements ParsersConstants {
         document = connect(yesterdayUrl);
         addBuses(document);
         removeWasteRouts();
-        return busList;
+        return busRouteList;
+    }
+
+    private String generateTodayUrl(){
+        Date todayDate = new Date(departureDateTime.getTime() - THREE_HOURS_IN_MILLISECONDS);
+        String resultDateString = SIMPLE_DATE_FORMAT.format(todayDate);
+        BusParserUrlGenerator generator = new BusParserUrlGenerator();
+        String url = generator.createSearchUrl(cityFrom, cityTo, resultDateString);
+        return url;
+    }
+
+    private String generateYesterdayUrl(){
+        Date yesterdayDate = new Date(departureDateTime.getTime() - TWENTY_SEVEN_HOURS_IN_MILLISECONDS);
+        String resultDateString = SIMPLE_DATE_FORMAT.format(yesterdayDate);
+        BusParserUrlGenerator generator = new BusParserUrlGenerator();
+        String url = generator.createSearchUrl(cityFrom, cityTo, resultDateString);
+        return url;
     }
 
     private Document connect(String url){
@@ -108,7 +130,7 @@ public class BusParser implements ParsersConstants {
 
             BusRoute route = new BusRoute(id, departureCity, arrivalCity, departureDate, departureTime, onWayTime,
                              arrivalTime, price, price);
-            busList.add(route);
+            busRouteList.add(route);
          }
     }
 
@@ -143,9 +165,9 @@ public class BusParser implements ParsersConstants {
     private void removeWasteRouts(){
         Date marginalDate = new Date(departureDateTime.getTime() - THREE_HOURS_IN_MILLISECONDS);
         SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
-        for(int i = 0; i < busList.size(); i++){
-            String dateAndTime = new StringBuilder(busList.get(i).getDepartureDate()).append(".").
-                                 append(busList.get(i).getDepartureTime()).toString();
+        for(int i = 0; i < busRouteList.size(); i++){
+            String dateAndTime = new StringBuilder(busRouteList.get(i).getDepartureDate()).append(".").
+                                 append(busRouteList.get(i).getDepartureTime()).toString();
             Date routeDate = null;
             try {
                 routeDate = dateFormat.parse(dateAndTime);
@@ -154,7 +176,7 @@ public class BusParser implements ParsersConstants {
             }
             int compare = marginalDate.compareTo(routeDate);
             if(compare < 0){
-                busList.remove(busList.get(i));
+                busRouteList.remove(busRouteList.get(i));
                 i--;
             }
         }
