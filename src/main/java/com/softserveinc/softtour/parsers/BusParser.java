@@ -160,6 +160,7 @@ public class BusParser implements ParsersConstants {
         }
     }
 
+    //TODO DEL !!!
     public static void main(String[] args) {
         BusParser busParser = new BusParser("Львів", "Київ", "2014-11-12", "11:30");
         List<BusRoute> list = busParser.parse();
