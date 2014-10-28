@@ -56,28 +56,36 @@ public class BusParser implements ParsersConstants {
         }
     }
 
+    /**
+     * This method create two connections:
+     *     First connection find routes on day, that is three hours earlier departureDateTime.
+     *         The reason is that client must come to departure point earlier to pass registration.
+     *         The registration passes about three hours.
+     *     Second connection find routes on day, that is the day earlier then first connection.
+     *
+     *     Example: Departure date: 2014-11-12, departure time: 02:00.
+     *     First connection will find routes on date: 2014-11-11.
+     *     Second connection will find routes on date: 2014-11-10.
+     *
+     *     In this case Strings firstDateUrl and secondDateUrl are the urls with reduced date parameters.
+     *     We receive this Strings by using private method generateUrl.
+     *
+     * @return list of bus routes (represented by BusRoute class)
+     */
     public List<BusRoute> parse() {
-        String todayUrl = generateTodayUrl();
-        String yesterdayUrl = generateYesterdayUrl();
-        Document document = connect(todayUrl);
+        String firstDateUrl = generateUrl(FIRST_DATE_REDUCE);
+        String secondDateUrl = generateUrl(SECOND_DATE_REDUCE);
+        Document document = connect(firstDateUrl);
         addBuses(document);
-        document = connect(yesterdayUrl);
+        document = connect(secondDateUrl);
         addBuses(document);
         removeWasteRouts();
         return busRouteList;
     }
 
-    private String generateTodayUrl(){
-        Date todayDate = new Date(departureDateTime.getTime() - THREE_HOURS_IN_MILLISECONDS);
-        String resultDateString = SIMPLE_DATE_FORMAT.format(todayDate);
-        BusParserUrlGenerator generator = new BusParserUrlGenerator();
-        String url = generator.createSearchUrl(cityFrom, cityTo, resultDateString);
-        return url;
-    }
-
-    private String generateYesterdayUrl(){
-        Date yesterdayDate = new Date(departureDateTime.getTime() - TWENTY_SEVEN_HOURS_IN_MILLISECONDS);
-        String resultDateString = SIMPLE_DATE_FORMAT.format(yesterdayDate);
+    private String generateUrl(int dateReduce){
+        Date reducedDate = new Date(departureDateTime.getTime() - dateReduce);
+        String resultDateString = SIMPLE_DATE_FORMAT.format(reducedDate);
         BusParserUrlGenerator generator = new BusParserUrlGenerator();
         String url = generator.createSearchUrl(cityFrom, cityTo, resultDateString);
         return url;
@@ -163,7 +171,7 @@ public class BusParser implements ParsersConstants {
     }
 
     private void removeWasteRouts(){
-        Date marginalDate = new Date(departureDateTime.getTime() - THREE_HOURS_IN_MILLISECONDS);
+        Date marginalDate = new Date(departureDateTime.getTime() - FIRST_DATE_REDUCE);
         SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
         for(int i = 0; i < busRouteList.size(); i++){
             String dateAndTime = new StringBuilder(busRouteList.get(i).getDepartureDate()).append(".").
