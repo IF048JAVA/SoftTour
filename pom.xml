@@ -29,6 +29,8 @@
         <jackson>1.4.1</jackson>
         <jsoup-version>1.7.3</jsoup-version>
         <apache-tiles-version>3.0.4</apache-tiles-version>
+        <testNG-version>6.8.8</testNG-version>
+        <mockito-version>1.10.8</mockito-version>
         <maven-compiler-plugin-version>3.0</maven-compiler-plugin-version>
         <tomcat7-maven-plugin-version>2.0</tomcat7-maven-plugin-version>
         <org-seleniumhq-selenium>2.43.1</org-seleniumhq-selenium>
@@ -139,19 +141,20 @@
             <version>${jstl-version}</version>
         </dependency>
 
-        <!--JUnit-->
+        <!-- TestNG -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit-version}</version>
-            <scope>test</scope>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testNG-version}</version>
         </dependency>
+
+        <!-- Mockito -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring-version}</version>
-            <scope>test</scope>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito-version}</version>
         </dependency>
+
 
         <!-- MySQL JDBC connector -->
         <dependency>

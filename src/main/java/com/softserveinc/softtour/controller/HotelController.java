@@ -1,6 +1,10 @@
 package com.softserveinc.softtour.controller;
 
-import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.Hotel;
+import com.softserveinc.softtour.entity.Country;
+import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.entity.Tour;
+import com.softserveinc.softtour.entity.Feedback;
 import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.parsers.StaticDataParser;
 import com.softserveinc.softtour.service.CountryService;
@@ -91,7 +95,7 @@ public class HotelController {
                 hotel, currentUser);
         feedbackService.save(feedback);
 
-        hotelUtil.updateHotelRate(hotel, cleanliness, comfort, location, valueForMoney);
+        hotelService.save(hotelUtil.updateHotelRate(hotel, cleanliness, comfort, location, valueForMoney));
     }
 
     @RequestMapping(value = "/comments", method = RequestMethod.GET)
