@@ -26,8 +26,8 @@ public interface ParsersConstants {
 
     SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd.MM.yy");
     SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-ddHH:mm");
-    int THREE_HOURS_IN_MILLISECONDS = 10800000;
-    int TWENTY_SEVEN_HOURS_IN_MILLISECONDS = 97200000;
+    int FIRST_DATE_REDUCE = 10800000;
+    int SECOND_DATE_REDUCE = 97200000;
     String TIME_FORMAT = "dd.MM.yy.HH:mm";
     String WITHOUT_FLY = "Без перельоту";
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
