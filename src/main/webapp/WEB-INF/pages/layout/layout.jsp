@@ -68,6 +68,7 @@
 <script src="<c:url value='/js/transitButton.js' />" ></script>
 <script src="<c:url value='/js/tourOrderModal.js' />" ></script>
 <script src="<c:url value='/js/jquery.dataTables.min.js' />" ></script>
+<script src="<c:url value='/js/searchForm.js' />" ></script>
 
 </body>
 </html>
