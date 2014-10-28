@@ -19,17 +19,19 @@
                     <option value="N/A">N/A</option>
                 </select>
             </div>
+            <div class="col-sm-12">
             <div class="col-sm-6">
                 <p>Готель:</p>
 
                     <label>2*</label>
-                    <input type="checkbox" value="2" id="twoStar" name="twoStar">
+                    <input type="checkbox" value="2" id="twoStar" name="twoStar" onclick="checkHotel(this)">
                     <label>3*</label>
-                    <input type="checkbox" value="3" id="threeStar" name="threeStar">
+                    <input type="checkbox" value="3" id="threeStar" name="threeStar" onclick="checkHotel(this)">
                     <label>4*</label>
-                    <input type="checkbox" value="4" id="fourStar" name="fourStar">
+                    <input type="checkbox" value="4" id="fourStar" name="fourStar" onclick="checkHotel(this)">
                     <label>5*</label>
-                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar">
+                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar" onclick="checkHotel(this)"><br>
+                    <span id="checkHelp" style="color: red"></span>
 
             </div>
             <div class="col-sm-6">
@@ -37,65 +39,74 @@
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="HB" id="foodOne" name="foodOne">
+                        <input type="checkbox" value="HB" id="foodOne" name="foodOne" onclick="checkFood(this)">
                         HB
                     </label>
                     <label>
-                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo">
+                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo" onclick="checkFood(this)">
                         BB
                     </label>
                     <label>
-                        <input type="checkbox" value="FB" id="foodThree" name="foodThree">
+                        <input type="checkbox" value="FB" id="foodThree" name="foodThree" onclick="checkFood(this)">
                         FB
                     </label>
                     <br>
                     <label>
-                        <input type="checkbox" value="AI" id="foodFour" name="foodFour">
+                        <input type="checkbox" value="AI" id="foodFour" name="foodFour" onclick="checkFood(this)">
                         AI
                     </label>
                     <label>
-                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive">
+                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive" onclick="checkFood(this)">
                         UAI
                     </label>
                     <label>
-                        <input type="checkbox" value="RO" id="foodSix" name="foodSix">
+                        <input type="checkbox" value="RO" id="foodSix" name="foodSix" onclick="checkFood(this)">
                         RO
-                    </label>
+                    </label><br>
+                    <span id="checkHelp2" style="color: red"></span>
                 </div>
             </div>
-            <br>
-            <p>Розміщення в номері:</p>
-            <div class="col-sm-6">
-                <p>Дорослі:</p>
-                <select class="form-control" id="adults" name="adults">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
             </div>
+            <div class="col-sm-12">
             <div class="col-sm-6">
-                <p>Діти:</p>
-                <select class="form-control" id="children" name="children">
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+                <p>Розміщення в номері:</p>
+                <div class="col-sm-6">
+                    <p>Дорослі:</p>
+                    <select class="form-control" id="adults" name="adults">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <p>Діти:</p>
+                    <select class="form-control" id="children" name="children">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
             </div>
-            <br>
-            <p>Дата вильоту:</p>
+
             <div class="col-sm-6">
-                <p>З:</p>
-                <input type="text" class="form-control" id="dateFrom" name="dateFrom" placeholder="11.11.14">
+                <p>Дата вильоту:</p>
+                <div class="col-sm-6">
+                    <p>З:</p>
+                    <input type="text" class="form-control" id="dateFrom" name="dateFrom" placeholder="11.11.14" onblur="checkDate(this)"/>
+                </div>
+                <div class="col-sm-6">
+                    <p>По:</p>
+                    <input type="text" class="form-control" id="dateTo" name="dateTo" placeholder="31.12.14" onblur="checkDate(this)"/>
+                </div>
+                    <span id="helpDate" class="help" style="color: red"></span>
             </div>
-            <div class="col-sm-6">
-                <p>По:</p>
-                <input type="text" class="form-control" id="dateTo" name="dateTo" placeholder="31.12.14">
             </div>
+            <div class="col-sm-12">
             <div class="col-sm-6">
                 <p>Кількість ночей:</p>
                 <div class="col-sm-6">
@@ -151,18 +162,22 @@
                         <option>21</option>
                     </select>
                 </div>
-            </div>
-            <p>Ціна(грн):</p>
-            <div class="col-sm-6" style="margin-bottom: 5px;">
-                <div class="col-sm-6">
-                    <p>З:</p>
-                    <input type="text" class="form-control" id="priceFrom" name="priceFrom">
-                </div>
-                <div class="col-sm-6">
-                    <p>До:</p>
-                    <input type="text" class="form-control" id="priceTo" name="priceTo">
-                </div>
-            </div>
+			</div>
+            <div class="col-sm-6">
+                <p>Ціна(грн):</p>
+
+                    <div class="col-sm-6">
+                        <p>З:</p>
+                        <input type="text" class="form-control" id="priceFrom" name="priceFrom" onblur="checkPrice(this)"/>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>До:</p>
+                        <input type="text" class="form-control" id="priceTo" name="priceTo" onblur="checkPrice(this)"/>
+                    </div>
+                    <span id="helpPrice" style="color: red"></span>
+
+            </div>    
+        </div>
         </div>
         <input type="button" class="btn btn-primary btn-lg" value="Пошук" onclick="showResults()">
     </form>
@@ -189,7 +204,7 @@
                 <img src="img/greece_carousel.jpg">
                 <div class="carousel-caption">
                 </div>
-                <p style="font-size:18px;">Серед найбільш відомих та популярних туристичних центрів Греції: історико-культурних — Афіни, Дельфи, острів Корфу, Крит; центри пляжного відпочинку — півострів Халкідіки, острови-курорти Міконос, Санторіні, Парос і Крит; центри паломництва християн — Свята гора Афон, Метеорські монастирі, візантійські пам'ятки Салонік (Базиліка Святого Дімітрія, Базиліка Святої Софії та інші), занесені до переліку об'єктів світової спадщини ЮНЕСКО.</p>
+                <p style="font-size:18px;">Серед найбільш відомих та популярних туристичних центрів Греції: історико-культурних — Афіни, Дельфи, острів Корфу, Крит.</p>
             </div>
             <div class="item">
                 <img src="img/turkey_carousel.jpg">
