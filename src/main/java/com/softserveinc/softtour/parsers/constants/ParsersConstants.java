@@ -25,10 +25,11 @@ public interface ParsersConstants {
     String ID_COUNTRY = "itt_country";
 
     SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd.MM.yy");
-    SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-ddHH:mm");
-    int FIRST_DATE_REDUCE = 10800000;
-    int SECOND_DATE_REDUCE = 97200000;
-    String TIME_FORMAT = "dd.MM.yy.HH:mm";
+    SimpleDateFormat INPUT_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-ddHH:mm");
+    SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("dd.MM.yyHH:mm");
+    long FIRST_DATE_REDUCE = 10800000;
+    long SECOND_DATE_REDUCE = 97200000;
+    long ONE_DAY_IN_MILLISECONDS = 86400000;
     String WITHOUT_FLY = "Без перельоту";
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
     String WRONG_FAMILY_ROOM_TYPE = "FAMI...";
@@ -36,4 +37,6 @@ public interface ParsersConstants {
     String NO_IMG = null;
     String ALL_HOTELS = "Все отели";
     String ALL_CITIES = "Все города";
+
+    int DATA_START_NUMBER = 7;
 }
