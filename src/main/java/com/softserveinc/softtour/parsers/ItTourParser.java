@@ -374,6 +374,16 @@ public class ItTourParser implements ItTourParserConstants {
 
     public static void main(String[] args) {
         ItTourParser parser = new ItTourParser("Єгипет", 338, 3, 1 ,1000, 3000, 2);
+
+        List<Tour> listTour = parser.parse();
+        for(Tour tour : listTour) {
+            System.out.println(tour);
+        }
+        for(int i = 0;i<listTour.size();i++) {
+            parser.parseAdvanceData(listTour.get(i));
+            System.out.println(listTour.get(i).getHotel().getImgUrl());
+            System.out.println(listTour.get(i).getDepartureTime());
+        }
         /*
         for now, full search works only for this regions:
         #Єгипет
@@ -407,15 +417,6 @@ public class ItTourParser implements ItTourParserConstants {
         ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
                                                5, 15, 500, 5000, 2);
         */
-        List<Tour> listTour = parser.parse();
-        for(Tour tour : listTour) {
-            System.out.println(tour);
-        }
-        for(int i = 0;i<4;i++) {
-            parser.parseAdvanceData(listTour.get(i));
-            System.out.println(listTour.get(i).getHotel().getImgUrl());
-            System.out.println(listTour.get(i).getDepartureTime());
-        }
         /*
         long dateTo = new Date().getTime();
         System.out.println((dateTo - dateStart) + " milisec.");
