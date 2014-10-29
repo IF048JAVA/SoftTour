@@ -3,18 +3,14 @@ package com.softserveinc.softtour.controller;
 import com.softserveinc.softtour.bean.BusRoute;
 import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.entity.*;
-import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.BusParser;
 import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Null;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -59,7 +55,8 @@ public class IndexController {
             @RequestParam(value = "travelersAdult", required = true)Integer travelersAdult,
             @RequestParam(value = "travelersChildren", required = true)Integer travelersChildren){
         //return tourService.findAll();
-        parser = new ItTourParser(country, travelersAdult, travelersChildren,minPrice, maxPrice, numberOfPage);
+        //TODO get country param from database (instead of hardcode 338 - code of Egypt)
+        parser = new ItTourParser(country, 338, travelersAdult, travelersChildren,minPrice, maxPrice, numberOfPage);
         List<Tour> listTour = parser.parse();
         return listTour;
 

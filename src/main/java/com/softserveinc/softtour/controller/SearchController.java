@@ -1,15 +1,13 @@
 package com.softserveinc.softtour.controller;
 
-import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.parsers.ItTourParser;
-import com.softserveinc.softtour.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -75,7 +73,8 @@ public class SearchController {
             foodSet.add(foodSix);
         }
 
-        ItTourParser parser = new ItTourParser(country, region, hotelStars, foodSet, adults, children, dateFrom, dateTo,
+        //TODO get country & region param from database (instead of hardcode 338 - code of Egypt & 5486 - code of Dahab)
+        ItTourParser parser = new ItTourParser(country, 338, 5486,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
                 nightFrom, nightTo, priceFrom, priceTo, 2);
         List<Tour> tourList = parser.parse();
         return tourList;

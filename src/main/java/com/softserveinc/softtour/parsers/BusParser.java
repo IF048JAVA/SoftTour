@@ -16,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 * This class find routes from user's chosen city to tour departure city.
 * The routes data source is site: http://ticket.bus.com.ua
 * This class use:
-*   com.softserveinc.softtour.parsers.constants.ParsersConstants - contains used in this class constants
-*   com.softserveinc.softtour.bean.BusRoute - represent bus route
-*   com.softserveinc.softtour.util.BusParserUrlGenerator - generate web-page's url, that contains bus routes.
+*     com.softserveinc.softtour.parsers.constants.ParsersConstants - contains used in this class constants
+*     com.softserveinc.softtour.bean.BusRoute - represent bus route
+*     com.softserveinc.softtour.util.BusParserUrlGenerator - generate web-page's url, that contains bus routes.
 */
 public class BusParser implements ParsersConstants {
 
@@ -101,9 +101,9 @@ public class BusParser implements ParsersConstants {
      */
     private String generateUrl(long dateReduce){
         Date reducedDate = new Date(departureDateTime.getTime() - dateReduce);
-        String resultDateString = SIMPLE_DATE_FORMAT.format(reducedDate);
-        BusParserUrlGenerator generator = new BusParserUrlGenerator();
-        return generator.createSearchUrl(cityFrom, cityTo, resultDateString);
+        String dateString = SIMPLE_DATE_FORMAT.format(reducedDate);
+        BusParserUrlGenerator urlGenerator = new BusParserUrlGenerator();
+        return urlGenerator.createSearchUrl(cityFrom, cityTo, dateString);
     }
 
     /**
