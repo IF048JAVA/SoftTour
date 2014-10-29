@@ -43,7 +43,7 @@ public class ItTourParser implements ParsersConstants {
     private int children;
     private String url;
     private Properties departureCityVocabulary = new Properties();
-    private Map<String, Element> hotelElementMap;
+    private Map<Tour, Element> hotelElementMap;
 
     /**
      * This constructor is for quick search
@@ -131,7 +131,7 @@ public class ItTourParser implements ParsersConstants {
      * Private method loadDepartureCityProperties load properties file data.
      * This data contains ru-ua vocabulary of the departure cities.
      * Our application contains Ukrainian names of cities, when parsed site - Russian.
-     * So we need to translate cities names.
+     * So there is the need to translate cities names.
      *
      * Methods addTours add tours to tourList.
      *
@@ -153,6 +153,7 @@ public class ItTourParser implements ParsersConstants {
                   execute().
                   body();
         } catch (IOException e) {
+            //TODO get tours from database
             e.printStackTrace();
         }
         String tourPage = doc.replace("\\", "");
@@ -224,8 +225,6 @@ public class ItTourParser implements ParsersConstants {
             String tourFood = listCenter.get(1).text();
             String roomTypeSt = listLeft.get(2).text().toUpperCase();
 
-            hotelElementMap.put(hotelName, hotelLink);
-
             java.sql.Date tourDate = tourDate(tourDateSt);
             int tourDays = Integer.parseInt(tourDaysSt);
             String departureCity = tourDepartureCity(tourDepartureCitySt);
@@ -238,6 +237,8 @@ public class ItTourParser implements ParsersConstants {
             tour.setAdultAmount(adults);
             tour.setChildrenAmount(children);
             tour.setRoomType(tourRoomType(roomTypeSt));
+
+            hotelElementMap.put(tour, hotelLink);
 
             tourList.add(tour);
         }
@@ -286,7 +287,7 @@ public class ItTourParser implements ParsersConstants {
     }
 
     public void setHotelImgLinkAndDepartureTime(Tour tour){
-        Element hotelLink = getHotelElement(tour.getHotel().getName());
+        Element hotelLink = hotelElementMap.get(tour);
         String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
         String[] tourIdArr = tourId.split(",");
         String url = ItTourParserUrlGenerator.createHotelInfoUrl(tourIdArr);
@@ -316,10 +317,6 @@ public class ItTourParser implements ParsersConstants {
             e.printStackTrace();
         }
         tour.setDepartureTime(timeDeparture);
-    }
-
-    public Element getHotelElement(String hotelName) {
-        return hotelElementMap.get(hotelName);
     }
 
     private RoomType tourRoomType(String roomTypeSt){
