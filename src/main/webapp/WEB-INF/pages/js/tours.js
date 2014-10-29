@@ -134,7 +134,7 @@ function loadAddInfo (id) {
             infObj = value;
         }
     })
-
+    console.log(JSON.stringify(infObj));
     $.ajax({
         url: "/parseHotel",
         type: "POST",
@@ -144,9 +144,12 @@ function loadAddInfo (id) {
         mimeType: 'application/json',
         success: function(data) {
             saveHistoryRecord(id);
+
+                    console.log(data);
                     console.log(data.hotel.imgUrl);
                     $("#imgHold" + id).empty();
                     $("#imgHold" + id).append('<img src="' + data.hotel.imgUrl + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
-                }
+                },
+        error: function(){console.log("ERROR");}
         })
 }

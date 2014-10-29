@@ -142,8 +142,10 @@ public class IndexController {
     }
 
     @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
-    public @ResponseBody Tour parseHotelImage(@RequestBody(required = true) final Tour currentTour){
+    public @ResponseBody Tour parseHotel(@RequestBody(required = true) final Tour currentTour){
+        System.out.println(currentTour);
         parser.setHotelImgLinkAndDepartureTime(currentTour);
+        System.out.println(currentTour.getHotel().getImgUrl());
         return currentTour;
     }
 

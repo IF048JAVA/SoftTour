@@ -35,7 +35,7 @@
         </div></div>
         <div class="col-md-1"></div>
 </div>
-<img src="/img/flags/Ukraine.png" class="imgC">
+<!--<img src="/img/flags/Ukraine.png" class="imgC">-->
 
 
 <div id="indexResult" class="parent-group" style="visibility: hidden; text-align:center; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:15px;  margin-bottom:15px;padding-bottom: 120px;">
