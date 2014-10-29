@@ -5,11 +5,11 @@
 <h2 style="text-align: center">Введіть мінімальну та максимальну ціну для пошуку туру та виберіть країну</h2>
 
 <div class="row">
-        <div class="col-md-3 imgfont"  style="margin-left:50px;"><img src="img/egypt_logo.png"id="egypt" onclick="parseTour('Єгипет',1),clearArray()"><br>Єгипет</div>
+        <div class="col-md-3 imgfont"  style="margin-left:50px;"><img src="img/egypt_logo.png"id="egypt" onclick="parseTour('Єгипет',1,338),clearArray()"><br>Єгипет</div>
         <div class="col-md-1"></div>
-        <div class="col-md-3 imgfont"><img src="img/greece_logo.png" id="greece" onclick="parseTour('Греція',1),clearArray()"><br>Греція</div>
+        <div class="col-md-3 imgfont"><img src="img/greece_logo.png" id="greece" onclick="parseTour('Греція',1,372),clearArray()"><br>Греція</div>
         <div class="col-md-1"></div>
-        <div class="col-md-3 imgfont"><img src="img/turkey_logo.png" id = "turkey" onclick="parseTour('Туреччина',1),clearArray()"><br>Туреччина</div>
+        <div class="col-md-3 imgfont"><img src="img/turkey_logo.png" id = "turkey" onclick="parseTour('Туреччина',1,318),clearArray()"><br>Туреччина</div>
         <div class="col-md-1"></div>
 </div>
 <div class="row" style="margin-bottom: 15px;margin-top: 15px;">
@@ -35,7 +35,7 @@
         </div></div>
         <div class="col-md-1"></div>
 </div>
-<img src="/img/flags/Ukraine.png" class="imgC">
+<!--<img src="/img/flags/Ukraine.png" class="imgC">-->
 
 
 <div id="indexResult" class="parent-group" style="visibility: hidden; text-align:center; background-color:rgba(255,255,255,0.4); border-radius:6px; padding:15px;  margin-bottom:15px;padding-bottom: 120px;">

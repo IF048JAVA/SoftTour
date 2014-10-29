@@ -17,4 +17,5 @@ public interface TourService {
     List<Tour> findByCountryAndDaysAndPrice(String country, int days, BigDecimal price);
     List<Tour> findByCustomParameters(String country, Date date, int days, String departureCity, Time departureTime,
                                       BigDecimal price, String hotel, String food);
+    Tour checkTour(Tour tour);
 }

@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.repository;
 
 import com.softserveinc.softtour.entity.HistoryRecord;
+import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +11,5 @@ public interface HistoryRecordsRepository extends JpaRepository<HistoryRecord, L
 
     public List<HistoryRecord> findByUser(User user);
 
+    public HistoryRecord findByUserAndTour(User user, Tour tour);
 }
