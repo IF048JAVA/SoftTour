@@ -1,7 +1,7 @@
 package com.softserveinc.softtour.parsers;
 
 import com.softserveinc.softtour.bean.BusRoute;
-import com.softserveinc.softtour.parsers.constants.ParsersConstants;
+import com.softserveinc.softtour.parsers.constants.BusParserConstants;
 import com.softserveinc.softtour.util.BusParserUrlGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,18 +9,20 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
 * This class find routes from user's chosen city to tour departure city.
 * The routes data source is site: http://ticket.bus.com.ua
 * This class use:
-*     com.softserveinc.softtour.parsers.constants.ParsersConstants - contains used in this class constants
+*     com.softserveinc.softtour.parsers.constants.BusParserConstants - contains used in this class constants
 *     com.softserveinc.softtour.bean.BusRoute - represent bus route
 *     com.softserveinc.softtour.util.BusParserUrlGenerator - generate web-page's url, that contains bus routes.
 */
-public class BusParser implements ParsersConstants {
+public class BusParser implements BusParserConstants {
 
     /**
      * Parse results would be save in this list
@@ -139,7 +141,7 @@ public class BusParser implements ParsersConstants {
         for(int i = DATA_START_NUMBER; i < elementList.size(); i++){
 
             /**
-             * Data list contains such data:
+             * cellList contains such data:
              * [index]:[value]
              *    0   : Tags tg, div & 4 span, not used
              *    1   : Bus date departure
@@ -153,18 +155,18 @@ public class BusParser implements ParsersConstants {
              *    9   : Img
              *   10   : Empty tag td
              */
-            List<Element> dataList = elementList.get(i).getElementsByTag(TAG_TD);
+            List<Element> cellList = elementList.get(i).getElementsByTag(TAG_TD);
 
             /**
              * Return from method if elementList contains element with text: '*'
              * The data, contains after this element isn't need.
              */
-            if (dataList.get(NOT_NEED_DATA_ELEMENT_NUMBER).text().equals(STAR)){
+            if (cellList.get(NOT_NEED_DATA_ELEMENT_NUMBER).text().equals(STAR)){
                 return;
             }
 
-            String departureDate = dataList.get(TABLE_CELL_DEPARTURE_DATE).text();
-            String departureTime = dataList.get(TABLE_CELL_DEPARTURE_TIME).getElementsByTag(TAG_B).first().text();
+            String departureDate = cellList.get(TABLE_CELL_DEPARTURE_DATE).text();
+            String departureTime = cellList.get(TABLE_CELL_DEPARTURE_TIME).getElementsByTag(TAG_B).first().text();
 
             String departureDateTime = departureDate + departureTime;
             Date routeDepartureDate = null;
@@ -179,9 +181,9 @@ public class BusParser implements ParsersConstants {
              * If it is later then reduced dateTime(reduced on three hours), there is no need to parse rest data.
              */
             if(routeDepartureDate.before(reducedDateTime)){
-                String id = dataList.get(TABLE_CELL_ROUTE).text();
-                String arrivalTime = dataList.get(TABLE_CELL_ARRIVAL_TIME).ownText();
-                String price = dataList.get(TABLE_CELL_PRICE).text();
+                String id = cellList.get(TABLE_CELL_ROUTE).text();
+                String arrivalTime = cellList.get(TABLE_CELL_ARRIVAL_TIME).ownText();
+                String price = cellList.get(TABLE_CELL_PRICE).text();
                 String arrivalDateTime = departureDate + arrivalTime;
                 Date routeArrivalDate = null;
                 try {

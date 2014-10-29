@@ -6,7 +6,7 @@ import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.entity.template.RoomType;
-import com.softserveinc.softtour.parsers.constants.ParsersConstants;
+import com.softserveinc.softtour.parsers.constants.ItTourParserConstants;
 import com.softserveinc.softtour.util.ItTourParserUrlGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,7 +24,7 @@ import java.util.*;
  * This class find tours and supported information by input parameters.
  * The routes data source is site: http://www.ittour.com.ua
  * This class use:
- *     com.softserveinc.softtour.parsers.constants.ParsersConstants - contains used in this class constants
+ *     com.softserveinc.softtour.parsers.constants.ItTourParserConstants - contains used in this class constants
  *     com.softserveinc.softtour.entity.Tour - represent tour
  *     com.softserveinc.softtour.util.ItTourParserUrlGenerator - generate web-page's url, that contains tours.
  * Class contains three overloaded constructors for such pages:
@@ -32,7 +32,7 @@ import java.util.*;
  *     search page with advanced search
  *     hotels page with search by hotel
  */
-public class ItTourParser implements ParsersConstants {
+public class ItTourParser implements ItTourParserConstants {
 
     /**
      * Parse results would be save in this list
@@ -144,6 +144,10 @@ public class ItTourParser implements ParsersConstants {
         return tourList;
     }
 
+    /**
+     * @param url - web-page's url with tours
+     * @return web-page, encapsulated in Jsoup object Document
+     */
     private Document connect(String url){
         String doc = null;
         try {
@@ -156,6 +160,10 @@ public class ItTourParser implements ParsersConstants {
             //TODO get tours from database
             e.printStackTrace();
         }
+
+        /**
+         * Page comes unparseable. Removing one backslash solve this problem.
+         */
         String tourPage = doc.replace("\\", "");
         Document document = Jsoup.parse(tourPage);
         return document;
@@ -169,64 +177,56 @@ public class ItTourParser implements ParsersConstants {
             InputStreamReader reader = new InputStreamReader(inputDepCity, UTF_8)) {
             departureCityVocabulary.load(reader);
         }catch (IOException e){
-            System.err.println("There are no properties file: " + DEPARTURE_CITY_PROPERTIES_PATH);
+            System.err.println("Can't find file: " + DEPARTURE_CITY_PROPERTIES_PATH);
         }
     }
 
+    /**
+     * This method get from document tours data, create Tour objects and add them to tourList
+     * @param document - web-page, encapsulated in Jsoup object Document
+     */
     private void addTours(Document document) {
-        List<Element> tableRow = document.getElementsByTag(TAG_TR);
-        for (int i = 3; i < tableRow.size() - 2; i++) {
-            /*
-            listLeft
-            [index]:[value]
-               0   : Region
-               1   : Hotel, contains link to hotel page
-               2   : Room type
-               3   : Tag div with departure city
+
+        /**
+         * This list contains rows from table in web-page with tours.
+         * The data, that will be use, starts from third row. Last two rows haven't useful data.
+         */
+        List<Element> tableRowList = document.getElementsByTag(TAG_TR);
+        for (int i = DATA_START_NUMBER; i < tableRowList.size() - TAL_DATA_NUMBER; i++) {
+
+            /**
+             * cellList contains such data:
+             * [index]:[value]
+             *    0   : Region
+             *    1   : Hotel, contains link to hotel page
+             *    2   : Room type
+             *    3   : Tag div with departure city
+             *    4   : Hotel stars
+             *    5   : Food type
+             *    6   : Nights count
+             *    7   : Date Fly
+             *    8   : Link with tour details
+             *    9   : Nine tags span with tour price. Second - hrn, fifth - €, Eighth - $,
              */
-            List<Element> listLeft = tableRow.get(i).getElementsByClass(CLASS_ITT_TEXT_LEFT);
+            List<Element> tableCellList = new ArrayList<>();
+            tableCellList.addAll(tableRowList.get(i).getElementsByClass(CLASS_ITT_TEXT_LEFT));
+            tableCellList.addAll(tableRowList.get(i).getElementsByClass(CLASS_TEXT_CENTER));
+            tableCellList.add(tableRowList.get(i).getElementsByClass(CLASS_TEXT_RIGHT).first());
 
-            /*
-            listCenter
-            [index]:[value]
-               0   : Hotel stars
-               1   : Food type
-               2   : Nights count
-               3   : Date Fly
-               4   : ???
-            */
-            List<Element> listCenter = tableRow.get(i).getElementsByClass(CLASS_TEXT_CENTER);
-
-            /*
-            listRight
-            [index]:[value]
-               0   : Tour price hrn
-               1   : Tour price hrn
-               2   : ???
-               3   : Tour price € (sum & mark €)
-               4   : Tour price € (only sum)
-               5   : Mark €
-               6   : Tour price $ (sum & mark $)
-               7   : Tour price $ (only sum)
-               8   : Mark $
-            */
-            List<Element> listRight = tableRow.get(i).getElementsByClass(CLASS_TEXT_RIGHT).get(0).
-                    getElementsByTag(TAG_SPAN);
-
-            String tourDateSt = listCenter.get(3).text();
-            String tourDaysSt = listCenter.get(2).text();
-            String tourDepartureCitySt = listLeft.get(3).getElementsByTag(TAG_DIV).first().text();
-            String tourDepartureTimeSt = listCenter.get(3).text();
-            String tourPriceSt = listRight.get(7).text();
-            String hotelName = listLeft.get(1).text();
-            String hotelStars = listCenter.get(0).text();
-            String hotelRegion = listLeft.get(0).text();
-            Element hotelLink = listLeft.get(1).select(TAG_A).first();
-            String tourFood = listCenter.get(1).text();
-            String roomTypeSt = listLeft.get(2).text().toUpperCase();
+            String tourDateSt = tableCellList.get(7).text();
+            String tourNightsSt = tableCellList.get(6).text();
+            String tourDepartureCitySt = tableCellList.get(3).getElementsByTag(TAG_DIV).first().text();
+            String tourDepartureTimeSt = tableCellList.get(7).text();
+            String tourPriceSt = tableCellList.get(9).getElementsByTag(TAG_SPAN).get(7).text();
+            String hotelName = tableCellList.get(1).text();
+            String hotelStars = tableCellList.get(4).text();
+            String hotelRegion = tableCellList.get(0).text();
+            Element hotelLink = tableCellList.get(1).select(TAG_A).first();
+            String tourFood = tableCellList.get(5).text();
+            String roomTypeSt = tableCellList.get(2).text().toUpperCase();
 
             java.sql.Date tourDate = tourDate(tourDateSt);
-            int tourDays = Integer.parseInt(tourDaysSt);
+            int tourDays = Integer.parseInt(tourNightsSt);
             String departureCity = tourDepartureCity(tourDepartureCitySt);
             Time departureTime = tourDepartureTime(tourDepartureTimeSt);
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
@@ -286,6 +286,7 @@ public class ItTourParser implements ParsersConstants {
         return hotel;
     }
 
+    //TODO improve!!!
     public void setHotelImgLinkAndDepartureTime(Tour tour){
         Element hotelLink = hotelElementMap.get(tour);
         String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
@@ -297,7 +298,7 @@ public class ItTourParser implements ParsersConstants {
         try {
             imgUrl = img.attr(ATTR_SRC);
         } catch (NullPointerException e) {
-            imgUrl = NO_IMG;
+            imgUrl = null;
         }
         tour.getHotel().setImgUrl(imgUrl);
 
@@ -343,7 +344,7 @@ public class ItTourParser implements ParsersConstants {
     }
 
     public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Єгипет", 338, 3, 1 ,1000, 3000, 1);
+        ItTourParser parser = new ItTourParser("Єгипет", 338, 3, 1 ,1000, 3000, 2);
         /*
         for now, full search works only for this regions:
         #Єгипет
@@ -380,6 +381,11 @@ public class ItTourParser implements ParsersConstants {
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour) {
             System.out.println(tour);
+        }
+        for(int i = 0;i<4;i++) {
+            parser.setHotelImgLinkAndDepartureTime(listTour.get(i));
+            System.out.println(listTour.get(i).getHotel().getImgUrl());
+            System.out.println(listTour.get(i).getDepartureTime());
         }
         /*
         long dateTo = new Date().getTime();
