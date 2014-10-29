@@ -140,20 +140,10 @@ function loadAddInfo (id) {
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function(data) {
-            saveHistoryRecord(id);
-            $.ajax({
-                url: "/openCollapse",
-                type: "POST",
-                data: JSON.stringify(infObj),
-                dataType: 'json',
-                contentType: 'application/json',
-                mimeType: 'application/json',
-                success: function() {
+                    saveHistoryRecord(id);
                     console.log(data.hotel.imgUrl);
                     $("#imgHold" + id).empty();
                     $("#imgHold" + id).append('<img src="' + data.hotel.imgUrl + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
                 }
         })
-        }
-    })
 }
