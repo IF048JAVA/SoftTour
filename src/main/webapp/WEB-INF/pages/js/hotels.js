@@ -211,7 +211,7 @@ function searchHotels(pageNum) {
 
             $.each(data.content, function (key, value) {
 
-                if (value.imgUrl == 'NO IMG') {
+                if (value.imgUrl == null) {
                     value.imgUrl = 'http://placehold.it/170&text=Not+found!';
                 }
 

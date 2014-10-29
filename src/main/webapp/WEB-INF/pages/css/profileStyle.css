@@ -134,3 +134,7 @@ button.transitionInfo {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.42);
     -webkit-font-smoothing: antialiased;
 }
+
+.cityFromSelector{
+    width: 200px;
+}

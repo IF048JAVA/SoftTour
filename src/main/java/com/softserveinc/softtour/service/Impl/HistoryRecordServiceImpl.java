@@ -1,6 +1,7 @@
 package com.softserveinc.softtour.service.Impl;
 
 import com.softserveinc.softtour.entity.HistoryRecord;
+import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.repository.HistoryRecordsRepository;
 import com.softserveinc.softtour.service.HistoryRecordService;
@@ -31,4 +32,9 @@ public class HistoryRecordServiceImpl implements HistoryRecordService {
 
     @Override
     public List<HistoryRecord> getAll(){return historyRecordsRepository.findAll();}
+
+    @Override
+    public HistoryRecord findByUserAndTour(HistoryRecord historyRecord){
+        return historyRecordsRepository.findByUserAndTour(historyRecord.getUser(),historyRecord.getTour());
+    }
 }

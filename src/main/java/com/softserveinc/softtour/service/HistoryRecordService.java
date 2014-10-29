@@ -2,6 +2,7 @@ package com.softserveinc.softtour.service;
 
 
 import com.softserveinc.softtour.entity.HistoryRecord;
+import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.entity.User;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface HistoryRecordService {
     public HistoryRecord findById(long id);
     public List<HistoryRecord> findByUser(User user);
     public List<HistoryRecord> getAll();
+    public HistoryRecord findByUserAndTour(HistoryRecord historyRecord);
+
 }

@@ -3,18 +3,14 @@ package com.softserveinc.softtour.controller;
 import com.softserveinc.softtour.bean.BusRoute;
 import com.softserveinc.softtour.bean.TrainRoute;
 import com.softserveinc.softtour.entity.*;
-import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.parsers.BusParser;
 import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Null;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -40,26 +36,19 @@ public class IndexController {
     @Autowired
     private HistoryRecordService historyRecordService;
     Favorite favorite;
-    @RequestMapping(value = "/result", method = RequestMethod.POST)
-     public @ResponseBody List<Tour> findTours(
-            @RequestParam(value = "country", required = true) String country,
-            @RequestParam(value = "minPrice", required = false) Integer minPrice,
-            @RequestParam(value = "maxPrice", required = false) Integer maxPrice) {
-
-        //return tourService.findAll();
-        return tourService.findByCountryAndPrice(country, minPrice, maxPrice);
-    }
 
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(
             @RequestParam(value = "country", required = true) String country,
+            @RequestParam(value = "countryParameter",required = true) long countryParameter,
             @RequestParam(value = "minPrice", required = false) Integer minPrice,
             @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
             @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage,
             @RequestParam(value = "travelersAdult", required = true)Integer travelersAdult,
             @RequestParam(value = "travelersChildren", required = true)Integer travelersChildren){
         //return tourService.findAll();
-        parser = new ItTourParser(country, travelersAdult, travelersChildren,minPrice, maxPrice, numberOfPage);
+        //TODO get country param from database (instead of hardcode 338 - code of Egypt)
+        parser = new ItTourParser(country, countryParameter, travelersAdult, travelersChildren,minPrice, maxPrice, numberOfPage);
         List<Tour> listTour = parser.parse();
         return listTour;
 
@@ -74,73 +63,76 @@ public class IndexController {
         Hotel currentHotel = currentTour.getHotel();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
+
         Country maybeCountry = countryService.findByName(currentCountry.getName());
-        if(maybeCountry!=null)
             currentRegion.setCountry(maybeCountry);
-        else
-            currentRegion.setCountry(countryService.save(currentCountry));
+
         Region maybeRegion = regionService.findByName(currentRegion.getName());
-        if(maybeRegion!=null)
             currentHotel.setRegion(maybeRegion);
-        else
-            currentHotel.setRegion(regionService.save(currentRegion));
+
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-        if(maybeHotel!=null) {
             maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
             maybeHotel.setStars(currentTour.getHotel().getStars());
             currentTour.setHotel(maybeHotel);
             hotelService.save(maybeHotel);
-        }
-        else
-            {hotelService.setZero(currentHotel);
-             currentTour.setHotel(hotelService.save(currentHotel));}
-        currentTour.setDepartureCity("Null");
-        currentTour.setDepartureTime(new Time(12354));
-        Tour tourToFav=tourService.save(currentTour);
-        favorite=new Favorite(sqlDate,currentUser,tourToFav);
 
-        favoriteService.save(favorite);
+        currentTour.setDepartureTime(new Time(12354));
+
+        Tour maybeTour = tourService.checkTour(currentTour);
+        Tour tourToFav;
+
+        if(maybeTour!=null)
+            tourToFav = maybeTour; else {
+            tourService.save(currentTour);
+            tourToFav = tourService.checkTour(currentTour);}
+
+        favorite=new Favorite(sqlDate,currentUser,tourToFav);
+        Favorite maybeFavorite = favoriteService.findByUserAndTour(favorite);
+        if (maybeFavorite==null){
+            favoriteService.save(favorite);
+            System.out.println("Saved");
+        }
     }
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
     public void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
-
+        parser.setHotelImgLinkAndDepartureTime(currentTour);
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
-
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-
         User currentUser =userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
 
         Country maybeCountry = countryService.findByName(currentCountry.getName());
-        if(maybeCountry!=null)
             currentRegion.setCountry(maybeCountry);
-        else
-            currentRegion.setCountry(countryService.save(currentCountry));
 
         Region maybeRegion = regionService.findByName(currentRegion.getName());
-        if(maybeRegion!=null)
             currentHotel.setRegion(maybeRegion);
-        else
-            currentHotel.setRegion(regionService.save(currentRegion));
+
 
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-        if(maybeHotel!=null){
             maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
             maybeHotel.setStars(currentTour.getHotel().getStars());
             currentTour.setHotel(maybeHotel);
             hotelService.save(maybeHotel);
-             }
-        else
-        {hotelService.setZero(currentHotel);
-            currentTour.setHotel(hotelService.save(currentHotel));}
-        currentTour.setDepartureCity("Null");
+
+
+
         currentTour.setDepartureTime(new Time(12354));
-        Tour tourToHis=tourService.save(currentTour);
+
+        Tour maybeTour = tourService.checkTour(currentTour);
+        Tour tourToHis;
+        if(maybeTour!=null)
+            tourToHis = maybeTour; else
+        {tourService.save(currentTour);
+        tourToHis = tourService.checkTour(currentTour);}
         HistoryRecord historyRecord= new HistoryRecord(sqlDate,currentUser,tourToHis);
-        historyRecordService.save(historyRecord);
+        HistoryRecord maybeHistoryRecord = historyRecordService.findByUserAndTour(historyRecord);
+
+        if(maybeHistoryRecord==null)
+            {historyRecordService.save(historyRecord);
+                System.out.println("Saved");}
     }
 
 
@@ -150,14 +142,10 @@ public class IndexController {
     }
 
     @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
-    public @ResponseBody Tour parseHotelImage(@RequestBody(required = true) final Tour currentTour){
+    public @ResponseBody Tour parseHotel(@RequestBody(required = true) final Tour currentTour){
+        System.out.println(currentTour);
         parser.setHotelImgLinkAndDepartureTime(currentTour);
-        return currentTour;
-    }
-    @RequestMapping(value="/openCollapse", method = RequestMethod.POST)
-    public @ResponseBody Tour openCollapse(@RequestBody(required = true) final Tour currentTour){
-        Hotel hotel = hotelService.findByName(currentTour.getHotel().getName());
-        currentTour.setHotel(hotel);
+        System.out.println(currentTour.getHotel().getImgUrl());
         return currentTour;
     }
 

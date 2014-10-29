@@ -3,12 +3,14 @@ var usedIds = new Array();
 var favData = {};
 var queryObj = {};
 var countryParam = '';
+var countryExpandParameter = '';
 queryObj.numberOfPage = 0;
     function clearArray() {
         usedIds=[];
     }
-    function parseTour (countryPar,numberOfPage) {
+    function parseTour (countryPar,numberOfPage,countryParameter) {
         countryParam=countryPar;
+        countryExpandParameter = countryParameter;
         $('#indexResult').empty();
         showModal();
         $('#indexResult').append('<div class="col-md-12" id="loading"><img src="img/preloader.gif"></div><br>');
@@ -18,6 +20,7 @@ queryObj.numberOfPage = 0;
         if (travelersAdult > 0){} else travelersAdult = 1;
         var travelersChildren = $("#TravelersChildren").val();
         if (travelersChildren > 0){} else travelersChildren = 0;
+        queryObj.countryParameter = countryParameter;
         queryObj.numberOfPage = numberOfPage;
         queryObj.country = countryPar;
             queryObj.minPrice = Math.floor(indexBudget * 0.9);
@@ -120,7 +123,7 @@ function saveHistoryRecord(id) {
 function expandParse (incDec){
     if (queryObj.numberOfPage!=1||incDec!=-1){
         var numb = queryObj.numberOfPage+incDec;
-        parseTour(countryParam,numb);
+        parseTour(countryParam,numb,countryExpandParameter);
     }
 
 }
@@ -131,7 +134,7 @@ function loadAddInfo (id) {
             infObj = value;
         }
     })
-
+    console.log(JSON.stringify(infObj));
     $.ajax({
         url: "/parseHotel",
         type: "POST",
@@ -141,19 +144,12 @@ function loadAddInfo (id) {
         mimeType: 'application/json',
         success: function(data) {
             saveHistoryRecord(id);
-            $.ajax({
-                url: "/openCollapse",
-                type: "POST",
-                data: JSON.stringify(infObj),
-                dataType: 'json',
-                contentType: 'application/json',
-                mimeType: 'application/json',
-                success: function() {
+
+                    console.log(data);
                     console.log(data.hotel.imgUrl);
                     $("#imgHold" + id).empty();
                     $("#imgHold" + id).append('<img src="' + data.hotel.imgUrl + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
-                }
+                },
+        error: function(){console.log("ERROR");}
         })
-        }
-    })
 }
