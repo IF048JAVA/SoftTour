@@ -342,7 +342,8 @@
                     &nbsp; Як добратися з ... ?
                     </button>
                     <div class="form-group">
-                    <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom\${tour.id}" placeholder="Місто">
+                    <select id="cityFrom-\${id}" class="select2-offscreen cityFromSelector">
+                    </select>
                     </div>
                     </form>
                 </div>
@@ -351,8 +352,9 @@
 
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
-            <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/cityFrom.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/transitOrderButton.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/select2.min.js"/>'/>
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
@@ -533,7 +535,7 @@
                     &nbsp; Як добратися з ... ?
                     </button>
                     <div class="form-group">
-                    <input type="text" class="form-control col-sm-1 cityFromAutocomplete" id="cityFrom\${tour.id}" placeholder="Місто">
+
                     </div>
                     </form>
                 </div>
@@ -542,8 +544,9 @@
 
             <script type='text/javascript' src='<c:url value="js/star-rating.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
-            <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/cityFrom.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/transitOrderButton.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/select2.min.js"/>'/>
         </script>
 
 
