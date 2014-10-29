@@ -44,4 +44,14 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
                                        @Param("price") BigDecimal price,
                                        @Param("hotel") String hotel,
                                        @Param("food") String food);
+    @Query("select t from Tour t " +
+            "where t.hotel.name = :hotelName " +
+            "and t.date = :date " +
+            "and t.days = :days " +
+            "and t.price = :price")
+    Tour checkTour(@Param("hotelName") String hotelName,
+                          @Param("date") Date date,
+                          @Param("days") int days,
+                          @Param("price") BigDecimal price);
 }
+
