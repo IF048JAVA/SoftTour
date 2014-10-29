@@ -336,7 +336,7 @@
                     </div>
 
                     <form role="form" class="form-inline">
-                    <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${tour.id}" onclick="getAllTransit(\${tour.id})">
+                    <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${tour.id}" onclick="getAllTransitF(\${tour.id})">
                     <span class="glyphicon glyphicon-road"></span>
                     <span class="glyphicon glyphicon-plane"></span>
                     &nbsp; Як добратися з ... ?
@@ -353,6 +353,7 @@
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/transitOrderButton.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/cityFromValidator.js"/>'/>
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
@@ -527,7 +528,7 @@
                     </div>
 
                     <form role="form" class="form-inline">
-                    <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${tour.id}" onclick="getAllTransit(\${tour.id})">
+                    <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${tour.id}" onclick="getAllTransitH(\${tour.id})">
                     <span class="glyphicon glyphicon-road"></span>
                     <span class="glyphicon glyphicon-plane"></span>
                     &nbsp; Як добратися з ... ?
@@ -544,6 +545,7 @@
             <script type='text/javascript' src='<c:url value="js/bootstrap-table.min.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/cityFromAutocomplete.js"/>'/>
             <script type='text/javascript' src='<c:url value="js/transitOrderButton.js"/>'/>
+            <script type='text/javascript' src='<c:url value="js/cityFromValidator.js"/>'/>
         </script>
 
 
