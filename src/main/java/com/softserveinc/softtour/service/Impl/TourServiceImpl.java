@@ -59,6 +59,10 @@ public class TourServiceImpl implements TourService {
                                                      departureTime, price, hotel, food);
     }
 
+    @Override
+    public Tour checkTour (Tour tour) {
+        return tourRepository.checkTour(tour.getHotel().getName(), tour.getDate(), tour.getDays(), tour.getPrice());
+    }
 
 }
 

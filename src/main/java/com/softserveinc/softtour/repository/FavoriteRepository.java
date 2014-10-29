@@ -38,5 +38,7 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long>{
 	 */
 	public List<Favorite> findByIdOrDateOrUserOrTour(
 			long id, Date date, User user, Tour tour);
+
+    public Favorite findByUserAndTour (User user, Tour tour);
 	
 }
