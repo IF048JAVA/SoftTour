@@ -43,7 +43,7 @@ public class ItTourParser implements ItTourParserConstants {
     private int children;
     private String url;
     private Properties departureCityVocabulary = new Properties();
-    private Map<Tour, Element> hotelElementMap;
+    private Map<Tour, String[]> tourIdMap;
 
     /**
      * This constructor is for quick search
@@ -66,7 +66,7 @@ public class ItTourParser implements ItTourParserConstants {
         this.adults = adults;
         this.children = children;
         this.url = ItTourParserUrlGenerator.createQuickSearchUrl(countryParam, adults, children, priceMin, priceMax, pageNumber);
-        hotelElementMap = new HashMap<>();
+        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -100,7 +100,7 @@ public class ItTourParser implements ItTourParserConstants {
         this.children = children;
         this.url = ItTourParserUrlGenerator.createAdvanceSearchUrl(countryParam, regionParam, hotelStars, food, adults, children, dateFrom,
             dateTo, nightsFrom, nightsTo, priceMin, priceMax, pageNumber);
-        hotelElementMap = new HashMap<>();
+        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -119,7 +119,7 @@ public class ItTourParser implements ItTourParserConstants {
         this.adults = DEFAULT_ADULTS_COUNT;
         this.children = DEFAULT_CHILDREN_COUNT;
         this.url = ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, pageNumber);
-        hotelElementMap = new HashMap<>();
+        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -162,7 +162,7 @@ public class ItTourParser implements ItTourParserConstants {
         }
 
         /**
-         * Page comes unparseable. Removing one backslash solve this problem.
+         * Page is unparseable. Removing one backslash solve this problem.
          */
         String tourPage = doc.replace("\\", "");
         Document document = Jsoup.parse(tourPage);
@@ -177,7 +177,7 @@ public class ItTourParser implements ItTourParserConstants {
             InputStreamReader reader = new InputStreamReader(inputDepCity, UTF_8)) {
             departureCityVocabulary.load(reader);
         }catch (IOException e){
-            System.err.println("Can't find file: " + DEPARTURE_CITY_PROPERTIES_PATH);
+            System.err.println("Can't find properties file: " + DEPARTURE_CITY_PROPERTIES_PATH);
         }
     }
 
@@ -213,43 +213,67 @@ public class ItTourParser implements ItTourParserConstants {
             tableCellList.addAll(tableRowList.get(i).getElementsByClass(CLASS_TEXT_CENTER));
             tableCellList.add(tableRowList.get(i).getElementsByClass(CLASS_TEXT_RIGHT).first());
 
-            String tourDateSt = tableCellList.get(7).text();
-            String tourNightsSt = tableCellList.get(6).text();
-            String tourDepartureCitySt = tableCellList.get(3).getElementsByTag(TAG_DIV).first().text();
-            String tourDepartureTimeSt = tableCellList.get(7).text();
-            String tourPriceSt = tableCellList.get(9).getElementsByTag(TAG_SPAN).get(7).text();
-            String hotelName = tableCellList.get(1).text();
-            String hotelStars = tableCellList.get(4).text();
-            String hotelRegion = tableCellList.get(0).text();
-            Element hotelLink = tableCellList.get(1).select(TAG_A).first();
-            String tourFood = tableCellList.get(5).text();
-            String roomTypeSt = tableCellList.get(2).text().toUpperCase();
+            /**
+             * Get tour data in String format
+             */
+            String tourDateSt = tableCellList.get(TABLE_CELL_TOUR_DATE).text();
+            String tourNightsSt = tableCellList.get(TABLE_CELL_NIGHTS_COUNT).text();
+            String tourDepartureCitySt = tableCellList.get(TABLE_CELL_DEPARTURE_CITY).
+                                         getElementsByTag(TAG_DIV).first().text();
 
-            java.sql.Date tourDate = tourDate(tourDateSt);
+            //TODO remove or set 00:00
+            String tourDepartureTimeSt = tableCellList.get(TABLE_CELL_TOUR_DATE).text();
+            String tourPriceSt = tableCellList.get(TABLE_CELL_TOUR_PRICE).getElementsByTag(TAG_SPAN).get(7).text();
+            String hotelName = tableCellList.get(TABLE_CELL_HOTEL_NAME).text();
+            String hotelStars = tableCellList.get(TABLE_CELL_HOTEL_STARS).text();
+            String hotelRegion = tableCellList.get(TABLE_CELL_HOTEL_REGION).text();
+            String tourFood = tableCellList.get(TABLE_CELL_TOUR_FOOD).text();
+            String roomTypeSt = tableCellList.get(TABLE_CELL_TOUR_ROOM_TYPE).text().toUpperCase();
+
+            /**
+             * Convert tour data to Tour constructor parameters format
+             */
+            java.sql.Date tourDate = convertTourDate(tourDateSt);
             int tourDays = Integer.parseInt(tourNightsSt);
-            String departureCity = tourDepartureCity(tourDepartureCitySt);
-            Time departureTime = tourDepartureTime(tourDepartureTimeSt);
+            String departureCity = convertTourDepartureCity(tourDepartureCitySt);
+            Time departureTime = convertTourDepartureTime(tourDepartureTimeSt);
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
-            Hotel hotel = tourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
+            Hotel hotel = convertTourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
             Food food = Food.valueOf(tourFood);
 
+            /**
+             * Create object tour and set tour data
+             */
             Tour tour = new Tour(tourDate, tourDays, departureCity, departureTime, tourPrice, hotel, food);
             tour.setAdultAmount(adults);
             tour.setChildrenAmount(children);
-            tour.setRoomType(tourRoomType(roomTypeSt));
-
-            hotelElementMap.put(tour, hotelLink);
+            tour.setRoomType(convertTourRoomType(roomTypeSt));
 
             tourList.add(tour);
+
+            /**
+             * There are tour data, that aren't in Jsoup document(parameter of this method)
+             * But part of url parameters, that is need to create connection, is in this document.
+             * Creating of new connection get about 4 seconds.
+             * This part of code get this part of url parameters & save them to tourIdMap.
+             * Then it would be use in public method parseAdvanceData(Tour tour).
+             */
+            String hotelLink = tableCellList.get(TABLE_CELL_HOTEL_LINK).select(TAG_A).first().
+                               attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
+
+            String[] tourIdArray = hotelLink.split(",");
+            tourIdMap.put(tour, tourIdArray);
+
+
         }
     }
 
-    private java.sql.Date tourDate(String date){
-        Date javaUtilDate;
+    private java.sql.Date convertTourDate(String date){
+        Date utilDate;
         java.sql.Date sqlDate = null;
         try {
-            javaUtilDate = SIMPLE_DATE_FORMAT.parse(date);
-            sqlDate = new java.sql.Date(javaUtilDate.getTime());
+            utilDate = SIMPLE_DATE_FORMAT.parse(date);
+            sqlDate = new java.sql.Date(utilDate.getTime());
         } catch (ParseException e) {
              //TODO improve this block
             e.printStackTrace();
@@ -257,16 +281,17 @@ public class ItTourParser implements ItTourParserConstants {
         return sqlDate;
     }
 
-    private String tourDepartureCity(String departureCity){
+    private String convertTourDepartureCity(String departureCity){
         try {
             String departureCityUa = departureCityVocabulary.getProperty(departureCity);
             return departureCityUa;
         } catch (NullPointerException e) {
+            //TODO Think about this block
             return WITHOUT_FLY;
         }
     }
 
-    private Time tourDepartureTime(String departureTime){
+    private Time convertTourDepartureTime(String departureTime){
         Date javaUtilDate;
         Time timeDeparture = null;
         try {
@@ -279,48 +304,14 @@ public class ItTourParser implements ItTourParserConstants {
         return timeDeparture;
     }
 
-    private Hotel tourHotel(String hotelName, int hotelStars, String hotelRegion){
+    private Hotel convertTourHotel(String hotelName, int hotelStars, String hotelRegion){
         Country hotelCountry = new Country(country);
         Region hotelReg = new Region(hotelRegion, hotelCountry);
         Hotel hotel = new Hotel(hotelName, hotelStars, hotelReg);
         return hotel;
     }
 
-    //TODO improve!!!
-    public void setHotelImgLinkAndDepartureTime(Tour tour){
-        Element hotelLink = hotelElementMap.get(tour);
-        String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
-        String[] tourIdArr = tourId.split(",");
-        String url = ItTourParserUrlGenerator.createHotelInfoUrl(tourIdArr);
-        Document document = connect(url);
-        Element img = document.getElementById(ID_IMG);
-        String imgUrl;
-        try {
-            imgUrl = img.attr(ATTR_SRC);
-        } catch (NullPointerException e) {
-            imgUrl = null;
-        }
-        tour.getHotel().setImgUrl(imgUrl);
-
-        Date javaUtilDate;
-        Time timeDeparture = null;
-        List<Element> elementList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).get(0).getElementsByTag(TAG_TD);
-        String departureDate = elementList.get(3).text();
-        departureDate = departureDate.substring(0, departureDate.length() - 3);
-        String departureTime = elementList.get(4).text();
-        String dateTime = new StringBuilder(departureDate).append(departureTime).toString();
-        System.out.println(dateTime);
-        try {
-            javaUtilDate = SIMPLE_DATE_TIME_FORMAT.parse(dateTime);
-            timeDeparture = new Time(javaUtilDate.getTime());
-        } catch (ParseException e) {
-            //TODO improve this block
-            e.printStackTrace();
-        }
-        tour.setDepartureTime(timeDeparture);
-    }
-
-    private RoomType tourRoomType(String roomTypeSt){
+    private RoomType convertTourRoomType(String roomTypeSt){
         RoomType roomType;
         try {
             roomType = RoomType.valueOf(roomTypeSt);
@@ -341,6 +332,44 @@ public class ItTourParser implements ItTourParserConstants {
             }
         }
         return roomType;
+    }
+
+    public void parseAdvanceData(Tour tour){
+        String[] tourIdArray = tourIdMap.get(tour);
+        String url = ItTourParserUrlGenerator.createHotelInfoUrl(tourIdArray);
+        Document document = connect(url);
+        setHotelImage(document, tour.getHotel());
+        setTourDepartureTime(document, tour);
+    }
+
+    private void setHotelImage(Document document, Hotel hotel){
+        Element img = document.getElementById(ID_IMG);
+        String imgUrl;
+        try {
+            imgUrl = img.attr(ATTR_SRC);
+        } catch (NullPointerException e) {
+            imgUrl = null;
+        }
+        hotel.setImgUrl(imgUrl);
+    }
+
+    private void setTourDepartureTime(Document document, Tour tour){
+        List<Element> advanceDataList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).first().getElementsByTag(TAG_TD);
+        Date utilDate;
+        Time timeDeparture = null;
+        String departureDate = advanceDataList.get(ADVANCE_DATA_DEPARTURE_DATE).text();
+        //TODO Maybe date with day of week in format like "пт", "сб" is parseable?
+        departureDate = departureDate.substring(0, departureDate.length() - 3);
+        String departureTime = advanceDataList.get(ADVANCE_DATA_DEPARTURE_TIME).text();
+        String dateTime = departureDate + departureTime;
+        try {
+            utilDate = SIMPLE_DATE_TIME_FORMAT.parse(dateTime);
+            timeDeparture = new Time(utilDate.getTime());
+        } catch (ParseException e) {
+            //TODO improve this block
+            e.printStackTrace();
+        }
+        tour.setDepartureTime(timeDeparture);
     }
 
     public static void main(String[] args) {
@@ -383,7 +412,7 @@ public class ItTourParser implements ItTourParserConstants {
             System.out.println(tour);
         }
         for(int i = 0;i<4;i++) {
-            parser.setHotelImgLinkAndDepartureTime(listTour.get(i));
+            parser.parseAdvanceData(listTour.get(i));
             System.out.println(listTour.get(i).getHotel().getImgUrl());
             System.out.println(listTour.get(i).getDepartureTime());
         }
@@ -394,7 +423,7 @@ public class ItTourParser implements ItTourParserConstants {
         //set img url
         Tour tour = listTour.get(0);
 
-        parser.setHotelImgLinkAndDepartureTime(tour);
+        parser.parseAdvanceData(tour);
         System.out.println(tour.getHotel().getImgUrl());
         System.out.println(tour.getDepartureTime());
         */
