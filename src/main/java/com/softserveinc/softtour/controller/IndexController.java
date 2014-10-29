@@ -103,7 +103,7 @@ public class IndexController {
     }
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
     public void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
-
+        parser.setHotelImgLinkAndDepartureTime(currentTour);
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
 
@@ -136,7 +136,6 @@ public class IndexController {
         else
         {hotelService.setZero(currentHotel);
             currentTour.setHotel(hotelService.save(currentHotel));}
-        currentTour.setDepartureCity("Null");
         currentTour.setDepartureTime(new Time(12354));
         Tour tourToHis=tourService.save(currentTour);
         HistoryRecord historyRecord= new HistoryRecord(sqlDate,currentUser,tourToHis);
@@ -152,12 +151,6 @@ public class IndexController {
     @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
     public @ResponseBody Tour parseHotelImage(@RequestBody(required = true) final Tour currentTour){
         parser.setHotelImgLinkAndDepartureTime(currentTour);
-        return currentTour;
-    }
-    @RequestMapping(value="/openCollapse", method = RequestMethod.POST)
-    public @ResponseBody Tour openCollapse(@RequestBody(required = true) final Tour currentTour){
-        Hotel hotel = hotelService.findByName(currentTour.getHotel().getName());
-        currentTour.setHotel(hotel);
         return currentTour;
     }
 
