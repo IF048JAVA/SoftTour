@@ -20,49 +20,123 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.util.*;
 
+/**
+ * This class find tours and supported information by input parameters.
+ * The routes data source is site: http://www.ittour.com.ua
+ * This class use:
+ *     com.softserveinc.softtour.parsers.constants.ParsersConstants - contains used in this class constants
+ *     com.softserveinc.softtour.entity.Tour - represent tour
+ *     com.softserveinc.softtour.util.ItTourParserUrlGenerator - generate web-page's url, that contains tours.
+ * Class contains three overloaded constructors for such pages:
+ *     index page with quick search
+ *     search page with advanced search
+ *     hotels page with search by hotel
+ */
 public class ItTourParser implements ParsersConstants {
+
+    /**
+     * Parse results would be save in this list
+     */
     private List<Tour> tourList;
     private String country;
     private int adults;
     private int children;
-    private ItTourParserUrlGenerator urlGenerator;
     private String url;
     private Properties departureCityVocabulary = new Properties();
     private Map<String, Element> hotelElementMap;
 
-    public ItTourParser(String country, int adults, int children, int priceFrom, int priceTo, int pageNumber) {
+    /**
+     * This constructor is for quick search
+     * @param country - tour country
+     * @param countryParam - tour country parameter(country code, one of the url parameter)
+     * @param adults - count adults, that plan to go to tour
+     * @param children - count children, that plan to go to tour
+     * @param priceMin - minimum money value, that can be paid for tour
+     * @param priceMax - maximum money value, that can be paid for tour
+     * @param pageNumber - number of page, that would be parse.
+     *         Parse connect to the page, that can contains 20, 50 or 100 tours (This value contains in constant:
+     *         ITEMS_PER_PAGE_VALUE in com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants).
+     *
+     *         Example: If pageNumber will be equals 1, this parser would connect to first page with result,
+     *         required to input parameters. Number 2 - to second and so on.
+     */
+    public ItTourParser(String country, long countryParam, int adults, int children, int priceMin, int priceMax, int pageNumber) {
         this.tourList = new ArrayList<>();
         this.country = country;
         this.adults = adults;
         this.children = children;
-        urlGenerator = new ItTourParserUrlGenerator();
-        this.url = urlGenerator.createQuickSearchUrl(country, adults, children, priceFrom, priceTo, pageNumber);
+        this.url = ItTourParserUrlGenerator.createQuickSearchUrl(countryParam, adults, children, priceMin, priceMax, pageNumber);
         hotelElementMap = new HashMap<>();
     }
 
-    public ItTourParser(String country, String region, Set<Integer> hotelStars, Set<String> food, int adults, int children,
-                        String dataFrom, String dataTill, int nightsFrom, int nightsTill, int priceFrom, int priceTo,
-                        int pageNumber) {
+    /**
+     * This constructor is for advanced search
+     * @param country - tour country
+     * @param countryParam - tour country parameter(country code, one of the url parameter)
+     * @param regionParam - tour region parameter(region code, one of the url parameter)
+     * @param hotelStars - count of hotel stars. Set, that must contains values from 2 to 5.
+     * @param food - type of food. Set with types of food. Must contains such values: HB,BB,FB,AI,UAI,RO.
+     * @param adults - count adults, that plan to go to tour
+     * @param children - count children, that plan to go to tour
+     * @param dateFrom - from this date tour would be search. Value must be in format: dd.MM.yy
+     * @param dateTo - tour would be search to this date. Value must be in format: dd.MM.yy
+     * @param nightsFrom - minimum count of tour nights. Value must be from 1 to 21.
+     * @param nightsTo - maximum count of tour nights. Value must be from 1 to 21.
+     * @param priceMin - minimum money value, that can be paid for tour
+     * @param priceMax - maximum money value, that can be paid for tour
+     * @param pageNumber - number of page, that would be parse.
+     *         Parse connect to the page, that can contains 20, 50 or 100 tours (This value contains in constant:
+     *         ITEMS_PER_PAGE_VALUE in com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants).
+     *
+     *         Example: If pageNumber will be equals 1, this parser would connect to first page with result,
+     *         required to input parameters. Number 2 - to second and so on.
+     */
+    public ItTourParser(String country, long countryParam, long regionParam, Set<Integer> hotelStars, Set<String> food, int adults,
+            int children, String dateFrom, String dateTo, int nightsFrom, int nightsTo, int priceMin, int priceMax,
+            int pageNumber) {
         this.tourList = new ArrayList<>();
         this.country = country;
         this.adults = adults;
         this.children = children;
-        urlGenerator = new ItTourParserUrlGenerator();
-        this.url = urlGenerator.createAdvanceSearchUrl(country, region, hotelStars, food, adults, children, dataFrom, dataTill,
-                nightsFrom, nightsTill, priceFrom, priceTo, pageNumber);
+        this.url = ItTourParserUrlGenerator.createAdvanceSearchUrl(countryParam, regionParam, hotelStars, food, adults, children, dateFrom,
+            dateTo, nightsFrom, nightsTo, priceMin, priceMax, pageNumber);
         hotelElementMap = new HashMap<>();
     }
 
+    /**
+     * This constructor is for search by hotel.
+     * @param hotel - object hotel
+     * @param pageNumber - number of page, that would be parse.
+     *         Parse connect to the page, that can contains 20, 50 or 100 tours (This value contains in constant:
+     *         ITEMS_PER_PAGE_VALUE in com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants).
+     *
+     *         Example: If pageNumber will be equals 1, this parser would connect to first page with result,
+     *         required to input parameters. Number 2 - to second and so on.
+     */
     public ItTourParser(Hotel hotel, int pageNumber) {
         this.tourList = new ArrayList<>();
         this.country = hotel.getRegion().getCountry().getName();
-        this.adults = 2;
-        this.children = 0;
-        urlGenerator = new ItTourParserUrlGenerator();
-        this.url = urlGenerator.createSearchUrlByHotel(hotel, pageNumber);
+        this.adults = DEFAULT_ADULTS_COUNT;
+        this.children = DEFAULT_CHILDREN_COUNT;
+        this.url = ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, pageNumber);
         hotelElementMap = new HashMap<>();
     }
 
+    /**
+     * This method create connection to the web-page with tours that required constructor parameters.
+     *
+     * Web-page with tours are encapsulated in Jsoup object Document.
+     * Document will be generated by using private method connect.
+     *
+     * Private method loadDepartureCityProperties load properties file data.
+     * This data contains ru-ua vocabulary of the departure cities.
+     * Our application contains Ukrainian names of cities, when parsed site - Russian.
+     * So we need to translate cities names.
+     *
+     * Methods addTours add tours to tourList.
+     *
+     * @return list of tours (represented by Tour class)
+     */
     public List<Tour> parse() {
         Document document = connect(url);
         loadDepartureCityProperties();
@@ -86,13 +160,15 @@ public class ItTourParser implements ParsersConstants {
         return document;
     }
 
+    /**
+     * This method load properties file data, that contains ru-ua vocabulary of the departure cities.
+     */
     private void loadDepartureCityProperties(){
         try(InputStream inputDepCity = this.getClass().getResourceAsStream(DEPARTURE_CITY_PROPERTIES_PATH);
             InputStreamReader reader = new InputStreamReader(inputDepCity, UTF_8)) {
             departureCityVocabulary.load(reader);
         }catch (IOException e){
-            //TODO improve handled exception
-            System.out.println(e.getMessage());
+            System.err.println("There are no properties file: " + DEPARTURE_CITY_PROPERTIES_PATH);
         }
     }
 
@@ -213,7 +289,7 @@ public class ItTourParser implements ParsersConstants {
         Element hotelLink = getHotelElement(tour.getHotel().getName());
         String tourId = hotelLink.attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
         String[] tourIdArr = tourId.split(",");
-        String url = urlGenerator.createHotelInfoUrl(tourIdArr);
+        String url = ItTourParserUrlGenerator.createHotelInfoUrl(tourIdArr);
         Document document = connect(url);
         Element img = document.getElementById(ID_IMG);
         String imgUrl;
@@ -270,7 +346,7 @@ public class ItTourParser implements ParsersConstants {
     }
 
     public static void main(String[] args) {
-        //ItTourParser parser = new ItTourParser("Греція", 3, 1 ,300, 1500, 1);
+        ItTourParser parser = new ItTourParser("Єгипет", 338, 3, 1 ,1000, 3000, 1);
         /*
         for now, full search works only for this regions:
         #Єгипет
@@ -289,10 +365,10 @@ public class ItTourParser implements ParsersConstants {
         Аттика = 15226
 
           ADVANCE SEARCH CONSTRUCTOR VALUES ORDER:
-          String country, String region, int [] hotelStars, String[] food, int adults, int children, String dataFrom, String dataTill,
-          int nightsFrom, int nightsTill, int priceFrom, int priceTo, int pageNumber
+          String country, String region, int [] hotelStars, String[] food, int adults, int children, String dateFrom, String dateTo,
+          int nightsFrom, int nightsTo, int priceMin, int priceMax, int pageNumber
         */
-
+        /*
         Set<Integer> hotelStars = new HashSet<>();
         hotelStars.add(3);
         hotelStars.add(5);
@@ -303,10 +379,12 @@ public class ItTourParser implements ParsersConstants {
         long dateStart = new Date().getTime();
         ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
                                                5, 15, 500, 5000, 2);
+        */
         List<Tour> listTour = parser.parse();
         for(Tour tour : listTour) {
             System.out.println(tour);
         }
+        /*
         long dateTo = new Date().getTime();
         System.out.println((dateTo - dateStart) + " milisec.");
 
@@ -316,7 +394,7 @@ public class ItTourParser implements ParsersConstants {
         parser.setHotelImgLinkAndDepartureTime(tour);
         System.out.println(tour.getHotel().getImgUrl());
         System.out.println(tour.getDepartureTime());
-
+        */
         /*
         Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
         hotel.setId(59466);

@@ -38,6 +38,8 @@ public interface ParsersConstants {
     String ALL_HOTELS = "Все отели";
     String ALL_CITIES = "Все города";
     int MINUTES_IN_HOUR = 60;
+    int DEFAULT_ADULTS_COUNT = 2;
+    int DEFAULT_CHILDREN_COUNT = 0;
 
     char COLON = ':';
     String STAR = "*";
