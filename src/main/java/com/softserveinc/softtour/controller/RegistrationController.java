@@ -76,6 +76,7 @@ public class RegistrationController {
 	 * @param user - it's object which will be saved
 	 * @return the name which redirect to the page registration.jsp or index.jsp
 	 */
+	// FIXME delete url save
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String save(User user, BindingResult bindingResult) {
 		

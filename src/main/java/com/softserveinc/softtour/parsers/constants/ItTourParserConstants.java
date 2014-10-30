@@ -26,18 +26,23 @@ public interface ItTourParserConstants {
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
     String WRONG_FAMILY_ROOM_TYPE = "FAMI...";
     String REGEXP_REPLACEMENT = "(return package_tour_order\\()|(\\);)";
-    String NO_IMG = null;
     int DEFAULT_ADULTS_COUNT = 2;
     int DEFAULT_CHILDREN_COUNT = 0;
 
     int DATA_START_NUMBER = 7;
     int TAL_DATA_NUMBER = 2;
-    int NOT_NEED_DATA_ELEMENT_NUMBER = 0;
-    int TABLE_CELL_DEPARTURE_DATE = 1;
-    int TABLE_CELL_DEPARTURE_TIME = 2;
-    int TABLE_CELL_ROUTE = 7;
-    int TABLE_CELL_ARRIVAL_TIME = 3;
-    int TABLE_CELL_PRICE = 4;
+    int TABLE_CELL_TOUR_DATE = 7;
+    int TABLE_CELL_NIGHTS_COUNT = 6;
+    int TABLE_CELL_DEPARTURE_CITY = 3;
+    int TABLE_CELL_TOUR_PRICE = 9;
+    int TABLE_CELL_HOTEL_NAME = 1;
+    int TABLE_CELL_HOTEL_STARS = 4;
+    int TABLE_CELL_HOTEL_REGION = 0;
+    int TABLE_CELL_HOTEL_LINK = 1;
+    int TABLE_CELL_TOUR_FOOD = 5;
+    int TABLE_CELL_TOUR_ROOM_TYPE = 2;
+    int ADVANCE_DATA_DEPARTURE_DATE = 3;
+    int ADVANCE_DATA_DEPARTURE_TIME = 4;
     int TEN = 10;
     int LEADING_ZERO = 0;
 }

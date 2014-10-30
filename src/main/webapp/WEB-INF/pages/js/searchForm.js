@@ -1,5 +1,10 @@
-function checkHotel(field){
-    if(field.checked == true){
+function checkHotel(){
+    var two = document.getElementById("twoStar");
+    var three = document.getElementById("threeStar");
+    var four = document.getElementById("fourStar");
+    var five = document.getElementById("fiveStar");
+    if(two.checked == true||three.checked == true||four.checked == true||five.checked == true){
+        document.getElementById("checkHelp").innerHTML = "";
         return true;
     } else {
         document.getElementById("checkHelp").innerHTML = "Виберіть готель";
@@ -7,8 +12,15 @@ function checkHotel(field){
     }
 }
 
-function checkFood(field){
-    if(field.checked == true){
+function checkFood(){
+    var one = document.getElementById("foodOne");
+    var two = document.getElementById("foodTwo");
+    var three = document.getElementById("foodThree");
+    var four = document.getElementById("foodFour");
+    var five = document.getElementById("foodFive");
+    var six = document.getElementById("foodSix");
+    if(one.checked == true||two.checked == true||three.checked == true||four.checked == true||five.checked == true||six.checked == true){
+        document.getElementById("checkHelp2").innerHTML = "";
         return true;
     } else {
         document.getElementById("checkHelp2").innerHTML = "Виберіть тип харчування";
