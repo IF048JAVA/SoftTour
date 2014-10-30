@@ -336,13 +336,13 @@
                     </div>
 
                     <form role="form" class="form-inline">
-                    <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${tour.id}" onclick="getAllTransitF(\${tour.id})">
+                    <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-F\${tour.id}" onclick="getAllTransitF(\${tour.id},\${id})">
                     <span class="glyphicon glyphicon-road"></span>
                     <span class="glyphicon glyphicon-plane"></span>
                     &nbsp; Як добратися з ... ?
                     </button>
                     <div class="form-group">
-                    <select id="cityFrom-\${id}" class="select2-offscreen cityFromSelector">
+                    <select id="cityFrom-F\${id}" class="select2-offscreen cityFromSelector">
                     </select>
                     </div>
                     </form>
@@ -529,13 +529,14 @@
                     </div>
 
                     <form role="form" class="form-inline">
-                    <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${tour.id}" onclick="getAllTransitH(\${tour.id})">
+                    <button type="button" class="btn btn-info transitionInfo" data-toggle="collapse" data-target="#transitInfo-All-H\${tour.id}" onclick="getAllTransitH(\${tour.id},\${id})">
                     <span class="glyphicon glyphicon-road"></span>
                     <span class="glyphicon glyphicon-plane"></span>
                     &nbsp; Як добратися з ... ?
                     </button>
                     <div class="form-group">
-
+                    <select id="cityFrom-H\${id}" class="select2-offscreen cityFromSelector">
+                    </select>
                     </div>
                     </form>
                 </div>
