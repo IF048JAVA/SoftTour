@@ -248,7 +248,6 @@ public class ItTourParser implements ItTourParserConstants {
 
             String[] tourIdArray = hotelLink.split(",");
             tour.setItTourId(tourIdArray);
-            //tourIdMap.put(tour, tourIdArray);
             tourList.add(tour);
 
             /**
@@ -320,7 +319,7 @@ public class ItTourParser implements ItTourParserConstants {
                     roomType = RoomType.APART;
                     break;
                 } case WRONG_DBL_ROOM_TYPE: {
-                    roomType =RoomType.DBL;
+                    roomType = RoomType.DBL;
                     break;
                 } default: {
                     roomType = RoomType.UNKNOWN;
@@ -331,6 +330,15 @@ public class ItTourParser implements ItTourParserConstants {
         return roomType;
     }
 
+    /**
+     * This method parse advance data: hotel image & tour departure time.
+     * There are tour data, that aren't in Jsoup document with tours.
+     * But part of url parameters, that is need to create connection, is in this document.
+     * Creating of new connection get about 4 seconds. It is unproductively.
+     * So, there is need to create additional method.
+     * This method used when user open tour to check for additional tour information.
+     * @param tour - information about tour, represented by Tour object
+     */
     public void parseAdvanceData(Tour tour){
         String[] tourIdArray = tour.getItTourId();
         String url = ItTourParserUrlGenerator.createHotelInfoUrl(tourIdArray);
@@ -339,6 +347,11 @@ public class ItTourParser implements ItTourParserConstants {
         setTourDepartureTime(document, tour);
     }
 
+    /**
+     * This method find hotel image url and set it to hotel. Used in public method parseAdvanceData(Tour tour).
+     * @param document - encapsulated in Jsoup object Document web-page with hotel image
+     * @param hotel - information about hotel, represented by Hotel class
+     */
     private void setHotelImage(Document document, Hotel hotel){
         Element img = document.getElementById(ID_IMG);
         String imgUrl;
@@ -350,6 +363,11 @@ public class ItTourParser implements ItTourParserConstants {
         hotel.setImgUrl(imgUrl);
     }
 
+    /**
+     * This method find tour departure time and set it to tour. Used in public method parseAdvanceData(Tour tour).
+     * @param document - encapsulated in Jsoup object Document web-page with tour departure time.
+     * @param tour - information about tour, represented by Tour class
+     */
     private void setTourDepartureTime(Document document, Tour tour){
         List<Element> advanceDataList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).first().getElementsByTag(TAG_TD);
         Date utilDate;
