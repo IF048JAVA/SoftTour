@@ -51,5 +51,7 @@ public interface FavoriteService {
 	 *  Returns the list of all favorite's objects which are contained in the table Favorite
 	 */
 	public List<Favorite> findAll();
+
+    public Favorite findByUserAndTour (Favorite favorite);
 	
 }

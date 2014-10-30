@@ -24,13 +24,13 @@
                 <p>Готель:</p>
 
                     <label>2*</label>
-                    <input type="checkbox" value="2" id="twoStar" name="twoStar" onclick="checkHotel(this)">
+                    <input type="checkbox" value="2" id="twoStar" name="twoStar">
                     <label>3*</label>
-                    <input type="checkbox" value="3" id="threeStar" name="threeStar" onclick="checkHotel(this)">
+                    <input type="checkbox" value="3" id="threeStar" name="threeStar">
                     <label>4*</label>
-                    <input type="checkbox" value="4" id="fourStar" name="fourStar" onclick="checkHotel(this)">
+                    <input type="checkbox" value="4" id="fourStar" name="fourStar">
                     <label>5*</label>
-                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar" onclick="checkHotel(this)"><br>
+                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar"><br>
                     <span id="checkHelp" style="color: red"></span>
 
             </div>
@@ -39,28 +39,28 @@
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="HB" id="foodOne" name="foodOne" onclick="checkFood(this)">
+                        <input type="checkbox" value="HB" id="foodOne" name="foodOne">
                         HB
                     </label>
                     <label>
-                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo" onclick="checkFood(this)">
+                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo">
                         BB
                     </label>
                     <label>
-                        <input type="checkbox" value="FB" id="foodThree" name="foodThree" onclick="checkFood(this)">
+                        <input type="checkbox" value="FB" id="foodThree" name="foodThree">
                         FB
                     </label>
                     <br>
                     <label>
-                        <input type="checkbox" value="AI" id="foodFour" name="foodFour" onclick="checkFood(this)">
+                        <input type="checkbox" value="AI" id="foodFour" name="foodFour">
                         AI
                     </label>
                     <label>
-                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive" onclick="checkFood(this)">
+                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive">
                         UAI
                     </label>
                     <label>
-                        <input type="checkbox" value="RO" id="foodSix" name="foodSix" onclick="checkFood(this)">
+                        <input type="checkbox" value="RO" id="foodSix" name="foodSix">
                         RO
                     </label><br>
                     <span id="checkHelp2" style="color: red"></span>
@@ -145,7 +145,7 @@
                         <option>4</option>
                         <option>5</option>
                         <option>6</option>
-                        <option>7</option>
+                        <option selected>7</option>
                         <option>8</option>
                         <option>9</option>
                         <option>10</option>
@@ -179,7 +179,7 @@
             </div>    
         </div>
         </div>
-        <input type="button" class="btn btn-primary btn-lg" value="Пошук" onclick="showResults()">
+        <input type="button" class="btn btn-primary btn-lg" value="Пошук" onclick="return showResults(this.form)">
     </form>
 </div>
 

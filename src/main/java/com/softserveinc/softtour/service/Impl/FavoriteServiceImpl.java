@@ -92,4 +92,9 @@ public class FavoriteServiceImpl implements FavoriteService{
 		return favoriteRepository.findAll();
 	}
 
+    @Override
+    public Favorite findByUserAndTour (Favorite favorite) {
+        return favoriteRepository.findByUserAndTour(favorite.getUser(),favorite.getTour());
+    }
+
 }

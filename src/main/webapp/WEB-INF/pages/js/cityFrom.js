@@ -1,5 +1,11 @@
-$(function() {
-    var availableTags = [
+
+$('#myProfile').ready(function () {
+
+        $("[id|=cityFrom]").select2({
+            placeholder: "Оберіть місто",
+        });
+
+    var cities = [
         'Вінниця',
         'Дніпропетровськ',
         'Донецьк',
@@ -23,9 +29,21 @@ $(function() {
         'Хмельницький',
         'Черкаси',
         'Чернівці',
-        'Чернігів'
-    ];
-    $(".cityFromAutocomplete").autocomplete({
-        source: availableTags
+        'Чернігів']
+
+    console.log(cities)
+
+    allCitieFrom="<option></option>";
+    $.each(cities, function( index, value ) {
+        allCitieFrom += '<option value="' + value + '">'
+            + value + '</option>';
     });
-});
+
+    console.log(allCitieFrom)
+
+    $("[id|=cityFrom]").html(allCitieFrom);
+
+    })
+
+
+
