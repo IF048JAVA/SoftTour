@@ -1,6 +1,5 @@
 package com.softserveinc.softtour.service.Impl;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.softserveinc.softtour.repository.UserRepository;
-import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
-import com.softserveinc.softtour.entity.template.Sex;
 import com.softserveinc.softtour.service.UserService;
 
 /**
@@ -83,16 +80,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findByNameOrEmail(String name, String  email) {
 		return userRepository.findByNameOrEmail(name, email);
-	}
-	
-	/**
-	 *  Returns the list of the user's objects with the specified parameters
-	 */
-	@Override
-	public List<User> findByAnyParameters(long id, String name, String email, String password, 
-								Date birthday, Sex sex, String phone, Role role) {
-		return userRepository.findByIdOrNameOrEmailOrPasswordOrBirthdayOrSexOrPhoneOrRole(
-				id, name, email, password, birthday, sex, phone, role);
 	}
 	
 	/**
