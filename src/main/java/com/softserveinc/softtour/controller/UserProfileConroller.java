@@ -16,7 +16,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/userProfile")
-@SessionAttributes ({"user"})
 public class UserProfileConroller {
 
     @Autowired
@@ -50,13 +49,13 @@ public class UserProfileConroller {
     public @ResponseBody List<HistoryRecord> findUserHistory() {
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser = userService.findByEmail(loggedUserEmail);
-        List<HistoryRecord> currentUserRecords = historyRecordService.findByUser(currentUser);
-        return currentUserRecords;
+        List<HistoryRecord> currentUserHistory = historyRecordService.findByUser(currentUser);
+        return currentUserHistory;
     }
 
 
     @RequestMapping(value="/userToUpdate", method=RequestMethod.POST)
-    public String userToUpdate(User updatedUser) {
+    public String userProfile(User updatedUser) {
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser = userService.findByEmail(loggedUserEmail);
 
