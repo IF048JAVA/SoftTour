@@ -164,18 +164,18 @@ public class IndexController {
         return routesList;
     }
 
-    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
-    public @ResponseBody List<BusRoute> getBusTransits(
-            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
-            @RequestParam(value = "cityFrom", required = true) String cityFrom){
-
-        Tour currentTour = tourService.findOne(currentTourId);
-
-        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
-
-        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
-        List<BusRoute> routesList =  currentBusParser.parse();
-
-        return routesList;
-    }
+//    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
+//    public @ResponseBody List<BusRoute> getBusTransits(
+//            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+//            @RequestParam(value = "cityFrom", required = true) String cityFrom){
+//
+//        Tour currentTour = tourService.findOne(currentTourId);
+//
+//        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
+//
+//        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
+//        List<BusRoute> routesList =  currentBusParser.parse();
+//
+//        return routesList;
+//    }
 }

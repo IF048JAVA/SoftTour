@@ -14,6 +14,13 @@ if( $('#panel-1').length){
             })
 
             $('#favoriteTemplate').tmpl(favorites).appendTo('#panel-1');
+            $('#panel-1').append(
+                    "<script type='text/javascript' src=\"js/star-rating.min.js\"/>"+
+                    "<script type='text/javascript' src=\"js/bootstrap-table.min.js\"/>"+
+                    "<script type='text/javascript' src=\"js/cityFrom.js\"/>"+
+                    "<script type='text/javascript' src=\"js/transitOrderButton.js\"/>"+
+                    "<script type='text/javascript' src=\"js/select2.min.js\"/>");
+
         })
     })
 

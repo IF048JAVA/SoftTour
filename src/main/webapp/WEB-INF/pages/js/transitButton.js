@@ -131,3 +131,4 @@ function getAllTransitH(tourId,historyId) {
         console.log("#panel-element-f"+tourId+" panel-body");
         });
     }
+
