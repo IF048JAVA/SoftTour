@@ -50,6 +50,7 @@ public class Tour {
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
+    private String[] itTourId = new String[2];
 
 
     public Tour() {
@@ -155,7 +156,13 @@ public class Tour {
         this.hotel = hotel;
     }
 
+    public String[] getItTourId() {
+        return itTourId;
+    }
 
+    public void setItTourId(String[] itTourId) {
+        this.itTourId = itTourId;
+    }
 
     @Override
     public String toString() {

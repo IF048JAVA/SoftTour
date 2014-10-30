@@ -77,7 +77,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         append(TOUR_KIND_PARAM).append(EQV).append(TOUR_KIND_VALUE).append(AMP).
         append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
         append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
-        append(ITEMS_PER_PAGE_PARAM).append(EQV).append(ITEMS_PER_PAGE_VALUE).append(AMP).
+        append(ITEMS_PER_PAGE_PARAM).append(EQV).append(HOTEL_ITEMS_PER_PAGE_VALUE).append(AMP).
         append(COUNTRY_PARAM).append(EQV).append(hotel.getRegion().getCountry().getItTourId()).append(AMP).
         append(REGION_PARAM).append(EQV).append(hotel.getRegion().getItTourId()).append(AMP).
         append(FOOD_PARAM).append(EQV).append(DEFAULT_FOOD_VALUE).append(AMP).
@@ -194,9 +194,9 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
 
     public static void main(String[] args) {
         Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
-        hotel.setId(59466);
-        hotel.getRegion().setId(5498);
-        hotel.getRegion().getCountry().setId(318);
-        System.out.println(new ItTourParserUrlGenerator().createSearchUrlByHotel(hotel, 1));
+        hotel.setItTourId(59466L);
+        hotel.getRegion().setItTourId(5498L);
+        hotel.getRegion().getCountry().setItTourId(318L);
+        System.out.println(ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, 1));
     }
 }

@@ -44,7 +44,6 @@ public class ItTourParser implements ItTourParserConstants {
     private int children;
     private String url;
     private Properties departureCityVocabulary = new Properties();
-    private Map<Tour, String[]> tourIdMap;
 
     /**
      * This constructor is for quick search
@@ -67,7 +66,6 @@ public class ItTourParser implements ItTourParserConstants {
         this.adults = adults;
         this.children = children;
         this.url = ItTourParserUrlGenerator.createQuickSearchUrl(countryParam, adults, children, priceMin, priceMax, pageNumber);
-        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -101,7 +99,6 @@ public class ItTourParser implements ItTourParserConstants {
         this.children = children;
         this.url = ItTourParserUrlGenerator.createAdvanceSearchUrl(countryParam, regionParam, hotelStars, food, adults, children, dateFrom,
             dateTo, nightsFrom, nightsTo, priceMin, priceMax, pageNumber);
-        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -120,7 +117,6 @@ public class ItTourParser implements ItTourParserConstants {
         this.adults = DEFAULT_ADULTS_COUNT;
         this.children = DEFAULT_CHILDREN_COUNT;
         this.url = ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, pageNumber);
-        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -140,7 +136,6 @@ public class ItTourParser implements ItTourParserConstants {
      */
     public List<Tour> parse() {
         Document document = connect(url);
-        System.out.println(url);
         loadDepartureCityProperties();
         addTours(document);
         return tourList;
@@ -247,6 +242,12 @@ public class ItTourParser implements ItTourParserConstants {
             tour.setAdultAmount(adults);
             tour.setChildrenAmount(children);
             tour.setRoomType(convertTourRoomType(roomTypeSt));
+
+            String hotelLink = tableCellList.get(TABLE_CELL_HOTEL_LINK).select(TAG_A).first().
+                    attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
+
+            String[] tourIdArray = hotelLink.split(",");
+            tour.setItTourId(tourIdArray);
             tourList.add(tour);
 
             /**
@@ -256,11 +257,6 @@ public class ItTourParser implements ItTourParserConstants {
              * This part of code get this part of url parameters & save them to tourIdMap.
              * Then it would be use in public method parseAdvanceData(Tour tour).
              */
-            String hotelLink = tableCellList.get(TABLE_CELL_HOTEL_LINK).select(TAG_A).first().
-                               attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
-
-            String[] tourIdArray = hotelLink.split(",");
-            tourIdMap.put(tour, tourIdArray);
         }
     }
 
@@ -323,7 +319,7 @@ public class ItTourParser implements ItTourParserConstants {
                     roomType = RoomType.APART;
                     break;
                 } case WRONG_DBL_ROOM_TYPE: {
-                    roomType =RoomType.DBL;
+                    roomType = RoomType.DBL;
                     break;
                 } default: {
                     roomType = RoomType.UNKNOWN;
@@ -334,14 +330,28 @@ public class ItTourParser implements ItTourParserConstants {
         return roomType;
     }
 
+    /**
+     * This method parse advance data: hotel image & tour departure time.
+     * There are tour data, that aren't in Jsoup document with tours.
+     * But part of url parameters, that is need to create connection, is in this document.
+     * Creating of new connection get about 4 seconds. It is unproductively.
+     * So, there is need to create additional method.
+     * This method used when user open tour to check for additional tour information.
+     * @param tour - information about tour, represented by Tour object
+     */
     public void parseAdvanceData(Tour tour){
-        String[] tourIdArray = tourIdMap.get(tour);
+        String[] tourIdArray = tour.getItTourId();
         String url = ItTourParserUrlGenerator.createHotelInfoUrl(tourIdArray);
         Document document = connect(url);
         setHotelImage(document, tour.getHotel());
         setTourDepartureTime(document, tour);
     }
 
+    /**
+     * This method find hotel image url and set it to hotel. Used in public method parseAdvanceData(Tour tour).
+     * @param document - encapsulated in Jsoup object Document web-page with hotel image
+     * @param hotel - information about hotel, represented by Hotel class
+     */
     private void setHotelImage(Document document, Hotel hotel){
         Element img = document.getElementById(ID_IMG);
         String imgUrl;
@@ -353,6 +363,11 @@ public class ItTourParser implements ItTourParserConstants {
         hotel.setImgUrl(imgUrl);
     }
 
+    /**
+     * This method find tour departure time and set it to tour. Used in public method parseAdvanceData(Tour tour).
+     * @param document - encapsulated in Jsoup object Document web-page with tour departure time.
+     * @param tour - information about tour, represented by Tour class
+     */
     private void setTourDepartureTime(Document document, Tour tour){
         List<Element> advanceDataList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).first().getElementsByTag(TAG_TD);
         Date utilDate;
