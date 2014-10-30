@@ -8,8 +8,6 @@
 //    });
 
 
-
-
 $('[id|=transitInfo-All] table').bootstrapTable({
 
     onLoadSuccess: function (date) {
