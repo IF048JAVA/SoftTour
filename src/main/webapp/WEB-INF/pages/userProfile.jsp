@@ -161,8 +161,8 @@
         </div>
 
         <script id="favoriteTemplate" type="text/x-jquery-tmpl">
-            <div class="panel panel-default tourCollapseTitle" id="panel-favorite\${tour.id}">
-                <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${tour.id}">
+            <div class="panel panel-default tourCollapseTitle" id="panel-favorite\${id}">
+                <div class="panel-heading" data-toggle="collapse" href="#panel-element-f\${id}">
                     <div class="panel-title collapsed" data-parent="#panel-1">
                         <table border="0">
                             <tr>
@@ -196,7 +196,7 @@
                        </table>
                     </div>
                 </div>
-            <div id="panel-element-f\${tour.id}" class="panel-collapse collapse">
+            <div id="panel-element-f\${id}" class="panel-collapse collapse">
                 <div class="panel-body">
 
                     <div class="col-sm-4">
@@ -358,8 +358,8 @@
         </script>
 
         <script id="historyTemplate" type="text/x-jquery-tmpl">
-            <div class="panel panel-default tourCollapseTitle" id="panel-history\${tour.id}">
-                <div class="panel-heading" data-toggle="collapse" href="#panel-element-h\${tour.id}">
+            <div class="panel panel-default tourCollapseTitle" id="panel-history\${id}">
+                <div class="panel-heading" data-toggle="collapse" href="#panel-element-h\${id}">
                     <div class="panel-title collapsed" data-parent="#panel-2">
                         <table border="0">
                             <tr>
@@ -389,7 +389,7 @@
                        </table>
                     </div>
                 </div>
-            <div id="panel-element-h\${tour.id}" class="panel-collapse collapse">
+            <div id="panel-element-h\${id}" class="panel-collapse collapse">
                 <div class="panel-body">
 
                     <div class="col-sm-4">
