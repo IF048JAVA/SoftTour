@@ -16,9 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.sql.Time;
+import java.sql.*;
 import java.text.ParseException;
 import java.util.*;
+import java.util.Date;
 
 /**
  * This class find tours and supported information by input parameters.
@@ -139,6 +140,7 @@ public class ItTourParser implements ItTourParserConstants {
      */
     public List<Tour> parse() {
         Document document = connect(url);
+        System.out.println(url);
         loadDepartureCityProperties();
         addTours(document);
         return tourList;
@@ -220,9 +222,6 @@ public class ItTourParser implements ItTourParserConstants {
             String tourNightsSt = tableCellList.get(TABLE_CELL_NIGHTS_COUNT).text();
             String tourDepartureCitySt = tableCellList.get(TABLE_CELL_DEPARTURE_CITY).
                                          getElementsByTag(TAG_DIV).first().text();
-
-            //TODO remove or set 00:00
-            String tourDepartureTimeSt = tableCellList.get(TABLE_CELL_TOUR_DATE).text();
             String tourPriceSt = tableCellList.get(TABLE_CELL_TOUR_PRICE).getElementsByTag(TAG_SPAN).get(7).text();
             String hotelName = tableCellList.get(TABLE_CELL_HOTEL_NAME).text();
             String hotelStars = tableCellList.get(TABLE_CELL_HOTEL_STARS).text();
@@ -236,19 +235,18 @@ public class ItTourParser implements ItTourParserConstants {
             java.sql.Date tourDate = convertTourDate(tourDateSt);
             int tourDays = Integer.parseInt(tourNightsSt);
             String departureCity = convertTourDepartureCity(tourDepartureCitySt);
-            Time departureTime = convertTourDepartureTime(tourDepartureTimeSt);
+            Time departureTime = null;
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
             Hotel hotel = convertTourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
             Food food = Food.valueOf(tourFood);
 
             /**
-             * Create object tour and set tour data
+             * Create object tour, set tour data and add tour to tourList
              */
             Tour tour = new Tour(tourDate, tourDays, departureCity, departureTime, tourPrice, hotel, food);
             tour.setAdultAmount(adults);
             tour.setChildrenAmount(children);
             tour.setRoomType(convertTourRoomType(roomTypeSt));
-
             tourList.add(tour);
 
             /**
@@ -263,11 +261,13 @@ public class ItTourParser implements ItTourParserConstants {
 
             String[] tourIdArray = hotelLink.split(",");
             tourIdMap.put(tour, tourIdArray);
-
-
         }
     }
 
+    /**
+     * @param date - tour date in String format dd.MM.yy
+     * @return tour date in java.sql.Date format
+     */
     private java.sql.Date convertTourDate(String date){
         Date utilDate;
         java.sql.Date sqlDate = null;
@@ -275,57 +275,57 @@ public class ItTourParser implements ItTourParserConstants {
             utilDate = SIMPLE_DATE_FORMAT.parse(date);
             sqlDate = new java.sql.Date(utilDate.getTime());
         } catch (ParseException e) {
-             //TODO improve this block
-            e.printStackTrace();
+            //TODO improve
+             return new java.sql.Date(0);
         }
         return sqlDate;
     }
 
+    /**
+     * @param departureCity - departure city name in Russian
+     * @return departure city name in Ukrainian.
+     *         If there are no Ukrainian analog in parser_properties/departure_city_ru-ua_vocabulary,
+     *         return departure city name in Russian
+     */
     private String convertTourDepartureCity(String departureCity){
         try {
             String departureCityUa = departureCityVocabulary.getProperty(departureCity);
             return departureCityUa;
         } catch (NullPointerException e) {
-            //TODO Think about this block
-            return WITHOUT_FLY;
+            return departureCity;
         }
-    }
-
-    private Time convertTourDepartureTime(String departureTime){
-        Date javaUtilDate;
-        Time timeDeparture = null;
-        try {
-            javaUtilDate = SIMPLE_DATE_FORMAT.parse(departureTime);
-            timeDeparture = new Time(javaUtilDate.getTime());
-        } catch (ParseException e) {
-            //TODO improve this block
-            e.printStackTrace();
-        }
-        return timeDeparture;
     }
 
     private Hotel convertTourHotel(String hotelName, int hotelStars, String hotelRegion){
         Country hotelCountry = new Country(country);
         Region hotelReg = new Region(hotelRegion, hotelCountry);
-        Hotel hotel = new Hotel(hotelName, hotelStars, hotelReg);
-        return hotel;
+        return new Hotel(hotelName, hotelStars, hotelReg);
     }
 
+    /**
+     * This method convert room type from String format to enum (com.softserveinc.softtour.entity.template.RoomType)
+     * @param roomTypeSt - this parameter represents type of room in hotel.
+     *        Sometimes, page with tours contains such room type as FAMI..., APAR..., etc.
+     *        That's mean, room type really is FAMILY, APARTMENT, but has some advanced explanation of their type.
+     *        To convert them to enum type, that this room types really are used switch in the catch block.
+     * @return room type, represented by enum RoomType object.
+     */
     private RoomType convertTourRoomType(String roomTypeSt){
         RoomType roomType;
         try {
             roomType = RoomType.valueOf(roomTypeSt);
         } catch (IllegalArgumentException e) {
             switch (roomTypeSt) {
-                case WRONG_APARTMENT_ROOM_TYPE: {
-                    roomType = RoomType.APART;
-                    break;
-                }
                 case WRONG_FAMILY_ROOM_TYPE: {
                     roomType = RoomType.FAMILY;
                     break;
-                }
-                default: {
+                } case  WRONG_APARTMENT_ROOM_TYPE: {
+                    roomType = RoomType.APART;
+                    break;
+                } case WRONG_DBL_ROOM_TYPE: {
+                    roomType =RoomType.DBL;
+                    break;
+                } default: {
                     roomType = RoomType.UNKNOWN;
                     break;
                 }
@@ -379,7 +379,7 @@ public class ItTourParser implements ItTourParserConstants {
         for(Tour tour : listTour) {
             System.out.println(tour);
         }
-        for(int i = 0;i<listTour.size();i++) {
+        for(int i = 0;i<listTour.size() ;i++) {
             parser.parseAdvanceData(listTour.get(i));
             System.out.println(listTour.get(i).getHotel().getImgUrl());
             System.out.println(listTour.get(i).getDepartureTime());

@@ -22,9 +22,9 @@ public interface ItTourParserConstants {
 
     SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd.MM.yy");
     SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("dd.MM.yyHH:mm");
-    String WITHOUT_FLY = "Без перельоту";
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
     String WRONG_FAMILY_ROOM_TYPE = "FAMI...";
+    String WRONG_DBL_ROOM_TYPE = "DBL...";
     String REGEXP_REPLACEMENT = "(return package_tour_order\\()|(\\);)";
     int DEFAULT_ADULTS_COUNT = 2;
     int DEFAULT_CHILDREN_COUNT = 0;
