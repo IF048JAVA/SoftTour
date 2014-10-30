@@ -76,9 +76,8 @@ function saveFavorites (id){
     })
     $("#deleteButtonF"+id).remove();
     $("#results"+id).append('<span id="deleteButtonF'+id+'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star cursor-pointer" onclick="deleteFavorites('+id+')"><//i><//span>')
-
-    //$("#")
 }
+
 function deleteFavorites (id){
     var favObj = {}
     $.each(favData,function(key,value){
