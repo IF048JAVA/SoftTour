@@ -16,7 +16,7 @@ public interface FavoriteService {
 	/**
 	 * Saves the object favorite to the table Favorite
 	 */
-	public Favorite save(Favorite favorite);
+	public void save(Favorite favorite);
 	
 	/**
 	 * Updates the object favorite with the specified id

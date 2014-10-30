@@ -32,8 +32,8 @@ public class FavoriteServiceImpl implements FavoriteService{
 	 */
 	@Override
 	@Transactional(readOnly=false)
-	public Favorite save(Favorite favorite) {
-		 return favoriteRepository.save(favorite);
+	public void save(Favorite favorite) {
+		 favoriteRepository.save(favorite);
 	}
 	
 	/**
