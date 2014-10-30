@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/userProfile")
-public class UserProfileConroller {
+public class UserProfileController {
 
     @Autowired
     private UserService userService;
