@@ -44,7 +44,6 @@ public class ItTourParser implements ItTourParserConstants {
     private int children;
     private String url;
     private Properties departureCityVocabulary = new Properties();
-    private Map<Tour, String[]> tourIdMap;
 
     /**
      * This constructor is for quick search
@@ -67,7 +66,6 @@ public class ItTourParser implements ItTourParserConstants {
         this.adults = adults;
         this.children = children;
         this.url = ItTourParserUrlGenerator.createQuickSearchUrl(countryParam, adults, children, priceMin, priceMax, pageNumber);
-        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -101,7 +99,6 @@ public class ItTourParser implements ItTourParserConstants {
         this.children = children;
         this.url = ItTourParserUrlGenerator.createAdvanceSearchUrl(countryParam, regionParam, hotelStars, food, adults, children, dateFrom,
             dateTo, nightsFrom, nightsTo, priceMin, priceMax, pageNumber);
-        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -120,7 +117,6 @@ public class ItTourParser implements ItTourParserConstants {
         this.adults = DEFAULT_ADULTS_COUNT;
         this.children = DEFAULT_CHILDREN_COUNT;
         this.url = ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, pageNumber);
-        tourIdMap = new HashMap<>();
     }
 
     /**
@@ -140,7 +136,6 @@ public class ItTourParser implements ItTourParserConstants {
      */
     public List<Tour> parse() {
         Document document = connect(url);
-        System.out.println(url);
         loadDepartureCityProperties();
         addTours(document);
         return tourList;
@@ -247,6 +242,13 @@ public class ItTourParser implements ItTourParserConstants {
             tour.setAdultAmount(adults);
             tour.setChildrenAmount(children);
             tour.setRoomType(convertTourRoomType(roomTypeSt));
+
+            String hotelLink = tableCellList.get(TABLE_CELL_HOTEL_LINK).select(TAG_A).first().
+                    attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
+
+            String[] tourIdArray = hotelLink.split(",");
+            tour.setItTourId(tourIdArray);
+            //tourIdMap.put(tour, tourIdArray);
             tourList.add(tour);
 
             /**
@@ -256,11 +258,6 @@ public class ItTourParser implements ItTourParserConstants {
              * This part of code get this part of url parameters & save them to tourIdMap.
              * Then it would be use in public method parseAdvanceData(Tour tour).
              */
-            String hotelLink = tableCellList.get(TABLE_CELL_HOTEL_LINK).select(TAG_A).first().
-                               attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
-
-            String[] tourIdArray = hotelLink.split(",");
-            tourIdMap.put(tour, tourIdArray);
         }
     }
 
@@ -335,7 +332,7 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     public void parseAdvanceData(Tour tour){
-        String[] tourIdArray = tourIdMap.get(tour);
+        String[] tourIdArray = tour.getItTourId();
         String url = ItTourParserUrlGenerator.createHotelInfoUrl(tourIdArray);
         Document document = connect(url);
         setHotelImage(document, tour.getHotel());

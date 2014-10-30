@@ -194,9 +194,9 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
 
     public static void main(String[] args) {
         Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
-        hotel.setId(59466);
-        hotel.getRegion().setId(5498);
-        hotel.getRegion().getCountry().setId(318);
-        System.out.println(new ItTourParserUrlGenerator().createSearchUrlByHotel(hotel, 1));
+        hotel.setItTourId(59466L);
+        hotel.getRegion().setItTourId(5498L);
+        hotel.getRegion().getCountry().setItTourId(318L);
+        System.out.println(ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, 1));
     }
 }
