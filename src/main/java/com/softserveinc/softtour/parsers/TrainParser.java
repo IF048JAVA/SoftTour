@@ -101,7 +101,7 @@ public class TrainParser {
 	 * @param document - it's document, which will be parsed
 	 * @throws NoRoutesException if the routes no found
 	 */
-	private void parseRoutes(Document document) throws NoRoutesException {
+	public void parseRoutes(Document document) throws NoRoutesException {
 		Element routesTable = null;
 		
 		try{

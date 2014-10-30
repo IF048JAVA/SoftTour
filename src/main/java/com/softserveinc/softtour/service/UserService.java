@@ -1,11 +1,8 @@
 package com.softserveinc.softtour.service;
 
-import java.sql.Date;
 import java.util.List;
 
-import com.softserveinc.softtour.entity.Role;
 import com.softserveinc.softtour.entity.User;
-import com.softserveinc.softtour.entity.template.Sex;
 
 /**
  * @author Andriy
@@ -16,7 +13,7 @@ public interface UserService {
 	/**
 	 * Saves the object user to the table User
 	 */
-	public User save(User user);
+	public void save(User user);
 	
 	/**
 	 * Updates the object user with the specified id
@@ -46,12 +43,6 @@ public interface UserService {
 	 * Returns the list of the user's objects with the specified name or email
 	 */
 	public List<User> findByNameOrEmail(String name, String  email);
-	
-	/**
-	 *  Returns the list of the user's objects with the specified parameters
-	 */
-	public List<User> findByAnyParameters(long id, String name, String email, String password, 
-			Date birthday, Sex sex, String phone, Role role);
 	
 	/**
 	 *  Returns the list of all user's objects which are contained in the table User

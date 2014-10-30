@@ -43,10 +43,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 */	
 	public List<User> findByNameOrEmail(String name, String email);
 
-    /**
-	 *  Returns the list of the user's objects with the specified parameters
-	 */
-	public List<User> findByIdOrNameOrEmailOrPasswordOrBirthdayOrSexOrPhoneOrRole(
-			long id, String name, String email, String password, Date birthday, Sex sex, String phone, Role role);
-
 }

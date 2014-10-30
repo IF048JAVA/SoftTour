@@ -95,7 +95,7 @@ public class IndexController {
     }
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
     public void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
-        parser.setHotelImgLinkAndDepartureTime(currentTour);
+        parser.parseAdvanceData(currentTour);
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -144,7 +144,7 @@ public class IndexController {
     @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
     public @ResponseBody Tour parseHotel(@RequestBody(required = true) final Tour currentTour){
         System.out.println(currentTour);
-        parser.setHotelImgLinkAndDepartureTime(currentTour);
+        parser.parseAdvanceData(currentTour);
         System.out.println(currentTour.getHotel().getImgUrl());
         return currentTour;
     }

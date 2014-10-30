@@ -14,7 +14,7 @@ public class CalculateAge {
 	 * @param birthday - it's user's birthday 
 	 * @return the age of user
 	 */
-	private byte calculateAge(Date birthday){
+	public byte calculateAge(Date birthday){
 		Calendar day = Calendar.getInstance();
 	    Calendar today = Calendar.getInstance();
 	 
