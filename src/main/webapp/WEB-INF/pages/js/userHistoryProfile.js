@@ -12,6 +12,12 @@ if( $('#panel-2').length){
             })
 
             $('#historyTemplate').tmpl(history).appendTo('#panel-2');
+            $('#panel-2').append(
+                    "<script type='text/javascript' src=\"js/star-rating.min.js\"/>"+
+                    "<script type='text/javascript' src=\"js/bootstrap-table.min.js\"/>"+
+                    "<script type='text/javascript' src=\"js/cityFrom.js\"/>"+
+                    "<script type='text/javascript' src=\"js/transitOrderButton.js\"/>"+
+                    "<script type='text/javascript' src=\"js/select2.min.js\"/>");
         })
     })
 }

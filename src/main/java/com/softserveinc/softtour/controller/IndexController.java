@@ -55,7 +55,8 @@ public class IndexController {
     }
 
     @RequestMapping(value="/saveFavorites", method = RequestMethod.POST)
-    public void saveFavorites(@RequestBody(required = true) final Tour currentTour){
+    public void saveFavorites(@RequestBody(required = true) Tour currentTour){
+
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -94,7 +95,7 @@ public class IndexController {
         }
     }
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
-    public void saveHistoryRecord(@RequestBody(required = true) final Tour currentTour){
+    public void saveHistoryRecord(@RequestBody(required = true) Tour currentTour){
         parser.parseAdvanceData(currentTour);
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
@@ -112,8 +113,6 @@ public class IndexController {
 
 
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-            maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
-            maybeHotel.setStars(currentTour.getHotel().getStars());
             currentTour.setHotel(maybeHotel);
             hotelService.save(maybeHotel);
 
@@ -142,10 +141,14 @@ public class IndexController {
     }
 
     @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
-    public @ResponseBody Tour parseHotel(@RequestBody(required = true) final Tour currentTour){
+    public @ResponseBody Tour parseHotel(@RequestBody(required = true) Tour currentTour){
         System.out.println(currentTour);
         parser.parseAdvanceData(currentTour);
         System.out.println(currentTour.getHotel().getImgUrl());
+        Hotel maybeHotel = hotelService.findByName(currentTour.getHotel().getName());
+        maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
+        maybeHotel.setStars(currentTour.getHotel().getStars());
+        hotelService.save(maybeHotel);
         return currentTour;
     }
 
@@ -164,18 +167,18 @@ public class IndexController {
         return routesList;
     }
 
-    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
-    public @ResponseBody List<BusRoute> getBusTransits(
-            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
-            @RequestParam(value = "cityFrom", required = true) String cityFrom){
-
-        Tour currentTour = tourService.findOne(currentTourId);
-
-        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
-
-        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
-        List<BusRoute> routesList =  currentBusParser.parse();
-
-        return routesList;
-    }
+//    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
+//    public @ResponseBody List<BusRoute> getBusTransits(
+//            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+//            @RequestParam(value = "cityFrom", required = true) String cityFrom){
+//
+//        Tour currentTour = tourService.findOne(currentTourId);
+//
+//        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
+//
+//        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
+//        List<BusRoute> routesList =  currentBusParser.parse();
+//
+//        return routesList;
+//    }
 }

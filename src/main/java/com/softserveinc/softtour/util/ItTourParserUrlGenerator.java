@@ -77,7 +77,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         append(TOUR_KIND_PARAM).append(EQV).append(TOUR_KIND_VALUE).append(AMP).
         append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
         append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
-        append(ITEMS_PER_PAGE_PARAM).append(EQV).append(ITEMS_PER_PAGE_VALUE).append(AMP).
+        append(ITEMS_PER_PAGE_PARAM).append(EQV).append(HOTEL_ITEMS_PER_PAGE_VALUE).append(AMP).
         append(COUNTRY_PARAM).append(EQV).append(hotel.getRegion().getCountry().getItTourId()).append(AMP).
         append(REGION_PARAM).append(EQV).append(hotel.getRegion().getItTourId()).append(AMP).
         append(FOOD_PARAM).append(EQV).append(DEFAULT_FOOD_VALUE).append(AMP).
