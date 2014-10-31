@@ -330,7 +330,6 @@ public class ItTourParser implements ItTourParserConstants {
         try {
             roomType = RoomType.valueOf(roomTypeSt);
         } catch (IllegalArgumentException e) {
-            System.out.println(roomTypeSt);
             switch (roomTypeSt) {
                 case WRONG_FAMILY_ROOM_TYPE:{
                     roomType = RoomType.FAMILY;
