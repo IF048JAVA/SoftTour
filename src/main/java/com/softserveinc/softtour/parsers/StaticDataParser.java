@@ -37,7 +37,7 @@ public class StaticDataParser implements StaticDataParserConstants {
     /**
      * This method finds all countries, regions, hotels and save their data to database.
      */
-    public void parse() {
+    public boolean parse() {
 
         /**
          * This block of code finds all countries and save them to database.
@@ -46,9 +46,16 @@ public class StaticDataParser implements StaticDataParserConstants {
         for (Element countryEl : countryList) {
             String countryName = countryEl.text();
             long countryCode = Integer.parseInt(countryEl.attr(ATTR_VALUE));
+
+            Country countryDB = countryService.findByItTourId(countryCode);
             Country country = new Country(countryName, countryCode);
-            countryService.save(country);
-            System.out.println("save country");
+
+            if (countryDB == null) {
+                countryService.save(country);
+                System.out.println("Country " + countryName + " was saved");
+            } else {
+                System.out.println("Country " + countryName + " already exist");
+            }
 
             /**
              * This block of code finds all country regions and save them to database.
@@ -62,10 +69,18 @@ public class StaticDataParser implements StaticDataParserConstants {
                 if (regionName.equals(TAL_DATA_REGION)) {
                     break;
                 }
+
                 long regionCode = Integer.parseInt(regionEl.attr(ATTR_VALUE));
+
+                Region regionDB = regionService.findByItTourId(regionCode);
                 Region region = new Region(regionName, regionCode, country);
-                regionService.save(region);
-                System.out.println("save region");
+
+                if (regionDB == null) {
+                    regionService.save(region);
+                    System.out.println("Region " + regionName + " was saved");
+                } else {
+                    System.out.println("Region " + regionName + " already exist");
+                }
 
                 /**
                  * This block of code finds all region hotels and save them to database.
@@ -80,13 +95,22 @@ public class StaticDataParser implements StaticDataParserConstants {
                         break;
                     }
                     long hotelCode = Integer.parseInt(hotelEl.attr(ATTR_VALUE));
+
+                    Hotel hotelDB = hotelService.findByItTourId(hotelCode);
                     Hotel hotel = new Hotel(hotelName, 0, 0, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
                             BigDecimal.ZERO, BigDecimal.ZERO, "", hotelCode, region);
-                    hotelService.save(hotel);
-                    System.out.println("save hotel");
+
+                    if (hotelDB == null) {
+                        hotelService.save(hotel);
+                        System.out.println("Hotel " + hotelName + " was saved");
+                    } else {
+                        System.out.println("Hotel " + hotelName + " already exist");
+                    }
                 }
             }
         }
+
+        return true;
     }
 
     /**
@@ -115,9 +139,10 @@ public class StaticDataParser implements StaticDataParserConstants {
 
     /**
      * This method create url, connect and get countries from web-page.
+     *
      * @return Encapsulated in Jsoup object Element list data countries.
      */
-    private List<Element> getCountryData(){
+    private List<Element> getCountryData() {
         String countryUrl = StaticDataParserUrlGenerator.createCountryUrl();
         Document countryDoc = connect(countryUrl);
         Element countryElement = countryDoc.getElementById(ID_ITT_COUNTRY);
@@ -126,9 +151,10 @@ public class StaticDataParser implements StaticDataParserConstants {
 
     /**
      * This method create url, connect and get regions from web-page.
+     *
      * @return Encapsulated in Jsoup object Element list data regions.
      */
-    private List<Element> getRegionData(long countryCode){
+    private List<Element> getRegionData(long countryCode) {
         String regionUrl = StaticDataParserUrlGenerator.createRegionUrl(countryCode);
         Document regionDoc = connect(regionUrl);
         return regionDoc.getElementsByTag(TAG_OPTION);
@@ -136,9 +162,10 @@ public class StaticDataParser implements StaticDataParserConstants {
 
     /**
      * This method create url, connect and get hotels from web-page.
+     *
      * @return Encapsulated in Jsoup object Element list data hotels.
      */
-    private List<Element> getHotelData(long countryCode, long regionCode){
+    private List<Element> getHotelData(long countryCode, long regionCode) {
         String hotelUrl = StaticDataParserUrlGenerator.createHotelUrl(countryCode, regionCode);
         Document hotelDoc = connect(hotelUrl);
         return hotelDoc.getElementsByTag(TAG_OPTION);
