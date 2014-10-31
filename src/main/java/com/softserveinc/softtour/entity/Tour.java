@@ -50,6 +50,7 @@ public class Tour {
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
+    @Transient
     private String[] itTourId = new String[2];
 
 
