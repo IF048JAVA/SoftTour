@@ -1,16 +1,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<body onload="getCountry()">
 <div>
 <div id="left_div" class="form">
     <form class="form-horizontal" role="form" name="form" id="form" action="/search/result">
         <div class="form-group">
             <div class="col-sm-6">
                 <p>Країна:</p>
-                <select class="form-control" id="country" name="country" onchange="makeSelect(this.selectedIndex)">
-                    <option>Єгипет</option>
-                    <option>Туреччина</option>
-                    <option>Греція</option>
+                <select class="form-control" id="country" name="country">
+
+                <script id="selectTemplate" type="text/x-jquery-tmpl">
+                    <option id="\${itTourId}" name="optionCountry">\${name}</option>
+                </script>
                 </select>
             </div>
             <div class="col-sm-6">
@@ -164,7 +166,7 @@
                 </div>
 			</div>
             <div class="col-sm-6">
-                <p>Ціна(грн):</p>
+                <p>Ціна($):</p>
 
                     <div class="col-sm-6">
                         <p>З:</p>
@@ -235,6 +237,7 @@
 
 
 </div>
+</body>
     <!--input type="button" value="Search" onclick="showResults()"-->
     <script id="searchTemplate" type="text/x-jquery-tmpl">
         <div class="panel panel-default" id="panel-favorite\${id}">
@@ -326,4 +329,5 @@
     }
     makeSelect(document.getElementById("country").selectedIndex);
 </script>
+
 
