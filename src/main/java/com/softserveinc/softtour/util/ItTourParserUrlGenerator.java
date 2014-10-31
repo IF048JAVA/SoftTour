@@ -98,7 +98,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
         return hotelSearchBuilder.toString();
     }
 
-    public static String createHotelInfoUrl(String[] id){
+    public static String createAdvanceDataUrl(String[] id){
         StringBuilder stringBuilder = new StringBuilder(BASE_PARAMETERS).
                 append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_FORM).append(AMP).
                 append(TOUR_ID_PARAM).append(EQV).append(id[0]).append(AMP).

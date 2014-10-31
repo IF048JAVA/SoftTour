@@ -366,7 +366,7 @@ public class ItTourParser implements ItTourParserConstants {
      */
     public void parseAdvanceData(Tour tour){
         String[] tourIdArray = tour.getItTourId();
-        String url = ItTourParserUrlGenerator.createHotelInfoUrl(tourIdArray);
+        String url = ItTourParserUrlGenerator.createAdvanceDataUrl(tourIdArray);
         Document document = connect(url);
         setHotelImage(document, tour.getHotel());
         setTourDepartureTime(document, tour);
