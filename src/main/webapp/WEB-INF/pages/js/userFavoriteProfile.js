@@ -42,10 +42,10 @@ if( $('#panel-1').length){
             mimeType: 'application/json',
 
             success: function(data) {
-                alert(data.id);
+                console.log(data.id);
             },
             error:function(data,status,er) {
-                alert("error:")
+                console.log("error:")
             }
         });
     }

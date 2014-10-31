@@ -177,7 +177,7 @@ public class IndexController {
 
     }
 
-    @RequestMapping(value="/trainTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value="/trainTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
                         @RequestParam(value = "cityFrom", required = true) String cityFrom){
@@ -192,7 +192,7 @@ public class IndexController {
         return routesList;
     }
 
-//    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
+//    @RequestMapping(value="/busTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
 //    public @ResponseBody List<BusRoute> getBusTransits(
 //            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
 //            @RequestParam(value = "cityFrom", required = true) String cityFrom){
@@ -206,4 +206,14 @@ public class IndexController {
 //
 //        return routesList;
 //    }
+
+    @RequestMapping(value="/dateForTransitOrder", method = {RequestMethod.GET, RequestMethod.POST})
+    public @ResponseBody String getTransitOrderURL(
+            @RequestParam(value = "date", required = true) String date,
+            @RequestParam(value = "cityFrom", required = true) String cityFrom,
+            @RequestParam(value = "cityTo", required = true) String cityTo){
+        System.out.println(date + cityFrom + cityTo);
+        String url = new String("URL");
+        return url;
+    }
 }
