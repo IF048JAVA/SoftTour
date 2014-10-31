@@ -56,3 +56,25 @@ function checkPrice(field){
         return true;
     }
 }
+
+
+
+function select() {
+    var country = document.getElementById("country");
+    country.options[0] = new Option("aaaaaaaaa");
+    country.options[1] = new Option("bbbbbbbbb");
+    country.options[2] = new Option("ccccccccc");
+}
+
+function getCountry(){
+
+        $.ajax({
+            url: "search/getCountry",
+            type: "POST",
+            dataType: 'json',
+
+            success: function(data){
+                $('#selectTemplate').tmpl(data).appendTo('#country');
+            }
+        })
+}
