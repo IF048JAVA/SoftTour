@@ -50,11 +50,10 @@ public class Tour {
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
+    @Transient
     private String[] itTourId = new String[2];
 
-
-    public Tour() {
-    }
+    public Tour() {}
 
     public Tour(Date date, int days, String departureCity,
                 Time departureTime, BigDecimal price, Hotel hotel, Food food) {

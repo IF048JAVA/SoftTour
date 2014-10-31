@@ -330,7 +330,6 @@ public class ItTourParser implements ItTourParserConstants {
         try {
             roomType = RoomType.valueOf(roomTypeSt);
         } catch (IllegalArgumentException e) {
-            System.out.println(roomTypeSt);
             switch (roomTypeSt) {
                 case WRONG_FAMILY_ROOM_TYPE:{
                     roomType = RoomType.FAMILY;
@@ -397,7 +396,6 @@ public class ItTourParser implements ItTourParserConstants {
     private void setTourDepartureTime(Document document, Tour tour){
         List<Element> dateList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).first().getElementsByTag(TAG_TD);
         String departureDate = dateList.get(ADVANCE_DATA_DEPARTURE_DATE).text();
-               //TODO Maybe date with day of week in format like "пт", "сб" is parseable?
                departureDate = departureDate.substring(0, departureDate.length() - TAL_DATE_DATA);
         String departureTime = dateList.get(ADVANCE_DATA_DEPARTURE_TIME).text();
         Date utilDate;

@@ -92,11 +92,11 @@ public class FavoriteServiceImpl implements FavoriteService{
 		return favoriteRepository.findAll();
 	}
 
-	
+
 	//FIXME   CHANGE !!!
     @Override
-    public Favorite findByUserAndTour (Favorite favorite) {
-        return favoriteRepository.findByUserAndTour(favorite.getUser(),favorite.getTour());
+    public Favorite findByUserAndTour (User user, Tour tour) {
+        return favoriteRepository.findByUserAndTour(user,tour);
     }
 
 }
