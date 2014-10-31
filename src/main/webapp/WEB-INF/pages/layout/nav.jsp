@@ -25,7 +25,7 @@
              
                <security:authorize access="hasRole('ROLE_ANONYMOUS')">
 	                <li><a href="/login">Увійти</a></li>
-	                <li><a href="/registration/new">Реєстрація</a></li>
+	                <li><a href="/registration">Реєстрація</a></li>
                 </security:authorize>
              
                 <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">

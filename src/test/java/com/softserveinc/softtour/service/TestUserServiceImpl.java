@@ -1,4 +1,4 @@
-/*package com.softserveinc.softtour.service;
+package com.softserveinc.softtour.service;
 
 import java.sql.Date;
 import java.util.List;
@@ -27,6 +27,7 @@ public class TestUserServiceImpl extends AbstractTestNGSpringContextTests {
 	private String timestamp;
 	
 	private User newUser;
+	private User newUser2;
 	private User updatedUser;
 	
 	@Autowired
@@ -36,11 +37,14 @@ public class TestUserServiceImpl extends AbstractTestNGSpringContextTests {
 	private RoleService roleService;
 	
 	@BeforeClass 
-	private void createNewUser(){
+	private void createNewUsers(){
 		timestamp = String.valueOf(System.currentTimeMillis());
 		newUser = createUser("User1" + timestamp, "email1" +timestamp + "@gmail.com", 
 				"testPassword", "2000-06-02", Sex.MALE, "09976644433");
-		updatedUser = createUser("User2" + timestamp, "email1" +timestamp + "@gmail.com", 
+		newUser2 = createUser("User2" + timestamp, "email2" +timestamp + "@gmail.com", 
+				"testPassword", "2000-06-02", Sex.MALE, "09976644433");
+		
+		updatedUser = createUser("User3" + timestamp, "email3" +timestamp + "@gmail.com", 
 				"testPassword", "2000-06-02", Sex.FEMALE, "09976644433");
 	}
 		
@@ -94,15 +98,14 @@ public class TestUserServiceImpl extends AbstractTestNGSpringContextTests {
 		assertNotNull(actualUser);
 		assertEquals(actualUser, newUser);
 		
-//		userService.save(updatedUser);
-//		
-//		list = userService.findByNameOrEmail(newUser.getName(), updatedUser.getEmail());
-//
-//		assertEquals(list.size(), 2);
-//		assertTrue(list.contains(newUser));
-//		assertTrue(list.contains(updatedUser));
-//		
-//		userService.delete(id);
+		userService.save(newUser2);
+		newUser2 = userService.findByEmail(newUser2.getEmail());
+		
+		list = userService.findByNameOrEmail(newUser.getName(), newUser2.getEmail());
+
+		assertEquals(list.size(), 2);
+		assertTrue(list.contains(newUser));
+		assertTrue(list.contains(newUser2));
 	}
 
 	@Test(dependsOnMethods = {"testFindByNameOrEmail"})
@@ -120,11 +123,15 @@ public class TestUserServiceImpl extends AbstractTestNGSpringContextTests {
 	
 	@Test(dependsOnMethods = {"testUpdate"})
 	public void testDelete() {
-		userService.delete(updatedUser.getId());
+		User actualUser = null;
 		
-		User actualUser = userService.findById(updatedUser.getId());
-
+		userService.delete(updatedUser.getId());
+		userService.delete(newUser2.getId());
+	
+		actualUser = userService.findById(updatedUser.getId());
+		assertNull(actualUser);
+		
+		actualUser = userService.findById(newUser2.getId());
 		assertNull(actualUser);
 	}
 }
-*/

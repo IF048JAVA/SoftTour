@@ -63,10 +63,11 @@ public class RegistrationController {
 	
 	/**
 	 * Creates the user's object which we use for adding data into the database
+	 * and opens registration form
 	 * @return the name which redirect to the page registration.jsp
 	 */
-	@RequestMapping(value="/new")
-	public String registrationUser(Model model){
+	@RequestMapping(method=RequestMethod.GET)
+	public String openRegistrationForm(Model model){
 		model.addAttribute(new User());
 		return "registration";
 	}
@@ -76,9 +77,8 @@ public class RegistrationController {
 	 * @param user - it's object which will be saved
 	 * @return the name which redirect to the page registration.jsp or index.jsp
 	 */
-	// FIXME delete url save
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String save(User user, BindingResult bindingResult) {
+	@RequestMapping(method=RequestMethod.POST)
+	public String saveUser(User user, BindingResult bindingResult) {
 		
 		registrationValidator.validate(user, bindingResult);
 		

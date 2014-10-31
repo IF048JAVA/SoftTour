@@ -20,21 +20,30 @@ import java.util.List;
 @Controller
 //@RequestMapping
 public class IndexController {
+
     ItTourParser parser;
+
     @Autowired
     private TourService tourService;
+
     @Autowired
     private FavoriteService favoriteService;
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private HotelService hotelService;
+
     @Autowired
     private CountryService countryService;
+
     @Autowired
     private RegionService regionService;
+
     @Autowired
     private HistoryRecordService historyRecordService;
+
     Favorite favorite;
 
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
@@ -152,6 +161,22 @@ public class IndexController {
         return currentTour;
     }
 
+    @RequestMapping(value="/checkFavorites", method = RequestMethod.POST)
+    public @ResponseBody Boolean checkFavorites(@RequestBody(required = true)Tour currentTour){
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User currentUser =userService.findByEmail(loggedUserEmail);
+        Tour tour = tourService.checkTour(currentTour);
+        java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
+        Date sqlDate = new Date(utilDate.getTime());
+        favorite=new Favorite(sqlDate,currentUser,tour);
+        Favorite maybeFavorite = favoriteService.findByUserAndTour(favorite);
+        System.out.println("done");
+        if (maybeFavorite==null)
+            return false; else
+            return true;
+
+    }
+
     @RequestMapping(value="/trainTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
@@ -167,18 +192,18 @@ public class IndexController {
         return routesList;
     }
 
-    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
-    public @ResponseBody List<BusRoute> getBusTransits(
-            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
-            @RequestParam(value = "cityFrom", required = true) String cityFrom){
-
-        Tour currentTour = tourService.findOne(currentTourId);
-
-        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
-
-        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
-        List<BusRoute> routesList =  currentBusParser.parse();
-
-        return routesList;
-    }
+//    @RequestMapping(value="/busTransitDates", method = {RequestMethod.GET, RequestMethod.POST})
+//    public @ResponseBody List<BusRoute> getBusTransits(
+//            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+//            @RequestParam(value = "cityFrom", required = true) String cityFrom){
+//
+//        Tour currentTour = tourService.findOne(currentTourId);
+//
+//        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
+//
+//        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
+//        List<BusRoute> routesList =  currentBusParser.parse();
+//
+//        return routesList;
+//    }
 }

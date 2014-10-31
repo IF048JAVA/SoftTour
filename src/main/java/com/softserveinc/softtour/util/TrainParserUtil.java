@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.softserveinc.softtour.parsers.TrainParser;
 
@@ -16,6 +17,7 @@ import com.softserveinc.softtour.parsers.TrainParser;
  * @author Andrii
  * Has some utilities for class TrainParser
  */
+@Component
 public class TrainParserUtil {
 	private static final String BASE_URL = "http://ticket.turistua.com/ua/train/reservation/?transport=train";
 	private static final String UTF_8 = "UTF-8";
