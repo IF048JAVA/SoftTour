@@ -23,12 +23,12 @@ import java.util.Date;
 
 /**
  * This class find tours and supported information by input parameters.
- * The routes data source is site: http://www.ittour.com.ua
+ * The tours data source is site: http://www.ittour.com.ua
  * This class use:
  *     com.softserveinc.softtour.parsers.constants.ItTourParserConstants - contains used in this class constants
  *     com.softserveinc.softtour.entity.Tour - represent tour
  *     com.softserveinc.softtour.util.ItTourParserUrlGenerator - generate web-page's url, that contains tours.
- * Class contains three overloaded constructors for such pages:
+ * Class contains three overloaded constructors for such pages of our web-application:
  *     index page with quick search
  *     search page with advanced search
  *     hotels page with search by hotel
@@ -39,11 +39,20 @@ public class ItTourParser implements ItTourParserConstants {
      * Parse results would be save in this list
      */
     private List<Tour> tourList;
-    private String country;
+    private Country country;
     private int adults;
     private int children;
+
+    /**
+     * Web-page's url, that would be use in Jsoup connection to get object Document(encapsulate web page with tours)
+     */
     private String url;
-    private Properties departureCityVocabulary = new Properties();
+
+    /**
+     * This properties would be loaded in method parse(). Contains ru-ua vocabulary of the departure cities.
+     * Reason: www.ittour.com.ua contains Russian names of cities, when our web-application - Ukrainian.
+     */
+    private Properties departureCityVocabulary;
 
     /**
      * This constructor is for quick search
@@ -60,12 +69,15 @@ public class ItTourParser implements ItTourParserConstants {
      *         Example: If pageNumber will be equals 1, this parser would connect to first page with result,
      *         required to input parameters. Number 2 - to second and so on.
      */
-    public ItTourParser(String country, long countryParam, int adults, int children, int priceMin, int priceMax, int pageNumber) {
-        this.tourList = new ArrayList<>();
-        this.country = country;
+    public ItTourParser(String country, long countryParam, int adults, int children, int priceMin, int priceMax,
+                int pageNumber) {
+        tourList = new ArrayList<>();
+        this.country = new Country(country);
         this.adults = adults;
         this.children = children;
-        this.url = ItTourParserUrlGenerator.createQuickSearchUrl(countryParam, adults, children, priceMin, priceMax, pageNumber);
+        url = ItTourParserUrlGenerator.createQuickSearchUrl(countryParam, adults, children, priceMin, priceMax,
+                pageNumber);
+        departureCityVocabulary = new Properties();
     }
 
     /**
@@ -90,15 +102,16 @@ public class ItTourParser implements ItTourParserConstants {
      *         Example: If pageNumber will be equals 1, this parser would connect to first page with result,
      *         required to input parameters. Number 2 - to second and so on.
      */
-    public ItTourParser(String country, long countryParam, long regionParam, Set<Integer> hotelStars, Set<String> food, int adults,
-            int children, String dateFrom, String dateTo, int nightsFrom, int nightsTo, int priceMin, int priceMax,
-            int pageNumber) {
-        this.tourList = new ArrayList<>();
-        this.country = country;
+    public ItTourParser(String country, long countryParam, long regionParam, Set<Integer> hotelStars, Set<String> food,
+                int adults, int children, String dateFrom, String dateTo, int nightsFrom, int nightsTo, int priceMin,
+                int priceMax, int pageNumber) {
+        tourList = new ArrayList<>();
+        this.country = new Country(country);
         this.adults = adults;
         this.children = children;
-        this.url = ItTourParserUrlGenerator.createAdvanceSearchUrl(countryParam, regionParam, hotelStars, food, adults, children, dateFrom,
-            dateTo, nightsFrom, nightsTo, priceMin, priceMax, pageNumber);
+        url = ItTourParserUrlGenerator.createAdvanceSearchUrl(countryParam, regionParam, hotelStars, food, adults,
+                children, dateFrom, dateTo, nightsFrom, nightsTo, priceMin, priceMax, pageNumber);
+        departureCityVocabulary = new Properties();
     }
 
     /**
@@ -112,11 +125,12 @@ public class ItTourParser implements ItTourParserConstants {
      *         required to input parameters. Number 2 - to second and so on.
      */
     public ItTourParser(Hotel hotel, int pageNumber) {
-        this.tourList = new ArrayList<>();
-        this.country = hotel.getRegion().getCountry().getName();
+        tourList = new ArrayList<>();
+        this.country = hotel.getRegion().getCountry();
         this.adults = DEFAULT_ADULTS_COUNT;
         this.children = DEFAULT_CHILDREN_COUNT;
-        this.url = ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, pageNumber);
+        url = ItTourParserUrlGenerator.createSearchUrlByHotel(hotel, pageNumber);
+        departureCityVocabulary = new Properties();
     }
 
     /**
@@ -222,7 +236,7 @@ public class ItTourParser implements ItTourParserConstants {
             String hotelStars = tableCellList.get(TABLE_CELL_HOTEL_STARS).text();
             String hotelRegion = tableCellList.get(TABLE_CELL_HOTEL_REGION).text();
             String tourFood = tableCellList.get(TABLE_CELL_TOUR_FOOD).text();
-            String roomTypeSt = tableCellList.get(TABLE_CELL_TOUR_ROOM_TYPE).text().toUpperCase();
+            String roomTypeSt = tableCellList.get(TABLE_CELL_TOUR_ROOM_TYPE).text().toUpperCase().replaceAll(" ","_");
 
             /**
              * Convert tour data to Tour constructor parameters format
@@ -236,27 +250,27 @@ public class ItTourParser implements ItTourParserConstants {
             Food food = Food.valueOf(tourFood);
 
             /**
-             * Create object tour, set tour data and add tour to tourList
+             * Create object tour, set tour data
              */
             Tour tour = new Tour(tourDate, tourDays, departureCity, departureTime, tourPrice, hotel, food);
             tour.setAdultAmount(adults);
             tour.setChildrenAmount(children);
             tour.setRoomType(convertTourRoomType(roomTypeSt));
 
+            /**
+             * There are tour data, that aren't in Jsoup document(parameter of this method)
+             * But part of url parameters, that is need to create connection, is in this document.
+             * Creating of new connection gets about 4 seconds.
+             * This part of code get part of url parameters & set them to tour.
+             * Then it would be use in public method parseAdvanceData(Tour tour).
+             */
             String hotelLink = tableCellList.get(TABLE_CELL_HOTEL_LINK).select(TAG_A).first().
                     attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
 
             String[] tourIdArray = hotelLink.split(",");
             tour.setItTourId(tourIdArray);
-            tourList.add(tour);
 
-            /**
-             * There are tour data, that aren't in Jsoup document(parameter of this method)
-             * But part of url parameters, that is need to create connection, is in this document.
-             * Creating of new connection get about 4 seconds.
-             * This part of code get this part of url parameters & save them to tourIdMap.
-             * Then it would be use in public method parseAdvanceData(Tour tour).
-             */
+            tourList.add(tour);
         }
     }
 
@@ -292,9 +306,14 @@ public class ItTourParser implements ItTourParserConstants {
         }
     }
 
+    /**
+     * @param hotelName - hotel name in String format
+     * @param hotelStars - count of hotel stars (2-5)
+     * @param hotelRegion - hotel region in String format
+     * @return object Hotel
+     */
     private Hotel convertTourHotel(String hotelName, int hotelStars, String hotelRegion){
-        Country hotelCountry = new Country(country);
-        Region hotelReg = new Region(hotelRegion, hotelCountry);
+        Region hotelReg = new Region(hotelRegion, country);
         return new Hotel(hotelName, hotelStars, hotelReg);
     }
 
@@ -311,15 +330,22 @@ public class ItTourParser implements ItTourParserConstants {
         try {
             roomType = RoomType.valueOf(roomTypeSt);
         } catch (IllegalArgumentException e) {
+            System.out.println(roomTypeSt);
             switch (roomTypeSt) {
-                case WRONG_FAMILY_ROOM_TYPE: {
+                case WRONG_FAMILY_ROOM_TYPE:{
                     roomType = RoomType.FAMILY;
                     break;
-                } case  WRONG_APARTMENT_ROOM_TYPE: {
+                } case  WRONG_APARTMENT_ROOM_TYPE:{
                     roomType = RoomType.APART;
                     break;
-                } case WRONG_DBL_ROOM_TYPE: {
+                } case WRONG_DBL_ROOM_TYPE:{
                     roomType = RoomType.DBL;
+                    break;
+                } case WRONG_CLASSIC_ROOM_TYPE:{
+                    roomType = RoomType.CLASSIC_ROOM;
+                    break;
+                } case WRONG_DOUBLE_ROOM_TYPE:{
+                    roomType = RoomType.DOUBLE;
                     break;
                 } default: {
                     roomType = RoomType.UNKNOWN;
@@ -369,22 +395,27 @@ public class ItTourParser implements ItTourParserConstants {
      * @param tour - information about tour, represented by Tour class
      */
     private void setTourDepartureTime(Document document, Tour tour){
-        List<Element> advanceDataList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).first().getElementsByTag(TAG_TD);
+        List<Element> dateList = document.getElementsByClass(CLASS_TR_FLIGHT_TO).first().getElementsByTag(TAG_TD);
+        String departureDate = dateList.get(ADVANCE_DATA_DEPARTURE_DATE).text();
+               //TODO Maybe date with day of week in format like "пт", "сб" is parseable?
+               departureDate = departureDate.substring(0, departureDate.length() - TAL_DATE_DATA);
+        String departureTime = dateList.get(ADVANCE_DATA_DEPARTURE_TIME).text();
         Date utilDate;
-        Time timeDeparture = null;
-        String departureDate = advanceDataList.get(ADVANCE_DATA_DEPARTURE_DATE).text();
-        //TODO Maybe date with day of week in format like "пт", "сб" is parseable?
-        departureDate = departureDate.substring(0, departureDate.length() - 3);
-        String departureTime = advanceDataList.get(ADVANCE_DATA_DEPARTURE_TIME).text();
+        Time sqlTime;
         String dateTime = departureDate + departureTime;
         try {
             utilDate = SIMPLE_DATE_TIME_FORMAT.parse(dateTime);
-            timeDeparture = new Time(utilDate.getTime());
+            sqlTime = new Time(utilDate.getTime());
         } catch (ParseException e) {
             //TODO improve this block
-            e.printStackTrace();
+            sqlTime = new java.sql.Time(0);
         }
-        tour.setDepartureTime(timeDeparture);
+        tour.setDepartureTime(sqlTime);
+    }
+
+    @Override
+    public String toString() {
+        return "Tour parser. Source: http://www.ittour.com.ua " + "Current url: " + url;
     }
 
     public static void main(String[] args) {
@@ -399,27 +430,6 @@ public class ItTourParser implements ItTourParserConstants {
             System.out.println(listTour.get(i).getHotel().getImgUrl());
             System.out.println(listTour.get(i).getDepartureTime());
         }
-        /*
-        for now, full search works only for this regions:
-        #Єгипет
-        Дахаб = 5486
-        Макаді\ Бей = 2
-        Марса\ Алам = 5478
-
-        #Туреччина
-        Аланья = 6192
-        Анталія = 5200
-        Белек = 6818
-
-        #Греция
-        Агія\ Тріада = 9602
-        Астіпалея = 43490
-        Аттика = 15226
-
-          ADVANCE SEARCH CONSTRUCTOR VALUES ORDER:
-          String country, String region, int [] hotelStars, String[] food, int adults, int children, String dateFrom, String dateTo,
-          int nightsFrom, int nightsTo, int priceMin, int priceMax, int pageNumber
-        */
         /*
         Set<Integer> hotelStars = new HashSet<>();
         hotelStars.add(3);

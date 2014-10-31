@@ -25,6 +25,8 @@ public interface ItTourParserConstants {
     String WRONG_APARTMENT_ROOM_TYPE = "APAR...";
     String WRONG_FAMILY_ROOM_TYPE = "FAMI...";
     String WRONG_DBL_ROOM_TYPE = "DBL...";
+    String WRONG_CLASSIC_ROOM_TYPE = "CLAS...";
+    String WRONG_DOUBLE_ROOM_TYPE = "DOUB...";
     String REGEXP_REPLACEMENT = "(return package_tour_order\\()|(\\);)";
     int DEFAULT_ADULTS_COUNT = 2;
     int DEFAULT_CHILDREN_COUNT = 0;
@@ -43,6 +45,5 @@ public interface ItTourParserConstants {
     int TABLE_CELL_TOUR_ROOM_TYPE = 2;
     int ADVANCE_DATA_DEPARTURE_DATE = 3;
     int ADVANCE_DATA_DEPARTURE_TIME = 4;
-    int TEN = 10;
-    int LEADING_ZERO = 0;
+    int TAL_DATE_DATA = 3;
 }

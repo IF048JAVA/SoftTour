@@ -237,6 +237,11 @@ public class BusParser implements BusParserConstants {
         return onWayTime.toString();
     }
 
+    @Override
+    public String toString() {
+        return "Bus route parser. Source: http://ticket.bus.com.ua ";
+    }
+
     //TODO DEL !!!
     public static void main(String[] args) {
         BusParser busParser = new BusParser("Львів", "Київ", "2014-11-03", "11:30");

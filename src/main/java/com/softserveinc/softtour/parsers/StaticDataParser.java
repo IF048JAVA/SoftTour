@@ -3,9 +3,11 @@ package com.softserveinc.softtour.parsers;
 import com.softserveinc.softtour.entity.Country;
 import com.softserveinc.softtour.entity.Hotel;
 import com.softserveinc.softtour.entity.Region;
+import com.softserveinc.softtour.parsers.constants.StaticDataParserConstants;
 import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.HotelService;
 import com.softserveinc.softtour.service.RegionService;
+import com.softserveinc.softtour.util.StaticDataParserUrlGenerator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,7 +19,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Component
-public class StaticDataParser {
+public class StaticDataParser implements StaticDataParserConstants {
 
     @Autowired
     CountryService countryService;
@@ -29,66 +31,45 @@ public class StaticDataParser {
     HotelService hotelService;
 
     public void parse() {
+        List<Element> countryList = getCountryData();
+        for (Element countryEl : countryList) {
+            String countryName = countryEl.text();
+            long countryCode = Integer.parseInt(countryEl.attr(ATTR_VALUE));
+            Country country = new Country(countryName, countryCode);
+            countryService.save(country);
 
-        StaticDataParser parser = new StaticDataParser();
-        String countryUrl = "http://module.ittour.com.ua/tour_search.jsx?id=5062D1884G6M7121819576&ver=1&type=2970";
-        Document countryDoc = parser.connect(countryUrl);
-        Element countryElement = countryDoc.getElementById("itt_country");
-        List<Element> countryList = countryElement.getElementsByTag("option");
 
-        for (Element country : countryList) {
-
-            String countryName = country.text();
-            long countryCode = Integer.parseInt(country.attr("value"));
-
-            Country newCountry = new Country(countryName, countryCode);
-            countryService.save(newCountry);
-
-            String regionUrl = "http://www.ittour.com.ua/tour_search.php?callback=jQuery17105734387715347111_1413973887053&" +
-                    "module_type=tour_search&id=5062D1884G6M7121819576&ver=1&type=2970&theme=38&" +
-                    "action=get_package_search_filtered_field&event_owner_level=1&country_id=" + countryCode;
-            Document regionDoc = parser.connect(regionUrl);
-            List<Element> regionList = regionDoc.getElementsByTag("option");
-
+            List<Element> regionList = getRegionData(countryCode);
             for (int i = 1; i < regionList.size(); i++) {
-                if (regionList.get(i).text().equals("Все отели")) {
+                if (regionList.get(i).text().equals(TAL_DATA_REGION)) {
                     break;
                 }
-
                 String regionName = regionList.get(i).text();
-                long regionCode = Integer.parseInt(regionList.get(i).attr("value"));
+                long regionCode = Integer.parseInt(regionList.get(i).attr(ATTR_VALUE));
+                Region region = new Region(regionName, regionCode, country);
+                regionService.save(region);
 
-                Region newRegion = new Region(regionName, regionCode, newCountry);
-                regionService.save(newRegion);
 
-                String hotelUrl = regionUrl + "&hotel_rating_id=7+3+4+78+&event_owner_level=2&region_id=" + regionCode + "+";
-                Document hotelDoc = parser.connect(hotelUrl);
-                List<Element> hotelList = hotelDoc.getElementsByTag("option");
-
+                List<Element> hotelList = getHotelData(countryCode, regionCode);
                 for (int j = 1; j < hotelList.size(); j++) {
-                    if (hotelList.get(j).text().equals("Все города")) {
+                    if (hotelList.get(j).text().equals(TAL_DATA_HOTEL)) {
                         break;
                     }
                     String hotelName = hotelList.get(j).text();
-
-                    long hotelCode = Integer.parseInt(hotelList.get(j).attr("value"));
-
-                    Hotel newHotel = new Hotel(hotelName, 0, 0, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
-                            BigDecimal.ZERO, BigDecimal.ZERO, "", hotelCode, newRegion);
-                    hotelService.save(newHotel);
-
+                    long hotelCode = Integer.parseInt(hotelList.get(j).attr(ATTR_VALUE));
+                    Hotel hotel = new Hotel(hotelName, 0, 0, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                            BigDecimal.ZERO, BigDecimal.ZERO, "", hotelCode, region);
+                    hotelService.save(hotel);
                 }
             }
         }
     }
 
-
     private Document connect(String url) {
-
         String doc = null;
         try {
             doc = Jsoup.connect(url).
-                    timeout(20000).
+                    timeout(CONNECTION_TIMEOUT).
                     ignoreContentType(true).
                     execute().
                     body();
@@ -98,5 +79,24 @@ public class StaticDataParser {
         String tourPage = doc.replace("\\", "");
         Document document = Jsoup.parse(tourPage);
         return document;
+    }
+
+    private List<Element> getCountryData(){
+        String countryUrl = StaticDataParserUrlGenerator.createCountryUrl();
+        Document countryDoc = connect(countryUrl);
+        Element countryElement = countryDoc.getElementById(ID_ITT_COUNTRY);
+        return countryElement.getElementsByTag(TAG_OPTION);
+    }
+
+    private List<Element> getRegionData(long countryCode){
+        String regionUrl = StaticDataParserUrlGenerator.createRegionUrl(countryCode);
+        Document regionDoc = connect(regionUrl);
+        return regionDoc.getElementsByTag(TAG_OPTION);
+    }
+
+    private List<Element> getHotelData(long countryCode, long regionCode){
+        String hotelUrl = StaticDataParserUrlGenerator.createHotelUrl(countryCode, regionCode);
+        Document hotelDoc = connect(hotelUrl);
+        return hotelDoc.getElementsByTag(TAG_OPTION);
     }
 }
