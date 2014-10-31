@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
-* This class find routes from user's chosen city to tour departure city.
+* This class finds routes from user's chosen city to tour departure city.
 * The routes data source is site: http://ticket.bus.com.ua
 * This class use:
 *     com.softserveinc.softtour.parsers.constants.BusParserConstants - contains used in this class constants
@@ -65,7 +65,7 @@ public class BusParser implements BusParserConstants {
     }
 
     /**
-     * This method create two connections:
+     * This method creates two connections:
      *     First connection find routes on day, that is three hours earlier departureDateTime.
      *         The reason is that client must come to departure point earlier to pass registration.
      *         The registration passes about three hours.
@@ -109,7 +109,7 @@ public class BusParser implements BusParserConstants {
     }
 
     /**
-     * @param url - web-page's url with bus routes
+     * @param url - web-page's url
      * @return web-page, encapsulated in Jsoup object Document
      */
     private Document connect(String url){
