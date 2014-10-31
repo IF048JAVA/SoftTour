@@ -16,11 +16,11 @@ import com.softserveinc.softtour.entity.template.Sex;
 
 @Test
 @ContextConfiguration(locations = {"/spring-test-config.xml", 
-									"/WEB-INF/spring-data.xml",
-									"/WEB-INF/applicationContext.xml",
-									"/WEB-INF/mvc-dispatcher-servlet.xml",
-									"/WEB-INF/spring-security.xml",
-									"/WEB-INF/spring-mail.xml"})
+									"/spring-data.xml",
+									"/applicationContext.xml",
+									"/mvc-dispatcher-servlet.xml",
+									"/spring-security.xml",
+									"/spring-mail.xml"})
 @WebAppConfiguration
 public class TestUserServiceImpl extends AbstractTestNGSpringContextTests {
 	private static final String ROLE_USER = "ROLE_USER";
