@@ -55,4 +55,9 @@ public class HotelServiceImpl implements HotelService {
     public void delete(long id) {
         hotelRepository.delete(id);
     }
+
+    @Override
+    public Hotel findByItTourId(long itTourId) {
+        return hotelRepository.findByItTourId(itTourId);
+    }
 }

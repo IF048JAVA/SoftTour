@@ -17,4 +17,5 @@ public interface HotelService {
     List<Hotel> findAll();
     Hotel findByName(String name);
     void delete(long id);
+    Hotel findByItTourId(long itTourId);
 }
