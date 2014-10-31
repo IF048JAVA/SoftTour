@@ -7,7 +7,7 @@ public interface StaticDataParserUrlGeneratorConstants {
 
     String COUNTRY_HTTP = "http://module.ittour.com.ua/tour_search.jsx";
     String ID_PARAM = "id";
-    String ID_VALUE = "5062D1884G6M712181957";
+    String ID_VALUE = "5062D1884G6M7121819576";
     String VERSION_PARAM = "ver";
     int VERSION_VALUE = 1;
     String TYPE_PARAM = "type";

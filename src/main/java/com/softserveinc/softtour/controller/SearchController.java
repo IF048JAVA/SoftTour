@@ -1,7 +1,12 @@
 package com.softserveinc.softtour.controller;
 
+import com.softserveinc.softtour.entity.Country;
+import com.softserveinc.softtour.entity.Region;
 import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.parsers.ItTourParser;
+import com.softserveinc.softtour.service.CountryService;
+import com.softserveinc.softtour.service.RegionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +21,15 @@ import java.util.Set;
 @RequestMapping(value = "/search")
 public class SearchController {
 
+    @Autowired
+    private RegionService regionService;
+
+    @Autowired
+    private CountryService countryService;
+
     @RequestMapping(value = "/getTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(
+            @RequestParam(value = "optionCountry", required = false) Integer optionCountry,
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "region", required = true) String region,
             @RequestParam(value = "twoStar", required = false) Integer twoStar,
@@ -77,6 +89,19 @@ public class SearchController {
         ItTourParser parser = new ItTourParser(country, 338, 5486,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
                 nightFrom, nightTo, priceFrom, priceTo, 2);
         List<Tour> tourList = parser.parse();
+        System.out.println(optionCountry);
         return tourList;
+    }
+
+    @RequestMapping(value = "getRegion", method = RequestMethod.POST)
+    public @ResponseBody List<Region> searchRegion(){
+        return regionService.findAll();
+    }
+
+    @RequestMapping(value = "getCountry", method = RequestMethod.POST)
+    public @ResponseBody List<Country> searchCountry(){
+        List<Country> countryList = countryService.findAll();
+        System.out.println(countryList);
+        return countryList;
     }
 }
