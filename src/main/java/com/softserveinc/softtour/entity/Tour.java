@@ -53,9 +53,7 @@ public class Tour {
     @Transient
     private String[] itTourId = new String[2];
 
-
-    public Tour() {
-    }
+    public Tour() {}
 
     public Tour(Date date, int days, String departureCity,
                 Time departureTime, BigDecimal price, Hotel hotel, Food food) {
