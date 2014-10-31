@@ -3,10 +3,8 @@ package com.softserveinc.softtour.service;
 import com.softserveinc.softtour.entity.Hotel;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
-import org.aspectj.lang.annotation.After;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -42,7 +39,7 @@ public class TestHotelServiceImpl extends AbstractTestNGSpringContextTests {
     Hotel testHotel1;
     Hotel testHotel2;
     Hotel testHotel3;
-    List<String> countries = new ArrayList<String>();
+    List<String> countries = new ArrayList<>();
     Pageable pageable;
 
     @Autowired
