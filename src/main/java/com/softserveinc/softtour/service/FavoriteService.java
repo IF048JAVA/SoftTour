@@ -52,6 +52,6 @@ public interface FavoriteService {
 	 */
 	public List<Favorite> findAll();
 
-    public Favorite findByUserAndTour (Favorite favorite);
+    public Favorite findByUserAndTour (User user, Tour tour);
 	
 }

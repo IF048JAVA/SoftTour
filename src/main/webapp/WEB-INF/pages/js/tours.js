@@ -153,7 +153,7 @@ function loadAddInfo (id) {
         error: function(){console.log("ERROR");}
         })
 }
-function checkFavorites(){
+/*function checkFavorites(){
     var infObj = {}
     $.each(favData,function(key,value) {
         infObj = value;
@@ -179,4 +179,4 @@ function checkFavorites(){
             }
         })
     })
-}
+}*/
