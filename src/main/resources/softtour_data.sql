@@ -13,7 +13,9 @@ INSERT INTO role VALUES
 INSERT INTO user VALUES
   (1, 'Ronaldo', 'cristiano@gmail.com', 'c519e76f6719da3d089433d16ec68662b80087361af1253b0f1ca12fa4da9781', '1985-05-02', 'MALE', '+380506007733', 3, true),
   (2, 'Messi', 'lionel@gmail.com', '7b443e7a5d6f7b0b3b700b540cd46338be7808dfc815acf83a9e80111c4bdd97', '1987-06-24', 'MALE', '+380994455666', 3, true),
-  (3, 'Masha', 'kisa@gmail.com', '7b443e7a5d6f7b0b3b700b540cd46338be7808dfc815acf83a9e80111c4bdd97', '1987-06-24', 'FEMALE', '+380994455666', 3, true);
+  (3, 'Masha', 'kisa@gmail.com', '7b443e7a5d6f7b0b3b700b540cd46338be7808dfc815acf83a9e80111c4bdd97', '1987-06-24', 'FEMALE', '+380994455666', 3, true),
+  (4, 'Admin', 'admin@gmail.com', '7b443e7a5d6f7b0b3b700b540cd46338be7808dfc815acf83a9e80111c4bdd97', '1987-06-24', 'MALE', '+380994455666', 1, true);
+
 
 INSERT INTO tour VALUES
   (1, '2014-11-01', 6, '11:30:00', 'Київ', 242.00, 3, 2,'APART', 'HB', 1),
