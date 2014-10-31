@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS softtour;
-CREATE DATABASE softtour default charset=utf8 COLLATE=utf8_general_ci;
+CREATE DATABASE softtour default character set=utf8 COLLATE=utf8_general_ci;
 
 USE softtour;
 SET NAMES 'utf8';

@@ -48,6 +48,7 @@ public class StaticDataParser implements StaticDataParserConstants {
             long countryCode = Integer.parseInt(countryEl.attr(ATTR_VALUE));
             Country country = new Country(countryName, countryCode);
             countryService.save(country);
+            System.out.println("save country");
 
             /**
              * This block of code finds all country regions and save them to database.
@@ -64,6 +65,7 @@ public class StaticDataParser implements StaticDataParserConstants {
                 long regionCode = Integer.parseInt(regionEl.attr(ATTR_VALUE));
                 Region region = new Region(regionName, regionCode, country);
                 regionService.save(region);
+                System.out.println("save region");
 
                 /**
                  * This block of code finds all region hotels and save them to database.
@@ -81,6 +83,7 @@ public class StaticDataParser implements StaticDataParserConstants {
                     Hotel hotel = new Hotel(hotelName, 0, 0, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
                             BigDecimal.ZERO, BigDecimal.ZERO, "", hotelCode, region);
                     hotelService.save(hotel);
+                    System.out.println("save hotel");
                 }
             }
         }
