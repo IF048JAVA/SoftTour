@@ -45,9 +45,6 @@ public class HotelController {
     @Autowired
     private HotelUtil hotelUtil;
 
-    @Autowired
-    StaticDataParser staticDataParser;
-
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public @ResponseBody Page<Hotel> findHotels(
             @RequestParam(value = "country", required = true) List<String> country,
@@ -117,10 +114,5 @@ public class HotelController {
         }
 
         return listTour;
-    }
-
-    @RequestMapping(value = "/update")
-    public void updateDatabase(){
-        staticDataParser.parse();
     }
 }
