@@ -11,4 +11,5 @@ public interface CountryService {
     public Country findById(long id);
     public Country findByName(String name);
     public List<Country> findAll();
+    public Country findByItTourId(long itTourId);
 }

@@ -75,4 +75,28 @@ public class Region {
                 ", country=" + country +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Region region = (Region) o;
+
+        if (id != region.id) return false;
+        if (!country.equals(region.country)) return false;
+        if (!itTourId.equals(region.itTourId)) return false;
+        if (!name.equals(region.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + itTourId.hashCode();
+        result = 31 * result + country.hashCode();
+        return result;
+    }
 }

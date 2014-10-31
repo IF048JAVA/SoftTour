@@ -47,7 +47,9 @@ public class CountryServiceImpl implements CountryService {
         return this.countryRepository.findAll();
     }
 
-
-
+    @Override
+    public Country findByItTourId(long itTourId) {
+        return countryRepository.findByItTourId(itTourId);
+    }
 }
 

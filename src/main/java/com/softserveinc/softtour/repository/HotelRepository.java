@@ -37,5 +37,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
                             Pageable pageable);
 
     Hotel findByName (String name);
+
+    Hotel findByItTourId(long itTourId);
 }
 

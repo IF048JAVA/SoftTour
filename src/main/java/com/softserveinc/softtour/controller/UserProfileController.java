@@ -3,6 +3,7 @@ package com.softserveinc.softtour.controller;
 import com.softserveinc.softtour.entity.Favorite;
 import com.softserveinc.softtour.entity.HistoryRecord;
 import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.parsers.StaticDataParser;
 import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.FavoriteService;
 import com.softserveinc.softtour.service.HistoryRecordService;
@@ -29,6 +30,9 @@ public class UserProfileController {
 
     @Autowired
     private CountryService countryService;
+
+    @Autowired
+    StaticDataParser staticDataParser;
 
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     public @ResponseBody User getCurrentUser() {
@@ -75,6 +79,12 @@ public class UserProfileController {
 
         favoriteService.delete(favoriteToDelete.getId());
         return favoriteToDelete;
+    }
+
+
+    @RequestMapping(value = "/admin")
+    public @ResponseBody Boolean updateDatabase(){
+        return staticDataParser.parse();
     }
 
 }

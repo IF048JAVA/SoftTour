@@ -22,7 +22,7 @@ function getAllTransitF(tourId,favoriteId) {
                             '<img src="../img/Transport-Train-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                        '<table data-toggle="table" data-url="/trainTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
+                        '<table data-toggle="table" data-url="/trainTransitDate?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
@@ -42,7 +42,7 @@ function getAllTransitF(tourId,favoriteId) {
                             '<img src="../img/Transport-Bus-icon.png" width="32" height="32"/>'+
                         '</h3>'+
 
-                            '<table data-toggle="table" data-url="/busTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
+                            '<table data-toggle="table" data-url="/busTransitDate?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
                             '<thead>'+
                                 '<tr>'+
                                     '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
@@ -88,7 +88,7 @@ function getAllTransitH(tourId,historyId) {
                         '<img src="../img/Transport-Train-icon.png" width="32" height="32"/>'+
                     '</h3>'+
 
-                    '<table data-toggle="table" data-url="/trainTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
+                    '<table data-toggle="table" data-url="/trainTransitDate?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
                         '<thead>'+
                             '<tr>'+
                             '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
@@ -108,7 +108,7 @@ function getAllTransitH(tourId,historyId) {
                         '<img src="../img/Transport-Bus-icon.png" width="32" height="32"/>'+
                     '</h3>'+
 
-                    '<table data-toggle="table" data-url="/busTransitDates?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
+                    '<table data-toggle="table" data-url="/busTransitDate?currentTourId='+tourId+'&cityFrom='+transitDates.cityFrom+'">'+
                         '<thead>'+
                             '<tr>'+
                             '<th data-field="departureCity" data-halign="center" data-align="center" data-valign="middle">Місто відправлення</th>'+
