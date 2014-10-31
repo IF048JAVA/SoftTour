@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 
@@ -10,7 +11,10 @@
 			<li class="active"><a href="#favorites" role="tab" data-toggle="tab">Favorites</a></li>
 			<li><a href="#history" role="tab" data-toggle="tab">History</a></li>
 			<li><a href="#myProfile" role="tab" data-toggle="tab">My Profile</a></li>
-		</ul>
+            <security:authorize access="hasRole('ROLE_ADMIN')">
+            <li><a href="#admin" role="tab" data-toggle="tab">Admin</a></li>
+            </security:authorize>
+        </ul>
 
 		<!-- Tab panes -->
 		<div class="tab-content">
@@ -158,7 +162,18 @@
                     </form:form>
 				</div>
 			</div>
+
+
+            <!-- Admin page -->
+            <div class="tab-pane" id="admin">
+                <button class="btn-default btn-lg btn-block" onclick="updateData()">
+                    Update Info
+                </button>
+                <div id="adminLoader"></div>
+            </div>
         </div>
+
+
 
 <jsp:include page="favoriteTemplate.jsp"/>
 <jsp:include page="historyTemplate.jsp"/>
