@@ -80,7 +80,6 @@ public class TestHotelServiceImpl extends AbstractTestNGSpringContextTests {
         hotelService.save(testHotel3);
 
         Hotel actualHotel = hotelService.findByName("TestHotel1");
-
         assertEquals(actualHotel, testHotel1);
     }
 
@@ -88,9 +87,7 @@ public class TestHotelServiceImpl extends AbstractTestNGSpringContextTests {
     public void testSearchHotel(){
 
         Page<Hotel> searchResult = hotelService.searchHotel("test", pageable);
-
         long actualCount = searchResult.getTotalElements();
-
         assertEquals(actualCount, expectedSearchResult);
     }
 
@@ -101,7 +98,6 @@ public class TestHotelServiceImpl extends AbstractTestNGSpringContextTests {
                 BigDecimal.valueOf(3.5), BigDecimal.valueOf(4.5), BigDecimal.valueOf(4), BigDecimal.valueOf(4), pageable);
 
         long actualCount = searchResult.getTotalElements();
-
         assertEquals(actualCount, expectedCount);
     }
 
@@ -117,5 +113,4 @@ public class TestHotelServiceImpl extends AbstractTestNGSpringContextTests {
         assertNull(hotelService.findOne(testHotel2.getId()));
         assertNull(hotelService.findOne(testHotel3.getId()));
     }
-
 }
