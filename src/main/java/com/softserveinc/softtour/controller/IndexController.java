@@ -193,23 +193,23 @@ public class IndexController {
         return routesList;
     }
 
-//    @RequestMapping(value="/busTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
-//    public @ResponseBody List<BusRoute> getBusTransits(
-//            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
-//            @RequestParam(value = "cityFrom", required = true) String cityFrom){
-//
-//        Tour currentTour = tourService.findOne(currentTourId);
-//
-//        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
-//
-//        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
-//        List<BusRoute> routesList =  currentBusParser.parse();
-//
-//        return routesList;
-//    }
+    @RequestMapping(value="/busTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
+    public @ResponseBody List<BusRoute> getBusTransits(
+            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+            @RequestParam(value = "cityFrom", required = true) String cityFrom){
 
-    @RequestMapping(value="/dateForTransitOrder", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
-    public @ResponseBody String getTransitOrderURL(
+        Tour currentTour = tourService.findOne(currentTourId);
+
+        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
+
+        BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
+        List<BusRoute> routesList =  currentBusParser.parse();
+
+        return routesList;
+    }
+
+    @RequestMapping(value="/dateForOrderTrain", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
+    public @ResponseBody String getTrainOrderURL(
             @RequestParam(value = "date", required = true) String date,
             @RequestParam(value = "cityFrom", required = true) String cityFrom,
             @RequestParam(value = "cityTo", required = true) String cityTo){
@@ -217,6 +217,18 @@ public class IndexController {
 
         TrainParserUtil trainParserUtil = new TrainParserUtil();
         String url = trainParserUtil.createUrl(cityFrom, cityTo, date);
+        return url;
+    }
+
+    @RequestMapping(value="/dateForOrderBus", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
+    public @ResponseBody String getBusOrderURL(
+            @RequestParam(value = "date", required = true) String date,
+            @RequestParam(value = "cityFrom", required = true) String cityFrom,
+            @RequestParam(value = "cityTo", required = true) String cityTo){
+        System.out.println(date + cityFrom + cityTo);
+
+
+        String url = "";
         return url;
     }
 }
