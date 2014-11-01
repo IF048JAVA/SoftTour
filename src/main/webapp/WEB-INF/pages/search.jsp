@@ -8,9 +8,9 @@
         <div class="form-group">
             <div class="col-sm-6">
                 <p>Країна:</p>
-                <select class="form-control" id="country" name="country">
+                <select class="form-control" id="country" name="country" onchange="getRegion()">
 
-                <script id="selectTemplate" type="text/x-jquery-tmpl">
+                <script id="selectCountry" type="text/x-jquery-tmpl">
                     <option id="\${itTourId}" name="optionCountry">\${name}</option>
                 </script>
                 </select>
@@ -18,7 +18,9 @@
             <div class="col-sm-6">
                 <p>Регіон:</p>
                 <select class="form-control" id="region" name="region">
-                    <option value="N/A">N/A</option>
+                <script id="selectRegion" type="text/x-jquery-tmpl">
+                    <option id="option">\${name}</option>
+                </script>
                 </select>
             </div>
             <div class="col-sm-12">
