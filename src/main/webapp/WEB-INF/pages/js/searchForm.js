@@ -57,15 +57,6 @@ function checkPrice(field){
     }
 }
 
-
-
-function select() {
-    var country = document.getElementById("country");
-    country.options[0] = new Option("aaaaaaaaa");
-    country.options[1] = new Option("bbbbbbbbb");
-    country.options[2] = new Option("ccccccccc");
-}
-
 function getCountry(){
 
         $.ajax({
@@ -74,7 +65,29 @@ function getCountry(){
             dataType: 'json',
 
             success: function(data){
-                $('#selectTemplate').tmpl(data).appendTo('#country');
+                $('#selectCountry').tmpl(data).appendTo('#country');
+                getRegion();
             }
         })
+}
+var queryObjOne = {};
+
+function getRegion(){
+    queryObjOne.country = $("#country").val();
+    $.ajax({
+        url: "search/getRegion",
+        type: "POST",
+        data: queryObjOne,
+        dataType: 'json',
+
+        success:function(data){
+
+            var select;
+            select = document.getElementById('region');
+            select.options.length = 0;
+
+                $('#selectRegion').tmpl(data).appendTo('#region');
+
+        }
+    })
 }
