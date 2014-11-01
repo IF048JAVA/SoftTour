@@ -19,7 +19,7 @@ function orderTransit(e){
 
     var dateForTransitOrder = {};
     dateForTransitOrder.date = $(e).parent().parent().children("td:nth-child(3)").text();
-    dateForTransitOrder.cityFrom = $(e).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().children('.form-inline').children('.form-group').children('[id|=cityFrom]').val();
+    dateForTransitOrder.cityFrom = $(e).closest('.panel-body').children('.form-inline').children('.form-group').children('[id|=cityFrom]').val();
     dateForTransitOrder.cityTo = $(e).parent().parent().children("td:nth-child(2)").text();
 
     console.log(dateForTransitOrder);
@@ -27,16 +27,13 @@ function orderTransit(e){
     $.ajax({
         url: "/dateForTransitOrder",
         type: 'GET',
-        dataType: 'json',
         data: dateForTransitOrder,
-        contentType: 'application/json',
-        mimeType: 'application/json',
+        mimeType:"text/html; charset=UTF-8",
 
         success: function(result) {
-            console.log("Success: " +result.responseText);
-        },
-        complete: function(result) {
-            console.log("complete:" +result.responseText);
+            console.log("Success: " +result);
+            var myWindow = window.open(result);
+
         },
         error:function(xhr, status) {
             console.log("ERROR");
