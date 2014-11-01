@@ -29,7 +29,6 @@ public class SearchController {
 
     @RequestMapping(value = "/getTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(
-            @RequestParam(value = "optionCountry", required = false) Integer optionCountry,
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "region", required = true) String region,
             @RequestParam(value = "twoStar", required = false) Integer twoStar,
@@ -84,18 +83,28 @@ public class SearchController {
         if (foodSix != null){
             foodSet.add(foodSix);
         }
+        Country countryObj = countryService.findByName(country);
+        long countryId = countryObj.getItTourId();
+
+        Region regionObj = regionService.findByName(region);
+        long regionId = regionObj.getItTourId();
 
         //TODO get country & region param from database (instead of hardcode 338 - code of Egypt & 5486 - code of Dahab)
-        ItTourParser parser = new ItTourParser(country, 338, 5486,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
+        ItTourParser parser = new ItTourParser(country, countryId/*338*/, regionId/*5486*/,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
                 nightFrom, nightTo, priceFrom, priceTo, 2);
         List<Tour> tourList = parser.parse();
-        System.out.println(optionCountry);
         return tourList;
     }
 
     @RequestMapping(value = "getRegion", method = RequestMethod.POST)
-    public @ResponseBody List<Region> searchRegion(){
-        return regionService.findAll();
+    public @ResponseBody List<Region> searchRegion(
+            @RequestParam(value = "country", required = false) String country
+    ){
+        Country countryObj = countryService.findByName(country);
+        long countryId = countryObj.getId();
+        List<Region> regionList = regionService.findByCountryId(countryId);
+        System.out.println(regionList);
+        return regionList;
     }
 
     @RequestMapping(value = "getCountry", method = RequestMethod.POST)
