@@ -4,9 +4,11 @@ import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.entity.template.RoomType;
 
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "Tour")
@@ -176,4 +178,78 @@ public class Tour {
                 ", food=" + food +
                 '}';
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + adultAmount;
+		result = prime * result + childrenAmount;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + days;
+		result = prime * result
+				+ ((departureCity == null) ? 0 : departureCity.hashCode());
+		result = prime * result
+				+ ((departureTime == null) ? 0 : departureTime.hashCode());
+		result = prime * result + ((food == null) ? 0 : food.hashCode());
+		result = prime * result + ((hotel == null) ? 0 : hotel.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + Arrays.hashCode(itTourId);
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result
+				+ ((roomType == null) ? 0 : roomType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tour other = (Tour) obj;
+		if (adultAmount != other.adultAmount)
+			return false;
+		if (childrenAmount != other.childrenAmount)
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (days != other.days)
+			return false;
+		if (departureCity == null) {
+			if (other.departureCity != null)
+				return false;
+		} else if (!departureCity.equals(other.departureCity))
+			return false;
+		if (departureTime == null) {
+			if (other.departureTime != null)
+				return false;
+		} else if (!departureTime.equals(other.departureTime))
+			return false;
+		if (food != other.food)
+			return false;
+		if (hotel == null) {
+			if (other.hotel != null)
+				return false;
+		} else if (!hotel.equals(other.hotel))
+			return false;
+		if (id != other.id)
+			return false;
+		if (!Arrays.equals(itTourId, other.itTourId))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		if (roomType != other.roomType)
+			return false;
+		return true;
+	}
+    
 }
