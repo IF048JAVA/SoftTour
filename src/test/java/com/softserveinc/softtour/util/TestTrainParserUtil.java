@@ -8,6 +8,10 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
+/**
+ * Tests the TrainParserUtil class
+ * @author Andrii
+ */
 @Test
 @ContextConfiguration(locations = {"/spring-test-config.xml", 
 		"/spring-data.xml",
@@ -21,6 +25,11 @@ public class TestTrainParserUtil extends AbstractTestNGSpringContextTests{
 	@Autowired
 	TrainParserUtil trainParserUtil;
 	
+	/**
+	 * Tests the method translateCity of the TrainParserUtil class
+	 * Checks if this method right translates the names of the city 
+	 * from Russian to Ukrainian  
+	 */
 	@Test
 	public void testTranslateCity() {
 		String city = "Ивано-франковск";
@@ -31,6 +40,10 @@ public class TestTrainParserUtil extends AbstractTestNGSpringContextTests{
 		assertEquals(actualCity, expectedCity);
 	}
 	
+	/**
+	 * Tests the method createUrl of the TrainParserUtil class
+	 * Checks if this method right creates url for the specify parameters
+	 */
 	@Test
 	public void testCreateUrl() {
 		String BASE_URL = "http://ticket.turistua.com/ua/train/reservation/?transport=train";
