@@ -19,7 +19,7 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
     public static String createQuickSearchUrl(long countryParam, int adults, int children, int priceFrom, int priceTo,
             int pageNumber){
         Date dateFrom = new Date();
-        Date dateTo = new Date(dateFrom.getTime() - TEN_DAYS_IN_MILLISECONDS);
+        Date dateTo = new Date(dateFrom.getTime() + TEN_DAYS_IN_MILLISECONDS);
         String generatedDateFromParam =  generateDate(dateFrom);
         String generatedDateToParam = generateDate(dateTo);
 
