@@ -52,6 +52,9 @@ public class RegionServiceImpl implements RegionService {
     public Region findByItTourId(long itTourid) {
         return regionRepository.findByItTourId(itTourid);
     }
+
+    @Override
+    public List<Region> findByCountryId(long countryId) {return regionRepository.findByCountryId(countryId); }
 }
 
 
