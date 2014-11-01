@@ -42,8 +42,7 @@ public class StaticDataParser implements StaticDataParserConstants {
     /**
      * This method finds all countries, regions, hotels and save their data to database.
      */
-    //FIXME Why boolean? This method always returns true (or exception), but never false
-    public boolean parse() {
+    public void parse() {
 
         /**
          * This block of code finds all countries and save them to database.
@@ -59,8 +58,13 @@ public class StaticDataParser implements StaticDataParserConstants {
                 countryNameUa = countryNameRu;
             }
             long countryCode = Integer.parseInt(countryEl.attr(ATTR_VALUE));
+            Country dbCountry = countryService.findByItTourId(countryCode);
             Country country = new Country(countryNameUa, countryCode);
-            countryService.save(country);
+            if(dbCountry == null){
+                countryService.save(country);
+            } else {
+                country = dbCountry;
+            }
 
             /**
              * This block of code finds all country regions and save them to database.
@@ -75,8 +79,13 @@ public class StaticDataParser implements StaticDataParserConstants {
                     break;
                 }
                 long regionCode = Integer.parseInt(regionEl.attr(ATTR_VALUE));
+                Region dbRegion = regionService.findByItTourId(regionCode);
                 Region region = new Region(regionName, regionCode, country);
-                regionService.save(region);
+                if(dbRegion == null) {
+                    regionService.save(region);
+                } else {
+                    region = dbRegion;
+                }
 
                 /**
                  * This block of code finds all region hotels and save them to database.
@@ -100,15 +109,13 @@ public class StaticDataParser implements StaticDataParserConstants {
                 }
             }
         }
-        return true;
     }
 
-    //TODO remove hardcode to constants
     private void loadProperties(){
         try {
             InputStream inputProperties = this.getClass().
-                    getResourceAsStream("/parser_properties/country_ru-ua_vocabulary");
-            countryRuUaVocabulary.load(new InputStreamReader(inputProperties, "UTF-8"));
+                    getResourceAsStream(COUNTRY_PROPERTIES_PATH);
+            countryRuUaVocabulary.load(new InputStreamReader(inputProperties, UTF_8));
         }catch (IOException e){
             //TODO improve handled exception
             System.out.println(e.getMessage());

@@ -83,8 +83,9 @@ public class UserProfileController {
 
 
     @RequestMapping(value = "/admin")
-    public @ResponseBody Boolean updateDatabase(){
-        return staticDataParser.parse();
+    public @ResponseBody String updateDatabase(){
+        staticDataParser.parse();
+        return "Update Success";
     }
 
 }
