@@ -25,8 +25,11 @@ import com.softserveinc.softtour.entity.User;
 import com.softserveinc.softtour.entity.template.Food;
 import com.softserveinc.softtour.entity.template.RoomType;
 import com.softserveinc.softtour.entity.template.Sex;
-import com.softserveinc.softtour.repository.HotelRepository;
 
+/**
+ * Tests the FavoriteServiceImpl class
+ * @author Andrii
+ */
 @Test
 @ContextConfiguration(locations = {"/spring-test-config.xml", 
 									"/spring-data.xml",
@@ -38,25 +41,16 @@ import com.softserveinc.softtour.repository.HotelRepository;
 public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 	@Autowired
 	private FavoriteService favoriteService;
-	
 	@Autowired
 	private UserService userService;
-	
 	@Autowired
 	private RoleService roleService;
-	
 	@Autowired
 	private CountryService countryService;
-	
 	@Autowired
 	private RegionService regionService;
-	
 	@Autowired
 	private HotelService hotelService;
-	
-    @Autowired
-    private HotelRepository hotelRepository;
-    
     @Autowired
     private TourService tourService;
     
@@ -66,11 +60,14 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 	private Region region;
 	private Hotel hotel;
 	private Tour tour;
-
-	String timestamp;
+	private String timestamp;
 	
+	/**
+	 * Creates new objects of user, country, region, 
+	 * hotel, tour and favorite  for testing
+	 */
 	@BeforeClass
-	private void createFavorite() {
+	private void createTestData() {
 		timestamp = String.valueOf(System.currentTimeMillis());
 		
 		createUser();
@@ -82,6 +79,9 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		favorite = new Favorite(Date.valueOf("2014-11-10"), user, tour);
 	}
 
+	/**
+	 * Creates and save into database a new user for testing	
+	 */
 	private void createUser() {
 		Role role = roleService.findByName("ROLE_USER");
 		
@@ -92,6 +92,9 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		user = userService.findByEmail(user.getEmail());
 	}
 	
+	/**
+	 * Creates and save into database a new country for testing	
+	 */
 	private void createCountry() {
 		country = new Country("country" + timestamp, (long)5555);
 		countryService.save(country);
@@ -99,6 +102,9 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		country = countryService.findByName(country.getName());
 	}
 
+	/**
+	 * Creates and save into database a new region for testing	
+	 */
 	private void createRegion() {
 		region = new Region("region" + timestamp, (long)5359, country);
 		regionService.save(region);
@@ -106,6 +112,9 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		region = regionService.findByName(region.getName());
 	}
 	
+	/**
+	 * Creates and save into database a new hotel for testing	
+	 */
 	private void createHotel() {
 		hotel = new Hotel("hotel" + timestamp, 3, 4, null, null, null, null, null, "", (long)5359, region);
 		hotelService.save(hotel);
@@ -113,12 +122,18 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		hotel = hotelService.findByName(hotel.getName());
 	}
 	
+	/**
+	 * Creates and save into database a new tour for testing	
+	 */
 	private void createTour() {
 		tour = new Tour(Date.valueOf("2000-06-02"), 7, "Київ", Time.valueOf("11:30:00"), BigDecimal.valueOf(242.55), hotel, Food.AI);
 		tour.setRoomType(RoomType.STD);
 		tourService.save(tour);
 	}
 	
+	/**
+	 * Tests the method save of the FavoriteServiceImpl class
+	 */
 	@Test
 	public void testSave() {
 		favoriteService.save(favorite);
@@ -131,6 +146,9 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		assertEquals(actualFavorite, favorite);
 	}
 	
+	/**
+	 * Tests the method findById of the FavoriteServiceImpl class
+	 */
 	@Test(dependsOnMethods={"testSave"})
 	public void testFindById() {
 		Favorite actualFavorite = favoriteService.findById(favorite.getId());
@@ -138,7 +156,10 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		assertNotNull(actualFavorite);
 		assertEquals(actualFavorite, favorite);
 	}
-
+	
+	/**
+	 * Tests the method findByUser of the FavoriteServiceImpl class
+	 */
 	@Test(dependsOnMethods={"testFindById"})
 	public void testFindByUser() {
 		List<Favorite> list = favoriteService.findByUser(user);
@@ -150,6 +171,9 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		assertEquals(actualFavorite, favorite);
 	}
 	
+	/**
+	 * Tests the method findByUserAndTour of the FavoriteServiceImpl class
+	 */
 	@Test(dependsOnMethods={"testFindByUser"})
 	public void testFindByUserAndTour() {
 		Favorite actualFavorite = null;
@@ -165,6 +189,9 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		assertNull(actualFavorite);
 	}
 	
+	/**
+	 * Tests the method delete of the FavoriteServiceImpl class
+	 */
 	@Test(dependsOnMethods = {"testFindByUserAndTour"})
 	public void testDelete() {
 		favoriteService.delete(favorite.getId());
@@ -173,14 +200,14 @@ public class TestFavoriteServiceImpl extends AbstractTestNGSpringContextTests {
 		assertNull(actualFavorite);
 	}
 	
-	//TODO !!!
+	/**
+	 * Deletes new objects of user, country, region, 
+	 * hotel, tour and favorite after testing
+	 */
 	@AfterClass
 	private void deleteTestData(){
 		tourService.delete(tour);
-		
-		//FIXME  Need to create delete method into HotelService
-		hotelRepository.delete(hotel.getId());
-		
+		hotelService.delete(hotel.getId());
 		regionService.deleteById(region.getId());
 		countryService.delete(country.getId());
 		userService.delete(user.getId());

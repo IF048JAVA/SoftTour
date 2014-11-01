@@ -22,4 +22,6 @@ public interface RegionService {
     Region findByName (String name);
 
     Region findByItTourId(long itTourid);
+
+    List<Region> findByCountryId(long countryId);
 }

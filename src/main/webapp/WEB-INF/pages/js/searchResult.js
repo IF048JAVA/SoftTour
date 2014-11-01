@@ -8,7 +8,6 @@ function showResults(form){
         $('#searchResult').empty();
         showModal();
         $('#searchResult').append('<div class="col-md-12" id="loading"><img src="img/preloader.gif"></div><br>');
-        queryObj.optionCountry = $("#optionCountry").attr('id');
         queryObj.country = $("#country").val();
         queryObj.region = $("#region").val();
         if ($("#twoStar").prop('checked'))queryObj.twoStar = $("#twoStar").val();
