@@ -8,9 +8,9 @@
         <div class="form-group">
             <div class="col-sm-6">
                 <p>Країна:</p>
-                <select class="form-control" id="country" name="country">
+                <select class="form-control" id="country" name="country" onchange="getRegion()">
 
-                <script id="selectTemplate" type="text/x-jquery-tmpl">
+                <script id="selectCountry" type="text/x-jquery-tmpl">
                     <option id="\${itTourId}" name="optionCountry">\${name}</option>
                 </script>
                 </select>
@@ -18,7 +18,9 @@
             <div class="col-sm-6">
                 <p>Регіон:</p>
                 <select class="form-control" id="region" name="region">
-                    <option value="N/A">N/A</option>
+                <script id="selectRegion" type="text/x-jquery-tmpl">
+                    <option id="option">\${name}</option>
+                </script>
                 </select>
             </div>
             <div class="col-sm-12">
@@ -28,11 +30,11 @@
                     <label>2*</label>
                     <input type="checkbox" value="2" id="twoStar" name="twoStar">
                     <label>3*</label>
-                    <input type="checkbox" value="3" id="threeStar" name="threeStar">
+                    <input type="checkbox" value="3" id="threeStar" name="threeStar" checked>
                     <label>4*</label>
-                    <input type="checkbox" value="4" id="fourStar" name="fourStar">
+                    <input type="checkbox" value="4" id="fourStar" name="fourStar" checked>
                     <label>5*</label>
-                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar"><br>
+                    <input type="checkbox" value="5" id="fiveStar" name="fiveStar" checked><br>
                     <span id="checkHelp" style="color: red"></span>
 
             </div>
@@ -41,28 +43,28 @@
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="HB" id="foodOne" name="foodOne">
+                        <input type="checkbox" value="HB" id="foodOne" name="foodOne" checked>
                         HB
                     </label>
                     <label>
-                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo">
+                        <input type="checkbox" value="BB" id="foodTwo" name="foodTwo" checked>
                         BB
                     </label>
                     <label>
-                        <input type="checkbox" value="FB" id="foodThree" name="foodThree">
+                        <input type="checkbox" value="FB" id="foodThree" name="foodThree" checked>
                         FB
                     </label>
                     <br>
                     <label>
-                        <input type="checkbox" value="AI" id="foodFour" name="foodFour">
+                        <input type="checkbox" value="AI" id="foodFour" name="foodFour" checked>
                         AI
                     </label>
                     <label>
-                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive">
+                        <input type="checkbox" value="UAI" id="foodFive" name="foodFive" checked>
                         UAI
                     </label>
                     <label>
-                        <input type="checkbox" value="RO" id="foodSix" name="foodSix">
+                        <input type="checkbox" value="RO" id="foodSix" name="foodSix" checked>
                         RO
                     </label><br>
                     <span id="checkHelp2" style="color: red"></span>
@@ -76,7 +78,7 @@
                     <p>Дорослі:</p>
                     <select class="form-control" id="adults" name="adults">
                         <option>1</option>
-                        <option>2</option>
+                        <option selected>2</option >
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
@@ -119,7 +121,7 @@
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                        <option>6</option>
+                        <option selected>6</option>
                         <option>7</option>
                         <option>8</option>
                         <option>9</option>
@@ -147,14 +149,14 @@
                         <option>4</option>
                         <option>5</option>
                         <option>6</option>
-                        <option selected>7</option>
+                        <option>7</option>
                         <option>8</option>
                         <option>9</option>
                         <option>10</option>
                         <option>11</option>
                         <option>12</option>
                         <option>13</option>
-                        <option>14</option>
+                        <option selected>14</option>
                         <option>15</option>
                         <option>16</option>
                         <option>17</option>
@@ -181,7 +183,7 @@
             </div>    
         </div>
         </div>
-        <input type="button" class="btn btn-primary btn-lg" value="Пошук" onclick="return showResults(this.form)">
+        <input type="button" class="btn btn-primary btn-lg" value="Пошук" onclick="return showResults(this.form,1)">
     </form>
 </div>
 
@@ -231,7 +233,7 @@
     <div style="margin-top: 50px"></div>
 <div class="col-md-12">
 
-    <div id="searchResult">
+    <div id="searchResult" class="col-lg-12" style="text-align: center">
 
     </div>
 

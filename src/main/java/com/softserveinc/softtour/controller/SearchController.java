@@ -29,7 +29,6 @@ public class SearchController {
 
     @RequestMapping(value = "/getTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(
-            @RequestParam(value = "optionCountry", required = false) Integer optionCountry,
             @RequestParam(value = "country", required = true) String country,
             @RequestParam(value = "region", required = true) String region,
             @RequestParam(value = "twoStar", required = false) Integer twoStar,
@@ -49,7 +48,8 @@ public class SearchController {
             @RequestParam(value = "nightFrom", required = true) Integer nightFrom,
             @RequestParam(value = "nightTo", required = true) Integer nightTo,
             @RequestParam(value = "priceFrom", required = true) Integer priceFrom,
-            @RequestParam(value = "priceTo", required = true) Integer priceTo
+            @RequestParam(value = "priceTo", required = true) Integer priceTo,
+            @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage
     ){
         Set<Integer> hotelStars = new HashSet<>();
         if (twoStar != null){
@@ -84,24 +84,30 @@ public class SearchController {
         if (foodSix != null){
             foodSet.add(foodSix);
         }
+        Country countryObj = countryService.findByName(country);
+        long countryId = countryObj.getItTourId();
 
-        //TODO get country & region param from database (instead of hardcode 338 - code of Egypt & 5486 - code of Dahab)
-        ItTourParser parser = new ItTourParser(country, 338, 5486,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
-                nightFrom, nightTo, priceFrom, priceTo, 2);
+        Region regionObj = regionService.findByName(region);
+        long regionId = regionObj.getItTourId();
+
+        ItTourParser parser = new ItTourParser(country, countryId, regionId,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
+                nightFrom, nightTo, priceFrom, priceTo, numberOfPage);
         List<Tour> tourList = parser.parse();
-        System.out.println(optionCountry);
         return tourList;
     }
 
     @RequestMapping(value = "getRegion", method = RequestMethod.POST)
-    public @ResponseBody List<Region> searchRegion(){
-        return regionService.findAll();
+    public @ResponseBody List<Region> searchRegion(
+            @RequestParam(value = "country", required = true) String country
+    ){
+        Country countryObj = countryService.findByName(country);
+        long countryId = countryObj.getId();
+        List<Region> regionList = regionService.findByCountryId(countryId);
+        return regionList;
     }
 
     @RequestMapping(value = "getCountry", method = RequestMethod.POST)
     public @ResponseBody List<Country> searchCountry(){
-        List<Country> countryList = countryService.findAll();
-        System.out.println(countryList);
-        return countryList;
+         return countryService.findAll();
     }
 }
