@@ -16,10 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Time;
 import java.text.ParseException;
 import java.util.*;
-import java.util.Date;
 
 /**
  * This class finds tours and supported information by input parameters.
@@ -168,6 +167,7 @@ public class ItTourParser implements ItTourParserConstants {
                   execute().
                   body();
         } catch (IOException e) {
+            //logger.log();
             //TODO get tours from database
             e.printStackTrace();
         }

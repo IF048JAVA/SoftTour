@@ -88,41 +88,30 @@ public class BusParser implements BusParserConstants {
      * @return list of bus routes (represented by BusRoute class)
      */
     public List<BusRoute> parse() {
-        String firstDateUrl = generateUrl(FIRST_DATE_REDUCE);
-        String secondDateUrl = generateUrl(SECOND_DATE_REDUCE);
-        Document document = connect(firstDateUrl);
-        addRoutes(document);
-        document = connect(secondDateUrl);
-        addRoutes(document);
-        return busRouteList;
-    }
-
-    /**
-     * @param dateReduce - milliseconds of date reducing
-     * @return web-page's url with bus routes
-     */
-    private String generateUrl(long dateReduce){
-        Date reducedDate = new Date(departureDateTime.getTime() - dateReduce);
-        String dateString = SIMPLE_DATE_FORMAT.format(reducedDate);
-        BusParserUrlGenerator urlGenerator = new BusParserUrlGenerator();
-        return urlGenerator.createSearchUrl(cityFrom, cityTo, dateString);
+        BusParserUrlGenerator generator = new BusParserUrlGenerator();
+        String[] urls = generator.createSearchUrl(cityFrom, cityTo, departureDateTime);
+        Document document;
+        try {
+            for (String url : urls) {
+                document = connect(url);
+                addRoutes(document);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+            return busRouteList;
     }
 
     /**
      * @param url - web-page's url
      * @return web-page, encapsulated in Jsoup object Document
      */
-    private Document connect(String url){
-        String doc = null;
-        try {
-            doc = Jsoup.connect(url).
-            timeout(CONNECTION_TIMEOUT).
-            ignoreContentType(true).
-            execute().
-            body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private Document connect(String url) throws IOException{
+        String doc = Jsoup.connect(url).
+                timeout(CONNECTION_TIMEOUT).
+                ignoreContentType(true).
+                execute().
+                body();
         return Jsoup.parse(doc);
     }
 
