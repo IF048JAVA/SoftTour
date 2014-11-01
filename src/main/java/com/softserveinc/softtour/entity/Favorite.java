@@ -2,6 +2,7 @@ package com.softserveinc.softtour.entity;
 
 
 import javax.persistence.*;
+
 import java.sql.Date;
 
 @Entity
@@ -64,4 +65,45 @@ public class Favorite {
     public void setTour(Tour tour) {
         this.tour = tour;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((tour == null) ? 0 : tour.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Favorite other = (Favorite) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (id != other.id)
+			return false;
+		if (tour == null) {
+			if (other.tour != null)
+				return false;
+		} else if (!tour.equals(other.tour))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+    
 }
