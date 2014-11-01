@@ -50,59 +50,64 @@ public class ItTourParserUrlGenerator implements ItTourParserUrlGeneratorConstan
                 Set<String> food, int adults, int children, String dataFrom, String dataTill, int nightsFrom,
                 int nightsTill, int priceFrom, int priceTo, int pageNumber){
         StringBuilder fullSearchBuilder = new StringBuilder(BASE_PARAMETERS).
-        append(TOUR_KIND_PARAM).append(EQV).append(TOUR_KIND_VALUE).append(AMP).
-        append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
-        append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
-        append(ITEMS_PER_PAGE_PARAM).append(EQV).append(ITEMS_PER_PAGE_VALUE).append(AMP).
-        append(COUNTRY_PARAM).append(EQV).append(countryParam).append(AMP).
-        append(REGION_PARAM).append(EQV).append(regionParam).append(AMP).
-        append(HOTEL_RATING_PARAM).append(EQV).append(getHotelRating(hotelStars)).append(AMP).
-        append(FOOD_PARAM).append(EQV).append(foodValue(food)).append(AMP).
-        append(ADULTS_PARAM).append(EQV).append(adults).append(AMP).
-        append(CHILDREN_PARAM).append(EQV).append(children).append(AMP).
-        append(DATE_FROM_PARAM).append(EQV).append(dataFrom).append(AMP).
-        append(DATE_TILL_PARAM).append(EQV).append(dataTill).append(AMP).
-        append(NIGHTS_FROM_PARAM).append(EQV).append(nightsFrom).append(AMP).
-        append(NIGHTS_TILL_PARAM).append(EQV).append(nightsTill).append(AMP).
-        append(PRICE_FROM_PARAM).append(EQV).append(priceFrom).append(AMP).
-        append(PRICE_TILL_PARAM).append(EQV).append(priceTo).append(AMP).
-        append(PAGE_NUMBER_PARAM).append(EQV).append(pageNumber).append(AMP).
-        append(DEPARTURE_CITY_PARAM).append(EQV).append(DEFAULT_DEPARTURE_CITY_VALUE).append(AMP).
-        append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_PACKAGE).append(AMP).
-        append(PACKAGE_TOUR_TYPE_PARAM).append(EQV).append(PACKAGE_TOUR_TYPE_VALUE);
+            append(TOUR_KIND_PARAM).append(EQV).append(TOUR_KIND_VALUE).append(AMP).
+            append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
+            append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
+            append(ITEMS_PER_PAGE_PARAM).append(EQV).append(ITEMS_PER_PAGE_VALUE).append(AMP).
+            append(COUNTRY_PARAM).append(EQV).append(countryParam).append(AMP).
+            append(REGION_PARAM).append(EQV).append(regionParam).append(AMP).
+            append(HOTEL_RATING_PARAM).append(EQV).append(getHotelRating(hotelStars)).append(AMP).
+            append(FOOD_PARAM).append(EQV).append(foodValue(food)).append(AMP).
+            append(ADULTS_PARAM).append(EQV).append(adults).append(AMP).
+            append(CHILDREN_PARAM).append(EQV).append(children).append(AMP).
+            append(DATE_FROM_PARAM).append(EQV).append(dataFrom).append(AMP).
+            append(DATE_TILL_PARAM).append(EQV).append(dataTill).append(AMP).
+            append(NIGHTS_FROM_PARAM).append(EQV).append(nightsFrom).append(AMP).
+            append(NIGHTS_TILL_PARAM).append(EQV).append(nightsTill).append(AMP).
+            append(PRICE_FROM_PARAM).append(EQV).append(priceFrom).append(AMP).
+            append(PRICE_TILL_PARAM).append(EQV).append(priceTo).append(AMP).
+            append(PAGE_NUMBER_PARAM).append(EQV).append(pageNumber).append(AMP).
+            append(DEPARTURE_CITY_PARAM).append(EQV).append(DEFAULT_DEPARTURE_CITY_VALUE).append(AMP).
+            append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_PACKAGE).append(AMP).
+            append(PACKAGE_TOUR_TYPE_PARAM).append(EQV).append(PACKAGE_TOUR_TYPE_VALUE);
         return fullSearchBuilder.toString();
     }
 
     public static String createSearchUrlByHotel(Hotel hotel, int pageNumber){
+        Date dateFrom = new Date();
+        Date dateTo = new Date(dateFrom.getTime() - TEN_DAYS_IN_MILLISECONDS);
+        String generatedDateFromParam =  generateDate(dateFrom);
+        String generatedDateToParam = generateDate(dateTo);
+
         StringBuilder hotelSearchBuilder = new StringBuilder(BASE_PARAMETERS).
-        append(TOUR_KIND_PARAM).append(EQV).append(TOUR_KIND_VALUE).append(AMP).
-        append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
-        append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
-        append(ITEMS_PER_PAGE_PARAM).append(EQV).append(HOTEL_ITEMS_PER_PAGE_VALUE).append(AMP).
-        append(COUNTRY_PARAM).append(EQV).append(hotel.getRegion().getCountry().getItTourId()).append(AMP).
-        append(REGION_PARAM).append(EQV).append(hotel.getRegion().getItTourId()).append(AMP).
-        append(FOOD_PARAM).append(EQV).append(DEFAULT_FOOD_VALUE).append(AMP).
-        append(ADULTS_PARAM).append(EQV).append(2).append(AMP).
-        append(CHILDREN_PARAM).append(EQV).append(0).append(AMP).
-        append(DATE_FROM_PARAM).append(EQV).append(generateDate(new Date())).append(AMP).
-        append(DATE_TILL_PARAM).append(EQV).append(generateDate(new Date(new Date().getTime() + TEN_DAYS_IN_MILLISECONDS))).append(AMP).
-        append(NIGHTS_FROM_PARAM).append(EQV).append(DEFAULT_NIGHTS_FROM_VALUE).append(AMP).
-        append(NIGHTS_TILL_PARAM).append(EQV).append(DEFAULT_NIGHTS_TILL_VALUE).append(AMP).
-        append(PRICE_FROM_PARAM).append(EQV).append(0).append(AMP).
-        append(PRICE_TILL_PARAM).append(EQV).append(99000).append(AMP).
-        append(PAGE_NUMBER_PARAM).append(EQV).append(pageNumber).append(AMP).
-        append(DEPARTURE_CITY_PARAM).append(EQV).append(DEFAULT_DEPARTURE_CITY_VALUE).append(AMP).
-        append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_PACKAGE).append(AMP).
-        append(PACKAGE_TOUR_TYPE_PARAM).append(EQV).append(PACKAGE_TOUR_TYPE_VALUE).append(AMP).
-        append(HOTEL_PARAM).append(EQV).append(hotel.getItTourId());
+            append(TOUR_KIND_PARAM).append(EQV).append(TOUR_KIND_VALUE).append(AMP).
+            append(SWITCH_PRICE_PARAM).append(EQV).append(SWITCH_PRICE_VALUE).append(AMP).
+            append(PREVIEW_PARAM).append(EQV).append(PREVIEW_VALUE).append(AMP).
+            append(ITEMS_PER_PAGE_PARAM).append(EQV).append(HOTEL_ITEMS_PER_PAGE_VALUE).append(AMP).
+            append(COUNTRY_PARAM).append(EQV).append(hotel.getRegion().getCountry().getItTourId()).append(AMP).
+            append(REGION_PARAM).append(EQV).append(hotel.getRegion().getItTourId()).append(AMP).
+            append(FOOD_PARAM).append(EQV).append(DEFAULT_FOOD_VALUE).append(AMP).
+            append(ADULTS_PARAM).append(EQV).append(DEFAULT_ADULTS_PARAM).append(AMP).
+            append(CHILDREN_PARAM).append(EQV).append(DEFAULT_CHILDREN_PARAM).append(AMP).
+            append(DATE_FROM_PARAM).append(EQV).append(generatedDateFromParam).append(AMP).
+            append(DATE_TILL_PARAM).append(EQV).append(generatedDateToParam).append(AMP).
+            append(NIGHTS_FROM_PARAM).append(EQV).append(DEFAULT_NIGHTS_FROM_VALUE).append(AMP).
+            append(NIGHTS_TILL_PARAM).append(EQV).append(DEFAULT_NIGHTS_TILL_VALUE).append(AMP).
+            append(PRICE_FROM_PARAM).append(EQV).append(DEFAULT_PRICE_FROM_VALUE).append(AMP).
+            append(PRICE_TILL_PARAM).append(EQV).append(DEFAULT_PRICE_TILL_VALUE).append(AMP).
+            append(PAGE_NUMBER_PARAM).append(EQV).append(pageNumber).append(AMP).
+            append(DEPARTURE_CITY_PARAM).append(EQV).append(DEFAULT_DEPARTURE_CITY_VALUE).append(AMP).
+            append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_PACKAGE).append(AMP).
+            append(PACKAGE_TOUR_TYPE_PARAM).append(EQV).append(PACKAGE_TOUR_TYPE_VALUE).append(AMP).
+            append(HOTEL_PARAM).append(EQV).append(hotel.getItTourId());
         return hotelSearchBuilder.toString();
     }
 
     public static String createAdvanceDataUrl(String[] id){
         StringBuilder stringBuilder = new StringBuilder(BASE_PARAMETERS).
-                append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_FORM).append(AMP).
-                append(TOUR_ID_PARAM).append(EQV).append(id[0]).append(AMP).
-                append(SHARDING_RULE_ID_PARAM).append(EQV).append(id[1]);
+            append(ACTION_PARAM).append(EQV).append(ACTION_VALUE_FORM).append(AMP).
+            append(TOUR_ID_PARAM).append(EQV).append(id[0]).append(AMP).
+            append(SHARDING_RULE_ID_PARAM).append(EQV).append(id[1]);
         return stringBuilder.toString();
     }
 

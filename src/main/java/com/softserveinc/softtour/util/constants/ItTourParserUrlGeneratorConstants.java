@@ -34,9 +34,13 @@ public interface ItTourParserUrlGeneratorConstants {
 
     String COUNTRY_PARAM = "country";
     String ADULTS_PARAM = "adults";
+    int DEFAULT_ADULTS_PARAM = 2;
     String CHILDREN_PARAM = "children";
+    int DEFAULT_CHILDREN_PARAM = 0;
     String PRICE_FROM_PARAM = "price_from";
+    int DEFAULT_PRICE_FROM_VALUE = 0;
     String PRICE_TILL_PARAM = "price_till";
+    int DEFAULT_PRICE_TILL_VALUE = 99000;
     String PAGE_NUMBER_PARAM = "page";
 
     String HOTEL_RATING_PARAM = "hotel_rating";

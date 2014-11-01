@@ -13,7 +13,8 @@ public class StaticDataParserUrlGenerator implements StaticDataParserUrlGenerato
     }
 
     private static StringBuilder createRegionHotelBaseUrl(){
-        StringBuilder baseBuilder = new StringBuilder(createCountryUrl()).append(AMP).
+        String countryUrl = createCountryUrl();
+        StringBuilder baseBuilder = new StringBuilder(countryUrl).append(AMP).
         append(CALLBACK_PARAM).append(EQV).append(CALLBACK_VALUE).append(AMP).
         append(MODULE_TYPE_PARAM).append(EQV).append(MODULE_TYPE_VALUE).append(AMP).
                 append(THEME_PARAM).append(EQV).append(THEME_VALUE).append(AMP).

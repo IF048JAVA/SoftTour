@@ -15,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * This class parse all countries, regions, hotels (names and codes) and save them to database.
@@ -34,28 +37,30 @@ public class StaticDataParser implements StaticDataParserConstants {
     @Autowired
     HotelService hotelService;
 
+    Properties countryRuUaVocabulary = new Properties();
+
     /**
      * This method finds all countries, regions, hotels and save their data to database.
      */
+    //FIXME Why boolean? This method always returns true (or exception), but never false
     public boolean parse() {
 
         /**
          * This block of code finds all countries and save them to database.
          */
+        loadProperties();
         List<Element> countryList = getCountryData();
         for (Element countryEl : countryList) {
-            String countryName = countryEl.text();
-            long countryCode = Integer.parseInt(countryEl.attr(ATTR_VALUE));
-
-            Country countryDB = countryService.findByItTourId(countryCode);
-            Country country = new Country(countryName, countryCode);
-
-            if (countryDB == null) {
-                countryService.save(country);
-                System.out.println("Country " + countryName + " was saved");
-            } else {
-                System.out.println("Country " + countryName + " already exist");
+            String countryNameRu = countryEl.text();
+            String countryNameUa;
+            try {
+                countryNameUa = countryRuUaVocabulary.getProperty(countryNameRu);
+            }catch (NullPointerException e){
+                countryNameUa = countryNameRu;
             }
+            long countryCode = Integer.parseInt(countryEl.attr(ATTR_VALUE));
+            Country country = new Country(countryNameUa, countryCode);
+            countryService.save(country);
 
             /**
              * This block of code finds all country regions and save them to database.
@@ -69,18 +74,9 @@ public class StaticDataParser implements StaticDataParserConstants {
                 if (regionName.equals(TAL_DATA_REGION)) {
                     break;
                 }
-
                 long regionCode = Integer.parseInt(regionEl.attr(ATTR_VALUE));
-
-                Region regionDB = regionService.findByItTourId(regionCode);
                 Region region = new Region(regionName, regionCode, country);
-
-                if (regionDB == null) {
-                    regionService.save(region);
-                    System.out.println("Region " + regionName + " was saved");
-                } else {
-                    System.out.println("Region " + regionName + " already exist");
-                }
+                regionService.save(region);
 
                 /**
                  * This block of code finds all region hotels and save them to database.
@@ -95,22 +91,28 @@ public class StaticDataParser implements StaticDataParserConstants {
                         break;
                     }
                     long hotelCode = Integer.parseInt(hotelEl.attr(ATTR_VALUE));
-
                     Hotel hotelDB = hotelService.findByItTourId(hotelCode);
-                    Hotel hotel = new Hotel(hotelName, 0, 0, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
-                            BigDecimal.ZERO, BigDecimal.ZERO, "", hotelCode, region);
-
                     if (hotelDB == null) {
+                        Hotel hotel = new Hotel(hotelName, 0, 0, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                                      BigDecimal.ZERO, BigDecimal.ZERO, "", hotelCode, region);
                         hotelService.save(hotel);
-                        System.out.println("Hotel " + hotelName + " was saved");
-                    } else {
-                        System.out.println("Hotel " + hotelName + " already exist");
                     }
                 }
             }
         }
-
         return true;
+    }
+
+    //TODO remove hardcode to constants
+    private void loadProperties(){
+        try {
+            InputStream inputProperties = this.getClass().
+                    getResourceAsStream("/parser_properties/country_ru-ua_vocabulary");
+            countryRuUaVocabulary.load(new InputStreamReader(inputProperties, "UTF-8"));
+        }catch (IOException e){
+            //TODO improve handled exception
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
