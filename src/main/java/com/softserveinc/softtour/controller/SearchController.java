@@ -48,7 +48,8 @@ public class SearchController {
             @RequestParam(value = "nightFrom", required = true) Integer nightFrom,
             @RequestParam(value = "nightTo", required = true) Integer nightTo,
             @RequestParam(value = "priceFrom", required = true) Integer priceFrom,
-            @RequestParam(value = "priceTo", required = true) Integer priceTo
+            @RequestParam(value = "priceTo", required = true) Integer priceTo,
+            @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage
     ){
         Set<Integer> hotelStars = new HashSet<>();
         if (twoStar != null){
@@ -90,14 +91,14 @@ public class SearchController {
         long regionId = regionObj.getItTourId();
 
         ItTourParser parser = new ItTourParser(country, countryId, regionId,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
-                nightFrom, nightTo, priceFrom, priceTo, 2);
+                nightFrom, nightTo, priceFrom, priceTo, numberOfPage);
         List<Tour> tourList = parser.parse();
         return tourList;
     }
 
     @RequestMapping(value = "getRegion", method = RequestMethod.POST)
     public @ResponseBody List<Region> searchRegion(
-            @RequestParam(value = "country", required = false) String country
+            @RequestParam(value = "country", required = true) String country
     ){
         Country countryObj = countryService.findByName(country);
         long countryId = countryObj.getId();
