@@ -89,8 +89,7 @@ public class SearchController {
         Region regionObj = regionService.findByName(region);
         long regionId = regionObj.getItTourId();
 
-        //TODO get country & region param from database (instead of hardcode 338 - code of Egypt & 5486 - code of Dahab)
-        ItTourParser parser = new ItTourParser(country, countryId/*338*/, regionId/*5486*/,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
+        ItTourParser parser = new ItTourParser(country, countryId, regionId,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
                 nightFrom, nightTo, priceFrom, priceTo, 2);
         List<Tour> tourList = parser.parse();
         return tourList;
@@ -103,14 +102,11 @@ public class SearchController {
         Country countryObj = countryService.findByName(country);
         long countryId = countryObj.getId();
         List<Region> regionList = regionService.findByCountryId(countryId);
-        System.out.println(regionList);
         return regionList;
     }
 
     @RequestMapping(value = "getCountry", method = RequestMethod.POST)
     public @ResponseBody List<Country> searchCountry(){
-        List<Country> countryList = countryService.findAll();
-        System.out.println(countryList);
-        return countryList;
+         return countryService.findAll();
     }
 }
