@@ -26,7 +26,7 @@
             <strong >Введіть кількість дорослих:</strong>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user cursor-pointer"></i></span>
-            <input type="text" id="TravelersAdult" class="form-control" placeholder="1">
+            <input type="text" id="TravelersAdult" class="form-control"  placeholder="1">
         </div></div>
         <div class="col-md-3"style="text-align: center;">
         <strong >Введіть кількість дітей:</strong>
@@ -96,110 +96,6 @@
                         <h4 id="departyreCity\${id}">\${departureCity}</h4>
                     </div>
 
-                    <div class="col-sm-1">
-                        <button type="button" class="btn btn-info btn-TourOrder" onclick="showTourOrderFormT(\${id})>
-                            <span class="glyphicon glyphicon-briefcase"></span>
-                            <h4>Замовити тур!</h4>
-                        </button>
-                    </div>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="orderModal-t\${id}" tabindex="-1" role="dialog"
-                        aria-labelledby="myModalLabel\${id}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span
-                                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h4 class="modal-title" id="myModalLabel\${id}">Введіть дані</h4>
-                                </div>
-                                <div class="modal-body">
-
-                                <form:form id="orderTourForm\${id}" class="form-horizontal" action="" method="POST"
-                                           data-toggle="validator" role="form">
-
-                                    <fieldset>
-
-                                        <!-- Name input-->
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="name">Ім'я</label>
-
-                                            <div class="col-md-5">
-                                                <input type="text" name="name" id="name" class="form-control input-md"
-                                                       pattern="\b[A-Za-z0-9]{2,30}\b"
-                                                       placeholder="Bід 2 до 30 символів"
-                                                       data-error="Ви ввели некоректне ім'я !"
-                                                       required="required"
-                                                        />
-                                            </div>
-                                        </div>
-
-                                        <!-- Email input-->
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="email">Email</label>
-
-                                            <div class="col-md-5">
-                                                <input type="email" name="email" id="email"
-                                                       class="form-control input-md"
-                                                       pattern="\b(?!.{31})([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})\b"
-                                                       placeholder="Bведіть email"
-                                                       data-error="Ви ввели некоректний email !"
-                                                       required="required"
-                                                        />
-
-                                                <div class="help-block with-errors"></div>
-                                                <errors path="email" cssClass="error"/>
-
-                                            </div>
-                                        </div>
-
-                                        <!-- City input-->
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="city">Місто</label>
-
-                                            <div class="col-md-5">
-                                                <input type="text" name="city" id="city" class="form-control input-md"
-                                                       pattern="\b[A-Za-z]{2,30}\b"
-                                                       placeholder="Місто"
-                                                       data-error="Введіть місто!"
-                                                       required="required"
-                                                        />
-                                            </div>
-                                        </div>
-
-                                        <!-- Phone input-->
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="phone">Номер телефону</label>
-
-                                            <div class="col-md-5">
-                                                <input type="text" name="phone" id="phone" class="form-control input-md"
-                                                       pattern="[\+]?[0-9]{4,19}\b"
-                                                       placeholder="Введіть номер телефону"
-                                                       data-error="Ви ввели некоректний номер телефону !">
-
-                                                <div class="help-block with-errors"></div>
-                                                <errors path="email" cssClass="error"/>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-md-5"></div>
-                                            <div class="col-md-3">
-                                                <button type="submit" name="submit" class="btn btn-primary">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                    Замовити
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </fieldset>
-                                </form:form>
-                            </div>
-                            <div class="modal-footer">
-                            </div>
-                            </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>

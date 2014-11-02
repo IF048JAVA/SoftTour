@@ -38,10 +38,12 @@ queryObj.numberOfPage = 0;
 
             success: function (data) {
                 showModal();
+
                 var new_id=0;
                 $.each(data,function(key,value){
                     value.id=new_id;
                     new_id++;
+
                 })
                 favData=data;
                 console.log (data);
@@ -157,7 +159,7 @@ function loadAddInfo (id) {
                     $("#imgHold" + id).empty();
                     $("#imgHold" + id).append('<img src="' + data.hotel.imgUrl + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
                 },
-        error: function(){console.log("ERROR");}
+        error: function(){console.log("Loading error.");}
         })
 }
 /*function checkFavorites(){
