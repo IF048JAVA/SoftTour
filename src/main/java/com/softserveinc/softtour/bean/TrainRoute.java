@@ -6,9 +6,7 @@ package com.softserveinc.softtour.bean;
  */
 public class TrainRoute {
 
-	/**
-	 * It's a number of the train
-	 */
+	//It's a number of the train
 	private String id;
 	private String departureCity;
 	private String arrivalCity;
@@ -198,6 +196,4 @@ public class TrainRoute {
 				+ ", priceMin=" + priceMin + ", priceMax=" + priceMax + "]";
 	}
 
-
-	
 }

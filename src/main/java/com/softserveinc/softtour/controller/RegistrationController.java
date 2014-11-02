@@ -75,7 +75,7 @@ public class RegistrationController {
 	/**
 	 * Saves the object user to the table User
 	 * @param user - it's object which will be saved
-	 * @return the name which redirect to the page registration.jsp or index.jsp
+	 * @return the name which redirect to the page index.jsp or registration.jsp 
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String saveUser(User user, BindingResult bindingResult) {
