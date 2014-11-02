@@ -6,3 +6,6 @@ function showTourOrderFormF(tourId) {
 function showTourOrderFormH(tourId) {
     $('#orderModal-h'+tourId).modal('show')
 }
+function showTourOrderFormT(tourId) {
+    $('#orderModal-t'+tourId).modal('show')
+}

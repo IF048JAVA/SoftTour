@@ -5,29 +5,31 @@ var queryObj = {};
 var countryParam = '';
 var countryExpandParameter = '';
 queryObj.numberOfPage = 0;
+    /*clears array of ids (used ids - ids of tours which were open on index page)*/
     function clearArray() {
         usedIds=[];
     }
+    /* Sends parameters to indexController and views the result list of tours. */
     function parseTour (countryPar,numberOfPage,countryParameter) {
         countryParam=countryPar;
         countryExpandParameter = countryParameter;
-        $('#indexResult').empty();
-        showModal();
+        $('#indexResult').empty();//clear div-container(needs to prevent doubling information or stacking information).
+        showModal();//shows invisible div-container
         $('#indexResult').append('<div class="col-md-12" id="loading"><img src="img/preloader.gif"></div><br>');
-        var indexBudget = $("#indexBudget").val();
+        var indexBudget = $("#indexBudget").val(); //reading parameters from view
         if (indexBudget > 0) {} else indexBudget = 1500;
         var travelersAdult = $("#TravelersAdult").val();
         if (travelersAdult > 0){} else travelersAdult = 1;
         var travelersChildren = $("#TravelersChildren").val();
         if (travelersChildren > 0){} else travelersChildren = 0;
-        queryObj.countryParameter = countryParameter;
+        queryObj.countryParameter = countryParameter;//setting parameters
         queryObj.numberOfPage = numberOfPage;
         queryObj.country = countryPar;
             queryObj.minPrice = Math.floor(indexBudget * 0.9);
             queryObj.maxPrice = Math.floor(indexBudget * 1.1);
         queryObj.travelersAdult = travelersAdult;
         queryObj.travelersChildren = travelersChildren;
-
+        //sending object with parameters to /parseTour and getting results
         $.ajax({
             url: "/parseTour",
             type: "POST",
@@ -49,16 +51,18 @@ queryObj.numberOfPage = 0;
                 $('#indexResult').append('<button type="button" class="btn btn-default pull-left" onclick="expandParse(-1)">Попередні</button>' +
                     '<button type="button" class="btn btn-default pull-right" onclick="expandParse(1)">Наступні</button>');
 
-                checkFavorites();
             },
 
             error: function () {
-                alert("Error");
+                alert("Something went wrong please try again.");
             }
 
         });
 
     }
+/*Reads id of tour from view (when favorite button is clicked(star button))
+* And sending request to /saveFavorites method in indexController.
+* Also changes empty star button to full star button*/
 function saveFavorites (id){
     var favObj = {}
     $.each(favData,function(key,value){
@@ -78,7 +82,10 @@ function saveFavorites (id){
     $("#deleteButtonF"+id).remove();
     $("#results"+id).append('<span id="deleteButtonF'+id+'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star cursor-pointer" onclick="deleteFavorites('+id+')"><//i><//span>')
 }
-
+/*Deletes favorites (launch by click on full star button):
+Sends to deleteFavorites method in indexController.
+Also changes full star button to empty.
+ */
 function deleteFavorites (id){
     var favObj = {}
     $.each(favData,function(key,value){
@@ -97,9 +104,8 @@ function deleteFavorites (id){
     })
     $("#deleteButtonF"+id).remove();
     $("#results"+id).append('<span id="deleteButtonF'+id+'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites('+id+')"><//i><//span>')
-
-    //$("#")
 }
+/*Saves historyRecord by sending current opened tour to saveHistoryRecord method in IndexController.*/
 function saveHistoryRecord(id) {
     if(usedIds[id]!="used")
     {var hisObj = {}
@@ -119,7 +125,7 @@ function saveHistoryRecord(id) {
     })}
     usedIds[id]="used"
 }
-
+/*Realization for buttons "next page" & "previous page"*/
 function expandParse (incDec){
     if (queryObj.numberOfPage!=1||incDec!=-1){
         var numb = queryObj.numberOfPage+incDec;
@@ -127,6 +133,7 @@ function expandParse (incDec){
     }
 
 }
+/*Loads image and stars to current opened tour. */
 function loadAddInfo (id) {
     var infObj = {}
     $.each(favData,function(key,value){

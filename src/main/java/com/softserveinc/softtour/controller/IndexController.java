@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-//@RequestMapping
 public class IndexController {
 
     ItTourParser parser;
@@ -48,6 +47,8 @@ public class IndexController {
 
     Favorite favorite;
 
+    /*Method for parsing tours from ItTour site
+    * countryParameter - country_id on ItTour site*/
     @RequestMapping(value="/parseTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(
             @RequestParam(value = "country", required = true) String country,
@@ -57,14 +58,12 @@ public class IndexController {
             @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage,
             @RequestParam(value = "travelersAdult", required = true)Integer travelersAdult,
             @RequestParam(value = "travelersChildren", required = true)Integer travelersChildren){
-        //return tourService.findAll();
-        //TODO get country param from database (instead of hardcode 338 - code of Egypt)
         parser = new ItTourParser(country, countryParameter, travelersAdult, travelersChildren,minPrice, maxPrice, numberOfPage);
         List<Tour> listTour = parser.parse();
         return listTour;
 
     }
-
+    /*Method saves favorites to database.*/
     @RequestMapping(value="/saveFavorites", method = RequestMethod.POST)
     public void saveFavorites(@RequestBody(required = true) Tour currentTour){
 
@@ -105,6 +104,7 @@ public class IndexController {
             System.out.println("Saved");
         }
     }
+    /*Method saves HistoryRecord to database*/
     @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
     public void saveHistoryRecord(@RequestBody(required = true) Tour currentTour){
         parser.parseAdvanceData(currentTour);
@@ -145,12 +145,14 @@ public class IndexController {
                 System.out.println("Saved");}
     }
 
-
+    /*Method deletes favorite found by id from database*/
     @RequestMapping(value="/deleteFavorites", method = RequestMethod.POST)
     public void deleteFavorites(){
         favoriteService.delete(favorite.getId());
     }
 
+    /* This method parses additional information about hotel: image & number of stars and save it to current hotel in
+    * database. */
     @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
     public @ResponseBody Tour parseHotel(@RequestBody(required = true) Tour currentTour){
         System.out.println(currentTour);
@@ -163,7 +165,7 @@ public class IndexController {
         return currentTour;
     }
 
-    @RequestMapping(value="/checkFavorites", method = RequestMethod.POST)
+    /*@RequestMapping(value="/checkFavorites", method = RequestMethod.POST)
     public @ResponseBody Boolean checkFavorites(@RequestBody(required = true)Tour currentTour){
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User currentUser =userService.findByEmail(loggedUserEmail);
@@ -178,6 +180,7 @@ public class IndexController {
             return true;
 
     }
+*/
 
     @RequestMapping(value="/trainTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
