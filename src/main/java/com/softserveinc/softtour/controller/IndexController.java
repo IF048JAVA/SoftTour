@@ -7,6 +7,7 @@ import com.softserveinc.softtour.parsers.BusParser;
 import com.softserveinc.softtour.parsers.ItTourParser;
 import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.*;
+import com.softserveinc.softtour.util.BusParserUrlGenerator;
 import com.softserveinc.softtour.util.TrainParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -227,8 +228,8 @@ public class IndexController {
             @RequestParam(value = "cityTo", required = true) String cityTo){
         System.out.println(date + cityFrom + cityTo);
 
-
-        String url = "";
+        BusParserUrlGenerator generator = new BusParserUrlGenerator();
+        String url = generator.createButtonUrl(cityFrom, cityTo, date);
         return url;
     }
 }
