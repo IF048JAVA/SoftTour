@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Component
-public class HotelUtil {
+public class HotelRatingCalculator {
 private static final BigDecimal NUMBER_OF_RATING_CATEGORIES = BigDecimal.valueOf(4);
 
 

@@ -1,3 +1,4 @@
+//function check hotel checkbox
 function checkHotel(){
     var two = document.getElementById("twoStar");
     var three = document.getElementById("threeStar");
@@ -12,6 +13,7 @@ function checkHotel(){
     }
 }
 
+//function check checkbox_food
 function checkFood(){
     var one = document.getElementById("foodOne");
     var two = document.getElementById("foodTwo");
@@ -28,13 +30,11 @@ function checkFood(){
     }
 }
 
+//function check date in search.jsp
 function checkDate(field){
-    regExD = /^(0?[1-9]|[12][0-9]|3[01])[\.-](0?[1-9]|1[012])[\.-]\d{2}$/;
+
     if(field.value.length==0){
         document.getElementById("helpDate").innerHTML = "Введіть дату";
-        return false;
-    } else if(!field.value.match(regExD)){
-        document.getElementById("helpDate").innerHTML = "Введіть коректно дату";
         return false;
     } else {
         document.getElementById("helpDate").innerHTML = "";
@@ -42,6 +42,7 @@ function checkDate(field){
     }
 }
 
+//function check price in search.jsp
 function checkPrice(field){
     regEx = /^[0-9]+$/;
     if(field.value.length==0){
@@ -57,6 +58,7 @@ function checkPrice(field){
     }
 }
 
+//function get country from database to select country
 function getCountry(){
 
         $.ajax({
@@ -72,6 +74,7 @@ function getCountry(){
 }
 var queryObjOne = {};
 
+//function get regions from database to region select
 function getRegion(){
     queryObjOne.country = $("#country").val();
     $.ajax({
@@ -91,3 +94,19 @@ function getRegion(){
         }
     })
 }
+
+//calendar to date in search.jsp
+$(document).ready(function () {
+
+    $('#dateFrom').datepicker({
+
+        format: 'dd.mm.yy'
+
+    });
+    $('#dateTo').datepicker({
+
+        format: 'dd.mm.yy'
+
+    });
+
+});

@@ -10,7 +10,7 @@ import com.softserveinc.softtour.service.CountryService;
 import com.softserveinc.softtour.service.FeedbackService;
 import com.softserveinc.softtour.service.HotelService;
 import com.softserveinc.softtour.service.UserService;
-import com.softserveinc.softtour.util.HotelUtil;
+import com.softserveinc.softtour.util.HotelRatingCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,7 +42,7 @@ public class HotelController {
     private UserService userService;
 
     @Autowired
-    private HotelUtil hotelUtil;
+    private HotelRatingCalculator hotelRatingCalculator;
 
     /**
      * search hotels by custom parameters
@@ -105,7 +105,7 @@ public class HotelController {
                 hotel, currentUser);
         feedbackService.save(feedback);
 
-        hotelService.save(hotelUtil.calculateHotelRate(hotel, cleanliness, comfort, location, valueForMoney));
+        hotelService.save(hotelRatingCalculator.calculateHotelRate(hotel, cleanliness, comfort, location, valueForMoney));
     }
 
 
