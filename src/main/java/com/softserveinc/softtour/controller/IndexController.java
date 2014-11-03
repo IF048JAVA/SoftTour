@@ -155,9 +155,7 @@ public class IndexController {
     * database. */
     @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
     public @ResponseBody Tour parseHotel(@RequestBody(required = true) Tour currentTour){
-        System.out.println(currentTour);
         parser.parseAdvanceData(currentTour);
-        System.out.println(currentTour.getHotel().getImgUrl());
         Hotel maybeHotel = hotelService.findByName(currentTour.getHotel().getName());
         maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
         maybeHotel.setStars(currentTour.getHotel().getStars());
