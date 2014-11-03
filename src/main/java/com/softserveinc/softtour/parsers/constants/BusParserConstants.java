@@ -9,7 +9,7 @@ public interface BusParserConstants {
     String TAG_TD = "td";
     String TAG_B = "b";
 
-    SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd.MM.yy");
+    SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat INPUT_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-ddHH:mm");
     SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat("dd.MM.yyHH:mm");
     long FIRST_DATE_REDUCE = 10800000;
