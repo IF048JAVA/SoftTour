@@ -42,8 +42,8 @@ public class TestHotelUtil extends Assert {
     }
 
     @Test
-    public void testUpdateHotelRate() {
-        Hotel actualHotel = hotelUtil.updateHotelRate(hotel, cleanliness, comfort, location, valueForMoney);
+    public void testCalculateHotelRate() {
+        Hotel actualHotel = hotelUtil.calculateHotelRate(hotel, cleanliness, comfort, location, valueForMoney);
         assertEquals(actualHotel.getName(), expectedHotel.getName());
         assertEquals(actualHotel.getRating(), expectedHotel.getRating());
         assertEquals(actualHotel.getComfort(), expectedHotel.getComfort());
