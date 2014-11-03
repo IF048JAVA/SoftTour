@@ -101,11 +101,11 @@
                 <p>Дата вильоту:</p>
                 <div class="col-sm-6">
                     <p>З:</p>
-                    <input type="text" class="form-control" id="dateFrom" name="dateFrom" placeholder="11.11.14" onblur="checkDate(this)"/>
+                    <input type="text" class="form-control" id="dateFrom" name="dateFrom" placeholder="dd.mm.yy"/>
                 </div>
                 <div class="col-sm-6">
                     <p>По:</p>
-                    <input type="text" class="form-control" id="dateTo" name="dateTo" placeholder="31.12.14" onblur="checkDate(this)"/>
+                    <input type="text" class="form-control" id="dateTo" name="dateTo" placeholder="dd.mm.yy"/>
                 </div>
                     <span id="helpDate" class="help" style="color: red"></span>
             </div>
@@ -172,11 +172,11 @@
 
                     <div class="col-sm-6">
                         <p>З:</p>
-                        <input type="text" class="form-control" id="priceFrom" name="priceFrom" onblur="checkPrice(this)"/>
+                        <input type="text" class="form-control" id="priceFrom" name="priceFrom" value="500" onblur="checkPrice(this)"/>
                     </div>
                     <div class="col-sm-6">
                         <p>До:</p>
-                        <input type="text" class="form-control" id="priceTo" name="priceTo" onblur="checkPrice(this)"/>
+                        <input type="text" class="form-control" id="priceTo" name="priceTo" value="2000" onblur="checkPrice(this)"/>
                     </div>
                     <span id="helpPrice" style="color: red"></span>
 
