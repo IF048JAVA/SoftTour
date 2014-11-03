@@ -18,7 +18,6 @@ public class BusParserUrlGenerator implements BusParserUrlGeneratorConstants {
                     getResourceAsStream(CITY_CODES_PROPERTIES_PATH);
             cityCodesProperties.load(new InputStreamReader(inputCountryProperties, UTF_8));
         }catch (IOException e){
-            //TODO improve handled exception
             System.out.println(e.getMessage());
         }
     }
@@ -46,7 +45,7 @@ public class BusParserUrlGenerator implements BusParserUrlGeneratorConstants {
 
     public String createButtonUrl(String cityFrom, String cityTo, String date){
         loadCityCodesProperties();
-        Date utilDate = null;
+        Date utilDate;
         try {
             utilDate = INPUT_DATE_FORMAT.parse(date);
         } catch (ParseException e) {
@@ -59,18 +58,10 @@ public class BusParserUrlGenerator implements BusParserUrlGeneratorConstants {
                 append(DATE_PARAM).append(EQV).append(SIMPLE_DATE_FORMAT.format(utilDate));
         return searchBuilder.toString();
     }
-    /**
-     * @param dateReduce - milliseconds of date reducing
-     * @return web-page's url with bus routes
-     */
+
     private String generateDate(java.util.Date date, long dateReduce){
         java.util.Date reducedDate = new java.util.Date(date.getTime() - dateReduce);
         String dateString = SIMPLE_DATE_FORMAT.format(reducedDate);
         return dateString;
-    }
-
-    public static void main(String[] args) throws ParseException{
-        BusParserUrlGenerator generator = new BusParserUrlGenerator();
-        String url = generator.createButtonUrl("Київ", "Львів", "2014-11-23");
     }
 }
