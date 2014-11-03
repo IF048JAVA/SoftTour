@@ -165,20 +165,6 @@ public class Tour {
         this.itTourId = itTourId;
     }
 
-    @Override
-    public String toString() {
-        return "Tour{" +
-                "id=" + id +
-                ", date=" + date +
-                ", days=" + days +
-                ", departureCity='" + departureCity + '\'' +
-                ", departureTime=" + departureTime +
-                ", price=" + price +
-                ", hotel=" + hotel +
-                ", food=" + food +
-                '}';
-    }
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

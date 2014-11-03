@@ -165,23 +165,6 @@ public class IndexController {
         return currentTour;
     }
 
-    /*@RequestMapping(value="/checkFavorites", method = RequestMethod.POST)
-    public @ResponseBody Boolean checkFavorites(@RequestBody(required = true)Tour currentTour){
-        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        User currentUser =userService.findByEmail(loggedUserEmail);
-        Tour tour = tourService.checkTour(currentTour);
-        java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
-        Date sqlDate = new Date(utilDate.getTime());
-        favorite=new Favorite(sqlDate,currentUser,tour);
-        Favorite maybeFavorite = favoriteService.findByUserAndTour(favorite.getUser(),favorite.getTour());
-        System.out.println("done");
-        if (maybeFavorite==null)
-            return false; else
-            return true;
-
-    }
-*/
-
     @RequestMapping(value="/trainTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
                         @RequestParam(value = "currentTourId", required = true) Integer currentTourId,

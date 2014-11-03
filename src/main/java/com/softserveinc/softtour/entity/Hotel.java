@@ -168,23 +168,6 @@ public class Hotel {
     }
 
     @Override
-    public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", stars=" + stars +
-                ", feedbackNum=" + feedbackNum +
-                ", rating=" + rating +
-                ", comfort=" + comfort +
-                ", cleanliness=" + cleanliness +
-                ", location=" + location +
-                ", valueForMoney=" + valueForMoney +
-                ", imgUrl='" + imgUrl + '\'' +
-                ", region=" + region +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -197,11 +180,11 @@ public class Hotel {
         if (cleanliness != null ? !cleanliness.equals(hotel.cleanliness) : hotel.cleanliness != null) return false;
         if (comfort != null ? !comfort.equals(hotel.comfort) : hotel.comfort != null) return false;
         if (imgUrl != null ? !imgUrl.equals(hotel.imgUrl) : hotel.imgUrl != null) return false;
-        if (!itTourId.equals(hotel.itTourId)) return false;
+        if (itTourId != null ? !itTourId.equals(hotel.itTourId) : hotel.itTourId != null) return false;
         if (location != null ? !location.equals(hotel.location) : hotel.location != null) return false;
-        if (!name.equals(hotel.name)) return false;
+        if (name != null ? !name.equals(hotel.name) : hotel.name != null) return false;
         if (rating != null ? !rating.equals(hotel.rating) : hotel.rating != null) return false;
-        if (!region.equals(hotel.region)) return false;
+        if (region != null ? !region.equals(hotel.region) : hotel.region != null) return false;
         if (valueForMoney != null ? !valueForMoney.equals(hotel.valueForMoney) : hotel.valueForMoney != null)
             return false;
 
@@ -211,7 +194,7 @@ public class Hotel {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + name.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + stars;
         result = 31 * result + feedbackNum;
         result = 31 * result + (rating != null ? rating.hashCode() : 0);
@@ -220,8 +203,8 @@ public class Hotel {
         result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (valueForMoney != null ? valueForMoney.hashCode() : 0);
         result = 31 * result + (imgUrl != null ? imgUrl.hashCode() : 0);
-        result = 31 * result + itTourId.hashCode();
-        result = 31 * result + region.hashCode();
+        result = 31 * result + (itTourId != null ? itTourId.hashCode() : 0);
+        result = 31 * result + (region != null ? region.hashCode() : 0);
         return result;
     }
 }

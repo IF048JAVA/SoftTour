@@ -38,16 +38,35 @@ queryObj.numberOfPage = 0;
 
             success: function (data) {
                 showModal();
+
                 var new_id=0;
                 $.each(data,function(key,value){
                     value.id=new_id;
                     new_id++;
+
+                })
+                var toursForTemplate = [];
+
+                $.each(data, function( index, value ) {
+
+                    var currentTour = {};
+                    currentTour.id = index;
+                    currentTour.tour = value;
+
+                    toursForTemplate.push(currentTour);
+
                 })
                 favData=data;
                 console.log (data);
                 $('#indexResult').empty();
                 $('#indexResult').append('<div class="col-md-12"><strong>Результати пошуку:</strong></div><br>');
-                $('#indexTemplate').tmpl(data).appendTo('#indexResult');
+                $('#indexTemplate').tmpl(toursForTemplate).appendTo('#indexResult');
+                $('#indexResult').append(
+                        "<script type='text/javascript' src=\"js/star-rating.min.js\"/>"+
+                        "<script type='text/javascript' src=\"js/bootstrap-table.min.js\"/>"+
+                        "<script type='text/javascript' src=\"js/cityFrom.js\"/>"+
+                        "<script type='text/javascript' src=\"js/transitOrderButton.js\"/>"+
+                        "<script type='text/javascript' src=\"js/select2.min.js\"/>");
                 $('#indexResult').append('<button type="button" class="btn btn-default pull-left" onclick="expandParse(-1)">Попередні</button>' +
                     '<button type="button" class="btn btn-default pull-right" onclick="expandParse(1)">Наступні</button>');
 
@@ -157,33 +176,7 @@ function loadAddInfo (id) {
                     $("#imgHold" + id).empty();
                     $("#imgHold" + id).append('<img src="' + data.hotel.imgUrl + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
                 },
-        error: function(){console.log("ERROR");}
+        error: function(){console.log("Loading error.");}
         })
 }
-/*function checkFavorites(){
-    var infObj = {}
-    $.each(favData,function(key,value) {
-        infObj = value;
-        var id = infObj.id;
-        $.ajax({
-            url: "/checkFavorites",
-            type: "POST",
-            data: JSON.stringify(infObj),
-            dataType: 'json',
-            contentType: 'application/json',
-            mimeType: 'application/json',
-            success: function (data) {
-                console.log(data);
-                if (data) {
-                    $("#deleteButtonF"+id).remove();
-                    $("#results" + id).append('<span id="deleteButtonF'+ id +'" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star cursor-pointer" onclick="deleteFavorites('+id+')"><//i><//span>')
-                    console.log("favorite");
-                } else {
-                    $("#deleteButtonF" + id).remove();
-                    $("#results" + id).append('<span id="deleteButtonF' + id + '" data-role="button" class="pull-right"><i class="glyphicon glyphicon-star-empty cursor-pointer" onclick="saveFavorites(' + id + ')"><//i><//span>')
-                    console.log("not favorite");
-                }
-            }
-        })
-    })
-}*/
+

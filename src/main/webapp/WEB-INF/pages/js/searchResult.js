@@ -46,11 +46,28 @@ function showResults(form,numberOfPage){
                     value.id = new_id;
                     new_id++;
                 })
+                var toursForTemplate = [];
+
+                $.each(data, function( index, value ) {
+
+                    var currentTour = {};
+                    currentTour.id = index;
+                    currentTour.tour = value;
+
+                    toursForTemplate.push(currentTour);
+
+                })
                 favData = data;
                 console.log(data);
                 $('#searchResult').empty();
                 $('#searchResult').append('<p align="center"><h3>Результати пошуку:</h3></p>');
-                $('#searchTemplate').tmpl(data).appendTo('#searchResult');
+                $('#searchTemplate').tmpl(toursForTemplate).appendTo('#searchResult');
+                $('#searchResult').append(
+                        "<script type='text/javascript' src=\"js/star-rating.min.js\"/>"+
+                        "<script type='text/javascript' src=\"js/bootstrap-table.min.js\"/>"+
+                        "<script type='text/javascript' src=\"js/cityFrom.js\"/>"+
+                        "<script type='text/javascript' src=\"js/transitOrderButton.js\"/>"+
+                        "<script type='text/javascript' src=\"js/select2.min.js\"/>");
                 $('#searchResult').append('<button type="button" class="btn btn-default pull-left" onclick="expandParseTwo(-1)">Попередні</button>' +
                     '<button type="button" class="btn btn-default pull-right" onclick="expandParseTwo(1)">Наступні</button>');
             }
