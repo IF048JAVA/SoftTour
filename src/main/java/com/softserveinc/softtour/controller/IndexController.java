@@ -49,112 +49,124 @@ public class IndexController {
 
     /*Method for parsing tours from ItTour site
     * countryParameter - country_id on ItTour site*/
-    @RequestMapping(value="/parseTour", method = RequestMethod.POST)
-    public @ResponseBody List<Tour> searchTour(
+    @RequestMapping(value = "/parseTour", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    List<Tour> searchTour(
             @RequestParam(value = "country", required = true) String country,
-            @RequestParam(value = "countryParameter",required = true) long countryParameter,
+            @RequestParam(value = "countryParameter", required = true) long countryParameter,
             @RequestParam(value = "minPrice", required = false) Integer minPrice,
             @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
             @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage,
-            @RequestParam(value = "travelersAdult", required = true)Integer travelersAdult,
-            @RequestParam(value = "travelersChildren", required = true)Integer travelersChildren){
-        parser = new ItTourParser(country, countryParameter, travelersAdult, travelersChildren,minPrice, maxPrice, numberOfPage);
+            @RequestParam(value = "travelersAdult", required = true) Integer travelersAdult,
+            @RequestParam(value = "travelersChildren", required = true) Integer travelersChildren) {
+        parser = new ItTourParser(country, countryParameter, travelersAdult, travelersChildren, minPrice, maxPrice, numberOfPage);
         List<Tour> listTour = parser.parse();
         return listTour;
 
     }
+
     /*Method saves favorites to database.*/
-    @RequestMapping(value="/saveFavorites", method = RequestMethod.POST)
-    public void saveFavorites(@RequestBody(required = true) Tour currentTour){
+    @RequestMapping(value = "/saveFavorites", method = RequestMethod.POST)
+    public void saveFavorites(@RequestBody(required = true) Tour currentTour) {
         parser.parseAdvanceData(currentTour);
-        java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
+        java.util.Date utilDate = new java.util.Date(System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        User currentUser =userService.findByEmail(loggedUserEmail);
+        User currentUser = userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
 
         Country maybeCountry = countryService.findByName(currentCountry.getName());
-            currentRegion.setCountry(maybeCountry);
+        currentRegion.setCountry(maybeCountry);
 
         Region maybeRegion = regionService.findByName(currentRegion.getName());
-            currentHotel.setRegion(maybeRegion);
+        currentHotel.setRegion(maybeRegion);
 
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-            maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
-            maybeHotel.setStars(currentTour.getHotel().getStars());
-            currentTour.setHotel(maybeHotel);
-            hotelService.save(maybeHotel);
+        maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
+        maybeHotel.setStars(currentTour.getHotel().getStars());
+        currentTour.setHotel(maybeHotel);
+        hotelService.save(maybeHotel);
 
         currentTour.setDepartureTime(new Time(12354));
 
         Tour maybeTour = tourService.checkTour(currentTour);
         Tour tourToFav;
 
-        if(maybeTour!=null)
-            tourToFav = maybeTour; else {
+        if (maybeTour != null)
+            tourToFav = maybeTour;
+        else {
+            currentTour.setId(0);
             tourService.save(currentTour);
-            tourToFav = tourService.checkTour(currentTour);}
+            tourToFav = tourService.checkTour(currentTour);
+        }
 
-        favorite=new Favorite(sqlDate,currentUser,tourToFav);
-        Favorite maybeFavorite = favoriteService.findByUserAndTour(favorite.getUser(),favorite.getTour());
-        if (maybeFavorite==null){
+        favorite = new Favorite(sqlDate, currentUser, tourToFav);
+        Favorite maybeFavorite = favoriteService.findByUserAndTour(favorite.getUser(), favorite.getTour());
+        if (maybeFavorite == null) {
             favoriteService.save(favorite);
             System.out.println("Saved");
         }
     }
+
     /*Method saves HistoryRecord to database*/
-    @RequestMapping(value="/saveHistoryRecord", method = RequestMethod.POST)
-    public void saveHistoryRecord(@RequestBody(required = true) Tour currentTour){
+    @RequestMapping(value = "/saveHistoryRecord", method = RequestMethod.POST)
+    public void saveHistoryRecord(@RequestBody(required = true) Tour currentTour) {
         parser.parseAdvanceData(currentTour);
-        java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
+        java.util.Date utilDate = new java.util.Date(System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        User currentUser =userService.findByEmail(loggedUserEmail);
+        User currentUser = userService.findByEmail(loggedUserEmail);
         Hotel currentHotel = currentTour.getHotel();
         Region currentRegion = currentHotel.getRegion();
         Country currentCountry = currentRegion.getCountry();
 
         Country maybeCountry = countryService.findByName(currentCountry.getName());
-            currentRegion.setCountry(maybeCountry);
+        currentRegion.setCountry(maybeCountry);
 
         Region maybeRegion = regionService.findByName(currentRegion.getName());
-            currentHotel.setRegion(maybeRegion);
+        currentHotel.setRegion(maybeRegion);
 
 
         Hotel maybeHotel = hotelService.findByName(currentHotel.getName());
-            currentTour.setHotel(maybeHotel);
-            hotelService.save(maybeHotel);
-
+        currentTour.setHotel(maybeHotel);
+        hotelService.save(maybeHotel);
 
 
         currentTour.setDepartureTime(new Time(12354));
 
         Tour maybeTour = tourService.checkTour(currentTour);
         Tour tourToHis;
-        if(maybeTour!=null)
-            tourToHis = maybeTour; else
-        {tourService.save(currentTour);
-        tourToHis = tourService.checkTour(currentTour);}
-        HistoryRecord historyRecord= new HistoryRecord(sqlDate,currentUser,tourToHis);
+        if (maybeTour != null)
+            tourToHis = maybeTour;
+        else {
+            currentTour.setId(0);
+            tourService.save(currentTour);
+            tourToHis = tourService.checkTour(currentTour);
+        }
+        HistoryRecord historyRecord = new HistoryRecord(sqlDate, currentUser, tourToHis);
         HistoryRecord maybeHistoryRecord = historyRecordService.findByUserAndTour(historyRecord);
 
-        if(maybeHistoryRecord==null)
-            {historyRecordService.save(historyRecord);
-                System.out.println("Saved");}
+        if (maybeHistoryRecord == null) {
+            historyRecordService.save(historyRecord);
+            System.out.println("Saved");
+        }
     }
 
     /*Method deletes favorite found by id from database*/
-    @RequestMapping(value="/deleteFavorites", method = RequestMethod.POST)
-    public void deleteFavorites(){
+    @RequestMapping(value = "/deleteFavorites", method = RequestMethod.POST)
+    public void deleteFavorites() {
         favoriteService.delete(favorite.getId());
     }
 
     /* This method parses additional information about hotel: image & number of stars and save it to current hotel in
     * database. */
-    @RequestMapping(value="/parseHotel", method = RequestMethod.POST)
-    public @ResponseBody Tour parseHotel(@RequestBody(required = true) Tour currentTour){
+    @RequestMapping(value = "/parseHotel", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Tour parseHotel(@RequestBody(required = true) Tour currentTour) {
         parser.parseAdvanceData(currentTour);
         Hotel maybeHotel = hotelService.findByName(currentTour.getHotel().getName());
         maybeHotel.setImgUrl(currentTour.getHotel().getImgUrl());
@@ -163,41 +175,47 @@ public class IndexController {
         return currentTour;
     }
 
-    @RequestMapping(value="/trainTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
-    public @ResponseBody ArrayList<TrainRoute> getTrainTransits(
-                        @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
-                        @RequestParam(value = "cityFrom", required = true) String cityFrom){
+    @RequestMapping(value = "/trainTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
+    public
+    @ResponseBody
+    ArrayList<TrainRoute> getTrainTransits(
+            @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
+            @RequestParam(value = "cityFrom", required = true) String cityFrom) {
 
         Tour currentTour = tourService.findOne(currentTourId);
 
-        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
+        String departureTime = currentTour.getDepartureTime().toString().substring(0, currentTour.getDepartureTime().toString().length() - 3);
 
         TrainParser currentTrainParser = new TrainParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
-        ArrayList<TrainRoute> routesList =  currentTrainParser.getRoutes();
+        ArrayList<TrainRoute> routesList = currentTrainParser.getRoutes();
 
         return routesList;
     }
 
-    @RequestMapping(value="/busTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
-    public @ResponseBody List<BusRoute> getBusTransits(
+    @RequestMapping(value = "/busTransitDate", method = {RequestMethod.GET, RequestMethod.POST})
+    public
+    @ResponseBody
+    List<BusRoute> getBusTransits(
             @RequestParam(value = "currentTourId", required = true) Integer currentTourId,
-            @RequestParam(value = "cityFrom", required = true) String cityFrom){
+            @RequestParam(value = "cityFrom", required = true) String cityFrom) {
 
         Tour currentTour = tourService.findOne(currentTourId);
 
-        String departureTime = currentTour.getDepartureTime().toString().substring(0,currentTour.getDepartureTime().toString().length()-3);
+        String departureTime = currentTour.getDepartureTime().toString().substring(0, currentTour.getDepartureTime().toString().length() - 3);
 
         BusParser currentBusParser = new BusParser(cityFrom, currentTour.getDepartureCity(), currentTour.getDate().toString(), departureTime);
-        List<BusRoute> routesList =  currentBusParser.parse();
+        List<BusRoute> routesList = currentBusParser.parse();
 
         return routesList;
     }
 
-    @RequestMapping(value="/dateForOrderTrain", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
-    public @ResponseBody String getTrainOrderURL(
+    @RequestMapping(value = "/dateForOrderTrain", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
+    public
+    @ResponseBody
+    String getTrainOrderURL(
             @RequestParam(value = "date", required = true) String date,
             @RequestParam(value = "cityFrom", required = true) String cityFrom,
-            @RequestParam(value = "cityTo", required = true) String cityTo){
+            @RequestParam(value = "cityTo", required = true) String cityTo) {
         System.out.println(date + cityFrom + cityTo);
 
         TrainParserUtil trainParserUtil = new TrainParserUtil();
@@ -205,11 +223,13 @@ public class IndexController {
         return url;
     }
 
-    @RequestMapping(value="/dateForOrderBus", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
-    public @ResponseBody String getBusOrderURL(
+    @RequestMapping(value = "/dateForOrderBus", method = {RequestMethod.GET, RequestMethod.POST}, produces = "text/plain")
+    public
+    @ResponseBody
+    String getBusOrderURL(
             @RequestParam(value = "date", required = true) String date,
             @RequestParam(value = "cityFrom", required = true) String cityFrom,
-            @RequestParam(value = "cityTo", required = true) String cityTo){
+            @RequestParam(value = "cityTo", required = true) String cityTo) {
         System.out.println(date + cityFrom + cityTo);
 
         BusParserUrlGenerator generator = new BusParserUrlGenerator();

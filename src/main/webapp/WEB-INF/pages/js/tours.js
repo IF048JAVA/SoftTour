@@ -169,8 +169,6 @@ function loadAddInfo (id) {
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function(data) {
-            saveHistoryRecord(id);
-
                     console.log(data);
                     console.log(data.hotel.imgUrl);
                     $("#imgHold" + id).empty();
@@ -180,10 +178,13 @@ function loadAddInfo (id) {
                     $("#imgHold" + id).append('<img src="' + data.hotel.imgUrl + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
                 },
         error: function(){
-        saveHistoryRecord(id);
         console.log("Loading error.");
         $("#imgHold" + id).empty();
         $("#imgHold" + id).append('<img src="' + 'http://placehold.it/170&text=Not+found!' + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
+        },
+        complete: function(){
+        console.log("complete");
+        saveHistoryRecord(id);
         }
         })
 }
