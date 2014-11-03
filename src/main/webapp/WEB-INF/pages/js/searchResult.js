@@ -4,6 +4,7 @@ var queryObj = {};
 queryObj.numberOfPage = 0;
 var forms = '';
 
+//function get results to search.jsp
 function showResults(form,numberOfPage){
 
     if(checkHotel()&&checkFood()&&checkDate(form["dateFrom"])&&checkDate(form["dateTo"])&&checkPrice(form["priceFrom"])&&checkPrice(form["priceTo"])){
@@ -78,6 +79,7 @@ function showResults(form,numberOfPage){
     }
 }
 
+//for button next page and previous page in search.jsp
 function expandParseTwo (incDec){
     if (queryObj.numberOfPage!=1||incDec!=-1){
         var numb = queryObj.numberOfPage+incDec;

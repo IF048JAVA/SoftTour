@@ -35,7 +35,7 @@ import java.util.*;
 public class ItTourParser implements ItTourParserConstants {
 
     /**
-     * Parse results would be save in this list
+     * Parse results will be save in this list
      */
     private List<Tour> tourList;
     private Country country;
@@ -43,29 +43,29 @@ public class ItTourParser implements ItTourParserConstants {
     private int children;
 
     /**
-     * Web-page's url, that would be use in Jsoup connection to get object Document(encapsulate web page with tours)
+     * Web-page's url, that will be use in Jsoup connection to get object Document(encapsulate web page with tours)
      */
     private String url;
 
     /**
-     * This properties would be loaded in method parse(). Contains ru-ua vocabulary of the departure cities.
-     * Reason: www.ittour.com.ua contains Russian names of cities, when our web-application - Ukrainian.
+     * This properties will be load in method parse(). Contains ru-ua vocabulary of the departure cities.
+     * Reason: www.ittour.com.ua contains names of cities in Russian, when our web-application in Ukrainian.
      */
     private Properties departureCityVocabulary;
 
     /**
-     * This constructor is for quick search
+     * This constructor must be use for quick search
      * @param country - tour country
      * @param countryParam - tour country parameter(country code, one of the url parameter)
-     * @param adults - count adults, that plan to go to tour
-     * @param children - count children, that plan to go to tour
-     * @param priceMin - minimum money value, that can be paid for tour
-     * @param priceMax - maximum money value, that can be paid for tour
-     * @param pageNumber - number of page, that would be parse.
+     * @param adults - count adults, that plan to go to the tour
+     * @param children - count children, that plan to go to the tour
+     * @param priceMin - minimum money value, that can be pay for the tour
+     * @param priceMax - maximum money value, that can be pay for the tour
+     * @param pageNumber - number of page, that will be parse.
      *         Parse connect to the page, that can contains 20, 50 or 100 tours (This value contains in constant:
      *         ITEMS_PER_PAGE_VALUE in com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants).
      *
-     *         Example: If pageNumber will be equals 1, this parser would connect to first page with result,
+     *         Example: If pageNumber will be equals 1, this parser will be connect to the first page with result,
      *         required to input parameters. Number 2 - to second and so on.
      */
     public ItTourParser(String country, long countryParam, int adults, int children, int priceMin, int priceMax,
@@ -80,25 +80,25 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     /**
-     * This constructor is for advanced search
+     * This constructor must be use for advanced search
      * @param country - tour country
      * @param countryParam - tour country parameter(country code, one of the url parameter)
      * @param regionParam - tour region parameter(region code, one of the url parameter)
      * @param hotelStars - count of hotel stars. Set, that must contains values from 2 to 5.
-     * @param food - type of food. Set with types of food. Must contains such values: HB,BB,FB,AI,UAI,RO.
-     * @param adults - count adults, that plan to go to tour
-     * @param children - count children, that plan to go to tour
-     * @param dateFrom - from this date tour would be search. Value must be in format: dd.MM.yy
-     * @param dateTo - tour would be search to this date. Value must be in format: dd.MM.yy
+     * @param food - type of food. Set with types of food. Must contains values, equals to the enum Food objects
+     * @param adults - count adults, that plan to go to the tour
+     * @param children - count children, that plan to go to the tour
+     * @param dateFrom - from this date tour will be search. Value must be in format: dd.MM.yy
+     * @param dateTo - tour will be search to this date. Value must be in format: dd.MM.yy
      * @param nightsFrom - minimum count of tour nights. Value must be from 1 to 21.
      * @param nightsTo - maximum count of tour nights. Value must be from 1 to 21.
-     * @param priceMin - minimum money value, that can be paid for tour
-     * @param priceMax - maximum money value, that can be paid for tour
-     * @param pageNumber - number of page, that would be parse.
+     * @param priceMin - minimum money value, that can be pay for the tour
+     * @param priceMax - maximum money value, that can be pay for the tour
+     * @param pageNumber - number of page, that will be parse.
      *         Parse connect to the page, that can contains 20, 50 or 100 tours (This value contains in constant:
      *         ITEMS_PER_PAGE_VALUE in com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants).
      *
-     *         Example: If pageNumber will be equals 1, this parser would connect to first page with result,
+     *         Example: If pageNumber will be equals 1, this parser will connect to first page with result,
      *         required to input parameters. Number 2 - to second and so on.
      */
     public ItTourParser(String country, long countryParam, long regionParam, Set<Integer> hotelStars, Set<String> food,
@@ -114,13 +114,13 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     /**
-     * This constructor is for search by hotel.
+     * This constructor must be use for search by hotel.
      * @param hotel - object hotel
-     * @param pageNumber - number of page, that would be parse.
+     * @param pageNumber - number of the page, that will be parse.
      *         Parse connect to the page, that can contains 20, 50 or 100 tours (This value contains in constant:
      *         ITEMS_PER_PAGE_VALUE in com.softserveinc.softtour.util.constants.ItTourParserUrlGeneratorConstants).
      *
-     *         Example: If pageNumber will be equals 1, this parser would connect to first page with result,
+     *         Example: If pageNumber will be equals 1, this parser will connect to first page with result,
      *         required to input parameters. Number 2 - to second and so on.
      */
     public ItTourParser(Hotel hotel, int pageNumber) {
@@ -135,17 +135,17 @@ public class ItTourParser implements ItTourParserConstants {
     /**
      * This method creates connection to the web-page with tours that required constructor parameters.
      *
-     * Web-page with tours are encapsulated in Jsoup object Document.
-     * Document will be generated by using private method connect.
+     * Web-page with tours is encapsulated in Jsoup object Document.
+     * Document will be generate by using private method connect.
      *
      * Private method loadDepartureCityProperties load properties file data.
      * This data contains ru-ua vocabulary of the departure cities.
-     * Our application contains Ukrainian names of cities, when parsed site - Russian.
+     * Our application contains Ukrainian names of cities, when parseable site - Russian.
      * So there is the need to translate cities names.
      *
      * Methods addTours add tours to tourList.
      *
-     * @return list of tours (represented by Tour class)
+     * @return list of the tours (represented by Tour class)
      */
     public List<Tour> parse() {
         Document document = connect(url);
@@ -167,13 +167,11 @@ public class ItTourParser implements ItTourParserConstants {
                   execute().
                   body();
         } catch (IOException e) {
-            //logger.log();
-            //TODO get tours from database
             e.printStackTrace();
         }
 
         /**
-         * Page is unparseable. Removing one backslash solve this problem.
+         * Page is unparseable. Removal one backslash solve this problem.
          */
         String tourPage = doc.replace("\\", "");
         Document document = Jsoup.parse(tourPage);
@@ -193,14 +191,14 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     /**
-     * This method get from document tours data, create Tour objects and add them to tourList
+     * This method gets from the document tour data, create Tour objects and add them to the tourList
      * @param document - web-page, encapsulated in Jsoup object Document
      */
     private void addTours(Document document) {
 
         /**
-         * This list contains rows from table in web-page with tours.
-         * The data, that will be use, starts from third row. Last two rows haven't useful data.
+         * This list contains rows from table in the web-page with tours.
+         * The data, that will be use, starts from the third row. Last two rows haven't useful data.
          */
         List<Element> tableRowList = document.getElementsByTag(TAG_TR);
         for (int i = DATA_START_NUMBER; i < tableRowList.size() - TAL_DATA_NUMBER; i++) {
@@ -217,7 +215,7 @@ public class ItTourParser implements ItTourParserConstants {
              *    6   : Nights count
              *    7   : Date Fly
              *    8   : Link with tour details
-             *    9   : Nine tags span with tour price. Second - hrn, fifth - €, Eighth - $,
+             *    9   : Nine tags span with tour price. The second is in hrn, the fifth in €, the eighth in $,
              */
             List<Element> tableCellList = new ArrayList<>();
             tableCellList.addAll(tableRowList.get(i).getElementsByClass(CLASS_ITT_TEXT_LEFT));
@@ -259,10 +257,10 @@ public class ItTourParser implements ItTourParserConstants {
 
             /**
              * There are tour data, that aren't in Jsoup document(parameter of this method)
-             * But part of url parameters, that is need to create connection, is in this document.
-             * Creating of new connection gets about 4 seconds.
-             * This part of code get part of url parameters & set them to tour.
-             * Then it would be use in public method parseAdvanceData(Tour tour).
+             * But part of the url parameters, that is need to create connection, is in this document.
+             * Creation of the new connection gets about 4 seconds.
+             * This part of code gets the part of the url parameters and set them to the tour.
+             * Then it will be use in public method parseAdvanceData(Tour tour).
              */
             String hotelLink = tableCellList.get(TABLE_CELL_HOTEL_LINK).select(TAG_A).first().
                     attr(ATTR_ONCLICK).replaceAll(REGEXP_REPLACEMENT, "");
@@ -293,7 +291,7 @@ public class ItTourParser implements ItTourParserConstants {
 
     /**
      * @param departureCity - departure city name in Russian
-     * @return departure city name in Ukrainian.
+     * @return Departure city name in Ukrainian.
      *         If there are no Ukrainian analog in parser_properties/departure_city_ru-ua_vocabulary,
      *         return departure city name in Russian
      */
@@ -320,9 +318,9 @@ public class ItTourParser implements ItTourParserConstants {
     /**
      * This method convert room type from String format to enum (com.softserveinc.softtour.entity.template.RoomType)
      * @param roomTypeSt - this parameter represents type of room in hotel.
-     *        Sometimes, page with tours contains such room type as FAMI..., APAR..., etc.
+     *        Sometimes, page with the tours contains such room type as FAMI..., APAR..., etc.
      *        That's mean, room type really is FAMILY, APARTMENT, but has some advanced explanation of their type.
-     *        To convert them to enum type, that this room types really are used switch in the catch block.
+     *        To convert them to the enum type, that this room types really are used switch in the catch block.
      * @return room type, represented by enum RoomType object.
      */
     private RoomType convertTourRoomType(String roomTypeSt){
@@ -356,10 +354,10 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     /**
-     * This method parse advance data: hotel image & tour departure time.
+     * This method parse advance data: hotel image and tour departure time.
      * There are tour data, that aren't in Jsoup document with tours.
-     * But part of url parameters, that is need to create connection, is in this document.
-     * Creating of new connection get about 4 seconds. It is unproductively.
+     * But part of the url parameters, that is need to create connection, is in this document.
+     * Creating of the new connection get about 4 seconds. It is unproductively.
      * So, there is need to create additional method.
      * This method used when user open tour to check for additional tour information.
      * @param tour - information about tour, represented by Tour object
@@ -373,7 +371,7 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     /**
-     * This method find hotel image url and set it to hotel. Used in public method parseAdvanceData(Tour tour).
+     * This method find the hotel image url and set it to the hotel. Used in public method parseAdvanceData(Tour tour).
      * @param document - encapsulated in Jsoup object Document web-page with hotel image
      * @param hotel - information about hotel, represented by Hotel class
      */
@@ -389,7 +387,7 @@ public class ItTourParser implements ItTourParserConstants {
     }
 
     /**
-     * This method find tour departure time and set it to tour. Used in public method parseAdvanceData(Tour tour).
+     * This method finds tour departure time and set it to the tour. Used in public method parseAdvanceData(Tour tour).
      * @param document - encapsulated in Jsoup object Document web-page with tour departure time.
      * @param tour - information about tour, represented by Tour class
      */
@@ -414,53 +412,5 @@ public class ItTourParser implements ItTourParserConstants {
     @Override
     public String toString() {
         return "Tour parser. Source: http://www.ittour.com.ua " + "Current url: " + url;
-    }
-
-    public static void main(String[] args) {
-        ItTourParser parser = new ItTourParser("Єгипет", 338, 3, 1 ,1000, 3000, 2);
-
-        List<Tour> listTour = parser.parse();
-        for(Tour tour : listTour) {
-            System.out.println(tour);
-        }
-        for(int i = 0;i<listTour.size() ;i++) {
-            parser.parseAdvanceData(listTour.get(i));
-            System.out.println(listTour.get(i).getHotel().getImgUrl());
-            System.out.println(listTour.get(i).getDepartureTime());
-        }
-        /*
-        Set<Integer> hotelStars = new HashSet<>();
-        hotelStars.add(3);
-        hotelStars.add(5);
-
-        Set<String> food = new HashSet<>();
-        food.add("AI");
-        food.add("UAI");
-        long dateStart = new Date().getTime();
-        ItTourParser parser = new ItTourParser("Туреччина", "Аланья", hotelStars, food, 2, 1, "01.11.14", "31.12.14",
-                                               5, 15, 500, 5000, 2);
-        */
-        /*
-        long dateTo = new Date().getTime();
-        System.out.println((dateTo - dateStart) + " milisec.");
-
-        //set img url
-        Tour tour = listTour.get(0);
-
-        parser.parseAdvanceData(tour);
-        System.out.println(tour.getHotel().getImgUrl());
-        System.out.println(tour.getDepartureTime());
-        */
-        /*
-        Hotel hotel = new Hotel("Adela Hotel", 3, new Region("Стамбул", new Country("Турция")));
-        hotel.setId(59466);
-        hotel.getRegion().setId(5498);
-        hotel.getRegion().getCountry().setId(318);
-        ItTourParser parser = new ItTourParser(hotel, 2);
-        List<Tour> tours = parser.parse();
-        for(Tour tour : tours){
-            System.out.println(tour);
-        }
-        */
     }
 }
