@@ -146,6 +146,10 @@ function searchByName(pageNum) {
 
             $.each(data.content, function (key, value) {
 
+                if (value.imgUrl == null) {
+                    value.imgUrl = HOTEL_IMG_PLACEHOLDER;
+                }
+
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
 
                 if (key == 0) {
