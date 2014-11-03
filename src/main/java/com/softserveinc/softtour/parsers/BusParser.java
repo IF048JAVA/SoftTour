@@ -164,7 +164,6 @@ public class BusParser implements BusParserConstants {
             } catch (ParseException e) {
                 routeDepartureDate = new Date();
             }
-            departureDate = SIMPLE_DATE_FORMAT.format(routeDepartureDate);
 
             /**
              * This block verify route dateTime.
