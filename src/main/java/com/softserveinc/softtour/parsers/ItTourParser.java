@@ -159,23 +159,21 @@ public class ItTourParser implements ItTourParserConstants {
      * @return web-page, encapsulated in Jsoup object Document
      */
     private Document connect(String url){
-        String doc = null;
+        String doc = "";
         try {
+            /**
+             * Page is unparseable. Removal one backslash in method replace solves this problem.
+             */
             doc = Jsoup.connect(url).
                   timeout(CONNECTION_TIMEOUT).
                   ignoreContentType(true).
                   execute().
-                  body();
+                  body().
+                  replace("\\", "");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        /**
-         * Page is unparseable. Removal one backslash solve this problem.
-         */
-        String tourPage = doc.replace("\\", "");
-        Document document = Jsoup.parse(tourPage);
-        return document;
+        return Jsoup.parse(doc);
     }
 
     /**
@@ -242,7 +240,6 @@ public class ItTourParser implements ItTourParserConstants {
             java.sql.Date tourDate = convertTourDate(tourDateSt);
             int tourDays = Integer.parseInt(tourNightsSt);
             String departureCity = convertTourDepartureCity(tourDepartureCitySt);
-            Time departureTime = null;
             BigDecimal tourPrice = new BigDecimal(Integer.parseInt(tourPriceSt));
             Hotel hotel = convertTourHotel(hotelName, Integer.parseInt(hotelStars), hotelRegion);
             Food food = Food.valueOf(tourFood);
@@ -250,7 +247,7 @@ public class ItTourParser implements ItTourParserConstants {
             /**
              * Create object tour, set tour data
              */
-            Tour tour = new Tour(tourDate, tourDays, departureCity, departureTime, tourPrice, hotel, food);
+            Tour tour = new Tour(tourDate, tourDays, departureCity, null, tourPrice, hotel, food);
             tour.setAdultAmount(adults);
             tour.setChildrenAmount(children);
             tour.setRoomType(convertTourRoomType(roomTypeSt));
@@ -278,12 +275,11 @@ public class ItTourParser implements ItTourParserConstants {
      */
     private java.sql.Date convertTourDate(String date){
         Date utilDate;
-        java.sql.Date sqlDate = null;
+        java.sql.Date sqlDate;
         try {
             utilDate = SIMPLE_DATE_FORMAT.parse(date);
             sqlDate = new java.sql.Date(utilDate.getTime());
         } catch (ParseException e) {
-            //TODO improve
              return new java.sql.Date(0);
         }
         return sqlDate;
@@ -297,8 +293,7 @@ public class ItTourParser implements ItTourParserConstants {
      */
     private String convertTourDepartureCity(String departureCity){
         try {
-            String departureCityUa = departureCityVocabulary.getProperty(departureCity);
-            return departureCityUa;
+            return departureCityVocabulary.getProperty(departureCity);
         } catch (NullPointerException e) {
             return departureCity;
         }
@@ -403,7 +398,6 @@ public class ItTourParser implements ItTourParserConstants {
             utilDate = SIMPLE_DATE_TIME_FORMAT.parse(dateTime);
             sqlTime = new Time(utilDate.getTime());
         } catch (ParseException e) {
-            //TODO improve this block
             sqlTime = new java.sql.Time(0);
         }
         tour.setDepartureTime(sqlTime);
