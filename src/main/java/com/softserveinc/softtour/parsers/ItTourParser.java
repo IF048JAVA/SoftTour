@@ -161,6 +161,7 @@ public class ItTourParser implements ItTourParserConstants {
     private Document connect(String url){
         String doc = "";
         try {
+
             /**
              * Page is unparseable. Removal one backslash in method replace solves this problem.
              */

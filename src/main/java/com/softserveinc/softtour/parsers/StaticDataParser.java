@@ -44,10 +44,10 @@ public class StaticDataParser implements StaticDataParserConstants {
      */
     public void parse() {
 
+        loadProperties();
         /**
          * This block of code finds all countries and save them to database.
          */
-        loadProperties();
         List<Element> countryList = getCountryData();
         for (Element countryEl : countryList) {
             String countryNameRu = countryEl.text();
@@ -69,7 +69,7 @@ public class StaticDataParser implements StaticDataParserConstants {
             /**
              * This block of code finds all country regions and save them to database.
              * There are tal data in regionList, that can't be exclude.
-             * So, block if check is this data start to be tal. If it is, iterating will be stop.
+             * So, block if check is this data tal. If it is, cycle for will be stop.
              */
             List<Element> regionList = getRegionData(countryCode);
             for (int i = 1; i < regionList.size(); i++) {
@@ -90,7 +90,7 @@ public class StaticDataParser implements StaticDataParserConstants {
                 /**
                  * This block of code finds all region hotels and save them to database.
                  * There are tal data in hotelList, that can't be exclude.
-                 * So, block if check is this data start to be tal. If it is, iterating will be stop.
+                 * So, block if check is this data tal. If it is, cycle for will be stop.
                  */
                 List<Element> hotelList = getHotelData(countryCode, regionCode);
                 for (int j = 1; j < hotelList.size(); j++) {
@@ -111,13 +111,15 @@ public class StaticDataParser implements StaticDataParserConstants {
         }
     }
 
+    /**
+     * This method load properties file data, that contains ru-ua vocabulary of the countries.
+     */
     private void loadProperties(){
         try {
             InputStream inputProperties = this.getClass().
                     getResourceAsStream(COUNTRY_PROPERTIES_PATH);
             countryRuUaVocabulary.load(new InputStreamReader(inputProperties, UTF_8));
         }catch (IOException e){
-            //TODO improve handled exception
             System.out.println(e.getMessage());
         }
     }
@@ -127,23 +129,23 @@ public class StaticDataParser implements StaticDataParserConstants {
      * @return web-page, encapsulated in Jsoup object Document
      */
     private Document connect(String url) {
-        String doc = null;
+        String doc = "";
         try {
+
+            /**
+             * Page is unparseable. Removal one backslash in method replace solves this problem.
+             */
             doc = Jsoup.connect(url).
                     timeout(CONNECTION_TIMEOUT).
                     ignoreContentType(true).
                     execute().
-                    body();
+                    body().
+                    replace("\\", "");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        /**
-         * Page is unparseable. Removing one backslash solve this problem.
-         */
-        String tourPage = doc.replace("\\", "");
-        Document document = Jsoup.parse(tourPage);
-        return document;
+        return Jsoup.parse(doc);
     }
 
     /**
