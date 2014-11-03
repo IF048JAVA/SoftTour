@@ -52,7 +52,6 @@ public class TrainParser {
 	/**
 	 * Sets departureDate and departureTime.
 	 * Creates objects for classes TrainParserUtil and DateValidator
-	 * Creates URL with the specified parameters for parsing site http://ticket.turistua.com/
 	 * 
 	 * @param departureCity - it's a city of departure of the train
 	 * @param arrivalCity - it's a city of arrival of the train
@@ -71,6 +70,7 @@ public class TrainParser {
 	}
 	
 	/**
+	 * Creates URL with the specified parameters for parsing site http://ticket.turistua.com/
 	 * @return the list of the routes with the specified parameters 
 	 * or empty list if the routes no found
 	 */
@@ -130,7 +130,6 @@ public class TrainParser {
 			
 			parseRoute(routes);
 		}catch(NullPointerException e){
-			System.out.println(e.getMessage());
 			throw new NoRoutesException();
 		}
 	}
