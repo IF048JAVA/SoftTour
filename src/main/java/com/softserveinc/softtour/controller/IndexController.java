@@ -66,7 +66,7 @@ public class IndexController {
     /*Method saves favorites to database.*/
     @RequestMapping(value="/saveFavorites", method = RequestMethod.POST)
     public void saveFavorites(@RequestBody(required = true) Tour currentTour){
-
+        parser.parseAdvanceData(currentTour);
         java.util.Date utilDate = new java.util.Date (System.currentTimeMillis());
         Date sqlDate = new Date(utilDate.getTime());
         String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
