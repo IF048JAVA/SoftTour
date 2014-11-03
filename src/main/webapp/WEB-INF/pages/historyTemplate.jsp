@@ -5,7 +5,7 @@
 <!-- History template -->
 <script id="historyTemplate" type="text/x-jquery-tmpl">
 <div class="panel panel-default tourCollapseTitle" id="panel-history\${id}">
-    <div class="panel-heading" data-toggle="collapse" href="#panel-element-h\${id}">
+    <div class="panel-heading cursor-pointer" data-toggle="collapse" href="#panel-element-h\${id}">
         <div class="panel-title collapsed" data-parent="#panel-2">
             <table border="0">
                 <tr>

@@ -156,7 +156,6 @@ public class BusParser implements BusParserConstants {
 
             String departureDate = cellList.get(TABLE_CELL_DEPARTURE_DATE).text();
             String departureTime = cellList.get(TABLE_CELL_DEPARTURE_TIME).getElementsByTag(TAG_B).first().text();
-
             String departureDateTime = departureDate + departureTime;
             Date routeDepartureDate;
             try {
@@ -164,6 +163,8 @@ public class BusParser implements BusParserConstants {
             } catch (ParseException e) {
                 routeDepartureDate = new Date();
             }
+            String changedFormatDepartureDate = SIMPLE_DATE_FORMAT.format(routeDepartureDate);
+
 
             /**
              * This block verify route dateTime.
@@ -181,7 +182,7 @@ public class BusParser implements BusParserConstants {
                     e.printStackTrace();
                 }
                 String onWayTime = calculateOnWayTime(routeDepartureDate, routeArrivalDate);
-                BusRoute route = new BusRoute(id, cityFrom, cityTo, departureDate, departureTime, onWayTime,
+                BusRoute route = new BusRoute(id, cityFrom, cityTo, changedFormatDepartureDate, departureTime, onWayTime,
                         arrivalTime, price, price);
                 busRouteList.add(route);
             }
