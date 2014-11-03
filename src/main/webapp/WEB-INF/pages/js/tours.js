@@ -174,9 +174,17 @@ function loadAddInfo (id) {
                     console.log(data);
                     console.log(data.hotel.imgUrl);
                     $("#imgHold" + id).empty();
+                    if (data.hotel.imgUrl==null || data.hotel.imgUrl==''){
+                        data.hotel.imgUrl='http://placehold.it/170&text=Not+found!';
+                    }
                     $("#imgHold" + id).append('<img src="' + data.hotel.imgUrl + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
                 },
-        error: function(){console.log("Loading error.");}
+        error: function(){
+        saveHistoryRecord(id);
+        console.log("Loading error.");
+        $("#imgHold" + id).empty();
+        $("#imgHold" + id).append('<img src="' + 'http://placehold.it/170&text=Not+found!' + '" class="hotel-img-inTour img-circle" id="hotelImg\${id}">');
+        }
         })
 }
 

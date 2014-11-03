@@ -62,7 +62,7 @@
     <div class="panel-heading cursor-pointer" data-toggle="collapse" href="#panel-element-f\${id}"
          onclick="loadAddInfo(\${id})">
         <div id="results\${id}">
-                         <span data-toggle="collapse" href="#panel-element-f\${id}" onclick="loadAddInfo(\${id})">
+                         <span data-toggle="collapse" href="#panel-element-f\${id}">
                          <span class="tabTitleFont cursor-pointer">Країна: </span>
                          <span id="tourCountry-f\${id}" class="tabulatedTitle cursor-pointer">\${tour.hotel.region.country.name}</span>
                          <span class="tabTitleFont cursor-pointer">Тривалість туру: </span>
