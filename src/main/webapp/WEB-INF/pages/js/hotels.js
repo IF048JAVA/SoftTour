@@ -92,9 +92,7 @@ function showComments(id) {
             var img;
             var length = data.length;
 
-            if (length == 0) {
-                comments = NO_COMMENTS;
-            }
+
 
             for (var i = 0; i < length; i++) {
 
@@ -110,6 +108,11 @@ function showComments(id) {
                         '<p>' + data[i].user.name + '</p></div><div class="col-md-10 comment"><p>' +
                         data[i].comment + '</p></div></div>';
                 }
+
+            }
+
+            if (comments == ''){
+                comments = NO_COMMENTS;
             }
 
             $("#comment-list" + id).html(comments);
