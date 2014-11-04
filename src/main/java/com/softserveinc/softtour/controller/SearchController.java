@@ -1,15 +1,18 @@
 package com.softserveinc.softtour.controller;
 
-import com.softserveinc.softtour.entity.*;
+import com.softserveinc.softtour.entity.Country;
+import com.softserveinc.softtour.entity.Region;
+import com.softserveinc.softtour.entity.Tour;
 import com.softserveinc.softtour.parsers.ItTourParser;
-import com.softserveinc.softtour.service.*;
+import com.softserveinc.softtour.service.CountryService;
+import com.softserveinc.softtour.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +20,12 @@ import java.util.Set;
 @Controller
 @RequestMapping(value = "/search")
 public class SearchController {
+
+    @Autowired
+    private RegionService regionService;
+
+    @Autowired
+    private CountryService countryService;
 
     @RequestMapping(value = "/getTour", method = RequestMethod.POST)
     public @ResponseBody List<Tour> searchTour(
@@ -39,7 +48,8 @@ public class SearchController {
             @RequestParam(value = "nightFrom", required = true) Integer nightFrom,
             @RequestParam(value = "nightTo", required = true) Integer nightTo,
             @RequestParam(value = "priceFrom", required = true) Integer priceFrom,
-            @RequestParam(value = "priceTo", required = true) Integer priceTo
+            @RequestParam(value = "priceTo", required = true) Integer priceTo,
+            @RequestParam(value = "numberOfPage", required = true) Integer numberOfPage
     ){
         Set<Integer> hotelStars = new HashSet<>();
         if (twoStar != null){
@@ -74,10 +84,30 @@ public class SearchController {
         if (foodSix != null){
             foodSet.add(foodSix);
         }
+        Country countryObj = countryService.findByName(country);
+        long countryId = countryObj.getItTourId();
 
-        ItTourParser parser = new ItTourParser(country, region, hotelStars, foodSet, adults, children, dateFrom, dateTo,
-                nightFrom, nightTo, priceFrom, priceTo, 2);
+        Region regionObj = regionService.findByName(region);
+        long regionId = regionObj.getItTourId();
+
+        ItTourParser parser = new ItTourParser(country, countryId, regionId,  hotelStars, foodSet, adults, children, dateFrom, dateTo,
+                nightFrom, nightTo, priceFrom, priceTo, numberOfPage);
         List<Tour> tourList = parser.parse();
         return tourList;
+    }
+
+    @RequestMapping(value = "getRegion", method = RequestMethod.POST)
+    public @ResponseBody List<Region> searchRegion(
+            @RequestParam(value = "country", required = true) String country
+    ){
+        Country countryObj = countryService.findByName(country);
+        long countryId = countryObj.getId();
+        List<Region> regionList = regionService.findByCountryId(countryId);
+        return regionList;
+    }
+
+    @RequestMapping(value = "getCountry", method = RequestMethod.POST)
+    public @ResponseBody List<Country> searchCountry(){
+         return countryService.findAll();
     }
 }

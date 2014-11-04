@@ -1,12 +1,34 @@
 var ALL_COUNTRIES = "allCountries";
 var PAGE_SIZE = 10;
-var contentType ="application/x-www-form-urlencoded; charset=UTF-8";
+var HOTEL_IMG_PLACEHOLDER = "http://placehold.it/170&text=Not+found!";
+var MALE_IMG = "img/male.jpg";
+var FEMALE_IMG = "img/female.jpg"
+var COUNTRY_PLACEHOLDER = "Оберіть країну";
+var PRELOADER_IMG = '<img src="img/preloader.gif" class="preloader">';
 
-function showTours(hotelId){
+var TOURS_TABLE_HTML = '<table id="toursByHotel" class="table table-hover" cellspacing="0" width="100%"><thead><tr>' +
+    '<th>Країна</th><th>Регіон</th><th>Готель</th><th>Кількість ночей</th><th>Харчування</th><th>Дата вильоту</th>' +
+    '<th>Місто вильоту</th><th>Вартість туру</th><th>Замовити тур</th></tr></thead><tbody>';
 
+var NO_COMMENTS = '<div class=row><div class="col-md-2 commentInfo">' +
+    '<img src="img/male.jpg" class="img-circle avatar">' +
+    '<p>Admin</p></div><div class="col-md-10 comment">' +
+    '<p>Про даний готель не залишили жодного коментаря</p></div></div>';
+
+function oderTour(id) {
+    $('#orderModal' + id).modal('show');
+}
+
+function closeOrderModal(id) {
+    $('#orderModal' + id).modal('hide');
+}
+
+function showTours(hotelId) {
+
+    $('#tour-list').empty();
     $('#toursModal').modal('show');
 
-    var html = '<img src="img/preloader.gif" class="preloader">';
+    var html = PRELOADER_IMG;
 
     var queryObj = {};
     queryObj.hotelId = hotelId;
@@ -22,29 +44,38 @@ function showTours(hotelId){
 
         success: function (data) {
 
-            $('#tour-list').empty();
+            var html = TOURS_TABLE_HTML;
 
-           var new_id=0;
+            $.each(data, function (key, value) {
 
-            $.each(data,function(key,value){
-                value.id=new_id;
-                new_id++;
+                html += '<tr><td>' + value.hotel.region.country.name + '</td>' +
+                    '<td>' + value.hotel.region.name + '</td>' +
+                    '<td>' + value.hotel.name + '</td>' +
+                    '<td>' + value.days + '</td>' +
+                    '<td>' + value.food + '</td>' +
+                    '<td>' + value.date + '</td>' +
+                    '<td>' + value.departureCity + '</td>' +
+                    '<td>' + value.price + ' $ </td>' +
+                    '<td><a class="btn btn-default" onclick="oderTour(' + value.id + ')">Замовити</a></td></tr>';
 
-                $('#indexTemplate').tmpl(value).appendTo('#tour-list');
+                $('#toursTemplate').tmpl(value).appendTo('#order-list');
             })
 
+            html += '</tbody></table>';
+
+            $("#tour-list").html(html);
+            $("#toursByHotel").dataTable({
+                "scrollX": true
+            });
         },
 
         error: function () {
             alert("Error");
         }
-
     });
-
 }
 
 function showComments(id) {
-
 
     var queryObj = {};
     queryObj.hotelId = id;
@@ -57,42 +88,41 @@ function showComments(id) {
 
         success: function (data) {
 
-            var html = '';
-            var img = '';
-
+            var comments = '';
+            var img;
             var length = data.length;
-            if (length == 0){
-                html += '<div class=row><div class="col-md-2 commentInfo">' +
-                    '<img src="img/male.jpg" class="img-circle avatar">' +
-                    '<p>Admin</p></div><div class="col-md-10 comment">' +
-                    '<p>Про даний готель не залишили жодного коментаря</p></div></div>';
-            }
+
+
 
             for (var i = 0; i < length; i++) {
 
                 if (data[i].user.sex == "MALE") {
-                    img = "img/male.jpg"
+                    img = MALE_IMG;
                 } else {
-                    img = "img/female.jpg"
+                    img = FEMALE_IMG;
                 }
 
                 if (data[i].comment != '') {
-                    html += '<div class=row><div class="col-md-2 commentInfo">' +
+                    comments += '<div class=row><div class="col-md-2 commentInfo">' +
                         '<img src="' + img + '" class="img-circle avatar">' +
                         '<p>' + data[i].user.name + '</p></div><div class="col-md-10 comment"><p>' +
                         data[i].comment + '</p></div></div>';
                 }
-            }
-            $("#comment-list" + id).html(html);
-            $('#commentModal' + id).modal('show');
 
+            }
+
+            if (comments == ''){
+                comments = NO_COMMENTS;
+            }
+
+            $("#comment-list" + id).html(comments);
+            $('#commentModal' + id).modal('show');
         },
 
         error: function () {
             alert("ERROR");
         }
     });
-
 }
 
 $(".hotel_search").on("submit", function (e) {
@@ -115,9 +145,13 @@ function searchByName(pageNum) {
         success: function (data) {
 
             var numOfPages = data.totalPages;
-
             $('#hotelResult').empty();
+
             $.each(data.content, function (key, value) {
+
+                if (value.imgUrl == null) {
+                    value.imgUrl = HOTEL_IMG_PLACEHOLDER;
+                }
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
 
@@ -125,6 +159,7 @@ function searchByName(pageNum) {
                     $("#collapseHotel" + value.id).attr("class", "panel-collapse collapse in");
                 }
             })
+
             showPagination(searchByName, numOfPages, pageNum)
         },
 
@@ -138,8 +173,8 @@ function searchHotels(pageNum) {
 
     var query = {};
     query.country = '';
-
     var country = $('#countrySelect2').val();
+
     if (country != null) {
         $.each(country, function (key, value) {
             query.country += value + ",";
@@ -154,29 +189,27 @@ function searchHotels(pageNum) {
     query.cleanliness = $("#cleanliness").val();
     query.location = $("#location").val();
     query.valueForMoney = $("#value_for_money").val();
-
     query.page = --pageNum;
     query.pageSize = PAGE_SIZE;
     query.property = $("#sort").val();
 
-
     $.ajax({
         url: "/hotels/result",
         type: "GET",
-        encoding:"UTF-8",
+        encoding: "UTF-8",
         contentType: "application/json; charset=utf-8",
         data: query,
         dataType: 'json',
 
         success: function (data) {
-            var numOfPages = data.totalPages;
 
+            var numOfPages = data.totalPages;
             $('#hotelResult').empty();
 
             $.each(data.content, function (key, value) {
 
-                if(value.imgUrl == ''){
-                    value.imgUrl = 'http://fillmurray.com/171/171';
+                if (value.imgUrl == null) {
+                    value.imgUrl = HOTEL_IMG_PLACEHOLDER;
                 }
 
                 $('#hotelTemplate').tmpl(value).appendTo('#hotelResult');
@@ -187,10 +220,10 @@ function searchHotels(pageNum) {
 
             showPagination(searchHotels, numOfPages, pageNum)
         },
+
         error: function () {
             alert("ERROR");
         }
-
     });
 }
 
@@ -214,12 +247,11 @@ function showPagination(callback, numOfPages, pageNum) {
         startPage: 1,
         onPageClick: function (event, page) {
             callback(page);
-
         }
     })
 }
 
-function openFeedbackModal(hotelId){
+function openFeedbackModal(hotelId) {
     $('#feedbackModal' + hotelId).modal('show');
 }
 
@@ -233,8 +265,7 @@ function leaveFeedback(hotelId) {
     feedbackQuery.comment = $("#comment" + hotelId).val();
     feedbackQuery.hotelId = hotelId;
 
-
-        $('#myModal' + hotelId).modal('hide');
+    $('#myModal' + hotelId).modal('hide');
 
     $.ajax({
         url: "/hotels/feedback",
@@ -248,8 +279,8 @@ if ($('#hotel_page').length) {
 
         $("#sort").select2();
 
-        $("#countrySelect2").val(["AllCountry"]).select2({
-            placeholder: "Оберіть країну",
+        $("#countrySelect2").select2({
+            placeholder: COUNTRY_PLACEHOLDER,
             allowClear: true
         });
 

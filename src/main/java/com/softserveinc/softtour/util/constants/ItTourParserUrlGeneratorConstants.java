@@ -1,9 +1,6 @@
 package com.softserveinc.softtour.util.constants;
 
 public interface ItTourParserUrlGeneratorConstants {
-    String UTF_8 = "UTF-8";
-    String COUNTRY_PROPERTIES_FILE_PASS = "/parser_properties/it_tour_country_parameters";
-    String REGION_PROPERTIES_FILE_PASS = "/parser_properties/it_tour_region_parameters";
 
     char ASK = '?';
     char EQV = '=';
@@ -31,14 +28,19 @@ public interface ItTourParserUrlGeneratorConstants {
     String SWITCH_PRICE_VALUE = "USD";
     String ITEMS_PER_PAGE_PARAM = "items_per_page";
     int ITEMS_PER_PAGE_VALUE = 50;
+    int HOTEL_ITEMS_PER_PAGE_VALUE = 100;
     String PREVIEW_PARAM = "preview";
     int PREVIEW_VALUE = 1;
 
     String COUNTRY_PARAM = "country";
     String ADULTS_PARAM = "adults";
+    int DEFAULT_ADULTS_PARAM = 2;
     String CHILDREN_PARAM = "children";
+    int DEFAULT_CHILDREN_PARAM = 0;
     String PRICE_FROM_PARAM = "price_from";
+    int DEFAULT_PRICE_FROM_VALUE = 0;
     String PRICE_TILL_PARAM = "price_till";
+    int DEFAULT_PRICE_TILL_VALUE = 99000;
     String PAGE_NUMBER_PARAM = "page";
 
     String HOTEL_RATING_PARAM = "hotel_rating";

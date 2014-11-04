@@ -18,7 +18,7 @@
         <spring-security-version>3.2.5.RELEASE</spring-security-version>
         <jdbc-driver-version>5.1.6</jdbc-driver-version>
         <hibernate-version>4.2.1.Final</hibernate-version>
-        <slf4j-version>1.7.5</slf4j-version>
+        <slf4j-version>1.7.7</slf4j-version>
         <ch.qos.logback-version>1.0.7</ch.qos.logback-version>
         <h2-version>1.3.171</h2-version>
         <servlet-version>3.0.1</servlet-version>
@@ -29,6 +29,8 @@
         <jackson>1.4.1</jackson>
         <jsoup-version>1.7.3</jsoup-version>
         <apache-tiles-version>3.0.4</apache-tiles-version>
+        <testNG-version>6.8.8</testNG-version>
+        <mockito-version>1.10.8</mockito-version>
         <maven-compiler-plugin-version>3.0</maven-compiler-plugin-version>
         <tomcat7-maven-plugin-version>2.0</tomcat7-maven-plugin-version>
         <org-seleniumhq-selenium>2.43.1</org-seleniumhq-selenium>
@@ -75,6 +77,11 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring-version}</version>
         </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
 
         <!-- Spring Data Jpa -->
         <dependency>
@@ -139,19 +146,20 @@
             <version>${jstl-version}</version>
         </dependency>
 
-        <!--JUnit-->
+        <!-- TestNG -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit-version}</version>
-            <scope>test</scope>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testNG-version}</version>
         </dependency>
+
+        <!-- Mockito -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring-version}</version>
-            <scope>test</scope>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito-version}</version>
         </dependency>
+
 
         <!-- MySQL JDBC connector -->
         <dependency>
@@ -233,7 +241,13 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
-
+        
+        <!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
     </dependencies>
 
     <build>
@@ -249,71 +263,71 @@
                     <target>${java-version}</target>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>${tomcat7-maven-plugin-version}</version>
             </plugin>
+            
             <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>sql-maven-plugin</artifactId>
-            <version>1.5</version>
+            	<groupId>org.codehaus.mojo</groupId>
+            	<artifactId>sql-maven-plugin</artifactId>
+           		<version>1.5</version>
 
-            <dependencies>
-                <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                    <version>${jdbc-driver-version}</version>
-                </dependency>
-            </dependencies>
+	            <dependencies>
+	                <dependency>
+	                    <groupId>mysql</groupId>
+	                    <artifactId>mysql-connector-java</artifactId>
+	                    <version>${jdbc-driver-version}</version>
+	                </dependency>
+	            </dependencies>
 
-            <configuration>
-                <driver>com.mysql.jdbc.Driver</driver>
-                <url>jdbc:mysql://localhost:3306/?useUnicode=true&amp;characterEncoding=utf8</url>
-                <username>root</username>
-                <password>root</password>
-                <settingsKey>sensibleKey</settingsKey>
-                <driverProperties>characterEncoding=utf8,
-                    connectionCollation=utf8_general_ci,
-                    sql_mode=STRICT_TRANS_TABLES</driverProperties>
-            </configuration>
+	            <configuration>
+	                <driver>com.mysql.jdbc.Driver</driver>
+	                <url>jdbc:mysql://localhost:3306/?useUnicode=true&amp;characterEncoding=utf8</url>
+	                <username>root</username>
+	                <password>root</password>
+	                <encoding>UTF-8</encoding>
+	                <settingsKey>sensibleKey</settingsKey>
+	                <driverProperties>characterEncoding=utf8,
+	                    connectionCollation=utf8_general_ci,
+	                    sql_mode=STRICT_TRANS_TABLES</driverProperties>
+	            </configuration>
 
-            <executions>
-                <execution>
-                    <id>create-schema</id>
-                    <phase>process-test-resources</phase>
-                    <goals>
-                        <goal>execute</goal>
-                    </goals>
-                    <configuration>
-                        <autocommit>true</autocommit>
-                        <srcFiles>
-                            <srcFile>src/main/resources/database.sql</srcFile>
-                        </srcFiles>
-                    </configuration>
-                </execution>
+	            <executions>
+	                <execution>
+	                    <id>create-schema</id>
+	                    <phase>process-test-resources</phase>
+	                    <goals>
+	                        <goal>execute</goal>
+	                    </goals>
+	                    <configuration>
+	                        <autocommit>true</autocommit>
+	                        <srcFiles>
+	                            <srcFile>src/main/resources/database.sql</srcFile>
+	                        </srcFiles>
+	                    </configuration>
+	                </execution>
 
-                <execution>
-                    <id>insert-data</id>
-                    <phase>process-test-resources</phase>
-                    <goals>
-                        <goal>execute</goal>
-                    </goals>
-                    <configuration>
-                        <autocommit>true</autocommit>
-                            <srcFiles>
-                                <srcFile>src/main/resources/country.sql</srcFile>
-                                <srcFile>src/main/resources/region.sql</srcFile>
-                                <srcFile>src/main/resources/hotel.sql</srcFile>
-                                <srcFile>src/main/resources/softtour_data.sql</srcFile>
-                            </srcFiles>
-                    </configuration>
-                </execution>
-
-
-
-            </executions>
-        </plugin>
+	                <execution>
+	                    <id>insert-data</id>
+	                    <phase>process-test-resources</phase>
+	                    <goals>
+	                        <goal>execute</goal>
+	                    </goals>
+	                    <configuration>
+	                        <autocommit>true</autocommit>
+	                            <srcFiles>
+	                                <srcFile>src/main/resources/country.sql</srcFile>
+	                                <srcFile>src/main/resources/region.sql</srcFile>
+	                                <srcFile>src/main/resources/hotel.sql</srcFile>
+	                                <srcFile>src/main/resources/softtour_data.sql</srcFile>
+	                            </srcFiles>
+	                    </configuration>
+	                </execution>
+           		 </executions>
+        	</plugin>
 
         </plugins>
     </build>

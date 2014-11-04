@@ -20,4 +20,8 @@ public interface RegionService {
     List<Region> findByCustomParameters();
 
     Region findByName (String name);
+
+    Region findByItTourId(long itTourid);
+
+    List<Region> findByCountryId(long countryId);
 }

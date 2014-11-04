@@ -4,7 +4,6 @@ public interface StaticDataParserUrlGeneratorConstants {
     char ASK = '?';
     char EQV = '=';
     char AMP = '&';
-    char PLUS = '+';
 
     String COUNTRY_HTTP = "http://module.ittour.com.ua/tour_search.jsx";
     String ID_PARAM = "id";

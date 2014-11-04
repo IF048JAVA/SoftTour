@@ -7,9 +7,20 @@ if( $('#panel-1').length){
 
             $.each(favorites, function (key, value) {
                 value.tour.departureTime = value.tour.departureTime.slice(0,-3)
+                if (value.tour.hotel.imgUrl==null || value.tour.hotel.imgUrl==''){
+                    value.tour.hotel.imgUrl='http://placehold.it/170&text=Not+found!';
+                }
+
             })
 
             $('#favoriteTemplate').tmpl(favorites).appendTo('#panel-1');
+            $('#panel-1').append(
+                    "<script type='text/javascript' src=\"js/star-rating.min.js\"/>"+
+                    "<script type='text/javascript' src=\"js/bootstrap-table.min.js\"/>"+
+                    "<script type='text/javascript' src=\"js/cityFrom.js\"/>"+
+                    "<script type='text/javascript' src=\"js/transitOrderButton.js\"/>"+
+                    "<script type='text/javascript' src=\"js/select2.min.js\"/>");
+
         })
     })
 
@@ -31,10 +42,10 @@ if( $('#panel-1').length){
             mimeType: 'application/json',
 
             success: function(data) {
-                alert(data.id);
+                console.log(data.id);
             },
             error:function(data,status,er) {
-                alert("error:")
+                console.log("error:")
             }
         });
     }

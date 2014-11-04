@@ -9,4 +9,5 @@ public interface CountryRepository extends JpaRepository <Country, Long> {
 
     public Country findByName(String name);
 
+    Country findByItTourId(long itTourId);
 }

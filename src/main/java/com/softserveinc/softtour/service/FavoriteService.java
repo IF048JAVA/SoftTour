@@ -1,6 +1,5 @@
 package com.softserveinc.softtour.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.softserveinc.softtour.entity.Favorite;
@@ -16,7 +15,7 @@ public interface FavoriteService {
 	/**
 	 * Saves the object favorite to the table Favorite
 	 */
-	public Favorite save(Favorite favorite);
+	public void save(Favorite favorite);
 	
 	/**
 	 * Updates the object favorite with the specified id
@@ -38,14 +37,14 @@ public interface FavoriteService {
 	public Favorite findById(long id);
 
     /**
-     * Returns the list of the favorite's objects from the specified User
+     * Returns the object favorite with the specified id
      */
     public List<Favorite> findByUser(User user);
-	
-	/**
-	 * Returns the list of the favorite's objects with the specified parameters
-	 */
-	public List<Favorite> findByAnyParameters(long id, Date date, User user, Tour tour);
+    
+    /**
+     * Returns the list of the favorite's objects from the specified parameters 
+     */
+    public Favorite findByUserAndTour (User user, Tour tour);
 	
 	/**
 	 *  Returns the list of all favorite's objects which are contained in the table Favorite

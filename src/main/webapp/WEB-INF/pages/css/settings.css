@@ -85,3 +85,6 @@ p {
     opacity: 0.4;
     filter:alpha(opacity=40);
 }
+.imgC {
+    border-radius: 50%;
+}

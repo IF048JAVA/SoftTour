@@ -5,7 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.softserveinc.softtour.bean.TrainRoute;
+import com.softserveinc.softtour.parsers.TrainParser;
 
 /**
  * @author Andrii
@@ -17,6 +21,8 @@ public class DateValidator {
 	
 	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
+	
+	private static final Logger LOG = LoggerFactory.getLogger(TrainParser.class);
 	
 	private Date depatureDateTimePlane;
 	private TrainRoute trainRoute;
@@ -68,8 +74,7 @@ public class DateValidator {
 				return true;
 			} 
 		} catch (ParseException e) {
-			// TODO Add logging here
-			e.printStackTrace();
+			LOG.error("Error of parsing the date.");
 		}
 		return false;
 	}
@@ -83,9 +88,9 @@ public class DateValidator {
 		try {
 			departureDate = dateFormat.parse(trainRoute.getDepartureDate());
 		} catch (ParseException e) {
-			// TODO Add logging here
-			e.printStackTrace();
+			LOG.error("Error of parsing the date.");
 		}
+		
 		calendar.setTime(departureDate);
 		calendar.add(Calendar.DAY_OF_YEAR, -1);
 		String previousDate = dateFormat.format(calendar.getTime());

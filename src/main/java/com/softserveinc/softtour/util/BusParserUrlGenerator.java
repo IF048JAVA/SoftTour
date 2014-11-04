@@ -1,12 +1,12 @@
 package com.softserveinc.softtour.util;
 
 import com.softserveinc.softtour.util.constants.BusParserUrlGeneratorConstants;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Properties;
 
 public class BusParserUrlGenerator implements BusParserUrlGeneratorConstants {
@@ -18,7 +18,6 @@ public class BusParserUrlGenerator implements BusParserUrlGeneratorConstants {
                     getResourceAsStream(CITY_CODES_PROPERTIES_PATH);
             cityCodesProperties.load(new InputStreamReader(inputCountryProperties, UTF_8));
         }catch (IOException e){
-            //TODO improve handled exception
             System.out.println(e.getMessage());
         }
     }
@@ -30,30 +29,39 @@ public class BusParserUrlGenerator implements BusParserUrlGeneratorConstants {
         return baseParamBuilder;
     }
 
-    public String createSearchUrl(String cityFrom, String cityTo, String date){
+    public String[] createSearchUrl(String cityFrom, String cityTo, java.util.Date date){
+        String[] urlArray = new String[2];
         loadCityCodesProperties();
         StringBuilder searchBuilder = new StringBuilder(getBaseParameters()).
         append(POINT_FROM_PARAM).append(EQV).append(cityCodesProperties.getProperty(cityFrom)).append(AMP).
-        append(POINT_TO_PARAM).append(EQV).append(cityCodesProperties.getProperty(cityTo)).append(AMP).
-        append(DATE_PARAM).append(EQV).append(date);
+        append(POINT_TO_PARAM).append(EQV).append(cityCodesProperties.getProperty(cityTo)).append(AMP);
+        String searchResult = searchBuilder.toString();
+        String dateReduce = generateDate(date, FIRST_DATE_REDUCE);
+        urlArray[0] = new StringBuilder(searchResult).append(DATE_PARAM).append(EQV).append(dateReduce).toString();
+        dateReduce = generateDate(date, SECOND_DATE_REDUCE);
+        urlArray[1] = new StringBuilder(searchResult).append(DATE_PARAM).append(EQV).append(dateReduce).toString();
+        return urlArray;
+    }
+
+    public String createButtonUrl(String cityFrom, String cityTo, String date){
+        loadCityCodesProperties();
+        Date utilDate;
+        try {
+            utilDate = INPUT_DATE_FORMAT.parse(date);
+        } catch (ParseException e) {
+            utilDate = new Date();
+            e.printStackTrace();
+        }
+        StringBuilder searchBuilder = new StringBuilder(getBaseParameters()).
+                append(POINT_FROM_PARAM).append(EQV).append(cityCodesProperties.getProperty(cityFrom)).append(AMP).
+                append(POINT_TO_PARAM).append(EQV).append(cityCodesProperties.getProperty(cityTo)).append(AMP).
+                append(DATE_PARAM).append(EQV).append(SIMPLE_DATE_FORMAT.format(utilDate));
         return searchBuilder.toString();
     }
 
-    public static void main(String[] args) {
-        BusParserUrlGenerator generator = new BusParserUrlGenerator();
-        String url = generator.createSearchUrl("Київ", "Львів", "21.10.14");
-        String doc = null;
-        try {
-            doc = Jsoup.connect(url).
-                    timeout(20000).
-                    ignoreContentType(true).
-                    execute().
-                    body();
-        } catch (IOException e) {
-            //TODO do something if there are no connection
-            e.printStackTrace();
-        }
-        Document document = Jsoup.parse(doc);
-        System.out.println(document);
+    private String generateDate(java.util.Date date, long dateReduce){
+        java.util.Date reducedDate = new java.util.Date(date.getTime() - dateReduce);
+        String dateString = SIMPLE_DATE_FORMAT.format(reducedDate);
+        return dateString;
     }
 }

@@ -99,7 +99,9 @@
                 <h4 class="modal-title"> Тури </h4>
             </div>
             <div class="modal-body tours-body">
-                <div class="container tour-list" id="tour-list">
+                <div class="tour-list" id="tour-list">
+                </div>
+                <div id="order-list">
                 </div>
             </div>
         </div>

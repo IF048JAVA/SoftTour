@@ -1,5 +1,7 @@
 package com.softserveinc.softtour.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.softserveinc.softtour.entity.User;
+import com.softserveinc.softtour.parsers.TrainParser;
 import com.softserveinc.softtour.service.RoleService;
 import com.softserveinc.softtour.service.UserService;
 import com.softserveinc.softtour.util.PasswordEncoder;
@@ -26,6 +29,7 @@ import com.softserveinc.softtour.util.RegistrationValidator;
 @RequestMapping(value="/registration")
 public class RegistrationController {
 	private static final String ROLE_USER = "ROLE_USER";
+	private static final Logger LOG = LoggerFactory.getLogger(TrainParser.class);
 	
 	/**
 	 *  Creates the object of the UserServiceImpl class 
@@ -59,10 +63,11 @@ public class RegistrationController {
 	
 	/**
 	 * Creates the user's object which we use for adding data into the database
+	 * and opens registration form
 	 * @return the name which redirect to the page registration.jsp
 	 */
-	@RequestMapping(value="/new")
-	public String registrationUser(Model model){
+	@RequestMapping(method=RequestMethod.GET)
+	public String openRegistrationForm(Model model){
 		model.addAttribute(new User());
 		return "registration";
 	}
@@ -70,10 +75,10 @@ public class RegistrationController {
 	/**
 	 * Saves the object user to the table User
 	 * @param user - it's object which will be saved
-	 * @return the name which redirect to the page registration.jsp or index.jsp
+	 * @return the name which redirect to the page index.jsp or registration.jsp 
 	 */
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public String save(User user, BindingResult bindingResult) {
+	@RequestMapping(method=RequestMethod.POST)
+	public String saveUser(User user, BindingResult bindingResult) {
 		
 		registrationValidator.validate(user, bindingResult);
 		
@@ -108,8 +113,7 @@ public class RegistrationController {
 	        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	      }
 	    } catch (Exception e) {
-	    	// TODO Add logging here
-	    	e.printStackTrace();
+	    	LOG.error("Error of auto login user.");
 	    }
 	}
 }

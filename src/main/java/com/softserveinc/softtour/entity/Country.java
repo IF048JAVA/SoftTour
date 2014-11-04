@@ -54,10 +54,24 @@ public class Country {
     }
 
     @Override
-    public String toString() {
-        return "Country{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Country country = (Country) o;
+
+        if (id != country.id) return false;
+        if (!itTourId.equals(country.itTourId)) return false;
+        if (!name.equals(country.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        result = 31 * result + itTourId.hashCode();
+        return result;
     }
 }
